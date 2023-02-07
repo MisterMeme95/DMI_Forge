@@ -1,0 +1,163 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "png/pngvalid.exe"
+		},
+		{
+			"path" : "png/pngvalid.pdb"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_executable",
+			"target_link_libraries",
+			"include_directories"
+		],
+		"files" : 
+		[
+			"png/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 645,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 646,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 43,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 273,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 525,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "--coverage -g"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/png/zlib"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/cmake-build-debug-coverage/png"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/png"
+				}
+			],
+			"language" : "C",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					1
+				],
+				"standard" : "23"
+			},
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 2,
+			"id" : "png::@a46853fb3a4587e140ae"
+		}
+	],
+	"id" : "pngvalid::@a46853fb3a4587e140ae",
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "--coverage -g",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "png\\libpng16d.dll.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "C:\\zlib\\libz.dll.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32",
+				"role" : "libraries"
+			}
+		],
+		"language" : "C"
+	},
+	"name" : "pngvalid",
+	"nameOnDisk" : "pngvalid.exe",
+	"paths" : 
+	{
+		"build" : "png",
+		"source" : "png"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "png/contrib/libtests/pngvalid.c",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "EXECUTABLE"
+}

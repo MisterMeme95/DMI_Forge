@@ -1,0 +1,119 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"install"
+		],
+		"files" : 
+		[
+			"zlib/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 214,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 220,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 223,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 226,
+				"parent" : 0
+			}
+		]
+	},
+	"installers" : 
+	[
+		{
+			"backtrace" : 1,
+			"component" : "Unspecified",
+			"destination" : "C:/Program Files (x86)/Practice/lib",
+			"paths" : 
+			[
+				"zlib/libzlib.dll.a"
+			],
+			"targetId" : "zlib::@036b525f80ea8433013a",
+			"targetIndex" : 15,
+			"targetIsImportLibrary" : true,
+			"type" : "target"
+		},
+		{
+			"backtrace" : 1,
+			"component" : "Unspecified",
+			"destination" : "C:/Program Files (x86)/Practice/bin",
+			"paths" : 
+			[
+				"zlib/libzlib.dll"
+			],
+			"targetId" : "zlib::@036b525f80ea8433013a",
+			"targetIndex" : 15,
+			"type" : "target"
+		},
+		{
+			"backtrace" : 1,
+			"component" : "Unspecified",
+			"destination" : "C:/Program Files (x86)/Practice/lib",
+			"paths" : 
+			[
+				"zlib/libzlibstatic.a"
+			],
+			"targetId" : "zlibstatic::@036b525f80ea8433013a",
+			"targetIndex" : 16,
+			"type" : "target"
+		},
+		{
+			"backtrace" : 2,
+			"component" : "Unspecified",
+			"destination" : "C:/Program Files (x86)/Practice/include",
+			"paths" : 
+			[
+				"cmake-build-debug-coverage/zlib/zconf.h",
+				"zlib/zlib.h"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 3,
+			"component" : "Unspecified",
+			"destination" : "C:/Program Files (x86)/Practice/share/man/man3",
+			"paths" : 
+			[
+				"zlib/zlib.3"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 4,
+			"component" : "Unspecified",
+			"destination" : "C:/Program Files (x86)/Practice/share/pkgconfig",
+			"paths" : 
+			[
+				"cmake-build-debug-coverage/zlib/zlib.pc"
+			],
+			"type" : "file"
+		}
+	],
+	"paths" : 
+	{
+		"build" : "zlib",
+		"source" : "zlib"
+	}
+}

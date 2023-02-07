@@ -1,0 +1,50 @@
+The C compiler identification could not be found in "C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/cmake-build-debug-coverage/CMakeFiles/3.21.1/CompilerIdC/CMakeCCompilerId.gcno"
+
+Determining if the function fseeko exists failed with the following output:
+Change Dir: C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/cmake-build-debug-coverage/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files/JetBrains/CLion 2021.3.3/bin/ninja/win/ninja.exe cmTC_233a2 && [1/2] Building C object CMakeFiles/cmTC_233a2.dir/CheckFunctionExists.c.obj
+[2/2] Linking C executable cmTC_233a2.exe
+FAILED: cmTC_233a2.exe 
+cmd.exe /C "cd . && C:\MinGW\bin\gcc.exe --coverage -DCHECK_FUNCTION_EXISTS=fseeko  CMakeFiles/cmTC_233a2.dir/CheckFunctionExists.c.obj -o cmTC_233a2.exe -Wl,--out-implib,libcmTC_233a2.dll.a -Wl,--major-image-version,0,--minor-image-version,0  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 && cd ."
+CMakeFiles/cmTC_233a2.dir/CheckFunctionExists.c.obj:CheckFunctionExists.c:(.text+0x28): undefined reference to `fseeko'
+collect2.exe: error: ld returned 1 exit status
+ninja: build stopped: subcommand failed.
+
+
+
+Performing C SOURCE FILE Test HAVE_LD_VERSION_SCRIPT failed with the following output:
+Change Dir: C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/cmake-build-debug-coverage/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files/JetBrains/CLion 2021.3.3/bin/ninja/win/ninja.exe cmTC_84a6b && [1/2] Building C object CMakeFiles/cmTC_84a6b.dir/src.c.obj
+[2/2] Linking C executable cmTC_84a6b.exe
+FAILED: cmTC_84a6b.exe 
+cmd.exe /C "cd . && C:\MinGW\bin\gcc.exe --coverage -Wl,--version-script='C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/cmake-build-debug-coverage/lpng1637/conftest.map'  CMakeFiles/cmTC_84a6b.dir/src.c.obj -o cmTC_84a6b.exe -Wl,--out-implib,libcmTC_84a6b.dll.a -Wl,--major-image-version,0,--minor-image-version,0  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 && cd ."
+c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../../mingw32/bin/ld.exe: cannot open linker script file 'C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/cmake-build-debug-coverage/lpng1637/conftest.map': Invalid argument
+collect2.exe: error: ld returned 1 exit status
+ninja: build stopped: subcommand failed.
+
+
+Source file was:
+void sym(void) {}
+void sym2(void) {}
+int main(void) {return 0;}
+
+Performing C SOURCE FILE Test HAVE_SOLARIS_LD_VERSION_SCRIPT failed with the following output:
+Change Dir: C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/cmake-build-debug-coverage/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files/JetBrains/CLion 2021.3.3/bin/ninja/win/ninja.exe cmTC_20f3b && [1/2] Building C object CMakeFiles/cmTC_20f3b.dir/src.c.obj
+[2/2] Linking C executable cmTC_20f3b.exe
+FAILED: cmTC_20f3b.exe 
+cmd.exe /C "cd . && C:\MinGW\bin\gcc.exe --coverage -Wl,-M -Wl,C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/cmake-build-debug-coverage/lpng1637/conftest.map  CMakeFiles/cmTC_20f3b.dir/src.c.obj -o cmTC_20f3b.exe -Wl,--out-implib,libcmTC_20f3b.dll.a -Wl,--major-image-version,0,--minor-image-version,0  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 && cd ."
+c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../../mingw32/bin/ld.exe:C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/cmake-build-debug-coverage/lpng1637/conftest.map: file format not recognized; treating as linker script
+c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../../mingw32/bin/ld.exe:C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/cmake-build-debug-coverage/lpng1637/conftest.map:1: syntax error
+collect2.exe: error: ld returned 1 exit status
+ninja: build stopped: subcommand failed.
+
+
+Source file was:
+void sym(void) {}
+void sym2(void) {}
+int main(void) {return 0;}
+

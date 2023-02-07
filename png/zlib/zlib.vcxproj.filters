@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\zlib\adler32.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\zlib\compress.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\zlib\crc32.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\zlib\deflate.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\zlib\gzclose.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\zlib\gzlib.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\zlib\gzread.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\zlib\gzwrite.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\zlib\inflate.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\zlib\infback.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\zlib\inftrees.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\zlib\inffast.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\zlib\trees.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\zlib\uncompr.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\zlib\zutil.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\zlib\zconf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\zlib\zlib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\zlib\crc32.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\zlib\deflate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\zlib\gzguts.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\zlib\inffast.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\zlib\inffixed.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\zlib\inflate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\zlib\inftrees.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\zlib\trees.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\zlib\zutil.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\zlib\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\zlib\win32\zlib1.rc">
+      <Filter>Source Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{E866F12A-E27D-3B0F-B85A-830CFAFB3D9C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{5AF7BAEB-FC4D-31B4-BAE7-E6F2CDDF15D5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

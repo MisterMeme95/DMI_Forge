@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\contrib\libtests\pngstest.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{CCB0DCA1-B1A9-3B9E-87D0-EED21724986A}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

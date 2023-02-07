@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\png.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\pngerror.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\pngget.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\pngmem.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\pngpread.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\pngread.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\pngrio.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\pngrtran.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\pngrutil.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\pngset.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\pngtrans.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\pngwio.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\pngwrite.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\pngwtran.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\pngwutil.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\png.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\pngconf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\pnglibconf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\pngpriv.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\pngdebug.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\pnginfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\pngstruct.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\pngprefix.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{9FE30738-D5C0-3DF8-A71F-0EABE237C79A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{8B4919C9-2FEE-37A8-883D-EDD4F6ADF4A3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{CCB0DCA1-B1A9-3B9E-87D0-EED21724986A}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

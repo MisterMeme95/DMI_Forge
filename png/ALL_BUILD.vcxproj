@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ResolveNugetPackages>false</ResolveNugetPackages>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{DA396641-DDCF-312F-B859-7A5387CDA533}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
+    <Platform>x64</Platform>
+    <ProjectName>ALL_BUILD</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\zlib;C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\zlib;C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\zlib;C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\zlib;C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/lpng/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/lpng -BC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/lpng --check-stamp-file C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/lpng/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-3.23\Modules\CMakeASMInformation.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\CMakeParseArguments.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\CheckCSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\Compiler\MSVC-ASM.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\FindZLIB.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\GNUInstallDirs.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\Internal\CheckSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\Platform\WindowsPaths.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\SelectLibraryConfigurations.cmake;C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\CMakeFiles\3.23.0-rc5\CMakeASMCompiler.cmake;C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\CMakeFiles\3.23.0-rc5\CMakeCCompiler.cmake;C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\CMakeFiles\3.23.0-rc5\CMakeRCCompiler.cmake;C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\CMakeFiles\3.23.0-rc5\CMakeSystem.cmake;C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\scripts\genchk.cmake.in;C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\scripts\genout.cmake.in;C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\scripts\gensrc.cmake.in;C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\scripts\test.cmake.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/lpng/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/lpng -BC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/lpng --check-stamp-file C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/lpng/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-3.23\Modules\CMakeASMInformation.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\CMakeParseArguments.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\CheckCSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\Compiler\MSVC-ASM.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\FindZLIB.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\GNUInstallDirs.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\Internal\CheckSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\Platform\WindowsPaths.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\SelectLibraryConfigurations.cmake;C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\CMakeFiles\3.23.0-rc5\CMakeASMCompiler.cmake;C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\CMakeFiles\3.23.0-rc5\CMakeCCompiler.cmake;C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\CMakeFiles\3.23.0-rc5\CMakeRCCompiler.cmake;C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\CMakeFiles\3.23.0-rc5\CMakeSystem.cmake;C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\scripts\genchk.cmake.in;C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\scripts\genout.cmake.in;C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\scripts\gensrc.cmake.in;C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\scripts\test.cmake.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/lpng/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/lpng -BC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/lpng --check-stamp-file C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/lpng/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Program Files\CMake\share\cmake-3.23\Modules\CMakeASMInformation.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\CMakeParseArguments.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\CheckCSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\Compiler\MSVC-ASM.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\FindZLIB.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\GNUInstallDirs.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\Internal\CheckSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\Platform\WindowsPaths.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\SelectLibraryConfigurations.cmake;C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\CMakeFiles\3.23.0-rc5\CMakeASMCompiler.cmake;C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\CMakeFiles\3.23.0-rc5\CMakeCCompiler.cmake;C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\CMakeFiles\3.23.0-rc5\CMakeRCCompiler.cmake;C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\CMakeFiles\3.23.0-rc5\CMakeSystem.cmake;C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\scripts\genchk.cmake.in;C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\scripts\genout.cmake.in;C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\scripts\gensrc.cmake.in;C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\scripts\test.cmake.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/lpng/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/lpng -BC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/lpng --check-stamp-file C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/lpng/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Program Files\CMake\share\cmake-3.23\Modules\CMakeASMInformation.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\CMakeParseArguments.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\CheckCSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\Compiler\MSVC-ASM.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\FindZLIB.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\GNUInstallDirs.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\Internal\CheckSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\Platform\WindowsPaths.cmake;C:\Program Files\CMake\share\cmake-3.23\Modules\SelectLibraryConfigurations.cmake;C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\CMakeFiles\3.23.0-rc5\CMakeASMCompiler.cmake;C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\CMakeFiles\3.23.0-rc5\CMakeCCompiler.cmake;C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\CMakeFiles\3.23.0-rc5\CMakeRCCompiler.cmake;C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\CMakeFiles\3.23.0-rc5\CMakeSystem.cmake;C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\scripts\genchk.cmake.in;C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\scripts\genout.cmake.in;C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\scripts\gensrc.cmake.in;C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\scripts\test.cmake.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\ZERO_CHECK.vcxproj">
+      <Project>{F3BB0528-DDBD-3553-9CC4-AA4E3A735C46}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\png.vcxproj">
+      <Project>{D32D2439-3DDB-3D36-9CD4-DE9B776422B1}</Project>
+      <Name>png</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\png-fix-itxt.vcxproj">
+      <Project>{9023C2D9-C9D8-3DA4-A374-8C4E7D034334}</Project>
+      <Name>png-fix-itxt</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\png_static.vcxproj">
+      <Project>{C11B4C09-1E00-34C3-B185-B06C964502A0}</Project>
+      <Name>png_static</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\pngfix.vcxproj">
+      <Project>{34BFB53A-116E-349D-830E-BB8E53548B0F}</Project>
+      <Name>pngfix</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\pngimage.vcxproj">
+      <Project>{957D8F7B-DDA8-34F4-96F3-75482248ABA5}</Project>
+      <Name>pngimage</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\pngstest.vcxproj">
+      <Project>{C2FE9BE5-E985-33EF-828F-D7C4AF487801}</Project>
+      <Name>pngstest</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\pngtest.vcxproj">
+      <Project>{B310E45F-8842-313A-8E9A-5C16AF73AE3C}</Project>
+      <Name>pngtest</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\pngunknown.vcxproj">
+      <Project>{6F944D84-1B85-30B8-9279-7A064BC23DFC}</Project>
+      <Name>pngunknown</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\Practice\lpng\pngvalid.vcxproj">
+      <Project>{DF4D19D2-3D4D-328C-AEFA-323CE3946333}</Project>
+      <Name>pngvalid</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

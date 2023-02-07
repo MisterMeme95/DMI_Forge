@@ -1,0 +1,325 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"install"
+		],
+		"files" : 
+		[
+			"png/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 850,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 861,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 875,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 882,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 883,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 887,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 888,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 895,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 904,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 905,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 908,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 910,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 912,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 914,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 921,
+				"parent" : 0
+			}
+		]
+	},
+	"installers" : 
+	[
+		{
+			"backtrace" : 1,
+			"component" : "Unspecified",
+			"destination" : "lib",
+			"paths" : 
+			[
+				"png/libpng16d.dll.a"
+			],
+			"targetId" : "png::@a46853fb3a4587e140ae",
+			"targetIndex" : 6,
+			"targetIsImportLibrary" : true,
+			"type" : "target"
+		},
+		{
+			"backtrace" : 1,
+			"component" : "Unspecified",
+			"destination" : "bin",
+			"paths" : 
+			[
+				"png/libpng16d.dll"
+			],
+			"targetId" : "png::@a46853fb3a4587e140ae",
+			"targetIndex" : 6,
+			"type" : "target"
+		},
+		{
+			"backtrace" : 1,
+			"component" : "Unspecified",
+			"destination" : "lib",
+			"paths" : 
+			[
+				"png/libpng16d.a"
+			],
+			"targetId" : "png_static::@a46853fb3a4587e140ae",
+			"targetIndex" : 8,
+			"type" : "target"
+		},
+		{
+			"backtrace" : 2,
+			"component" : "Unspecified",
+			"destination" : "lib",
+			"paths" : 
+			[
+				"cmake-build-debug/png/libpng.dll.a"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 3,
+			"component" : "Unspecified",
+			"destination" : "lib",
+			"paths" : 
+			[
+				"cmake-build-debug/png/libpng.a"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 4,
+			"component" : "Unspecified",
+			"destination" : "include",
+			"paths" : 
+			[
+				"png/png.h",
+				"png/pngconf.h",
+				"cmake-build-debug/png/pnglibconf.h"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 5,
+			"component" : "Unspecified",
+			"destination" : "include/libpng16",
+			"paths" : 
+			[
+				"png/png.h",
+				"png/pngconf.h",
+				"cmake-build-debug/png/pnglibconf.h"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 6,
+			"component" : "Unspecified",
+			"destination" : "bin",
+			"paths" : 
+			[
+				"cmake-build-debug/png/libpng-config"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 7,
+			"component" : "Unspecified",
+			"destination" : "bin",
+			"paths" : 
+			[
+				"cmake-build-debug/png/libpng16-config"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 8,
+			"component" : "Unspecified",
+			"destination" : "bin",
+			"paths" : 
+			[
+				"png/pngfix.exe"
+			],
+			"targetId" : "pngfix::@a46853fb3a4587e140ae",
+			"targetIndex" : 9,
+			"type" : "target"
+		},
+		{
+			"backtrace" : 8,
+			"component" : "Unspecified",
+			"destination" : "bin",
+			"paths" : 
+			[
+				"png/png-fix-itxt.exe"
+			],
+			"targetId" : "png-fix-itxt::@a46853fb3a4587e140ae",
+			"targetIndex" : 7,
+			"type" : "target"
+		},
+		{
+			"backtrace" : 9,
+			"component" : "Unspecified",
+			"destination" : "share/man/man3",
+			"paths" : 
+			[
+				"png/libpng.3",
+				"png/libpngpf.3"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 10,
+			"component" : "Unspecified",
+			"destination" : "share/man/man5",
+			"paths" : 
+			[
+				"png/png.5"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 11,
+			"component" : "Unspecified",
+			"destination" : "lib/pkgconfig",
+			"paths" : 
+			[
+				"cmake-build-debug/png/libpng.pc"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 12,
+			"component" : "Unspecified",
+			"destination" : "bin",
+			"paths" : 
+			[
+				"cmake-build-debug/png/libpng-config"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 13,
+			"component" : "Unspecified",
+			"destination" : "lib/pkgconfig",
+			"paths" : 
+			[
+				"cmake-build-debug/png/libpng16.pc"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 14,
+			"component" : "Unspecified",
+			"destination" : "bin",
+			"paths" : 
+			[
+				"cmake-build-debug/png/libpng16-config"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 15,
+			"component" : "Unspecified",
+			"destination" : "lib/libpng",
+			"exportName" : "libpng",
+			"exportTargets" : 
+			[
+				{
+					"id" : "png::@a46853fb3a4587e140ae",
+					"index" : 6
+				},
+				{
+					"id" : "png_static::@a46853fb3a4587e140ae",
+					"index" : 8
+				}
+			],
+			"paths" : 
+			[
+				"png/CMakeFiles/Export/lib/libpng/libpng16.cmake"
+			],
+			"type" : "export"
+		}
+	],
+	"paths" : 
+	{
+		"build" : "png",
+		"source" : "png"
+	}
+}
