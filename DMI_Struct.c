@@ -10,7 +10,19 @@
 #include "Icon_state.c"
 
 typedef struct DMI_Struct {
+    bool has_icons;
     double version;
     int width, height;
-    icon_state *icon_states;
+    icon_state *icon_states, *begin_icon_state;
 }DMI;
+
+/* A basic function to initialize a DMI struct. */
+void Init_DMI(DMI* dmi, int width, int height){
+    dmi->has_icons = false;
+    dmi->version = 4.0;
+    dmi->width = width;
+    dmi->height = height;
+    dmi->icon_states = (icon_state*) malloc(sizeof(icon_state) * 10);
+    dmi->begin_icon_state = dmi->icon_states;
+}
+
