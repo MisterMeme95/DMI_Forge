@@ -1,0 +1,285 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						2
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.21"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						16
+					]
+				},
+				{
+					"build" : "zlib",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-zlib-Debug-0012e8681ab2679b1f0f.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.21"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 1,
+					"source" : "zlib",
+					"targetIndexes" : 
+					[
+						2,
+						3,
+						5,
+						6,
+						17,
+						18
+					]
+				},
+				{
+					"build" : "png",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-png-Debug-af10e0dcf178028c33fa.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.1"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 2,
+					"source" : "png",
+					"targetIndexes" : 
+					[
+						4,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1,
+						2
+					],
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "DMI_FORGE",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						16
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						1
+					],
+					"name" : "zlib",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						2,
+						3,
+						5,
+						6,
+						17,
+						18
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						2
+					],
+					"name" : "libpng",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						4,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "DMI_Forge::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-DMI_Forge-Debug-37a2a45dd1a9e93a4752.json",
+					"name" : "DMI_Forge",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Preten_Exe::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Preten_Exe-Debug-c6e74803dd9475c9a66b.json",
+					"name" : "Preten_Exe",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "example::@036b525f80ea8433013a",
+					"jsonFile" : "target-example-Debug-90d50b3c11b2c02d8131.json",
+					"name" : "example",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "example64::@036b525f80ea8433013a",
+					"jsonFile" : "target-example64-Debug-44a4a0ade4086a2e5273.json",
+					"name" : "example64",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "genfiles::@a46853fb3a4587e140ae",
+					"jsonFile" : "target-genfiles-Debug-2c8a2a578a4bd6a16568.json",
+					"name" : "genfiles",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "minigzip::@036b525f80ea8433013a",
+					"jsonFile" : "target-minigzip-Debug-42ba16594f668eb2c65f.json",
+					"name" : "minigzip",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "minigzip64::@036b525f80ea8433013a",
+					"jsonFile" : "target-minigzip64-Debug-34887d3c83465fb26039.json",
+					"name" : "minigzip64",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "png::@a46853fb3a4587e140ae",
+					"jsonFile" : "target-png-Debug-8923d39bbb8f7143425f.json",
+					"name" : "png",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "png-fix-itxt::@a46853fb3a4587e140ae",
+					"jsonFile" : "target-png-fix-itxt-Debug-cf333127f7d2687c6400.json",
+					"name" : "png-fix-itxt",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "png_static::@a46853fb3a4587e140ae",
+					"jsonFile" : "target-png_static-Debug-4a0453dc03fc1507f18b.json",
+					"name" : "png_static",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "pngfix::@a46853fb3a4587e140ae",
+					"jsonFile" : "target-pngfix-Debug-be258a851b7eab8906d5.json",
+					"name" : "pngfix",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "pngimage::@a46853fb3a4587e140ae",
+					"jsonFile" : "target-pngimage-Debug-6099f4d1a5d6c2f7f578.json",
+					"name" : "pngimage",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "pngstest::@a46853fb3a4587e140ae",
+					"jsonFile" : "target-pngstest-Debug-db6a9c7cf122f6bd7c86.json",
+					"name" : "pngstest",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "pngtest::@a46853fb3a4587e140ae",
+					"jsonFile" : "target-pngtest-Debug-07adee40ad308d123c34.json",
+					"name" : "pngtest",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "pngunknown::@a46853fb3a4587e140ae",
+					"jsonFile" : "target-pngunknown-Debug-b5599fea8581e7ed00b5.json",
+					"name" : "pngunknown",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "pngvalid::@a46853fb3a4587e140ae",
+					"jsonFile" : "target-pngvalid-Debug-3085e7dfefd668973c4d.json",
+					"name" : "pngvalid",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "pretend_obj::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-pretend_obj-Debug-f4b540b28c6cdea826f7.json",
+					"name" : "pretend_obj",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "zlib::@036b525f80ea8433013a",
+					"jsonFile" : "target-zlib-Debug-d4a797a3d4aa794e39b4.json",
+					"name" : "zlib",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "zlibstatic::@036b525f80ea8433013a",
+					"jsonFile" : "target-zlibstatic-Debug-0ac434619eff3c83be66.json",
+					"name" : "zlibstatic",
+					"projectIndex" : 1
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png",
+		"source" : "C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

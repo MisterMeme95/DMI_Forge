@@ -149,7 +149,7 @@ CMAKE_INSTALL_MANDIR:PATH=
 CMAKE_INSTALL_OLDINCLUDEDIR:PATH=/usr/include
 
 //Install path prefix, prepended onto install directories.
-CMAKE_INSTALL_PREFIX:PATH=C:/Program Files (x86)/Practice
+CMAKE_INSTALL_PREFIX:PATH=C:/Program Files (x86)/DMI_FORGE
 
 //Run-time variable data (LOCALSTATEDIR/run)
 CMAKE_INSTALL_RUNSTATEDIR:PATH=
@@ -300,19 +300,19 @@ DMI_FORGE_IS_TOP_LEVEL:STATIC=ON
 DMI_FORGE_SOURCE_DIR:STATIC=C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge
 
 //Installation directory for executables
-INSTALL_BIN_DIR:PATH=C:/Program Files (x86)/Practice/bin
+INSTALL_BIN_DIR:PATH=C:/Program Files (x86)/DMI_FORGE/bin
 
 //Installation directory for headers
-INSTALL_INC_DIR:PATH=C:/Program Files (x86)/Practice/include
+INSTALL_INC_DIR:PATH=C:/Program Files (x86)/DMI_FORGE/include
 
 //Installation directory for libraries
-INSTALL_LIB_DIR:PATH=C:/Program Files (x86)/Practice/lib
+INSTALL_LIB_DIR:PATH=C:/Program Files (x86)/DMI_FORGE/lib
 
 //Installation directory for manual pages
-INSTALL_MAN_DIR:PATH=C:/Program Files (x86)/Practice/share/man
+INSTALL_MAN_DIR:PATH=C:/Program Files (x86)/DMI_FORGE/share/man
 
 //Installation directory for pkgconfig (.pc) files
-INSTALL_PKGCONFIG_DIR:PATH=C:/Program Files (x86)/Practice/share/pkgconfig
+INSTALL_PKGCONFIG_DIR:PATH=C:/Program Files (x86)/DMI_FORGE/share/pkgconfig
 
 //Custom zlib Location, else find_package is used
 PNG_BUILD_ZLIB:BOOL=OFF
@@ -337,15 +337,6 @@ PNG_STATIC:BOOL=ON
 
 //Build libpng tests
 PNG_TESTS:BOOL=ON
-
-//Value Computed by CMake
-Practice_BINARY_DIR:STATIC=C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png
-
-//Value Computed by CMake
-Practice_IS_TOP_LEVEL:STATIC=ON
-
-//Value Computed by CMake
-Practice_SOURCE_DIR:STATIC=C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge
 
 //Path to a file.
 ZLIB_INCLUDE_DIR:PATH=C:/zlib
@@ -598,5 +589,5 @@ ZLIB_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
 //Have include unistd.h
 Z_HAVE_UNISTD_H:INTERNAL=1
 //CMAKE_INSTALL_PREFIX during last run
-_GNUInstallDirs_LAST_CMAKE_INSTALL_PREFIX:INTERNAL=C:/Program Files (x86)/Practice
+_GNUInstallDirs_LAST_CMAKE_INSTALL_PREFIX:INTERNAL=C:/Program Files (x86)/DMI_FORGE
 

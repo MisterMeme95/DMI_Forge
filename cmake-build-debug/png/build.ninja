@@ -40,6 +40,58 @@ include CMakeFiles/rules.ninja
 # Logical path to working directory; prefix for absolute paths.
 
 cmake_ninja_workdir = C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/
+# =============================================================================
+# Object build statements for OBJECT_LIBRARY target pretend_obj
+
+
+#############################################
+# Order-only phony target for pretend_obj
+
+build cmake_object_order_depends_target_pretend_obj: phony || CMakeFiles/pretend_obj.dir
+
+build CMakeFiles/pretend_obj.dir/Object_C.c.obj: C_COMPILER__pretend_obj_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/Object_C.c || cmake_object_order_depends_target_pretend_obj
+  DEP_FILE = CMakeFiles\pretend_obj.dir\Object_C.c.obj.d
+  FLAGS = -g
+  OBJECT_DIR = CMakeFiles\pretend_obj.dir
+  OBJECT_FILE_DIR = CMakeFiles\pretend_obj.dir
+  TARGET_COMPILE_PDB = CMakeFiles\pretend_obj.dir\
+  TARGET_PDB = ""
+
+
+
+#############################################
+# Object library pretend_obj
+
+build pretend_obj: phony CMakeFiles/pretend_obj.dir/Object_C.c.obj
+
+# =============================================================================
+# Object build statements for EXECUTABLE target Preten_Exe
+
+
+#############################################
+# Order-only phony target for Preten_Exe
+
+build cmake_object_order_depends_target_Preten_Exe: phony || cmake_object_order_depends_target_pretend_obj
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target Preten_Exe
+
+
+#############################################
+# Link the executable Preten_Exe.exe
+
+build Preten_Exe.exe: C_EXECUTABLE_LINKER__Preten_Exe_Debug CMakeFiles/pretend_obj.dir/Object_C.c.obj || pretend_obj
+  FLAGS = -g
+  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\Preten_Exe.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_COMPILE_PDB = CMakeFiles\Preten_Exe.dir\
+  TARGET_FILE = Preten_Exe.exe
+  TARGET_IMPLIB = libPreten_Exe.dll.a
+  TARGET_PDB = Preten_Exe.pdb
+
 
 #############################################
 # Utility command for rebuild_cache
@@ -59,14 +111,16 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 #############################################
 # Order-only phony target for DMI_Forge
 
-build cmake_object_order_depends_target_DMI_Forge: phony || cmake_object_order_depends_target_png cmake_object_order_depends_target_zlib
+build cmake_object_order_depends_target_DMI_Forge: phony || cmake_object_order_depends_target_png
 
 build CMakeFiles/DMI_Forge.dir/main.c.obj: C_COMPILER__DMI_Forge_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/main.c || cmake_object_order_depends_target_DMI_Forge
   DEP_FILE = CMakeFiles\DMI_Forge.dir\main.c.obj.d
   FLAGS = -g
-  INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
+  INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
   OBJECT_DIR = CMakeFiles\DMI_Forge.dir
   OBJECT_FILE_DIR = CMakeFiles\DMI_Forge.dir
+  TARGET_COMPILE_PDB = CMakeFiles\DMI_Forge.dir\
+  TARGET_PDB = DMI_Forge.pdb
 
 
 # =============================================================================
@@ -76,27 +130,16 @@ build CMakeFiles/DMI_Forge.dir/main.c.obj: C_COMPILER__DMI_Forge_Debug C$:/Users
 #############################################
 # Link the executable DMI_Forge.exe
 
-build DMI_Forge.exe: C_EXECUTABLE_LINKER__DMI_Forge_Debug CMakeFiles/DMI_Forge.dir/main.c.obj | zlib/libzlib.dll.a png/libpng16d.dll.a C$:/zlib/libz.dll.a || png/libpng16d.dll zlib/libzlib.dll
+build DMI_Forge.exe: C_EXECUTABLE_LINKER__DMI_Forge_Debug CMakeFiles/DMI_Forge.dir/main.c.obj | png/libpng16d.dll.a C$:/zlib/libz.dll.a || png/libpng16d.dll
   FLAGS = -g
-  LINK_LIBRARIES = zlib/libzlib.dll.a  png/libpng16d.dll.a  C:/zlib/libz.dll.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  LINK_LIBRARIES = png/libpng16d.dll.a  C:/zlib/libz.dll.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\DMI_Forge.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
+  TARGET_COMPILE_PDB = CMakeFiles\DMI_Forge.dir\
   TARGET_FILE = DMI_Forge.exe
   TARGET_IMPLIB = libDMI_Forge.dll.a
-  TARGET_PDB = DMI_Forge.exe.dbg
-
-
-#############################################
-# Utility command for install/local
-
-build CMakeFiles/install/local.util: CUSTOM_COMMAND all
-  COMMAND = cmd.exe /C "cd /D C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\DMI_Forge\cmake-build-debug\png && "C:\Program Files\JetBrains\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
-  DESC = Installing only the local directory...
-  pool = console
-  restat = 1
-
-build install/local: phony CMakeFiles/install/local.util
+  TARGET_PDB = DMI_Forge.pdb
 
 
 #############################################
@@ -109,6 +152,18 @@ build CMakeFiles/install.util: CUSTOM_COMMAND all
   restat = 1
 
 build install: phony CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build CMakeFiles/install/local.util: CUSTOM_COMMAND all
+  COMMAND = cmd.exe /C "cd /D C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\DMI_Forge\cmake-build-debug\png && "C:\Program Files\JetBrains\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build install/local: phony CMakeFiles/install/local.util
 
 
 #############################################
@@ -160,6 +215,8 @@ build zlib/CMakeFiles/minigzip64.dir/test/minigzip.c.obj: C_COMPILER__minigzip64
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge
   OBJECT_DIR = zlib\CMakeFiles\minigzip64.dir
   OBJECT_FILE_DIR = zlib\CMakeFiles\minigzip64.dir\test
+  TARGET_COMPILE_PDB = zlib\CMakeFiles\minigzip64.dir\
+  TARGET_PDB = zlib\minigzip64.pdb
 
 
 # =============================================================================
@@ -175,9 +232,10 @@ build zlib/minigzip64.exe: C_EXECUTABLE_LINKER__minigzip64_Debug zlib/CMakeFiles
   OBJECT_DIR = zlib\CMakeFiles\minigzip64.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
+  TARGET_COMPILE_PDB = zlib\CMakeFiles\minigzip64.dir\
   TARGET_FILE = zlib\minigzip64.exe
   TARGET_IMPLIB = zlib\libminigzip64.dll.a
-  TARGET_PDB = minigzip64.exe.dbg
+  TARGET_PDB = zlib\minigzip64.pdb
 
 # =============================================================================
 # Object build statements for SHARED_LIBRARY target zlib
@@ -195,6 +253,8 @@ build zlib/CMakeFiles/zlib.dir/adler32.c.obj: C_COMPILER__zlib_Debug C$:/Users/j
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge
   OBJECT_DIR = zlib\CMakeFiles\zlib.dir
   OBJECT_FILE_DIR = zlib\CMakeFiles\zlib.dir
+  TARGET_COMPILE_PDB = zlib\CMakeFiles\zlib.dir\
+  TARGET_PDB = zlib\libzlib.pdb
 
 build zlib/CMakeFiles/zlib.dir/compress.c.obj: C_COMPILER__zlib_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/zlib/compress.c || cmake_object_order_depends_target_zlib
   DEFINES = -DNO_FSEEKO -DZLIB_DLL -D_LARGEFILE64_SOURCE=1
@@ -203,6 +263,8 @@ build zlib/CMakeFiles/zlib.dir/compress.c.obj: C_COMPILER__zlib_Debug C$:/Users/
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge
   OBJECT_DIR = zlib\CMakeFiles\zlib.dir
   OBJECT_FILE_DIR = zlib\CMakeFiles\zlib.dir
+  TARGET_COMPILE_PDB = zlib\CMakeFiles\zlib.dir\
+  TARGET_PDB = zlib\libzlib.pdb
 
 build zlib/CMakeFiles/zlib.dir/crc32.c.obj: C_COMPILER__zlib_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/zlib/crc32.c || cmake_object_order_depends_target_zlib
   DEFINES = -DNO_FSEEKO -DZLIB_DLL -D_LARGEFILE64_SOURCE=1
@@ -211,6 +273,8 @@ build zlib/CMakeFiles/zlib.dir/crc32.c.obj: C_COMPILER__zlib_Debug C$:/Users/jon
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge
   OBJECT_DIR = zlib\CMakeFiles\zlib.dir
   OBJECT_FILE_DIR = zlib\CMakeFiles\zlib.dir
+  TARGET_COMPILE_PDB = zlib\CMakeFiles\zlib.dir\
+  TARGET_PDB = zlib\libzlib.pdb
 
 build zlib/CMakeFiles/zlib.dir/deflate.c.obj: C_COMPILER__zlib_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/zlib/deflate.c || cmake_object_order_depends_target_zlib
   DEFINES = -DNO_FSEEKO -DZLIB_DLL -D_LARGEFILE64_SOURCE=1
@@ -219,6 +283,8 @@ build zlib/CMakeFiles/zlib.dir/deflate.c.obj: C_COMPILER__zlib_Debug C$:/Users/j
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge
   OBJECT_DIR = zlib\CMakeFiles\zlib.dir
   OBJECT_FILE_DIR = zlib\CMakeFiles\zlib.dir
+  TARGET_COMPILE_PDB = zlib\CMakeFiles\zlib.dir\
+  TARGET_PDB = zlib\libzlib.pdb
 
 build zlib/CMakeFiles/zlib.dir/gzclose.c.obj: C_COMPILER__zlib_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/zlib/gzclose.c || cmake_object_order_depends_target_zlib
   DEFINES = -DNO_FSEEKO -DZLIB_DLL -D_LARGEFILE64_SOURCE=1
@@ -227,6 +293,8 @@ build zlib/CMakeFiles/zlib.dir/gzclose.c.obj: C_COMPILER__zlib_Debug C$:/Users/j
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge
   OBJECT_DIR = zlib\CMakeFiles\zlib.dir
   OBJECT_FILE_DIR = zlib\CMakeFiles\zlib.dir
+  TARGET_COMPILE_PDB = zlib\CMakeFiles\zlib.dir\
+  TARGET_PDB = zlib\libzlib.pdb
 
 build zlib/CMakeFiles/zlib.dir/gzlib.c.obj: C_COMPILER__zlib_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/zlib/gzlib.c || cmake_object_order_depends_target_zlib
   DEFINES = -DNO_FSEEKO -DZLIB_DLL -D_LARGEFILE64_SOURCE=1
@@ -235,6 +303,8 @@ build zlib/CMakeFiles/zlib.dir/gzlib.c.obj: C_COMPILER__zlib_Debug C$:/Users/jon
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge
   OBJECT_DIR = zlib\CMakeFiles\zlib.dir
   OBJECT_FILE_DIR = zlib\CMakeFiles\zlib.dir
+  TARGET_COMPILE_PDB = zlib\CMakeFiles\zlib.dir\
+  TARGET_PDB = zlib\libzlib.pdb
 
 build zlib/CMakeFiles/zlib.dir/gzread.c.obj: C_COMPILER__zlib_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/zlib/gzread.c || cmake_object_order_depends_target_zlib
   DEFINES = -DNO_FSEEKO -DZLIB_DLL -D_LARGEFILE64_SOURCE=1
@@ -243,6 +313,8 @@ build zlib/CMakeFiles/zlib.dir/gzread.c.obj: C_COMPILER__zlib_Debug C$:/Users/jo
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge
   OBJECT_DIR = zlib\CMakeFiles\zlib.dir
   OBJECT_FILE_DIR = zlib\CMakeFiles\zlib.dir
+  TARGET_COMPILE_PDB = zlib\CMakeFiles\zlib.dir\
+  TARGET_PDB = zlib\libzlib.pdb
 
 build zlib/CMakeFiles/zlib.dir/gzwrite.c.obj: C_COMPILER__zlib_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/zlib/gzwrite.c || cmake_object_order_depends_target_zlib
   DEFINES = -DNO_FSEEKO -DZLIB_DLL -D_LARGEFILE64_SOURCE=1
@@ -251,6 +323,8 @@ build zlib/CMakeFiles/zlib.dir/gzwrite.c.obj: C_COMPILER__zlib_Debug C$:/Users/j
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge
   OBJECT_DIR = zlib\CMakeFiles\zlib.dir
   OBJECT_FILE_DIR = zlib\CMakeFiles\zlib.dir
+  TARGET_COMPILE_PDB = zlib\CMakeFiles\zlib.dir\
+  TARGET_PDB = zlib\libzlib.pdb
 
 build zlib/CMakeFiles/zlib.dir/inflate.c.obj: C_COMPILER__zlib_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/zlib/inflate.c || cmake_object_order_depends_target_zlib
   DEFINES = -DNO_FSEEKO -DZLIB_DLL -D_LARGEFILE64_SOURCE=1
@@ -259,6 +333,8 @@ build zlib/CMakeFiles/zlib.dir/inflate.c.obj: C_COMPILER__zlib_Debug C$:/Users/j
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge
   OBJECT_DIR = zlib\CMakeFiles\zlib.dir
   OBJECT_FILE_DIR = zlib\CMakeFiles\zlib.dir
+  TARGET_COMPILE_PDB = zlib\CMakeFiles\zlib.dir\
+  TARGET_PDB = zlib\libzlib.pdb
 
 build zlib/CMakeFiles/zlib.dir/infback.c.obj: C_COMPILER__zlib_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/zlib/infback.c || cmake_object_order_depends_target_zlib
   DEFINES = -DNO_FSEEKO -DZLIB_DLL -D_LARGEFILE64_SOURCE=1
@@ -267,6 +343,8 @@ build zlib/CMakeFiles/zlib.dir/infback.c.obj: C_COMPILER__zlib_Debug C$:/Users/j
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge
   OBJECT_DIR = zlib\CMakeFiles\zlib.dir
   OBJECT_FILE_DIR = zlib\CMakeFiles\zlib.dir
+  TARGET_COMPILE_PDB = zlib\CMakeFiles\zlib.dir\
+  TARGET_PDB = zlib\libzlib.pdb
 
 build zlib/CMakeFiles/zlib.dir/inftrees.c.obj: C_COMPILER__zlib_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/zlib/inftrees.c || cmake_object_order_depends_target_zlib
   DEFINES = -DNO_FSEEKO -DZLIB_DLL -D_LARGEFILE64_SOURCE=1
@@ -275,6 +353,8 @@ build zlib/CMakeFiles/zlib.dir/inftrees.c.obj: C_COMPILER__zlib_Debug C$:/Users/
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge
   OBJECT_DIR = zlib\CMakeFiles\zlib.dir
   OBJECT_FILE_DIR = zlib\CMakeFiles\zlib.dir
+  TARGET_COMPILE_PDB = zlib\CMakeFiles\zlib.dir\
+  TARGET_PDB = zlib\libzlib.pdb
 
 build zlib/CMakeFiles/zlib.dir/inffast.c.obj: C_COMPILER__zlib_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/zlib/inffast.c || cmake_object_order_depends_target_zlib
   DEFINES = -DNO_FSEEKO -DZLIB_DLL -D_LARGEFILE64_SOURCE=1
@@ -283,6 +363,8 @@ build zlib/CMakeFiles/zlib.dir/inffast.c.obj: C_COMPILER__zlib_Debug C$:/Users/j
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge
   OBJECT_DIR = zlib\CMakeFiles\zlib.dir
   OBJECT_FILE_DIR = zlib\CMakeFiles\zlib.dir
+  TARGET_COMPILE_PDB = zlib\CMakeFiles\zlib.dir\
+  TARGET_PDB = zlib\libzlib.pdb
 
 build zlib/CMakeFiles/zlib.dir/trees.c.obj: C_COMPILER__zlib_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/zlib/trees.c || cmake_object_order_depends_target_zlib
   DEFINES = -DNO_FSEEKO -DZLIB_DLL -D_LARGEFILE64_SOURCE=1
@@ -291,6 +373,8 @@ build zlib/CMakeFiles/zlib.dir/trees.c.obj: C_COMPILER__zlib_Debug C$:/Users/jon
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge
   OBJECT_DIR = zlib\CMakeFiles\zlib.dir
   OBJECT_FILE_DIR = zlib\CMakeFiles\zlib.dir
+  TARGET_COMPILE_PDB = zlib\CMakeFiles\zlib.dir\
+  TARGET_PDB = zlib\libzlib.pdb
 
 build zlib/CMakeFiles/zlib.dir/uncompr.c.obj: C_COMPILER__zlib_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/zlib/uncompr.c || cmake_object_order_depends_target_zlib
   DEFINES = -DNO_FSEEKO -DZLIB_DLL -D_LARGEFILE64_SOURCE=1
@@ -299,6 +383,8 @@ build zlib/CMakeFiles/zlib.dir/uncompr.c.obj: C_COMPILER__zlib_Debug C$:/Users/j
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge
   OBJECT_DIR = zlib\CMakeFiles\zlib.dir
   OBJECT_FILE_DIR = zlib\CMakeFiles\zlib.dir
+  TARGET_COMPILE_PDB = zlib\CMakeFiles\zlib.dir\
+  TARGET_PDB = zlib\libzlib.pdb
 
 build zlib/CMakeFiles/zlib.dir/zutil.c.obj: C_COMPILER__zlib_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/zlib/zutil.c || cmake_object_order_depends_target_zlib
   DEFINES = -DNO_FSEEKO -DZLIB_DLL -D_LARGEFILE64_SOURCE=1
@@ -307,6 +393,8 @@ build zlib/CMakeFiles/zlib.dir/zutil.c.obj: C_COMPILER__zlib_Debug C$:/Users/jon
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge
   OBJECT_DIR = zlib\CMakeFiles\zlib.dir
   OBJECT_FILE_DIR = zlib\CMakeFiles\zlib.dir
+  TARGET_COMPILE_PDB = zlib\CMakeFiles\zlib.dir\
+  TARGET_PDB = zlib\libzlib.pdb
 
 
 # =============================================================================
@@ -323,9 +411,10 @@ build zlib/libzlib.dll zlib/libzlib.dll.a: C_SHARED_LIBRARY_LINKER__zlib_Debug z
   POST_BUILD = cd .
   PRE_LINK = cd .
   RESTAT = 1
+  TARGET_COMPILE_PDB = zlib\CMakeFiles\zlib.dir\
   TARGET_FILE = zlib\libzlib.dll
   TARGET_IMPLIB = zlib\libzlib.dll.a
-  TARGET_PDB = zlib.dll.dbg
+  TARGET_PDB = zlib\libzlib.pdb
 
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target zlibstatic
@@ -343,6 +432,8 @@ build zlib/CMakeFiles/zlibstatic.dir/adler32.c.obj: C_COMPILER__zlibstatic_Debug
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge
   OBJECT_DIR = zlib\CMakeFiles\zlibstatic.dir
   OBJECT_FILE_DIR = zlib\CMakeFiles\zlibstatic.dir
+  TARGET_COMPILE_PDB = zlib\CMakeFiles\zlibstatic.dir\zlibstatic.pdb
+  TARGET_PDB = zlib\libzlibstatic.pdb
 
 build zlib/CMakeFiles/zlibstatic.dir/compress.c.obj: C_COMPILER__zlibstatic_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/zlib/compress.c || cmake_object_order_depends_target_zlibstatic
   DEFINES = -DNO_FSEEKO -D_LARGEFILE64_SOURCE=1
@@ -351,6 +442,8 @@ build zlib/CMakeFiles/zlibstatic.dir/compress.c.obj: C_COMPILER__zlibstatic_Debu
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge
   OBJECT_DIR = zlib\CMakeFiles\zlibstatic.dir
   OBJECT_FILE_DIR = zlib\CMakeFiles\zlibstatic.dir
+  TARGET_COMPILE_PDB = zlib\CMakeFiles\zlibstatic.dir\zlibstatic.pdb
+  TARGET_PDB = zlib\libzlibstatic.pdb
 
 build zlib/CMakeFiles/zlibstatic.dir/crc32.c.obj: C_COMPILER__zlibstatic_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/zlib/crc32.c || cmake_object_order_depends_target_zlibstatic
   DEFINES = -DNO_FSEEKO -D_LARGEFILE64_SOURCE=1
@@ -359,6 +452,8 @@ build zlib/CMakeFiles/zlibstatic.dir/crc32.c.obj: C_COMPILER__zlibstatic_Debug C
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge
   OBJECT_DIR = zlib\CMakeFiles\zlibstatic.dir
   OBJECT_FILE_DIR = zlib\CMakeFiles\zlibstatic.dir
+  TARGET_COMPILE_PDB = zlib\CMakeFiles\zlibstatic.dir\zlibstatic.pdb
+  TARGET_PDB = zlib\libzlibstatic.pdb
 
 build zlib/CMakeFiles/zlibstatic.dir/deflate.c.obj: C_COMPILER__zlibstatic_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/zlib/deflate.c || cmake_object_order_depends_target_zlibstatic
   DEFINES = -DNO_FSEEKO -D_LARGEFILE64_SOURCE=1
@@ -367,6 +462,8 @@ build zlib/CMakeFiles/zlibstatic.dir/deflate.c.obj: C_COMPILER__zlibstatic_Debug
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge
   OBJECT_DIR = zlib\CMakeFiles\zlibstatic.dir
   OBJECT_FILE_DIR = zlib\CMakeFiles\zlibstatic.dir
+  TARGET_COMPILE_PDB = zlib\CMakeFiles\zlibstatic.dir\zlibstatic.pdb
+  TARGET_PDB = zlib\libzlibstatic.pdb
 
 build zlib/CMakeFiles/zlibstatic.dir/gzclose.c.obj: C_COMPILER__zlibstatic_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/zlib/gzclose.c || cmake_object_order_depends_target_zlibstatic
   DEFINES = -DNO_FSEEKO -D_LARGEFILE64_SOURCE=1
@@ -375,6 +472,8 @@ build zlib/CMakeFiles/zlibstatic.dir/gzclose.c.obj: C_COMPILER__zlibstatic_Debug
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge
   OBJECT_DIR = zlib\CMakeFiles\zlibstatic.dir
   OBJECT_FILE_DIR = zlib\CMakeFiles\zlibstatic.dir
+  TARGET_COMPILE_PDB = zlib\CMakeFiles\zlibstatic.dir\zlibstatic.pdb
+  TARGET_PDB = zlib\libzlibstatic.pdb
 
 build zlib/CMakeFiles/zlibstatic.dir/gzlib.c.obj: C_COMPILER__zlibstatic_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/zlib/gzlib.c || cmake_object_order_depends_target_zlibstatic
   DEFINES = -DNO_FSEEKO -D_LARGEFILE64_SOURCE=1
@@ -383,6 +482,8 @@ build zlib/CMakeFiles/zlibstatic.dir/gzlib.c.obj: C_COMPILER__zlibstatic_Debug C
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge
   OBJECT_DIR = zlib\CMakeFiles\zlibstatic.dir
   OBJECT_FILE_DIR = zlib\CMakeFiles\zlibstatic.dir
+  TARGET_COMPILE_PDB = zlib\CMakeFiles\zlibstatic.dir\zlibstatic.pdb
+  TARGET_PDB = zlib\libzlibstatic.pdb
 
 build zlib/CMakeFiles/zlibstatic.dir/gzread.c.obj: C_COMPILER__zlibstatic_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/zlib/gzread.c || cmake_object_order_depends_target_zlibstatic
   DEFINES = -DNO_FSEEKO -D_LARGEFILE64_SOURCE=1
@@ -391,6 +492,8 @@ build zlib/CMakeFiles/zlibstatic.dir/gzread.c.obj: C_COMPILER__zlibstatic_Debug 
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge
   OBJECT_DIR = zlib\CMakeFiles\zlibstatic.dir
   OBJECT_FILE_DIR = zlib\CMakeFiles\zlibstatic.dir
+  TARGET_COMPILE_PDB = zlib\CMakeFiles\zlibstatic.dir\zlibstatic.pdb
+  TARGET_PDB = zlib\libzlibstatic.pdb
 
 build zlib/CMakeFiles/zlibstatic.dir/gzwrite.c.obj: C_COMPILER__zlibstatic_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/zlib/gzwrite.c || cmake_object_order_depends_target_zlibstatic
   DEFINES = -DNO_FSEEKO -D_LARGEFILE64_SOURCE=1
@@ -399,6 +502,8 @@ build zlib/CMakeFiles/zlibstatic.dir/gzwrite.c.obj: C_COMPILER__zlibstatic_Debug
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge
   OBJECT_DIR = zlib\CMakeFiles\zlibstatic.dir
   OBJECT_FILE_DIR = zlib\CMakeFiles\zlibstatic.dir
+  TARGET_COMPILE_PDB = zlib\CMakeFiles\zlibstatic.dir\zlibstatic.pdb
+  TARGET_PDB = zlib\libzlibstatic.pdb
 
 build zlib/CMakeFiles/zlibstatic.dir/inflate.c.obj: C_COMPILER__zlibstatic_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/zlib/inflate.c || cmake_object_order_depends_target_zlibstatic
   DEFINES = -DNO_FSEEKO -D_LARGEFILE64_SOURCE=1
@@ -407,6 +512,8 @@ build zlib/CMakeFiles/zlibstatic.dir/inflate.c.obj: C_COMPILER__zlibstatic_Debug
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge
   OBJECT_DIR = zlib\CMakeFiles\zlibstatic.dir
   OBJECT_FILE_DIR = zlib\CMakeFiles\zlibstatic.dir
+  TARGET_COMPILE_PDB = zlib\CMakeFiles\zlibstatic.dir\zlibstatic.pdb
+  TARGET_PDB = zlib\libzlibstatic.pdb
 
 build zlib/CMakeFiles/zlibstatic.dir/infback.c.obj: C_COMPILER__zlibstatic_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/zlib/infback.c || cmake_object_order_depends_target_zlibstatic
   DEFINES = -DNO_FSEEKO -D_LARGEFILE64_SOURCE=1
@@ -415,6 +522,8 @@ build zlib/CMakeFiles/zlibstatic.dir/infback.c.obj: C_COMPILER__zlibstatic_Debug
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge
   OBJECT_DIR = zlib\CMakeFiles\zlibstatic.dir
   OBJECT_FILE_DIR = zlib\CMakeFiles\zlibstatic.dir
+  TARGET_COMPILE_PDB = zlib\CMakeFiles\zlibstatic.dir\zlibstatic.pdb
+  TARGET_PDB = zlib\libzlibstatic.pdb
 
 build zlib/CMakeFiles/zlibstatic.dir/inftrees.c.obj: C_COMPILER__zlibstatic_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/zlib/inftrees.c || cmake_object_order_depends_target_zlibstatic
   DEFINES = -DNO_FSEEKO -D_LARGEFILE64_SOURCE=1
@@ -423,6 +532,8 @@ build zlib/CMakeFiles/zlibstatic.dir/inftrees.c.obj: C_COMPILER__zlibstatic_Debu
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge
   OBJECT_DIR = zlib\CMakeFiles\zlibstatic.dir
   OBJECT_FILE_DIR = zlib\CMakeFiles\zlibstatic.dir
+  TARGET_COMPILE_PDB = zlib\CMakeFiles\zlibstatic.dir\zlibstatic.pdb
+  TARGET_PDB = zlib\libzlibstatic.pdb
 
 build zlib/CMakeFiles/zlibstatic.dir/inffast.c.obj: C_COMPILER__zlibstatic_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/zlib/inffast.c || cmake_object_order_depends_target_zlibstatic
   DEFINES = -DNO_FSEEKO -D_LARGEFILE64_SOURCE=1
@@ -431,6 +542,8 @@ build zlib/CMakeFiles/zlibstatic.dir/inffast.c.obj: C_COMPILER__zlibstatic_Debug
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge
   OBJECT_DIR = zlib\CMakeFiles\zlibstatic.dir
   OBJECT_FILE_DIR = zlib\CMakeFiles\zlibstatic.dir
+  TARGET_COMPILE_PDB = zlib\CMakeFiles\zlibstatic.dir\zlibstatic.pdb
+  TARGET_PDB = zlib\libzlibstatic.pdb
 
 build zlib/CMakeFiles/zlibstatic.dir/trees.c.obj: C_COMPILER__zlibstatic_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/zlib/trees.c || cmake_object_order_depends_target_zlibstatic
   DEFINES = -DNO_FSEEKO -D_LARGEFILE64_SOURCE=1
@@ -439,6 +552,8 @@ build zlib/CMakeFiles/zlibstatic.dir/trees.c.obj: C_COMPILER__zlibstatic_Debug C
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge
   OBJECT_DIR = zlib\CMakeFiles\zlibstatic.dir
   OBJECT_FILE_DIR = zlib\CMakeFiles\zlibstatic.dir
+  TARGET_COMPILE_PDB = zlib\CMakeFiles\zlibstatic.dir\zlibstatic.pdb
+  TARGET_PDB = zlib\libzlibstatic.pdb
 
 build zlib/CMakeFiles/zlibstatic.dir/uncompr.c.obj: C_COMPILER__zlibstatic_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/zlib/uncompr.c || cmake_object_order_depends_target_zlibstatic
   DEFINES = -DNO_FSEEKO -D_LARGEFILE64_SOURCE=1
@@ -447,6 +562,8 @@ build zlib/CMakeFiles/zlibstatic.dir/uncompr.c.obj: C_COMPILER__zlibstatic_Debug
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge
   OBJECT_DIR = zlib\CMakeFiles\zlibstatic.dir
   OBJECT_FILE_DIR = zlib\CMakeFiles\zlibstatic.dir
+  TARGET_COMPILE_PDB = zlib\CMakeFiles\zlibstatic.dir\zlibstatic.pdb
+  TARGET_PDB = zlib\libzlibstatic.pdb
 
 build zlib/CMakeFiles/zlibstatic.dir/zutil.c.obj: C_COMPILER__zlibstatic_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/zlib/zutil.c || cmake_object_order_depends_target_zlibstatic
   DEFINES = -DNO_FSEEKO -D_LARGEFILE64_SOURCE=1
@@ -455,6 +572,8 @@ build zlib/CMakeFiles/zlibstatic.dir/zutil.c.obj: C_COMPILER__zlibstatic_Debug C
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge
   OBJECT_DIR = zlib\CMakeFiles\zlibstatic.dir
   OBJECT_FILE_DIR = zlib\CMakeFiles\zlibstatic.dir
+  TARGET_COMPILE_PDB = zlib\CMakeFiles\zlibstatic.dir\zlibstatic.pdb
+  TARGET_PDB = zlib\libzlibstatic.pdb
 
 
 # =============================================================================
@@ -469,8 +588,9 @@ build zlib/libzlibstatic.a: C_STATIC_LIBRARY_LINKER__zlibstatic_Debug zlib/CMake
   OBJECT_DIR = zlib\CMakeFiles\zlibstatic.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
+  TARGET_COMPILE_PDB = zlib\CMakeFiles\zlibstatic.dir\zlibstatic.pdb
   TARGET_FILE = zlib\libzlibstatic.a
-  TARGET_PDB = zlibstatic.a.dbg
+  TARGET_PDB = zlib\libzlibstatic.pdb
 
 # =============================================================================
 # Object build statements for EXECUTABLE target example
@@ -488,6 +608,8 @@ build zlib/CMakeFiles/example.dir/test/example.c.obj: C_COMPILER__example_Debug 
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge
   OBJECT_DIR = zlib\CMakeFiles\example.dir
   OBJECT_FILE_DIR = zlib\CMakeFiles\example.dir\test
+  TARGET_COMPILE_PDB = zlib\CMakeFiles\example.dir\
+  TARGET_PDB = zlib\example.pdb
 
 
 # =============================================================================
@@ -503,9 +625,10 @@ build zlib/example.exe: C_EXECUTABLE_LINKER__example_Debug zlib/CMakeFiles/examp
   OBJECT_DIR = zlib\CMakeFiles\example.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
+  TARGET_COMPILE_PDB = zlib\CMakeFiles\example.dir\
   TARGET_FILE = zlib\example.exe
   TARGET_IMPLIB = zlib\libexample.dll.a
-  TARGET_PDB = example.exe.dbg
+  TARGET_PDB = zlib\example.pdb
 
 # =============================================================================
 # Object build statements for EXECUTABLE target minigzip
@@ -523,6 +646,8 @@ build zlib/CMakeFiles/minigzip.dir/test/minigzip.c.obj: C_COMPILER__minigzip_Deb
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge
   OBJECT_DIR = zlib\CMakeFiles\minigzip.dir
   OBJECT_FILE_DIR = zlib\CMakeFiles\minigzip.dir\test
+  TARGET_COMPILE_PDB = zlib\CMakeFiles\minigzip.dir\
+  TARGET_PDB = zlib\minigzip.pdb
 
 
 # =============================================================================
@@ -538,9 +663,10 @@ build zlib/minigzip.exe: C_EXECUTABLE_LINKER__minigzip_Debug zlib/CMakeFiles/min
   OBJECT_DIR = zlib\CMakeFiles\minigzip.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
+  TARGET_COMPILE_PDB = zlib\CMakeFiles\minigzip.dir\
   TARGET_FILE = zlib\minigzip.exe
   TARGET_IMPLIB = zlib\libminigzip.dll.a
-  TARGET_PDB = minigzip.exe.dbg
+  TARGET_PDB = zlib\minigzip.pdb
 
 # =============================================================================
 # Object build statements for EXECUTABLE target example64
@@ -558,6 +684,8 @@ build zlib/CMakeFiles/example64.dir/test/example.c.obj: C_COMPILER__example64_De
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge
   OBJECT_DIR = zlib\CMakeFiles\example64.dir
   OBJECT_FILE_DIR = zlib\CMakeFiles\example64.dir\test
+  TARGET_COMPILE_PDB = zlib\CMakeFiles\example64.dir\
+  TARGET_PDB = zlib\example64.pdb
 
 
 # =============================================================================
@@ -573,9 +701,10 @@ build zlib/example64.exe: C_EXECUTABLE_LINKER__example64_Debug zlib/CMakeFiles/e
   OBJECT_DIR = zlib\CMakeFiles\example64.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
+  TARGET_COMPILE_PDB = zlib\CMakeFiles\example64.dir\
   TARGET_FILE = zlib\example64.exe
   TARGET_IMPLIB = zlib\libexample64.dll.a
-  TARGET_PDB = example64.exe.dbg
+  TARGET_PDB = zlib\example64.pdb
 
 
 #############################################
@@ -671,6 +800,8 @@ build png/CMakeFiles/png-fix-itxt.dir/contrib/tools/png-fix-itxt.c.obj: C_COMPIL
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
   OBJECT_DIR = png\CMakeFiles\png-fix-itxt.dir
   OBJECT_FILE_DIR = png\CMakeFiles\png-fix-itxt.dir\contrib\tools
+  TARGET_COMPILE_PDB = png\CMakeFiles\png-fix-itxt.dir\
+  TARGET_PDB = png\png-fix-itxt.pdb
 
 
 # =============================================================================
@@ -686,9 +817,10 @@ build png/png-fix-itxt.exe: C_EXECUTABLE_LINKER__png-fix-itxt_Debug png/CMakeFil
   OBJECT_DIR = png\CMakeFiles\png-fix-itxt.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
+  TARGET_COMPILE_PDB = png\CMakeFiles\png-fix-itxt.dir\
   TARGET_FILE = png\png-fix-itxt.exe
   TARGET_IMPLIB = png\libpng-fix-itxt.dll.a
-  TARGET_PDB = png-fix-itxt.exe.dbg
+  TARGET_PDB = png\png-fix-itxt.pdb
 
 # =============================================================================
 # Object build statements for EXECUTABLE target pngtest
@@ -705,6 +837,8 @@ build png/CMakeFiles/pngtest.dir/pngtest.c.obj: C_COMPILER__pngtest_Debug C$:/Us
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
   OBJECT_DIR = png\CMakeFiles\pngtest.dir
   OBJECT_FILE_DIR = png\CMakeFiles\pngtest.dir
+  TARGET_COMPILE_PDB = png\CMakeFiles\pngtest.dir\
+  TARGET_PDB = png\pngtest.pdb
 
 
 # =============================================================================
@@ -720,9 +854,10 @@ build png/pngtest.exe: C_EXECUTABLE_LINKER__pngtest_Debug png/CMakeFiles/pngtest
   OBJECT_DIR = png\CMakeFiles\pngtest.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
+  TARGET_COMPILE_PDB = png\CMakeFiles\pngtest.dir\
   TARGET_FILE = png\pngtest.exe
   TARGET_IMPLIB = png\libpngtest.dll.a
-  TARGET_PDB = pngtest.exe.dbg
+  TARGET_PDB = png\pngtest.pdb
 
 
 #############################################
@@ -770,6 +905,8 @@ build png/CMakeFiles/png.dir/png.c.obj: C_COMPILER__png_Debug C$:/Users/jonat/On
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
   OBJECT_DIR = png\CMakeFiles\png.dir
   OBJECT_FILE_DIR = png\CMakeFiles\png.dir
+  TARGET_COMPILE_PDB = png\CMakeFiles\png.dir\
+  TARGET_PDB = png\libpng16d.pdb
 
 build png/CMakeFiles/png.dir/pngerror.c.obj: C_COMPILER__png_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/pngerror.c || cmake_object_order_depends_target_png
   DEFINES = -DPNG_BUILD_DLL
@@ -778,6 +915,8 @@ build png/CMakeFiles/png.dir/pngerror.c.obj: C_COMPILER__png_Debug C$:/Users/jon
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
   OBJECT_DIR = png\CMakeFiles\png.dir
   OBJECT_FILE_DIR = png\CMakeFiles\png.dir
+  TARGET_COMPILE_PDB = png\CMakeFiles\png.dir\
+  TARGET_PDB = png\libpng16d.pdb
 
 build png/CMakeFiles/png.dir/pngget.c.obj: C_COMPILER__png_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/pngget.c || cmake_object_order_depends_target_png
   DEFINES = -DPNG_BUILD_DLL
@@ -786,6 +925,8 @@ build png/CMakeFiles/png.dir/pngget.c.obj: C_COMPILER__png_Debug C$:/Users/jonat
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
   OBJECT_DIR = png\CMakeFiles\png.dir
   OBJECT_FILE_DIR = png\CMakeFiles\png.dir
+  TARGET_COMPILE_PDB = png\CMakeFiles\png.dir\
+  TARGET_PDB = png\libpng16d.pdb
 
 build png/CMakeFiles/png.dir/pngmem.c.obj: C_COMPILER__png_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/pngmem.c || cmake_object_order_depends_target_png
   DEFINES = -DPNG_BUILD_DLL
@@ -794,6 +935,8 @@ build png/CMakeFiles/png.dir/pngmem.c.obj: C_COMPILER__png_Debug C$:/Users/jonat
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
   OBJECT_DIR = png\CMakeFiles\png.dir
   OBJECT_FILE_DIR = png\CMakeFiles\png.dir
+  TARGET_COMPILE_PDB = png\CMakeFiles\png.dir\
+  TARGET_PDB = png\libpng16d.pdb
 
 build png/CMakeFiles/png.dir/pngpread.c.obj: C_COMPILER__png_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/pngpread.c || cmake_object_order_depends_target_png
   DEFINES = -DPNG_BUILD_DLL
@@ -802,6 +945,8 @@ build png/CMakeFiles/png.dir/pngpread.c.obj: C_COMPILER__png_Debug C$:/Users/jon
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
   OBJECT_DIR = png\CMakeFiles\png.dir
   OBJECT_FILE_DIR = png\CMakeFiles\png.dir
+  TARGET_COMPILE_PDB = png\CMakeFiles\png.dir\
+  TARGET_PDB = png\libpng16d.pdb
 
 build png/CMakeFiles/png.dir/pngread.c.obj: C_COMPILER__png_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/pngread.c || cmake_object_order_depends_target_png
   DEFINES = -DPNG_BUILD_DLL
@@ -810,6 +955,8 @@ build png/CMakeFiles/png.dir/pngread.c.obj: C_COMPILER__png_Debug C$:/Users/jona
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
   OBJECT_DIR = png\CMakeFiles\png.dir
   OBJECT_FILE_DIR = png\CMakeFiles\png.dir
+  TARGET_COMPILE_PDB = png\CMakeFiles\png.dir\
+  TARGET_PDB = png\libpng16d.pdb
 
 build png/CMakeFiles/png.dir/pngrio.c.obj: C_COMPILER__png_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/pngrio.c || cmake_object_order_depends_target_png
   DEFINES = -DPNG_BUILD_DLL
@@ -818,6 +965,8 @@ build png/CMakeFiles/png.dir/pngrio.c.obj: C_COMPILER__png_Debug C$:/Users/jonat
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
   OBJECT_DIR = png\CMakeFiles\png.dir
   OBJECT_FILE_DIR = png\CMakeFiles\png.dir
+  TARGET_COMPILE_PDB = png\CMakeFiles\png.dir\
+  TARGET_PDB = png\libpng16d.pdb
 
 build png/CMakeFiles/png.dir/pngrtran.c.obj: C_COMPILER__png_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/pngrtran.c || cmake_object_order_depends_target_png
   DEFINES = -DPNG_BUILD_DLL
@@ -826,6 +975,8 @@ build png/CMakeFiles/png.dir/pngrtran.c.obj: C_COMPILER__png_Debug C$:/Users/jon
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
   OBJECT_DIR = png\CMakeFiles\png.dir
   OBJECT_FILE_DIR = png\CMakeFiles\png.dir
+  TARGET_COMPILE_PDB = png\CMakeFiles\png.dir\
+  TARGET_PDB = png\libpng16d.pdb
 
 build png/CMakeFiles/png.dir/pngrutil.c.obj: C_COMPILER__png_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/pngrutil.c || cmake_object_order_depends_target_png
   DEFINES = -DPNG_BUILD_DLL
@@ -834,6 +985,8 @@ build png/CMakeFiles/png.dir/pngrutil.c.obj: C_COMPILER__png_Debug C$:/Users/jon
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
   OBJECT_DIR = png\CMakeFiles\png.dir
   OBJECT_FILE_DIR = png\CMakeFiles\png.dir
+  TARGET_COMPILE_PDB = png\CMakeFiles\png.dir\
+  TARGET_PDB = png\libpng16d.pdb
 
 build png/CMakeFiles/png.dir/pngset.c.obj: C_COMPILER__png_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/pngset.c || cmake_object_order_depends_target_png
   DEFINES = -DPNG_BUILD_DLL
@@ -842,6 +995,8 @@ build png/CMakeFiles/png.dir/pngset.c.obj: C_COMPILER__png_Debug C$:/Users/jonat
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
   OBJECT_DIR = png\CMakeFiles\png.dir
   OBJECT_FILE_DIR = png\CMakeFiles\png.dir
+  TARGET_COMPILE_PDB = png\CMakeFiles\png.dir\
+  TARGET_PDB = png\libpng16d.pdb
 
 build png/CMakeFiles/png.dir/pngtrans.c.obj: C_COMPILER__png_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/pngtrans.c || cmake_object_order_depends_target_png
   DEFINES = -DPNG_BUILD_DLL
@@ -850,6 +1005,8 @@ build png/CMakeFiles/png.dir/pngtrans.c.obj: C_COMPILER__png_Debug C$:/Users/jon
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
   OBJECT_DIR = png\CMakeFiles\png.dir
   OBJECT_FILE_DIR = png\CMakeFiles\png.dir
+  TARGET_COMPILE_PDB = png\CMakeFiles\png.dir\
+  TARGET_PDB = png\libpng16d.pdb
 
 build png/CMakeFiles/png.dir/pngwio.c.obj: C_COMPILER__png_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/pngwio.c || cmake_object_order_depends_target_png
   DEFINES = -DPNG_BUILD_DLL
@@ -858,6 +1015,8 @@ build png/CMakeFiles/png.dir/pngwio.c.obj: C_COMPILER__png_Debug C$:/Users/jonat
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
   OBJECT_DIR = png\CMakeFiles\png.dir
   OBJECT_FILE_DIR = png\CMakeFiles\png.dir
+  TARGET_COMPILE_PDB = png\CMakeFiles\png.dir\
+  TARGET_PDB = png\libpng16d.pdb
 
 build png/CMakeFiles/png.dir/pngwrite.c.obj: C_COMPILER__png_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/pngwrite.c || cmake_object_order_depends_target_png
   DEFINES = -DPNG_BUILD_DLL
@@ -866,6 +1025,8 @@ build png/CMakeFiles/png.dir/pngwrite.c.obj: C_COMPILER__png_Debug C$:/Users/jon
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
   OBJECT_DIR = png\CMakeFiles\png.dir
   OBJECT_FILE_DIR = png\CMakeFiles\png.dir
+  TARGET_COMPILE_PDB = png\CMakeFiles\png.dir\
+  TARGET_PDB = png\libpng16d.pdb
 
 build png/CMakeFiles/png.dir/pngwtran.c.obj: C_COMPILER__png_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/pngwtran.c || cmake_object_order_depends_target_png
   DEFINES = -DPNG_BUILD_DLL
@@ -874,6 +1035,8 @@ build png/CMakeFiles/png.dir/pngwtran.c.obj: C_COMPILER__png_Debug C$:/Users/jon
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
   OBJECT_DIR = png\CMakeFiles\png.dir
   OBJECT_FILE_DIR = png\CMakeFiles\png.dir
+  TARGET_COMPILE_PDB = png\CMakeFiles\png.dir\
+  TARGET_PDB = png\libpng16d.pdb
 
 build png/CMakeFiles/png.dir/pngwutil.c.obj: C_COMPILER__png_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/pngwutil.c || cmake_object_order_depends_target_png
   DEFINES = -DPNG_BUILD_DLL
@@ -882,6 +1045,8 @@ build png/CMakeFiles/png.dir/pngwutil.c.obj: C_COMPILER__png_Debug C$:/Users/jon
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
   OBJECT_DIR = png\CMakeFiles\png.dir
   OBJECT_FILE_DIR = png\CMakeFiles\png.dir
+  TARGET_COMPILE_PDB = png\CMakeFiles\png.dir\
+  TARGET_PDB = png\libpng16d.pdb
 
 
 # =============================================================================
@@ -898,9 +1063,10 @@ build png/libpng16d.dll png/libpng16d.dll.a: C_SHARED_LIBRARY_LINKER__png_Debug 
   POST_BUILD = cmd.exe /C "cd /D C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\DMI_Forge\cmake-build-debug\png\png && "C:\Program Files\JetBrains\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -E copy_if_different libpng16d.dll.a C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png/libpng.dll.a"
   PRE_LINK = cd .
   RESTAT = 1
+  TARGET_COMPILE_PDB = png\CMakeFiles\png.dir\
   TARGET_FILE = png\libpng16d.dll
   TARGET_IMPLIB = png\libpng16d.dll.a
-  TARGET_PDB = png16d.dll.dbg
+  TARGET_PDB = png\libpng16d.pdb
 
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target png_static
@@ -917,6 +1083,8 @@ build png/CMakeFiles/png_static.dir/png.c.obj: C_COMPILER__png_static_Debug C$:/
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
   OBJECT_DIR = png\CMakeFiles\png_static.dir
   OBJECT_FILE_DIR = png\CMakeFiles\png_static.dir
+  TARGET_COMPILE_PDB = png\CMakeFiles\png_static.dir\png_static.pdb
+  TARGET_PDB = png\libpng16d.pdb
 
 build png/CMakeFiles/png_static.dir/pngerror.c.obj: C_COMPILER__png_static_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/pngerror.c || cmake_object_order_depends_target_png_static
   DEP_FILE = png\CMakeFiles\png_static.dir\pngerror.c.obj.d
@@ -924,6 +1092,8 @@ build png/CMakeFiles/png_static.dir/pngerror.c.obj: C_COMPILER__png_static_Debug
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
   OBJECT_DIR = png\CMakeFiles\png_static.dir
   OBJECT_FILE_DIR = png\CMakeFiles\png_static.dir
+  TARGET_COMPILE_PDB = png\CMakeFiles\png_static.dir\png_static.pdb
+  TARGET_PDB = png\libpng16d.pdb
 
 build png/CMakeFiles/png_static.dir/pngget.c.obj: C_COMPILER__png_static_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/pngget.c || cmake_object_order_depends_target_png_static
   DEP_FILE = png\CMakeFiles\png_static.dir\pngget.c.obj.d
@@ -931,6 +1101,8 @@ build png/CMakeFiles/png_static.dir/pngget.c.obj: C_COMPILER__png_static_Debug C
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
   OBJECT_DIR = png\CMakeFiles\png_static.dir
   OBJECT_FILE_DIR = png\CMakeFiles\png_static.dir
+  TARGET_COMPILE_PDB = png\CMakeFiles\png_static.dir\png_static.pdb
+  TARGET_PDB = png\libpng16d.pdb
 
 build png/CMakeFiles/png_static.dir/pngmem.c.obj: C_COMPILER__png_static_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/pngmem.c || cmake_object_order_depends_target_png_static
   DEP_FILE = png\CMakeFiles\png_static.dir\pngmem.c.obj.d
@@ -938,6 +1110,8 @@ build png/CMakeFiles/png_static.dir/pngmem.c.obj: C_COMPILER__png_static_Debug C
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
   OBJECT_DIR = png\CMakeFiles\png_static.dir
   OBJECT_FILE_DIR = png\CMakeFiles\png_static.dir
+  TARGET_COMPILE_PDB = png\CMakeFiles\png_static.dir\png_static.pdb
+  TARGET_PDB = png\libpng16d.pdb
 
 build png/CMakeFiles/png_static.dir/pngpread.c.obj: C_COMPILER__png_static_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/pngpread.c || cmake_object_order_depends_target_png_static
   DEP_FILE = png\CMakeFiles\png_static.dir\pngpread.c.obj.d
@@ -945,6 +1119,8 @@ build png/CMakeFiles/png_static.dir/pngpread.c.obj: C_COMPILER__png_static_Debug
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
   OBJECT_DIR = png\CMakeFiles\png_static.dir
   OBJECT_FILE_DIR = png\CMakeFiles\png_static.dir
+  TARGET_COMPILE_PDB = png\CMakeFiles\png_static.dir\png_static.pdb
+  TARGET_PDB = png\libpng16d.pdb
 
 build png/CMakeFiles/png_static.dir/pngread.c.obj: C_COMPILER__png_static_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/pngread.c || cmake_object_order_depends_target_png_static
   DEP_FILE = png\CMakeFiles\png_static.dir\pngread.c.obj.d
@@ -952,6 +1128,8 @@ build png/CMakeFiles/png_static.dir/pngread.c.obj: C_COMPILER__png_static_Debug 
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
   OBJECT_DIR = png\CMakeFiles\png_static.dir
   OBJECT_FILE_DIR = png\CMakeFiles\png_static.dir
+  TARGET_COMPILE_PDB = png\CMakeFiles\png_static.dir\png_static.pdb
+  TARGET_PDB = png\libpng16d.pdb
 
 build png/CMakeFiles/png_static.dir/pngrio.c.obj: C_COMPILER__png_static_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/pngrio.c || cmake_object_order_depends_target_png_static
   DEP_FILE = png\CMakeFiles\png_static.dir\pngrio.c.obj.d
@@ -959,6 +1137,8 @@ build png/CMakeFiles/png_static.dir/pngrio.c.obj: C_COMPILER__png_static_Debug C
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
   OBJECT_DIR = png\CMakeFiles\png_static.dir
   OBJECT_FILE_DIR = png\CMakeFiles\png_static.dir
+  TARGET_COMPILE_PDB = png\CMakeFiles\png_static.dir\png_static.pdb
+  TARGET_PDB = png\libpng16d.pdb
 
 build png/CMakeFiles/png_static.dir/pngrtran.c.obj: C_COMPILER__png_static_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/pngrtran.c || cmake_object_order_depends_target_png_static
   DEP_FILE = png\CMakeFiles\png_static.dir\pngrtran.c.obj.d
@@ -966,6 +1146,8 @@ build png/CMakeFiles/png_static.dir/pngrtran.c.obj: C_COMPILER__png_static_Debug
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
   OBJECT_DIR = png\CMakeFiles\png_static.dir
   OBJECT_FILE_DIR = png\CMakeFiles\png_static.dir
+  TARGET_COMPILE_PDB = png\CMakeFiles\png_static.dir\png_static.pdb
+  TARGET_PDB = png\libpng16d.pdb
 
 build png/CMakeFiles/png_static.dir/pngrutil.c.obj: C_COMPILER__png_static_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/pngrutil.c || cmake_object_order_depends_target_png_static
   DEP_FILE = png\CMakeFiles\png_static.dir\pngrutil.c.obj.d
@@ -973,6 +1155,8 @@ build png/CMakeFiles/png_static.dir/pngrutil.c.obj: C_COMPILER__png_static_Debug
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
   OBJECT_DIR = png\CMakeFiles\png_static.dir
   OBJECT_FILE_DIR = png\CMakeFiles\png_static.dir
+  TARGET_COMPILE_PDB = png\CMakeFiles\png_static.dir\png_static.pdb
+  TARGET_PDB = png\libpng16d.pdb
 
 build png/CMakeFiles/png_static.dir/pngset.c.obj: C_COMPILER__png_static_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/pngset.c || cmake_object_order_depends_target_png_static
   DEP_FILE = png\CMakeFiles\png_static.dir\pngset.c.obj.d
@@ -980,6 +1164,8 @@ build png/CMakeFiles/png_static.dir/pngset.c.obj: C_COMPILER__png_static_Debug C
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
   OBJECT_DIR = png\CMakeFiles\png_static.dir
   OBJECT_FILE_DIR = png\CMakeFiles\png_static.dir
+  TARGET_COMPILE_PDB = png\CMakeFiles\png_static.dir\png_static.pdb
+  TARGET_PDB = png\libpng16d.pdb
 
 build png/CMakeFiles/png_static.dir/pngtrans.c.obj: C_COMPILER__png_static_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/pngtrans.c || cmake_object_order_depends_target_png_static
   DEP_FILE = png\CMakeFiles\png_static.dir\pngtrans.c.obj.d
@@ -987,6 +1173,8 @@ build png/CMakeFiles/png_static.dir/pngtrans.c.obj: C_COMPILER__png_static_Debug
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
   OBJECT_DIR = png\CMakeFiles\png_static.dir
   OBJECT_FILE_DIR = png\CMakeFiles\png_static.dir
+  TARGET_COMPILE_PDB = png\CMakeFiles\png_static.dir\png_static.pdb
+  TARGET_PDB = png\libpng16d.pdb
 
 build png/CMakeFiles/png_static.dir/pngwio.c.obj: C_COMPILER__png_static_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/pngwio.c || cmake_object_order_depends_target_png_static
   DEP_FILE = png\CMakeFiles\png_static.dir\pngwio.c.obj.d
@@ -994,6 +1182,8 @@ build png/CMakeFiles/png_static.dir/pngwio.c.obj: C_COMPILER__png_static_Debug C
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
   OBJECT_DIR = png\CMakeFiles\png_static.dir
   OBJECT_FILE_DIR = png\CMakeFiles\png_static.dir
+  TARGET_COMPILE_PDB = png\CMakeFiles\png_static.dir\png_static.pdb
+  TARGET_PDB = png\libpng16d.pdb
 
 build png/CMakeFiles/png_static.dir/pngwrite.c.obj: C_COMPILER__png_static_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/pngwrite.c || cmake_object_order_depends_target_png_static
   DEP_FILE = png\CMakeFiles\png_static.dir\pngwrite.c.obj.d
@@ -1001,6 +1191,8 @@ build png/CMakeFiles/png_static.dir/pngwrite.c.obj: C_COMPILER__png_static_Debug
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
   OBJECT_DIR = png\CMakeFiles\png_static.dir
   OBJECT_FILE_DIR = png\CMakeFiles\png_static.dir
+  TARGET_COMPILE_PDB = png\CMakeFiles\png_static.dir\png_static.pdb
+  TARGET_PDB = png\libpng16d.pdb
 
 build png/CMakeFiles/png_static.dir/pngwtran.c.obj: C_COMPILER__png_static_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/pngwtran.c || cmake_object_order_depends_target_png_static
   DEP_FILE = png\CMakeFiles\png_static.dir\pngwtran.c.obj.d
@@ -1008,6 +1200,8 @@ build png/CMakeFiles/png_static.dir/pngwtran.c.obj: C_COMPILER__png_static_Debug
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
   OBJECT_DIR = png\CMakeFiles\png_static.dir
   OBJECT_FILE_DIR = png\CMakeFiles\png_static.dir
+  TARGET_COMPILE_PDB = png\CMakeFiles\png_static.dir\png_static.pdb
+  TARGET_PDB = png\libpng16d.pdb
 
 build png/CMakeFiles/png_static.dir/pngwutil.c.obj: C_COMPILER__png_static_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/pngwutil.c || cmake_object_order_depends_target_png_static
   DEP_FILE = png\CMakeFiles\png_static.dir\pngwutil.c.obj.d
@@ -1015,6 +1209,8 @@ build png/CMakeFiles/png_static.dir/pngwutil.c.obj: C_COMPILER__png_static_Debug
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
   OBJECT_DIR = png\CMakeFiles\png_static.dir
   OBJECT_FILE_DIR = png\CMakeFiles\png_static.dir
+  TARGET_COMPILE_PDB = png\CMakeFiles\png_static.dir\png_static.pdb
+  TARGET_PDB = png\libpng16d.pdb
 
 
 # =============================================================================
@@ -1029,8 +1225,9 @@ build png/libpng16d.a: C_STATIC_LIBRARY_LINKER__png_static_Debug png/CMakeFiles/
   OBJECT_DIR = png\CMakeFiles\png_static.dir
   POST_BUILD = cmd.exe /C "cd /D C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\DMI_Forge\cmake-build-debug\png\png && "C:\Program Files\JetBrains\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -E copy_if_different libpng16d.a C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png/libpng.a"
   PRE_LINK = cd .
+  TARGET_COMPILE_PDB = png\CMakeFiles\png_static.dir\png_static.pdb
   TARGET_FILE = png\libpng16d.a
-  TARGET_PDB = png16d.a.dbg
+  TARGET_PDB = png\libpng16d.pdb
 
 # =============================================================================
 # Object build statements for EXECUTABLE target pngvalid
@@ -1047,6 +1244,8 @@ build png/CMakeFiles/pngvalid.dir/contrib/libtests/pngvalid.c.obj: C_COMPILER__p
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
   OBJECT_DIR = png\CMakeFiles\pngvalid.dir
   OBJECT_FILE_DIR = png\CMakeFiles\pngvalid.dir\contrib\libtests
+  TARGET_COMPILE_PDB = png\CMakeFiles\pngvalid.dir\
+  TARGET_PDB = png\pngvalid.pdb
 
 
 # =============================================================================
@@ -1062,9 +1261,10 @@ build png/pngvalid.exe: C_EXECUTABLE_LINKER__pngvalid_Debug png/CMakeFiles/pngva
   OBJECT_DIR = png\CMakeFiles\pngvalid.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
+  TARGET_COMPILE_PDB = png\CMakeFiles\pngvalid.dir\
   TARGET_FILE = png\pngvalid.exe
   TARGET_IMPLIB = png\libpngvalid.dll.a
-  TARGET_PDB = pngvalid.exe.dbg
+  TARGET_PDB = png\pngvalid.pdb
 
 # =============================================================================
 # Object build statements for EXECUTABLE target pngunknown
@@ -1081,6 +1281,8 @@ build png/CMakeFiles/pngunknown.dir/contrib/libtests/pngunknown.c.obj: C_COMPILE
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
   OBJECT_DIR = png\CMakeFiles\pngunknown.dir
   OBJECT_FILE_DIR = png\CMakeFiles\pngunknown.dir\contrib\libtests
+  TARGET_COMPILE_PDB = png\CMakeFiles\pngunknown.dir\
+  TARGET_PDB = png\pngunknown.pdb
 
 
 # =============================================================================
@@ -1096,9 +1298,10 @@ build png/pngunknown.exe: C_EXECUTABLE_LINKER__pngunknown_Debug png/CMakeFiles/p
   OBJECT_DIR = png\CMakeFiles\pngunknown.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
+  TARGET_COMPILE_PDB = png\CMakeFiles\pngunknown.dir\
   TARGET_FILE = png\pngunknown.exe
   TARGET_IMPLIB = png\libpngunknown.dll.a
-  TARGET_PDB = pngunknown.exe.dbg
+  TARGET_PDB = png\pngunknown.pdb
 
 
 #############################################
@@ -1127,6 +1330,8 @@ build png/CMakeFiles/pngstest.dir/contrib/libtests/pngstest.c.obj: C_COMPILER__p
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
   OBJECT_DIR = png\CMakeFiles\pngstest.dir
   OBJECT_FILE_DIR = png\CMakeFiles\pngstest.dir\contrib\libtests
+  TARGET_COMPILE_PDB = png\CMakeFiles\pngstest.dir\
+  TARGET_PDB = png\pngstest.pdb
 
 
 # =============================================================================
@@ -1142,9 +1347,10 @@ build png/pngstest.exe: C_EXECUTABLE_LINKER__pngstest_Debug png/CMakeFiles/pngst
   OBJECT_DIR = png\CMakeFiles\pngstest.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
+  TARGET_COMPILE_PDB = png\CMakeFiles\pngstest.dir\
   TARGET_FILE = png\pngstest.exe
   TARGET_IMPLIB = png\libpngstest.dll.a
-  TARGET_PDB = pngstest.exe.dbg
+  TARGET_PDB = png\pngstest.pdb
 
 # =============================================================================
 # Object build statements for EXECUTABLE target pngimage
@@ -1161,6 +1367,8 @@ build png/CMakeFiles/pngimage.dir/contrib/libtests/pngimage.c.obj: C_COMPILER__p
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
   OBJECT_DIR = png\CMakeFiles\pngimage.dir
   OBJECT_FILE_DIR = png\CMakeFiles\pngimage.dir\contrib\libtests
+  TARGET_COMPILE_PDB = png\CMakeFiles\pngimage.dir\
+  TARGET_PDB = png\pngimage.pdb
 
 
 # =============================================================================
@@ -1176,9 +1384,10 @@ build png/pngimage.exe: C_EXECUTABLE_LINKER__pngimage_Debug png/CMakeFiles/pngim
   OBJECT_DIR = png\CMakeFiles\pngimage.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
+  TARGET_COMPILE_PDB = png\CMakeFiles\pngimage.dir\
   TARGET_FILE = png\pngimage.exe
   TARGET_IMPLIB = png\libpngimage.dll.a
-  TARGET_PDB = pngimage.exe.dbg
+  TARGET_PDB = png\pngimage.pdb
 
 # =============================================================================
 # Object build statements for EXECUTABLE target pngfix
@@ -1195,6 +1404,8 @@ build png/CMakeFiles/pngfix.dir/contrib/tools/pngfix.c.obj: C_COMPILER__pngfix_D
   INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png/zlib -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
   OBJECT_DIR = png\CMakeFiles\pngfix.dir
   OBJECT_FILE_DIR = png\CMakeFiles\pngfix.dir\contrib\tools
+  TARGET_COMPILE_PDB = png\CMakeFiles\pngfix.dir\
+  TARGET_PDB = png\pngfix.pdb
 
 
 # =============================================================================
@@ -1210,9 +1421,10 @@ build png/pngfix.exe: C_EXECUTABLE_LINKER__pngfix_Debug png/CMakeFiles/pngfix.di
   OBJECT_DIR = png\CMakeFiles\pngfix.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
+  TARGET_COMPILE_PDB = png\CMakeFiles\pngfix.dir\
   TARGET_FILE = png\pngfix.exe
   TARGET_IMPLIB = png\libpngfix.dll.a
-  TARGET_PDB = pngfix.exe.dbg
+  TARGET_PDB = png\pngfix.pdb
 
 
 #############################################
@@ -1247,6 +1459,8 @@ build png/install/strip: phony png/CMakeFiles/install/strip.util
 # Target aliases.
 
 build DMI_Forge: phony DMI_Forge.exe
+
+build Preten_Exe: phony Preten_Exe.exe
 
 build example: phony zlib/example.exe
 
@@ -1318,7 +1532,7 @@ build zlibstatic: phony zlib/libzlibstatic.a
 #############################################
 # Folder: C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png
 
-build all: phony DMI_Forge.exe zlib/all png/all
+build all: phony pretend_obj Preten_Exe.exe DMI_Forge.exe zlib/all png/all
 
 # =============================================================================
 
@@ -1341,14 +1555,14 @@ build zlib/all: phony zlib/minigzip64.exe zlib/libzlib.dll zlib/libzlibstatic.a 
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | ../../CMakeLists.txt ../../png/CMakeLists.txt ../../png/libpng-config.in ../../png/libpng.pc.in ../../png/scripts/genchk.cmake.in ../../png/scripts/genout.cmake.in ../../png/scripts/gensrc.cmake.in ../../png/scripts/pnglibconf.h.prebuilt ../../png/scripts/test.cmake.in ../../zlib/CMakeLists.txt ../../zlib/zconf.h.cmakein ../../zlib/zlib.pc.cmakein C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeASMInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeParseArguments.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeRCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckCSourceCompiles.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckFunctionExists.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckIncludeFile.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckIncludeFileCXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckTypeSize.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-ASM.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindPackageHandleStandardArgs.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindPackageMessage.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindZLIB.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/GNUInstallDirs.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Internal/CheckSourceCompiles.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-ASM.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/WindowsPaths.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/SelectLibraryConfigurations.cmake CMakeCache.txt CMakeFiles/3.21.1/CMakeASMCompiler.cmake CMakeFiles/3.21.1/CMakeCCompiler.cmake CMakeFiles/3.21.1/CMakeRCCompiler.cmake CMakeFiles/3.21.1/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | ../../CMakeLists.txt ../../png/CMakeLists.txt ../../png/libpng-config.in ../../png/libpng.pc.in ../../png/scripts/genchk.cmake.in ../../png/scripts/genout.cmake.in ../../png/scripts/gensrc.cmake.in ../../png/scripts/pnglibconf.h.prebuilt ../../png/scripts/test.cmake.in ../../zlib/CMakeLists.txt ../../zlib/zconf.h.cmakein ../../zlib/zlib.pc.cmakein C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeASMCompiler.cmake.in C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeASMInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCCompiler.cmake.in C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCCompilerABI.c C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCompilerIdDetection.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeDetermineASMCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeDetermineCCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeDetermineCompileFeatures.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeDetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeDetermineCompilerABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeDetermineCompilerId.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeDetermineRCCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeDetermineSystem.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeFindBinUtils.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeParseArguments.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeParseImplicitIncludeInfo.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeParseImplicitLinkInfo.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeParseLibraryArchitecture.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeRCCompiler.cmake.in C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeRCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystem.cmake.in C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeTestASMCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeTestCCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeTestCompilerCommon.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeTestRCCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckCSourceCompiles.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckFunctionExists.c C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckFunctionExists.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckIncludeFile.c.in C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckIncludeFile.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckIncludeFileCXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckTypeSize.c.in C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckTypeSize.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/ADSP-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/ARMCC-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/ARMClang-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/AppleClang-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Borland-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Bruce-C-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Clang-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Clang-DetermineCompilerInternal.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Compaq-C-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Cray-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Embarcadero-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Fujitsu-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GHS-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-ASM.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-C-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-FindBinUtils.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/HP-C-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/IAR-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/IBMCPP-C-DetermineVersionInternal.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Intel-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/MSVC-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/NVHPC-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/NVIDIA-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/PGI-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/PathScale-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/ROCMClang-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/SCO-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/SDCC-C-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/SunPro-C-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/TI-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/TinyCC-C-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/VisualAge-C-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Watcom-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/XL-C-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/XLClang-C-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/zOS-C-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindPackageHandleStandardArgs.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindPackageMessage.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindZLIB.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/GNUInstallDirs.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Internal/CheckSourceCompiles.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Internal/FeatureTesting.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-ASM.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/WindowsPaths.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/SelectLibraryConfigurations.cmake CMakeCache.txt CMakeFiles/3.21.1/CMakeASMCompiler.cmake CMakeFiles/3.21.1/CMakeCCompiler.cmake CMakeFiles/3.21.1/CMakeRCCompiler.cmake CMakeFiles/3.21.1/CMakeSystem.cmake CMakeFiles/CheckTypeSize/OFF64_T.c
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build ../../CMakeLists.txt ../../png/CMakeLists.txt ../../png/libpng-config.in ../../png/libpng.pc.in ../../png/scripts/genchk.cmake.in ../../png/scripts/genout.cmake.in ../../png/scripts/gensrc.cmake.in ../../png/scripts/pnglibconf.h.prebuilt ../../png/scripts/test.cmake.in ../../zlib/CMakeLists.txt ../../zlib/zconf.h.cmakein ../../zlib/zlib.pc.cmakein C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeASMInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeParseArguments.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeRCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckCSourceCompiles.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckFunctionExists.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckIncludeFile.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckIncludeFileCXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckTypeSize.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-ASM.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindPackageHandleStandardArgs.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindPackageMessage.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindZLIB.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/GNUInstallDirs.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Internal/CheckSourceCompiles.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-ASM.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/WindowsPaths.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/SelectLibraryConfigurations.cmake CMakeCache.txt CMakeFiles/3.21.1/CMakeASMCompiler.cmake CMakeFiles/3.21.1/CMakeCCompiler.cmake CMakeFiles/3.21.1/CMakeRCCompiler.cmake CMakeFiles/3.21.1/CMakeSystem.cmake: phony
+build ../../CMakeLists.txt ../../png/CMakeLists.txt ../../png/libpng-config.in ../../png/libpng.pc.in ../../png/scripts/genchk.cmake.in ../../png/scripts/genout.cmake.in ../../png/scripts/gensrc.cmake.in ../../png/scripts/pnglibconf.h.prebuilt ../../png/scripts/test.cmake.in ../../zlib/CMakeLists.txt ../../zlib/zconf.h.cmakein ../../zlib/zlib.pc.cmakein C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeASMCompiler.cmake.in C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeASMInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCCompiler.cmake.in C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCCompilerABI.c C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCompilerIdDetection.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeDetermineASMCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeDetermineCCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeDetermineCompileFeatures.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeDetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeDetermineCompilerABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeDetermineCompilerId.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeDetermineRCCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeDetermineSystem.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeFindBinUtils.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeParseArguments.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeParseImplicitIncludeInfo.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeParseImplicitLinkInfo.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeParseLibraryArchitecture.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeRCCompiler.cmake.in C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeRCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystem.cmake.in C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeTestASMCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeTestCCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeTestCompilerCommon.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeTestRCCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckCSourceCompiles.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckFunctionExists.c C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckFunctionExists.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckIncludeFile.c.in C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckIncludeFile.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckIncludeFileCXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckTypeSize.c.in C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckTypeSize.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/ADSP-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/ARMCC-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/ARMClang-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/AppleClang-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Borland-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Bruce-C-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Clang-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Clang-DetermineCompilerInternal.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Compaq-C-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Cray-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Embarcadero-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Fujitsu-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GHS-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-ASM.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-C-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-FindBinUtils.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/HP-C-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/IAR-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/IBMCPP-C-DetermineVersionInternal.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Intel-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/MSVC-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/NVHPC-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/NVIDIA-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/PGI-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/PathScale-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/ROCMClang-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/SCO-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/SDCC-C-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/SunPro-C-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/TI-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/TinyCC-C-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/VisualAge-C-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Watcom-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/XL-C-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/XLClang-C-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/zOS-C-DetermineCompiler.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindPackageHandleStandardArgs.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindPackageMessage.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindZLIB.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/GNUInstallDirs.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Internal/CheckSourceCompiles.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Internal/FeatureTesting.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-ASM.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/WindowsPaths.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/SelectLibraryConfigurations.cmake CMakeCache.txt CMakeFiles/3.21.1/CMakeASMCompiler.cmake CMakeFiles/3.21.1/CMakeCCompiler.cmake CMakeFiles/3.21.1/CMakeRCCompiler.cmake CMakeFiles/3.21.1/CMakeSystem.cmake CMakeFiles/CheckTypeSize/OFF64_T.c: phony
 
 
 #############################################

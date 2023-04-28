@@ -1,11 +1,11 @@
 Determining if the function fseeko exists failed with the following output:
 Change Dir: C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:/Program Files/JetBrains/CLion 2021.3.3/bin/ninja/win/ninja.exe cmTC_38c05 && [1/2] Building C object CMakeFiles/cmTC_38c05.dir/CheckFunctionExists.c.obj
-[2/2] Linking C executable cmTC_38c05.exe
-FAILED: cmTC_38c05.exe 
-cmd.exe /C "cd . && C:\MinGW\bin\gcc.exe -DCHECK_FUNCTION_EXISTS=fseeko  CMakeFiles/cmTC_38c05.dir/CheckFunctionExists.c.obj -o cmTC_38c05.exe -Wl,--out-implib,libcmTC_38c05.dll.a -Wl,--major-image-version,0,--minor-image-version,0  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 && cd ."
-CMakeFiles/cmTC_38c05.dir/CheckFunctionExists.c.obj:CheckFunctionExists.c:(.text+0xc): undefined reference to `fseeko'
+Run Build Command(s):C:/Program Files/JetBrains/CLion 2021.3.3/bin/ninja/win/ninja.exe cmTC_2f1ad && [1/2] Building C object CMakeFiles/cmTC_2f1ad.dir/CheckFunctionExists.c.obj
+[2/2] Linking C executable cmTC_2f1ad.exe
+FAILED: cmTC_2f1ad.exe 
+cmd.exe /C "cd . && C:\MinGW\bin\gcc.exe -DCHECK_FUNCTION_EXISTS=fseeko  CMakeFiles/cmTC_2f1ad.dir/CheckFunctionExists.c.obj -o cmTC_2f1ad.exe -Wl,--out-implib,libcmTC_2f1ad.dll.a -Wl,--major-image-version,0,--minor-image-version,0  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 && cd ."
+CMakeFiles/cmTC_2f1ad.dir/CheckFunctionExists.c.obj:CheckFunctionExists.c:(.text+0xc): undefined reference to `fseeko'
 collect2.exe: error: ld returned 1 exit status
 ninja: build stopped: subcommand failed.
 
@@ -14,10 +14,10 @@ ninja: build stopped: subcommand failed.
 Performing C SOURCE FILE Test HAVE_LD_VERSION_SCRIPT failed with the following output:
 Change Dir: C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:/Program Files/JetBrains/CLion 2021.3.3/bin/ninja/win/ninja.exe cmTC_f2bc4 && [1/2] Building C object CMakeFiles/cmTC_f2bc4.dir/src.c.obj
-[2/2] Linking C executable cmTC_f2bc4.exe
-FAILED: cmTC_f2bc4.exe 
-cmd.exe /C "cd . && C:\MinGW\bin\gcc.exe -Wl,--version-script='C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png/conftest.map'  CMakeFiles/cmTC_f2bc4.dir/src.c.obj -o cmTC_f2bc4.exe -Wl,--out-implib,libcmTC_f2bc4.dll.a -Wl,--major-image-version,0,--minor-image-version,0  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 && cd ."
+Run Build Command(s):C:/Program Files/JetBrains/CLion 2021.3.3/bin/ninja/win/ninja.exe cmTC_719f4 && [1/2] Building C object CMakeFiles/cmTC_719f4.dir/src.c.obj
+[2/2] Linking C executable cmTC_719f4.exe
+FAILED: cmTC_719f4.exe 
+cmd.exe /C "cd . && C:\MinGW\bin\gcc.exe -Wl,--version-script='C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png/conftest.map'  CMakeFiles/cmTC_719f4.dir/src.c.obj -o cmTC_719f4.exe -Wl,--out-implib,libcmTC_719f4.dll.a -Wl,--major-image-version,0,--minor-image-version,0  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 && cd ."
 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../../mingw32/bin/ld.exe: cannot open linker script file 'C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png/conftest.map': Invalid argument
 collect2.exe: error: ld returned 1 exit status
 ninja: build stopped: subcommand failed.
@@ -31,10 +31,10 @@ int main(void) {return 0;}
 Performing C SOURCE FILE Test HAVE_SOLARIS_LD_VERSION_SCRIPT failed with the following output:
 Change Dir: C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:/Program Files/JetBrains/CLion 2021.3.3/bin/ninja/win/ninja.exe cmTC_a7d02 && [1/2] Building C object CMakeFiles/cmTC_a7d02.dir/src.c.obj
-[2/2] Linking C executable cmTC_a7d02.exe
-FAILED: cmTC_a7d02.exe 
-cmd.exe /C "cd . && C:\MinGW\bin\gcc.exe -Wl,-M -Wl,C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png/conftest.map  CMakeFiles/cmTC_a7d02.dir/src.c.obj -o cmTC_a7d02.exe -Wl,--out-implib,libcmTC_a7d02.dll.a -Wl,--major-image-version,0,--minor-image-version,0  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 && cd ."
+Run Build Command(s):C:/Program Files/JetBrains/CLion 2021.3.3/bin/ninja/win/ninja.exe cmTC_7391a && [1/2] Building C object CMakeFiles/cmTC_7391a.dir/src.c.obj
+[2/2] Linking C executable cmTC_7391a.exe
+FAILED: cmTC_7391a.exe 
+cmd.exe /C "cd . && C:\MinGW\bin\gcc.exe -Wl,-M -Wl,C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png/conftest.map  CMakeFiles/cmTC_7391a.dir/src.c.obj -o cmTC_7391a.exe -Wl,--out-implib,libcmTC_7391a.dll.a -Wl,--major-image-version,0,--minor-image-version,0  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 && cd ."
 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../../mingw32/bin/ld.exe:C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png/conftest.map: file format not recognized; treating as linker script
 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../../mingw32/bin/ld.exe:C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png/png/conftest.map:1: syntax error
 collect2.exe: error: ld returned 1 exit status

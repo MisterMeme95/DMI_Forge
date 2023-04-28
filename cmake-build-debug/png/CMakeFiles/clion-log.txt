@@ -1,8 +1,33 @@
 "C:\Program Files\JetBrains\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=C:/Program Files/JetBrains/CLion 2021.3.3/bin/ninja/win/ninja.exe" -G Ninja C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\DMI_Forge
+-- The C compiler identification is GNU 6.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: C:/MinGW/bin/gcc.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Looking for sys/types.h
+-- Looking for sys/types.h - found
+-- Looking for stdint.h
+-- Looking for stdint.h - found
+-- Looking for stddef.h
+-- Looking for stddef.h - found
+-- Check size of off64_t
+-- Check size of off64_t - done
+-- Looking for fseeko
+-- Looking for fseeko - not found
+-- Looking for unistd.h
+-- Looking for unistd.h - found
 -- Renaming
 --     C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/zlib/zconf.h
 -- to 'zconf.h.included' because this file is included with zlib
 -- but CMake generates it automatically in the build directory.
+-- The ASM compiler identification is GNU
+-- Found assembler: C:/MinGW/bin/gcc.exe
+-- Found ZLIB: C:/zlib/libz.dll.a (found version "1.2.11") 
+-- Performing Test HAVE_LD_VERSION_SCRIPT
+-- Performing Test HAVE_LD_VERSION_SCRIPT - Failed
+-- Performing Test HAVE_SOLARIS_LD_VERSION_SCRIPT
+-- Performing Test HAVE_SOLARIS_LD_VERSION_SCRIPT - Failed
 -- Configuring done
 -- Generating done
 -- Build files have been written to: C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png

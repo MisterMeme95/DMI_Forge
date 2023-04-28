@@ -12,10 +12,10 @@
 # Modeled after libxml-config.
 
 version="1.6.37"
-prefix="C:/Program Files (x86)/Practice"
-exec_prefix="C:/Program Files (x86)/Practice"
-libdir="C:/Program Files (x86)/Practice/lib"
-includedir="C:/Program Files (x86)/Practice/include/libpng16"
+prefix="C:/Program Files (x86)/DMI_FORGE"
+exec_prefix="C:/Program Files (x86)/DMI_FORGE"
+libdir="C:/Program Files (x86)/DMI_FORGE/lib"
+includedir="C:/Program Files (x86)/DMI_FORGE/include/libpng16"
 libs="-lpng16"
 all_libs="-lpng16 -lz -lm"
 I_opts="-I${includedir}"

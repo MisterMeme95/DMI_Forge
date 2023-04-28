@@ -1,5 +1,5 @@
 #define _POSIX_SOURCE 1
-
+#define PNG_BYTES_TO_CHECK 8
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -11,284 +11,103 @@
 #include "DMI_Defs.h"
 #include "DMI_Struct.c"
 #include "png.h"
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <ctype.h>
-
-
-/**
- * the get_string function is designed specifically to return the # of characters
- * that precedes either a newline, the "=" sign, or the '\0' character.
- * @param
- *      string The argument represents the string that is being searched. Must be a pointer.
- * @param
- *      char_search  This is the character that we are searching for. This is usually the =, newline or '\0' characters.
- * */
-int get_string_char(char *string, char* char_search, char doo){
-    /*
-     * This variable is simply created to determine if the char_search character
-     * can actually be located. If it's not, found is null, and we return 0.
-     * Otherwise, found actually points to the located character, and we return the diff
-     * from the beginning of a string, to the point in which the designated character is located.
-     * */
-    char *found = strstr(string, char_search);
-
-    if(found){
-        /* This is a simple sanity check. Basically checks to see if
-         * the length of a string is 0. */
-        if(doo == 'y'){
-            return strlen(string);
-        }
-        return found - string;
+#include "DMIParse.c"
+int initialize_image(png_structp *png_ptr, png_infop *png_info, FILE **fp){
+    *png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+    if (!(*png_ptr)) {
+        printf("Error creating read struct\n");
+        fclose(*fp);
+        return 1;
     }
+    png_set_sig_bytes(*png_ptr, PNG_BYTES_TO_CHECK);
+    *png_info = png_create_info_struct(*png_ptr);
+    if (!(*png_info)) {
+        printf("Error creating read info struct\n");
+        png_destroy_read_struct(png_ptr, NULL, NULL);
+        fclose(*fp);
+        return 1;
+    }
+
+    if (setjmp(png_jmpbuf(*png_ptr))) {
+        printf("Error during read\n");
+        png_destroy_read_struct(png_ptr, png_info, NULL);
+        fclose(*fp);
+        return 1;
+    }
+    png_init_io(*png_ptr, *fp);
+    png_read_info(*png_ptr, *png_info);
+
     return 0;
+
 }
 
+int check_if_png(char *file_name, FILE **fp)
+{
+    char buf[PNG_BYTES_TO_CHECK];
 
-/**
- * This function is utilized to authenticate the type of variable that we will be examining.
- * In order to do so, we read from the start of a line, all the way to the equal sign (=) character.
- * @param
- *      string The string that we will be parsing.  * */
-char *Variable_Authentication(char *string){
-   // printf("Starting Variable Auth. . . \n\n\n");
-    int index = 0, token_track = 0;
-    int debug_tracker = 0;
-    int num_of_char = get_string_char(string, "=", 'n');
- //   printf("num_of_char = %d\n", num_of_char);
-    char *value_check = (char *) malloc(sizeof(char) * (num_of_char+1));
-    if(num_of_char == 0){
-        printf("This is not a value!\n");
-        printf("%s\n", string);
+    /* Open the prospective PNG file. */
+    if ((*fp = fopen(file_name, "rb")) == NULL) {
+        printf("Error opening input file\n");
+        return 0;
+    }
+
+    /* Read in some of the signature bytes. */
+    if (fread(buf, 1, PNG_BYTES_TO_CHECK, *fp) != PNG_BYTES_TO_CHECK){
+        printf("Not enough bytes read!\n");
+        return 0;
     }
 
 
-
-    //printf("string = %s\n", string);
-    //printf("%s\n", string);
-    //printf("Num of chars to equal sign: %d\n", num_of_char);
-    //printf("value string = %s\n", value_check);
-    //printf("Size of variable = %d\n", strlen(value_check));
-    while(token_track < num_of_char){
-        if(!isspace(*string) && !iscntrl(*string)){
-            value_check[index] = *string++;
-            index++;
-        }
-
-        else{
-            string++;
-        }
-        token_track++;
-    }
-    printf("\n");
-    if(strlen(value_check) > index){
-        value_check[index]='\0';
-    }
-    value_check[num_of_char]='\0';
-    /*
-    printf("Variable = %s\n", value_check);
-    printf("Ending size of string: %d\n", strlen(value_check));
-    printf("Index Size = %d\n", index);
-    printf("num_of_char = %d\n", num_of_char);
-    printf("------------------------\n");
+    /* Compare the first PNG_BYTES_TO_CHECK bytes of the signature.
+     * Return nonzero (true) if they match.
      */
-    return value_check;
-}
-
-char *State_Authentication(char *string){
-    //We have to find the = symbol
-    int index = 0, token_track = 0;
-
-    int num_of_char = get_string_char(string, "\0", 'y');
-    char *value_check = (char *) malloc(sizeof(char) * (num_of_char));
-    if(num_of_char == 0){
-        printf("This is not a value! (Variable Auth)\n");
-    }
-
-    while(token_track < num_of_char){
-        if(!isspace(*string) && !iscntrl(*string)){
-            value_check[index] = *string++;
-            index++;
-        }
-        else{
-            string++;
-        }
-        token_track++;
-    }
-    value_check[num_of_char-1]='\0';
-    return value_check;
-}
-
-char *Value_Authentication(char *string){
-    //We have to find the = symbol
-    int index = 0, token_track = 0;
-    int num_of_char = get_string_char(string, "\0", 'y');
-    char *value_check = (char *) malloc(sizeof(char) * (num_of_char + 1));
-
-    if(num_of_char == 0){
-        printf("This is not a value! (Variable Auth)\n");
-    }
-
-    while(token_track < num_of_char){
-        if(!isspace(*string) && !iscntrl(*string)){
-            value_check[index] = *string++;
-            index++;
-        }
-        else{
-            string++;
-        }
-        token_track++;
-    }
-    value_check[num_of_char-1]='\0';
-    return value_check;
-}
-
-
-
-void Print_Variable(char *string, DMI* dmi){
-    char *check_string = Variable_Authentication(string);
-    char *found = strstr(string, "=");
-    char *variable_value;// = Value_Authentication(found);
-    int integer_value;
-    if(found){
-        found+= 1;
-        if(strcmp(check_string, ICON_STATE) == 0){
-            variable_value = State_Authentication(found);
-            if(dmi->has_icons){
-                dmi->icon_states++;
-                Initialize_IconState(dmi->icon_states, variable_value);
-            }
-            else{
-                Initialize_IconState(dmi->icon_states, variable_value);
-                dmi->has_icons=true;
-            }
-        }
-        else {
-            variable_value = Value_Authentication(found);
-
-            //printf("Variable_Value (Before) = %s\n", variable_value);
-            integer_value= atoi(variable_value);
-           // printf("integer_value (After) = %d\n", integer_value);
-
-        }
-    }
-
-    if(strcmp(check_string, "dirs") == 0){
-        Add_Dir(dmi->icon_states, integer_value);
-    }
-
-    if(strcmp(check_string, "frames") == 0){
-        Add_Frames(dmi->icon_states, integer_value);
-    }
-
-    if(strcmp(check_string, "movement") == 0){
-        if(integer_value >= 1){
-            Add_Movement(dmi->icon_states);
-        }
-    }
-
-
-    if(strcmp(check_string, "loop") == 0){
-        Add_Loop(dmi->icon_states, integer_value);
-    }
-
-    if(strcmp(check_string, "rewind") == 0){
-        if(integer_value >= 1){
-            Add_Rewind(dmi->icon_states);
-        }
-    }
-}
-/* This function is designed to locate the newline.
- *
- * Actually, I need to edit this. Make it a function that can find a designated string or character.
- * string - a pointer to a pointer. This represents the string that I am reading, so that I can permanently change
- *          its starting index.
- *
- * dmi_index - A pointer to an integer. This represents the size of the zTxt. I keep track of this to know
- *             when there is more text to read.
- *
- * search_for - This is the string that we will be searching for.
- * */
-char *find_newline(char **string, int *dmi_index, char *search_for){
-    int index = 0;
-    int num_of_char = get_string_char(*string, search_for, 'n');
-    char *new_string = (char *) malloc(sizeof(char) * (num_of_char + 1));
-    while(index < num_of_char){
-
-        new_string[index] = *(*string)++;
-        index++;
-
-    }
-    new_string[num_of_char]='\0';
-    (*string)++;
-    *dmi_index -= (num_of_char+1);
-    return  new_string;
+    return(!png_sig_cmp(buf, 0, PNG_BYTES_TO_CHECK));
 }
 
 int main(int argc, char **argv)
 {
-    unsigned char buffer[100];
-    int is_png;
+    png_structp read_png_ptr;
+    png_infop read_info_ptr;
+    png_uint_32 width, height;
+    int bit_depth, color_type;
     int run_program = 0;
     while(run_program != 1){
-        //FILE *fp = fopen("Base_Black.dmi", "rb");
-        FILE *fp = fopen("Base_Black.dmi", "rb");
-        if (fread(buffer, 8, 1, fp) != 1){
-            printf("Too many bytes!\n");
-        }
-
-        is_png = !png_sig_cmp(buffer, 0, 1);
-        if (!is_png)
-        {
-            printf("This is not a png!\n");
-        }
-
-        else {
-            printf("This IS a png file!\n");
-        }
-
-        png_structp png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL,
-                                                     NULL);
-        if (!png_ptr)
-            return 0;
-
-        png_infop info_ptr = png_create_info_struct(png_ptr);
-        if (!info_ptr)
-        {
-            png_destroy_read_struct(&png_ptr,
-                                    (png_infopp)NULL, (png_infopp)NULL);
+        FILE *input_fp;
+        if(!check_if_png("Base_Black.dmi",&input_fp)){
+            printf("The file you are attempting to read is not a valid PNG file!\n");
             return 0;
         }
 
-        if (setjmp(png_jmpbuf(png_ptr)))
-        {
-            png_destroy_read_struct(&png_ptr, &info_ptr,
-                                    (png_infopp)NULL);
-            fclose(fp);
+        if(initialize_image(&read_png_ptr, &read_info_ptr, &input_fp)) {
+            printf("Initializing the image failed!\n");
             return 0;
         }
 
-        /*This is where you initialize the png pointer to be the file you read. */
-        png_init_io(png_ptr, fp);
-        png_set_sig_bytes(png_ptr, 8);
 
-        //Read the png_ptr, and pass the text to info_ptr
-        png_read_info(png_ptr, info_ptr);
+        png_get_IHDR(read_png_ptr, read_info_ptr, &width, &height, &bit_depth, &color_type, NULL, NULL, NULL);
 
+        png_uint_32 num_rows = (height > 32) ? height  : height; // Read only the first 32 rows or the entire image if it has fewer than 32 rows
+        png_bytepp row_pointers = (png_bytepp)malloc(sizeof(png_bytep) * num_rows);
+        png_bytepp row_pointers_new = (png_bytepp)malloc(sizeof(png_bytep) * num_rows);
+        for (png_uint_32 i = 0; i < num_rows; i++) {
+            row_pointers[i] = (png_bytep)malloc(png_get_rowbytes(read_png_ptr, read_info_ptr));
+            row_pointers_new[i] = (png_bytep)malloc(png_get_rowbytes(read_png_ptr, read_info_ptr));
+        }
 
-        //Create a container for the text
+        png_read_rows(read_png_ptr, row_pointers, NULL, num_rows);
+        for(int i = 0; i < height; i++){
+
+        }
         png_textp text_ptr;
         int num_text;
-        if (png_get_text(png_ptr, info_ptr, &text_ptr, &num_text) > 0) {
-           int i;
-           fprintf(STDERR,"\n");
-           for (i=0; i<num_text; i++){
-               fprintf(STDERR,"Text compression[%d]=%d\n",
-                       i, text_ptr[i].compression);
-           }
+        if (png_get_text(read_png_ptr, read_info_ptr, &text_ptr, &num_text) > 0) {
+            int i;
+            fprintf(STDERR,"\n");
+            for (i=0; i<num_text; i++){
+                fprintf(STDERR,"Text compression[%d]=%d\n",
+                        i, text_ptr[i].compression);
+            }
         }
-
         DMI *new_icon = (DMI*) malloc(sizeof(DMI));
 
         Init_DMI(new_icon, 32, 32);
@@ -299,9 +118,9 @@ int main(int argc, char **argv)
 
         if(!(dmi_check = strstr(dmi_check, BEGIN_DMI))){
             printf("There is no starting DMI token!\n");
+
             return 0;
         }
-
         int dmi_length = strlen(dmi_check);
         //We need to continuously scan the DMI from start to finish, examining by line.
         if(!(dmi_length > 0)){
@@ -310,18 +129,22 @@ int main(int argc, char **argv)
         }
 
         while(dmi_length > 0){
-            /* - First I need to skip all zTxt and go to the part where it BEGIN_DMI token is found. */
+        /* - First I need to skip all zTxt and go to the part where it BEGIN_DMI token is found. */
             string_parser = find_newline(&dmi_check, &dmi_length, "\n");
             Print_Variable(string_parser, new_icon);
         }
+
+
+        /*
         char checker = 'y';
         int new_options = 0;
+        I only have this to run tests on whether an icon worked or not.
         while(checker == 'y'){
             printf("Choose a number!\n");
             scanf("%d", &new_options);
             printf("You selected %d", new_options);
             printf("\n");
-            if(new_options > 0 && new_options <= 10){
+            if(new_options > 0 && new_options <= 11){
                 new_options-= 1;
                 printf("Name = %s\n",new_icon->begin_icon_state[new_options].state);
                 printf("# of Dir = %d\n",new_icon->begin_icon_state[new_options].dirs);
@@ -330,6 +153,64 @@ int main(int argc, char **argv)
             else
                 checker = 'n';
         }
+        */
+        //ADD HERE
+        fclose(input_fp);
+
+        FILE *output_fp = fopen("Lol.png", "wb");
+        if (!output_fp) {
+            printf("Error opening output file\n");
+            return 1;
+        }
+
+        png_structp write_png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+        if (!write_png_ptr) {
+            printf("Error creating write struct\n");
+            fclose(output_fp);
+            return 1;
+        }
+
+        png_infop write_info_ptr = png_create_info_struct(write_png_ptr);
+        if (!write_info_ptr) {
+            printf("Error creating write info struct\n");
+            png_destroy_write_struct(&write_png_ptr, NULL);
+            fclose(output_fp);
+            return 1;
+        }
+
+        if (setjmp(png_jmpbuf(write_png_ptr))) {
+            printf("Error during write\n");
+            png_destroy_write_struct(&write_png_ptr, &write_info_ptr);
+            fclose(output_fp);
+            return 1;
+        }
+        if (color_type == PNG_COLOR_TYPE_PALETTE) {
+            png_colorp palette;
+            int num_palette;
+            png_get_PLTE(read_png_ptr, read_info_ptr, &palette, &num_palette);
+            png_set_PLTE(write_png_ptr, write_info_ptr, palette, num_palette);
+        }
+        png_init_io(write_png_ptr, output_fp);
+
+        png_set_IHDR(write_png_ptr, write_info_ptr, width, num_rows, bit_depth, color_type,
+                     PNG_INTERLACE_NONE, PNG_COMPRESSION_TYPE_DEFAULT, PNG_FILTER_TYPE_DEFAULT);
+
+        png_write_info(write_png_ptr, write_info_ptr);
+
+        png_write_rows(write_png_ptr, row_pointers, num_rows);
+
+        png_write_end(write_png_ptr, NULL);
+
+        png_destroy_write_struct(&write_png_ptr, &write_info_ptr);
+
+
+        fclose(output_fp);
+
+// Free row memory and clean up
+        for (png_uint_32 i = 0; i < num_rows; i++) {
+            free(row_pointers[i]);
+        }
+        free(row_pointers);
 
         printf("Do you wish to continue? (0/1)\n");
         scanf("%d", &run_program);

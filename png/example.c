@@ -317,8 +317,7 @@ void read_png(FILE *fp, int sig_read) /* File is already open */
 
    /* Set error handling if you are using the setjmp/longjmp method (this is
     * the normal method of doing things with libpng).  REQUIRED unless you
-    * set up your own error handlers in the png_create_read_struct() earlier.
-    */
+    * set up your own error handlers in the png_create_read_struct() earlier. */
    if (setjmp(png_jmpbuf(png_ptr)))
    {
       /* Free all of the memory associated with the png_ptr and info_ptr. */
