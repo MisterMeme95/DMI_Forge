@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
+
 /* Defined so I can write to a file on gui/windowing platforms */
 /*  #define STDERR stderr  */
 #define STDERR stdout   /* For DOS */
@@ -64,15 +64,14 @@ int check_if_png(char *file_name, FILE **fp)
     return(!png_sig_cmp(buf, 0, PNG_BYTES_TO_CHECK));
 }
 
-
 int main(int argc, char **argv)
 {
     png_structp read_png_ptr;
     png_infop read_info_ptr;
     png_uint_32 width, height;
     int bit_depth, color_type;
-    int run_program = 10;
-    while(run_program >= 1){
+    int run_program = 0;
+    while(run_program != 1){
         FILE *input_fp;
         if(!check_if_png("Base_Black.dmi",&input_fp)){
             printf("The file you are attempting to read is not a valid PNG file!\n");
@@ -89,28 +88,20 @@ int main(int argc, char **argv)
 
         png_uint_32 num_rows = (height > 32) ? height  : height; // Read only the first 32 rows or the entire image if it has fewer than 32 rows
         png_bytepp row_pointers = (png_bytepp)malloc(sizeof(png_bytep) * num_rows);
-        png_bytepp row_pointers_new = (png_bytepp)malloc(sizeof(png_bytep) * 1200);
+        png_bytepp row_pointers_new = (png_bytepp)malloc(sizeof(png_bytep) * num_rows);
         for (png_uint_32 i = 0; i < num_rows; i++) {
             row_pointers[i] = (png_bytep)malloc(png_get_rowbytes(read_png_ptr, read_info_ptr));
-          //  row_pointers_new[i] = (png_bytep)malloc(png_get_rowbytes(read_png_ptr, read_info_ptr));
-        }
-        for (png_uint_32 i = 0; i < 1200; i++) {
             row_pointers_new[i] = (png_bytep)malloc(png_get_rowbytes(read_png_ptr, read_info_ptr));
         }
 
-//
-
-     //   for (png_uint_32 i = 0; i < 999; i++) {
-      //      row_pointers_new[i] = (png_bytep)malloc(png_get_rowbytes(read_png_ptr, read_info_ptr));
-      //  }
         png_read_rows(read_png_ptr, row_pointers, NULL, num_rows);
-        //output_pixel_values(read_png_ptr, read_info_ptr, row_pointers);
+        for(int i = 0; i < height; i++){
 
-
+        }
         png_textp text_ptr;
         int num_text;
         if (png_get_text(read_png_ptr, read_info_ptr, &text_ptr, &num_text) > 0) {
-            png_uint_32 i;
+            int i;
             fprintf(STDERR,"\n");
             for (i=0; i<num_text; i++){
                 fprintf(STDERR,"Text compression[%d]=%d\n",
@@ -144,10 +135,10 @@ int main(int argc, char **argv)
         }
 
 
-
-/*
+        /*
         char checker = 'y';
         int new_options = 0;
+        I only have this to run tests on whether an icon worked or not.
         while(checker == 'y'){
             printf("Choose a number!\n");
             scanf("%d", &new_options);
@@ -162,11 +153,11 @@ int main(int argc, char **argv)
             else
                 checker = 'n';
         }
-*/
+        */
         //ADD HERE
         fclose(input_fp);
 
-        FILE *output_fp = fopen("Base_Black_output.png", "wb");
+        FILE *output_fp = fopen("Lol.png", "wb");
         if (!output_fp) {
             printf("Error opening output file\n");
             return 1;
@@ -193,70 +184,24 @@ int main(int argc, char **argv)
             fclose(output_fp);
             return 1;
         }
-        png_colorp palette;
-        int num_palette;
         if (color_type == PNG_COLOR_TYPE_PALETTE) {
+            png_colorp palette;
+            int num_palette;
             png_get_PLTE(read_png_ptr, read_info_ptr, &palette, &num_palette);
             png_set_PLTE(write_png_ptr, write_info_ptr, palette, num_palette);
         }
         png_init_io(write_png_ptr, output_fp);
-        png_color_16p trans_color;
-        png_bytep trans_alpha;
-        int num_trans;
-        png_get_tRNS(read_png_ptr, read_info_ptr, &trans_alpha, &num_trans, &trans_color);
-        png_set_tRNS(write_png_ptr, write_info_ptr, trans_alpha, num_trans, trans_color);
 
-// Set the alpha value of the transparent color to 0
-
-        png_set_IHDR(write_png_ptr, write_info_ptr, width, (png_uint_32)1024, bit_depth, color_type,
+        png_set_IHDR(write_png_ptr, write_info_ptr, width, num_rows, bit_depth, color_type,
                      PNG_INTERLACE_NONE, PNG_COMPRESSION_TYPE_DEFAULT, PNG_FILTER_TYPE_DEFAULT);
-        printf("Starting DMI_To_Png!\n");
-
-        //output_pixel_values(write_png_ptr, write_info_ptr, row_pointers_new);
-        //for(int i = 0; i <= 200; i++){
-       //     printf("%d - %d\n", i, row_pointers_new[4][i]);
-        //}
-
-
-
-       // for (png_uint_32 i = 0; i < height; i++) {
-          //  png_write_row(write_png_ptr, empty_row);
-        //}
-
-
-        for(int i = 0; i < 1200; i++){
-          //  printf("i - %d\n", i);
-            for(int j = 0; j <320; j++){
-                row_pointers_new[i][j] = 0;
-                //printf("j - %d\n", j);
-            }
-        }
-
-        DMI_To_Png(new_icon, 32, 32, row_pointers,row_pointers_new, write_png_ptr, write_info_ptr);
-        //output_pixel_values(write_png_ptr, write_info_ptr, row_pointers_new);
 
         png_write_info(write_png_ptr, write_info_ptr);
-        printf("write info done!\n");
-       // png_write_rows(write_png_ptr, row_pointers, num_rows);
-       // output_pixel_values(write_png_ptr, write_png_ptr, row_pointers_new);
 
-       //sleep(10);
-       png_write_image(write_png_ptr, row_pointers_new);
-       printf("Write image done!\n");
-       png_write_end(write_png_ptr, NULL);
-       png_destroy_write_struct(&write_png_ptr, &write_info_ptr);
+        png_write_rows(write_png_ptr, row_pointers, num_rows);
 
+        png_write_end(write_png_ptr, NULL);
 
-
-
-
-        /* WRITING OUTPUT*/
-
-        //png_write_rows(write_png_ptr, row_pointers, num_rows);
-      //  png_write_image(write_png_ptr, row_pointers);
-      //  png_write_end(write_png_ptr, NULL);
-
-       // png_destroy_write_struct(&write_png_ptr, &write_info_ptr);
+        png_destroy_write_struct(&write_png_ptr, &write_info_ptr);
 
 
         fclose(output_fp);
@@ -270,5 +215,5 @@ int main(int argc, char **argv)
         printf("Do you wish to continue? (0/1)\n");
         scanf("%d", &run_program);
     }
-   return 1;
+   return 0;
 }

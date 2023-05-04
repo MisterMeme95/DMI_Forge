@@ -69,7 +69,7 @@ char *Variable_Authentication(char *string){
         }
         token_track++;
     }
-    printf("\n");
+  //  printf("\n");
     if(strlen(value_check) > index){
         value_check[index]='\0';
     }
@@ -143,11 +143,13 @@ void Print_Variable(char *string, DMI* dmi){
             variable_value = State_Authentication(found);
             if(dmi->has_icons){
                 dmi->icon_states++;
+                dmi->num_of_states++;
                 Initialize_IconState(dmi->icon_states, variable_value);
             }
             else{
                 Initialize_IconState(dmi->icon_states, variable_value);
                 dmi->has_icons=true;
+                dmi->num_of_states++;
             }
         }
         else {
@@ -156,29 +158,23 @@ void Print_Variable(char *string, DMI* dmi){
             //printf("Variable_Value (Before) = %s\n", variable_value);
             integer_value= atoi(variable_value);
             // printf("integer_value (After) = %d\n", integer_value);
-
         }
     }
 
     if(strcmp(check_string, "dirs") == 0){
         Add_Dir(dmi->icon_states, integer_value);
     }
-
     if(strcmp(check_string, "frames") == 0){
         Add_Frames(dmi->icon_states, integer_value);
     }
-
     if(strcmp(check_string, "movement") == 0){
         if(integer_value >= 1){
             Add_Movement(dmi->icon_states);
         }
     }
-
-
     if(strcmp(check_string, "loop") == 0){
         Add_Loop(dmi->icon_states, integer_value);
     }
-
     if(strcmp(check_string, "rewind") == 0){
         if(integer_value >= 1){
             Add_Rewind(dmi->icon_states);
