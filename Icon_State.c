@@ -1,18 +1,13 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
-typedef struct IconState_Struct {
-    char *state;
-    int dirs, frames, loop;
-    int *delay;
-    bool movement, rewind;
-} icon_state;
+#include "iconstate.h"
 
 void Add_Delay(icon_state* thisNode, int *delay) {
     thisNode->delay = delay;
 }
 
-void Add_Loop(icon_state* thisNode, int loop) {
+    void Add_Loop(icon_state* thisNode, int loop) {
     thisNode->loop = loop;
 }
 

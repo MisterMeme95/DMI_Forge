@@ -1,7 +1,11 @@
+#define PNG_BYTES_TO_CHECK 8
+
+
 #include <stdio.h>
 #include <stdlib.h>
-#include <ctype.h>
 #include <string.h>
+#include <ctype.h>
+#include "dmi.h"
 
 /**
  * the get_fstring function is designed specifically to return the # of characters
@@ -160,7 +164,12 @@ void Print_Variable(char *string, DMI* dmi){
             // printf("integer_value (After) = %d\n", integer_value);
         }
     }
-
+    if(strcmp(check_string, "width") == 0){
+        dmi->width = integer_value;
+    }
+    if(strcmp(check_string, "height") == 0){
+        dmi->width = integer_value;
+    }
     if(strcmp(check_string, "dirs") == 0){
         Add_Dir(dmi->icon_states, integer_value);
     }
@@ -206,4 +215,56 @@ char *find_newline(char **string, int *dmi_index, char *search_for){
     (*string)++;
     *dmi_index -= (num_of_char+1);
     return  new_string;
+}
+
+int initialize_image(png_structp *png_ptr, png_infop *png_info, FILE **fp){
+    *png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+    if (!(*png_ptr)) {
+        printf("Error creating read struct\n");
+        fclose(*fp);
+        return 1;
+    }
+    png_set_sig_bytes(*png_ptr, PNG_BYTES_TO_CHECK);
+    *png_info = png_create_info_struct(*png_ptr);
+    if (!(*png_info)) {
+        printf("Error creating read info struct\n");
+        png_destroy_read_struct(png_ptr, NULL, NULL);
+        fclose(*fp);
+        return 1;
+    }
+
+    if (setjmp(png_jmpbuf(*png_ptr))) {
+        printf("Error during read\n");
+        png_destroy_read_struct(png_ptr, png_info, NULL);
+        fclose(*fp);
+        return 1;
+    }
+    png_init_io(*png_ptr, *fp);
+    png_read_info(*png_ptr, *png_info);
+
+    return 0;
+
+}
+
+int check_if_png(char *file_name, FILE **fp)
+{
+    char buf[PNG_BYTES_TO_CHECK];
+
+    /* Open the prospective PNG file. */
+    if ((*fp = fopen(file_name, "rb")) == NULL) {
+        printf("Error opening input file\n");
+        return 0;
+    }
+
+    /* Read in some of the signature bytes. */
+    if (fread(buf, 1, PNG_BYTES_TO_CHECK, *fp) != PNG_BYTES_TO_CHECK){
+        printf("Not enough bytes read!\n");
+        return 0;
+    }
+
+
+    /* Compare the first PNG_BYTES_TO_CHECK bytes of the signature.
+     * Return nonzero (true) if they match.
+     */
+    return(!png_sig_cmp(buf, 0, PNG_BYTES_TO_CHECK));
 }

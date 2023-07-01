@@ -5,10 +5,109 @@
  * - width:         The width for each frame.
  * - height:        The height for each frame.
  * - icon_states:   This should be a vector containing a list of all icon_states.
+ *
  * */
 #include "png.h"
+#include "dmi.h"
+#include <stdlib.h>
+#include <string.h>
 
-#include "Icon_state.c"
+/* A basic function to initialize a DMI struct. */
+void Init_DMI(DMI* dmi, int width, int height){
+    dmi->num_of_states = 0;
+    dmi->has_icons = false;
+    dmi->version = 4.0;
+    dmi->width = width;
+    dmi->height = height;
+    dmi->icon_states = (icon_state*) malloc(sizeof(icon_state) * 10);
+    dmi->begin_icon_state = dmi->icon_states;
+}
+
+int DMI_To_Png(DMI* dmi, int pngWidth, int pngHeight, png_bytepp orig_pointer, png_bytepp new_pointer,
+               png_structp png_ptr, png_infop info_ptr){
+    int DMI_HEIGHT = 144, DMI_WIDTH = dmi->width;
+
+    int total_frames = 0;
+    printf("DMI_HEIGHT = %d\n", DMI_HEIGHT);
+    printf("DMI_WIDTH = %d\n", DMI_WIDTH);
+    /*
+     * First we define some vaaribles for the new image, row_points2.
+     * We want to keep track of the rows in the row_points2
+     * */
+    int dmi_row = 0;
+    /* This will be used to track */
+    int current_frame = 1;
+    int state_tracker = 0;
+    int dmi_rows = 0, dmi_cols = 0;
+    int row_counter = 0;
+    int total_row = 0;
+
+
+    //Just running a test for the first icon_state atm. There are 11 icon_states in this file
+    while(state_tracker < (dmi->num_of_states)){
+
+        //I need to run a loop for each direction
+        for(int i = 0; i < dmi->begin_icon_state->dirs; i++){
+            //I know that each frame is 32 row. So for each direction, I run a loop 32 times
+            while(row_counter < DMI_HEIGHT){
+                //This keeps track of the starting row for the original image
+                int curr_row = dmi_rows + row_counter;
+                //This keeps track of start column. I know that for each new direction, I need to start my column
+                //32 pixels to the right
+                int curr_col = dmi_cols + (i * DMI_WIDTH);
+                if(curr_col > pngWidth - DMI_WIDTH){
+                    curr_col = pngWidth - curr_col;
+                    if(curr_col <= 0){
+                        curr_col *= -1;
+                    }
+                    curr_row += DMI_HEIGHT;
+                }
+
+                int frame_count = 0;
+                int curr_frame_row = i;
+
+                while(frame_count < dmi->begin_icon_state->frames){
+                    /* CODE BREAKS HERE*/
+                    //if(strcmp(dmi->begin_icon_state->state, "\"standing\"") == 0)
+                   //     return
+                    //printf("Total_Row = %d, frame_count = %d, curr_row = %d, curr_col = %d\n", total_row,
+                 //         frame_count * 144, curr_row, curr_col);
+                 //   printf("%s\n", dmi->begin_icon_state->state);
+                    if(total_row >= 4608)
+                        total_row = 4607;
+                    memcpy(&new_pointer[total_row][frame_count*144], &orig_pointer[curr_row][curr_col], sizeof(png_byte) * DMI_WIDTH);
+                    frame_count++;
+
+                   if(dmi->begin_icon_state->dirs)
+                       curr_col += (dmi->begin_icon_state->dirs) * DMI_WIDTH;
+                   if(curr_col >= pngWidth){
+                       curr_col = curr_col - pngWidth; //(curr_col - 320);
+                       curr_row += DMI_HEIGHT;
+                   }
+                }
+                row_counter++;
+                total_row++;
+            }
+            row_counter = 0;
+        }//for loop end
+        //return 0;
+        state_tracker++;
+        total_frames += (dmi->begin_icon_state->dirs) * (dmi->begin_icon_state->frames);
+
+        //Recalculates starting row and colm based on the total number of frames read thus far.
+        int row_divide = pngWidth / DMI_WIDTH;
+
+        dmi_rows = (total_frames / row_divide) * DMI_HEIGHT;
+        dmi_cols = (total_frames % row_divide) * DMI_WIDTH;
+        printf("Dmi_Rows = %d\n", dmi_rows);
+        printf("Dmi_cols = %d\n", dmi_cols);
+        if(!strcmp(dmi->begin_icon_state->state, "\"\"")){
+            printf("Dmi_Rows = %d\n", dmi_rows);
+            printf("Dmi_cols = %d\n", dmi_cols);
+        }
+        dmi->begin_icon_state++;
+    }
+}
 
 void output_pixel_values(png_structp png_ptr, png_infop info_ptr, png_bytep *row_pointers) {
     int width = png_get_image_width(png_ptr, info_ptr);
@@ -113,151 +212,8 @@ void output_pixel_values2(png_structp png_ptr, png_infop info_ptr, png_bytep *ro
                 if(y >= between1 && y<= between2){
                     printf("%c - Index = %d",type, row[x]);
                     printf("%c - Pixel at (%d, %d): Color type not supported\n",type, x, y);
-            }
-            }
-        }
-    }
-}
-
-
-
-typedef struct DMI_Struct {
-    bool has_icons;
-    double version;
-    int width, height, num_of_states;
-    icon_state *icon_states, *begin_icon_state;
-}DMI;
-
-/* A basic function to initialize a DMI struct. */
-void Init_DMI(DMI* dmi, int width, int height){
-    dmi->num_of_states = 0;
-    dmi->has_icons = false;
-    dmi->version = 4.0;
-    dmi->width = width;
-    dmi->height = height;
-    dmi->icon_states = (icon_state*) malloc(sizeof(icon_state) * 10);
-    dmi->begin_icon_state = dmi->icon_states;
-}
-
-int DMI_To_Png(DMI* dmi, int pngWidth, int pngHeight, png_bytepp orig_pointer, png_bytepp new_pointer,
-               png_structp png_ptr, png_infop info_ptr){
-    int const DMI_HEIGHT = 32, DMI_WIDTH = 32;
-    int total_frames = 0;
-    /*
-     * First we define some vaaribles for the new image, row_points2.
-     * We want to keep track of the rows in the row_points2
-     * */
-    int dmi_row = 0;
-    /* This will be used to track */
-    int current_frame = 1;
-    int state_tracker = 0;
-    int dmi_rows = 0, dmi_cols = 0;
-    int row_counter = 0;
-    int total_row = 0;
-
-
-    for(int i = 64; i < 96; i++){
-        for(int j = 64; j < 96; j++){
-            printf("%d ", new_pointer[i][j]);
-        }
-        printf("\n");
-    }
-    printf("\n\n");
-    for(int i = 64; i < 96; i++){
-        for(int j = 64; j < 96; j++){
-            printf("%d ", orig_pointer[i][j]);
-        }
-        printf("\n");
-    }
-    //Just running a test for the first icon_state atm. There are 11 icon_states in this file
-    while(state_tracker < (dmi->num_of_states)){
-
-        //I need to run a loop for each direction
-        for(int i = 0; i < dmi->begin_icon_state->dirs; i++){
-
-            //I know that each frame is 32 row. So for each direction, I run a loop 32 times
-            while(row_counter < 32){
-                //This keeps track of the starting row for the original image
-                int curr_row = dmi_rows + row_counter;
-
-                //This keeps tracfffk of start column. I know that for each new direction, I need to start my column
-                //32 pixels to the right
-                int curr_col = dmi_cols + (i * 32);
-                if(curr_col >= 288){
-                    curr_col = 320 - curr_col;
-                    if(curr_col <= 0){
-                        curr_col *= -1;
-                    }
-                    curr_row += 32;
                 }
-
-                int frame_count = 0;
-                int curr_frame_row = i;
-
-                while(frame_count < dmi->begin_icon_state->frames){
-                  //  for(int k = 0; k < 32; k++){
-                 //       new_pointer[total_row][(frame_count*32)+k] = orig_pointer[curr_row][curr_col+k];
-                //    }
-
-
-                    memcpy(&new_pointer[total_row][frame_count*32], &orig_pointer[curr_row][curr_col], sizeof(png_byte) * 32);
-
-                    if(!strcmp(dmi->begin_icon_state->state, "\"\"")){
-                        printf("Curr_Row = %d\n", curr_row);
-                        printf("Curr_Col = %d\n", curr_col);
-                        printf("Frame #%d\n", frame_count);
-                    }
-                    //output_pixel_values2(png_ptr, info_ptr, new_pointer, total_row, 64, 70, 'N');
-                    //output_pixel_values2(png_ptr, info_ptr, orig_pointer, total_row, 64, 70, 'O');
-                    frame_count++;
-                    //curr_frame_row += dmi->begin_icon_state->frames;
-                  //  if(curr_frame_row >= 10){
-                  //      curr_col = ((curr_frame_row - 10)*32) + dmi_cols;
-                 //       curr_row += 32;
-                  //  }
-                   // else{
-                   if(dmi->begin_icon_state->dirs )
-                   curr_col += (dmi->begin_icon_state->dirs) *32;
-                   if(curr_col >= 288){
-                       curr_col = (curr_col - 320);
-                       if(curr_col <= 0){
-                           curr_col *= -1;
-                       }
-                       curr_row += 32;
-                   }
-                    //}/
-                }
-                row_counter++;
-                total_row++;
             }
-            row_counter = 0;
-        }//for loop end
-        //return 0;
-        state_tracker++;
-        total_frames += (dmi->begin_icon_state->dirs) * (dmi->begin_icon_state->frames);
-        //Recalculates starting row and colm based on the total number of frames read thus far.
-        dmi_rows = (total_frames / 10) * 32;
-        dmi_cols = (total_frames % 10) * 32;
-        if(!strcmp(dmi->begin_icon_state->state, "\"\"")){
-            printf("Dmi_Rows = %d\n", dmi_rows);
-            printf("Dmi_cols = %d\n", dmi_cols);
         }
-        dmi->begin_icon_state++;
-        //printf("\n\n\n");
-        //for(int i = 64; i < 96; i++){
-          //  for(int j = 64; j < 96; j++){
-            //    new_pointer[i][j] = orig_pointer[i][j];
-         //   }
-        //}
-        /*
-        for(int i = 64; i < 96; i++){
-            for(int j = 64; j < 96; j++){
-                printf("%d ", new_pointer[i][j]);
-            }
-            printf("\n");
-        }
-         */
-
     }
 }
-
