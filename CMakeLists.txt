@@ -21,6 +21,12 @@ target_include_directories(DMI_Forge PUBLIC
 
 # Define the Test_Cases target and link with png library
 add_executable(Test_Cases Test_Cases/DMI_Verification_Test.c DMI_Struct.c DMIParse.c Icon_State.c)
+add_executable(dmi_info Test_Cases/DMI_Verify.c DMI_Struct.c DMIParse.c Icon_State.c)
 target_include_directories(Test_Cases PUBLIC "${PROJECT_BINARY_DIR}"
         "${PROJECT_SOURCE_DIR}/png")
+
+target_include_directories(dmi_info PUBLIC "${PROJECT_BINARY_DIR}"
+        "${PROJECT_SOURCE_DIR}/png")
+
 target_link_libraries(Test_Cases PUBLIC png)
+target_link_libraries(dmi_info PUBLIC png)

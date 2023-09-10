@@ -23,13 +23,14 @@
 						0,
 						1,
 						2,
-						13
+						3,
+						14
 					]
 				},
 				{
 					"build" : "png",
 					"hasInstallRule" : true,
-					"jsonFile" : "directory-png-Debug-e7760808768ac85a324e.json",
+					"jsonFile" : "directory-png-Debug-6bfdef56dbcbd9b26766.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.1"
@@ -39,7 +40,6 @@
 					"source" : "png",
 					"targetIndexes" : 
 					[
-						3,
 						4,
 						5,
 						6,
@@ -48,7 +48,8 @@
 						9,
 						10,
 						11,
-						12
+						12,
+						13
 					]
 				}
 			],
@@ -70,7 +71,8 @@
 						0,
 						1,
 						2,
-						13
+						3,
+						14
 					]
 				},
 				{
@@ -82,7 +84,6 @@
 					"parentIndex" : 0,
 					"targetIndexes" : 
 					[
-						3,
 						4,
 						5,
 						6,
@@ -91,7 +92,8 @@
 						9,
 						10,
 						11,
-						12
+						12,
+						13
 					]
 				}
 			],
@@ -114,8 +116,15 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "Test_Cases::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-Test_Cases-Debug-f6d4e957291e4b745074.json",
+					"jsonFile" : "target-Test_Cases-Debug-cab5e65b7bfab8501b03.json",
 					"name" : "Test_Cases",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dmi_info::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dmi_info-Debug-4f5de803785fd2d1907a.json",
+					"name" : "dmi_info",
 					"projectIndex" : 0
 				},
 				{

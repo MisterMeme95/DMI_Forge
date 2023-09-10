@@ -96,6 +96,7 @@ char *State_Authentication(char *string){
     char *value_check = (char *) malloc(sizeof(char) * (num_of_char));
     if(num_of_char == 0){
         printf("This is not a value! (Variable Auth)\n");
+        printf("num_of_char. . \n");
     }
 
     while(token_track < num_of_char){
@@ -161,6 +162,7 @@ void Print_Variable(char *string, DMI* dmi){
 
             //printf("Variable_Value (Before) = %s\n", variable_value);
             integer_value= atoi(variable_value);
+
             // printf("integer_value (After) = %d\n", integer_value);
         }
     }
@@ -168,7 +170,7 @@ void Print_Variable(char *string, DMI* dmi){
         dmi->width = integer_value;
     }
     if(strcmp(check_string, "height") == 0){
-        dmi->width = integer_value;
+        dmi->height = integer_value;
     }
     if(strcmp(check_string, "dirs") == 0){
         Add_Dir(dmi->icon_states, integer_value);

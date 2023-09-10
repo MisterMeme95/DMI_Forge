@@ -12,16 +12,20 @@
 #include "png.h"
 #include "dmi.h"
 
+
+
 int main(int argc, char **argv)
 {
+    PNG_To_DMI();
+    return 1;
     png_structp read_png_ptr;
     png_infop read_info_ptr;
     png_uint_32 width, height;
-    int bit_depth, color_type;
+    int bit_depth, color_type, interlace_method, pixels_per_byte;
     int run_program = 10;
     while(run_program >= 1){
         FILE *input_fp;
-        if(!check_if_png("Character.dmi",&input_fp)){
+        if(!check_if_png("blueendrift128x128.dmi",&input_fp)){
             printf("The file you are attempting to read is not a valid PNG file!\n");
             return 0;
         }
@@ -31,25 +35,39 @@ int main(int argc, char **argv)
             return 0;
         }
 
+        png_get_IHDR(read_png_ptr, read_info_ptr, &width, &height, &bit_depth,
+                     &color_type, &interlace_method, NULL, NULL);
 
-        png_get_IHDR(read_png_ptr, read_info_ptr, &width, &height, &bit_depth, &color_type, NULL, NULL, NULL);
+        png_uint_32 num_rows = height;
 
-        png_uint_32 num_rows = (height > 32) ? height : height; // Read only the first 32 rows or the entire image if it has fewer than 32 rows
-        printf("%d\n", num_rows);
+        switch (bit_depth) {
+            case 1:
+                pixels_per_byte = 8;
+                break;
+            case 2:
+                pixels_per_byte = 4;
+                break;
+            case 4:
+                pixels_per_byte = 2;
+                break;
+            case 8:
+                pixels_per_byte = 1;
+                break;
+            default:
+                pixels_per_byte = 1;
+                break;
+        }
+
+
         png_bytepp row_pointers = (png_bytepp)malloc(sizeof(png_bytep) * num_rows);
-        png_bytepp row_pointers_new = (png_bytepp)malloc(sizeof(png_bytep) * 4608);
-        for (png_uint_32 i = 0; i < num_rows; i++) {
+        printf("Row Bytes = %d\nHeight = %d\n", png_get_rowbytes(read_png_ptr, read_info_ptr), height);
+        for (png_uint_32 i = 0; i < height; i++) {
             row_pointers[i] = (png_bytep)malloc(png_get_rowbytes(read_png_ptr, read_info_ptr));
-          //  row_pointers_new[i] = (png_bytep)malloc(png_get_rowbytes(read_png_ptr, read_info_ptr));
-        }
-        for (png_uint_32 i = 0; i < 4608; i++) {
-            row_pointers_new[i] = (png_bytep)malloc(png_get_rowbytes(read_png_ptr, read_info_ptr));
         }
 
-        png_read_rows(read_png_ptr, row_pointers, NULL, num_rows);
-        //output_pixel_values(read_png_ptr, read_info_ptr, row_pointers);
-
-
+        png_read_image(read_png_ptr, row_pointers);
+        //png_read_rows(read_png_ptr, row_pointers, NULL, num_rows);
+        printf("Rowbytes = %d\n", png_get_rowbytes(read_png_ptr, read_info_ptr));
         png_textp text_ptr;
         int num_text;
         if (png_get_text(read_png_ptr, read_info_ptr, &text_ptr, &num_text) > 0) {
@@ -60,6 +78,8 @@ int main(int argc, char **argv)
                         i, text_ptr[i].compression);
             }
         }
+
+        //ALL THE ABOVE SHOULD JUST BE IN A FUNCTION
         DMI *new_icon = (DMI*) malloc(sizeof(DMI));
 
         Init_DMI(new_icon, 32, 32);
@@ -74,6 +94,7 @@ int main(int argc, char **argv)
             return 0;
         }
         int dmi_length = strlen(dmi_check);
+
         //We need to continuously scan the DMI from start to finish, examining by line.
         if(!(dmi_length > 0)){
             printf("There is no text to parse in this image!\n\n");
@@ -85,11 +106,9 @@ int main(int argc, char **argv)
             string_parser = find_newline(&dmi_check, &dmi_length, "\n");
             Print_Variable(string_parser, new_icon);
         }
+        printf("while(dmi_length > 0) done \n");
 
-
-
-        //ADD HERE
-        fclose(input_fp);
+        png_bytepp row_pointers_new = (png_bytepp)malloc(sizeof(png_bytep) * Get_Sheet_Size(new_icon));
 
         FILE *output_fp = fopen("Base_Black_output.png", "wb");
         if (!output_fp) {
@@ -129,37 +148,40 @@ int main(int argc, char **argv)
         png_bytep trans_alpha;
         int num_trans;
         png_get_tRNS(read_png_ptr, read_info_ptr, &trans_alpha, &num_trans, &trans_color);
-        png_set_tRNS(write_png_ptr, write_info_ptr, trans_alpha, num_trans, trans_color);
+        //png_set_tRNS(write_png_ptr, write_info_ptr, trans_alpha, num_trans, trans_color);
 
-        // Set the alpha value of the transparent color to 0
+        png_set_IHDR(write_png_ptr, write_info_ptr, (png_uint_32)Get_Sheet_Width(new_icon), (png_uint_32)Get_Sheet_Size(new_icon), bit_depth, color_type,
+                     interlace_method, PNG_COMPRESSION_TYPE_DEFAULT, PNG_FILTER_TYPE_DEFAULT);
 
-        png_set_IHDR(write_png_ptr, write_info_ptr, width, (png_uint_32)4608, bit_depth, color_type,
-                     PNG_INTERLACE_NONE, PNG_COMPRESSION_TYPE_DEFAULT, PNG_FILTER_TYPE_DEFAULT);
-        printf("Starting DMI_To_Png!\n");
+        for (png_uint_32 i = 0; i < Get_Sheet_Size(new_icon); i++) {
+            row_pointers_new[i] = (png_bytep)malloc(png_get_rowbytes(write_png_ptr, write_info_ptr));
+        }
 
-        for(int i = 0; i < 4608; i++){
-            for(int j = 0; j <2016; j++){
+        for(png_uint_32 i = 0; i < Get_Sheet_Size(new_icon); i++) {
+            for (png_uint_32 j = 0; j < png_get_rowbytes(write_png_ptr, write_info_ptr); j++) {
                 row_pointers_new[i][j] = 0;
             }
         }
-        DMI_To_Png(new_icon, width, 144, row_pointers,row_pointers_new,
-                   write_png_ptr, write_info_ptr);
+
+        //printf("Starting DMI_To_Png!\n");
+        DMI_To_Png(new_icon, png_get_rowbytes(read_png_ptr, read_info_ptr), 144, row_pointers,row_pointers_new,
+                   write_png_ptr, write_info_ptr, pixels_per_byte, color_type);
+
 
         png_write_info(write_png_ptr, write_info_ptr);
-        printf("write info done!\n");
+      //  printf("write info done!\n");
 
         png_write_image(write_png_ptr, row_pointers_new);
-        printf("Write image done!\n");
+       // printf("Write image done!\n");
         png_write_end(write_png_ptr, NULL);
         png_destroy_write_struct(&write_png_ptr, &write_info_ptr);
 
         fclose(output_fp);
+        fclose(input_fp);
 
-// Free row memory and clean up
-        for (png_uint_32 i = 0; i < num_rows; i++) {
-            free(row_pointers[i]);
-        }
+        free(row_pointers_new);
         free(row_pointers);
+
         char c;
         printf("Do you wish to continue? (0/1)\n");
         scanf("%d", &run_program);

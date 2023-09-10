@@ -63,6 +63,61 @@ build CMakeFiles/pretend_obj.dir/Object_C.c.obj: C_COMPILER__pretend_obj_Debug C
 build pretend_obj: phony CMakeFiles/pretend_obj.dir/Object_C.c.obj
 
 # =============================================================================
+# Object build statements for EXECUTABLE target dmi_info
+
+
+#############################################
+# Order-only phony target for dmi_info
+
+build cmake_object_order_depends_target_dmi_info: phony || cmake_object_order_depends_target_png
+
+build CMakeFiles/dmi_info.dir/Test_Cases/DMI_Verify.c.obj: C_COMPILER__dmi_info_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/Test_Cases/DMI_Verify.c || cmake_object_order_depends_target_dmi_info
+  DEP_FILE = CMakeFiles\dmi_info.dir\Test_Cases\DMI_Verify.c.obj.d
+  FLAGS = -g
+  INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
+  OBJECT_DIR = CMakeFiles\dmi_info.dir
+  OBJECT_FILE_DIR = CMakeFiles\dmi_info.dir\Test_Cases
+
+build CMakeFiles/dmi_info.dir/DMI_Struct.c.obj: C_COMPILER__dmi_info_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/DMI_Struct.c || cmake_object_order_depends_target_dmi_info
+  DEP_FILE = CMakeFiles\dmi_info.dir\DMI_Struct.c.obj.d
+  FLAGS = -g
+  INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
+  OBJECT_DIR = CMakeFiles\dmi_info.dir
+  OBJECT_FILE_DIR = CMakeFiles\dmi_info.dir
+
+build CMakeFiles/dmi_info.dir/DMIParse.c.obj: C_COMPILER__dmi_info_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/DMIParse.c || cmake_object_order_depends_target_dmi_info
+  DEP_FILE = CMakeFiles\dmi_info.dir\DMIParse.c.obj.d
+  FLAGS = -g
+  INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
+  OBJECT_DIR = CMakeFiles\dmi_info.dir
+  OBJECT_FILE_DIR = CMakeFiles\dmi_info.dir
+
+build CMakeFiles/dmi_info.dir/Icon_State.c.obj: C_COMPILER__dmi_info_Debug C$:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/Icon_State.c || cmake_object_order_depends_target_dmi_info
+  DEP_FILE = CMakeFiles\dmi_info.dir\Icon_State.c.obj.d
+  FLAGS = -g
+  INCLUDES = -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png -IC:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/png
+  OBJECT_DIR = CMakeFiles\dmi_info.dir
+  OBJECT_FILE_DIR = CMakeFiles\dmi_info.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target dmi_info
+
+
+#############################################
+# Link the executable dmi_info.exe
+
+build dmi_info.exe: C_EXECUTABLE_LINKER__dmi_info_Debug CMakeFiles/dmi_info.dir/Test_Cases/DMI_Verify.c.obj CMakeFiles/dmi_info.dir/DMI_Struct.c.obj CMakeFiles/dmi_info.dir/DMIParse.c.obj CMakeFiles/dmi_info.dir/Icon_State.c.obj | png/libpng16d.dll.a C$:/zlib/libz.dll.a || png/libpng16d.dll
+  FLAGS = -g
+  LINK_LIBRARIES = png/libpng16d.dll.a  C:/zlib/libz.dll.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\dmi_info.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = dmi_info.exe
+  TARGET_IMPLIB = libdmi_info.dll.a
+  TARGET_PDB = dmi_info.exe.dbg
+
+# =============================================================================
 # Object build statements for EXECUTABLE target Preten_Exe
 
 
@@ -213,6 +268,23 @@ build Test_Cases.exe: C_EXECUTABLE_LINKER__Test_Cases_Debug CMakeFiles/Test_Case
 
 
 #############################################
+# Utility command for edit_cache
+
+build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\DMI_Forge\cmake-build-debug\png && "C:\Program Files\JetBrains\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build edit_cache: phony CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build list_install_components: phony
+
+
+#############################################
 # Utility command for install/local
 
 build CMakeFiles/install/local.util: CUSTOM_COMMAND all
@@ -234,23 +306,6 @@ build CMakeFiles/install.util: CUSTOM_COMMAND all
   restat = 1
 
 build install: phony CMakeFiles/install.util
-
-
-#############################################
-# Utility command for edit_cache
-
-build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\Users\jonat\OneDrive\Documents\Programming_Files\C_Files\DMI_Forge\cmake-build-debug\png && "C:\Program Files\JetBrains\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
-  DESC = No interactive CMake dialog available...
-  restat = 1
-
-build edit_cache: phony CMakeFiles/edit_cache.util
-
-
-#############################################
-# Utility command for list_install_components
-
-build list_install_components: phony
 
 
 #############################################
@@ -865,6 +920,8 @@ build Preten_Exe: phony Preten_Exe.exe
 
 build Test_Cases: phony Test_Cases.exe
 
+build dmi_info: phony dmi_info.exe
+
 build genfiles: phony png/genfiles
 
 build libpng16d.a: phony png/libpng16d.a
@@ -911,7 +968,7 @@ build pngvalid.exe: phony png/pngvalid.exe
 #############################################
 # Folder: C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/DMI_Forge/cmake-build-debug/png
 
-build all: phony pretend_obj Preten_Exe.exe DMI_Forge.exe Test_Cases.exe png/all
+build all: phony pretend_obj dmi_info.exe Preten_Exe.exe DMI_Forge.exe Test_Cases.exe png/all
 
 # =============================================================================
 

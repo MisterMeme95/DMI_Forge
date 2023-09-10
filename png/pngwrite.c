@@ -604,6 +604,7 @@ png_write_image(png_structrp png_ptr, png_bytepp image)
    int pass, num_pass; /* pass variables */
    png_bytepp rp; /* points to current row */
 
+   printf("LOOOOL! FAKE PRINT!\n");
    if (png_ptr == NULL)
       return;
 

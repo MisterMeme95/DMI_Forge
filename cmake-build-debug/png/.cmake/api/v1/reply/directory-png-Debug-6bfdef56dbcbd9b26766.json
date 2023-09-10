@@ -117,7 +117,7 @@
 				"png/libpng16d.dll.a"
 			],
 			"targetId" : "png::@a46853fb3a4587e140ae",
-			"targetIndex" : 4,
+			"targetIndex" : 5,
 			"targetIsImportLibrary" : true,
 			"type" : "target"
 		},
@@ -130,7 +130,7 @@
 				"png/libpng16d.dll"
 			],
 			"targetId" : "png::@a46853fb3a4587e140ae",
-			"targetIndex" : 4,
+			"targetIndex" : 5,
 			"type" : "target"
 		},
 		{
@@ -142,7 +142,7 @@
 				"png/libpng16d.a"
 			],
 			"targetId" : "png_static::@a46853fb3a4587e140ae",
-			"targetIndex" : 6,
+			"targetIndex" : 7,
 			"type" : "target"
 		},
 		{
@@ -218,7 +218,7 @@
 				"png/pngfix.exe"
 			],
 			"targetId" : "pngfix::@a46853fb3a4587e140ae",
-			"targetIndex" : 7,
+			"targetIndex" : 8,
 			"type" : "target"
 		},
 		{
@@ -230,7 +230,7 @@
 				"png/png-fix-itxt.exe"
 			],
 			"targetId" : "png-fix-itxt::@a46853fb3a4587e140ae",
-			"targetIndex" : 5,
+			"targetIndex" : 6,
 			"type" : "target"
 		},
 		{
@@ -303,11 +303,11 @@
 			[
 				{
 					"id" : "png::@a46853fb3a4587e140ae",
-					"index" : 4
+					"index" : 5
 				},
 				{
 					"id" : "png_static::@a46853fb3a4587e140ae",
-					"index" : 6
+					"index" : 7
 				}
 			],
 			"paths" : 
