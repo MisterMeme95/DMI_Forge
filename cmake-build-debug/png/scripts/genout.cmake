@@ -9,18 +9,18 @@
 # and license in png.h
 
 # Variables substituted from CMakeLists.txt
-set(SRCDIR "C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/png")
-set(BINDIR "C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/cmake-build-debug/png")
+set(SRCDIR "C:/Users/jonat/GitHub/DMI_Forge/png")
+set(BINDIR "C:/Users/jonat/GitHub/DMI_Forge/cmake-build-debug/png")
 
-set(AWK "AWK-NOTFOUND")
-set(CMAKE_C_COMPILER "C:/MinGW/bin/gcc.exe")
+set(AWK "C:/MinGW/msys/1.0/bin/gawk.exe")
+set(CMAKE_C_COMPILER "C:/Program Files/JetBrains/CLion 2023.2.2/bin/mingw/bin/gcc.exe")
 set(CMAKE_C_FLAGS )
-set(INCDIR "C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/cmake-build-debug/png")
+set(INCDIR "C:/Users/jonat/GitHub/DMI_Forge/cmake-build-debug/png")
 set(PNG_PREFIX "")
 set(PNGLIB_MAJOR "1")
 set(PNGLIB_MINOR "6")
-set(PNGLIB_VERSION "1.6.37")
-set(ZLIBINCDIR "C:/zlib")
+set(PNGLIB_VERSION "1.6.39")
+set(ZLIBINCDIR "C:/MinGW/msys/1.0/include")
 
 set(PLATFORM_C_FLAGS)
 if(APPLE)

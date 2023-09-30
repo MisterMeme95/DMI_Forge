@@ -9,9 +9,10 @@
 # and license in png.h
 
 # Variables substituted from CMakeLists.txt
-set(SRCDIR "C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/png")
+set(SRCDIR "C:/Users/jonat/GitHub/DMI_Forge/png")
+set(BINDIR "C:/Users/jonat/GitHub/DMI_Forge/cmake-build-debug/png")
 
-set(AWK "AWK-NOTFOUND")
+set(AWK "C:/MinGW/msys/1.0/bin/gawk.exe")
 
 get_filename_component(INPUTEXT "${INPUT}" EXT)
 get_filename_component(OUTPUTEXT "${OUTPUT}" EXT)
@@ -23,7 +24,7 @@ get_filename_component(OUTPUTDIR "${OUTPUT}" PATH)
 if("${INPUTEXT}" STREQUAL ".out" AND "${OUTPUTEXT}" STREQUAL ".chk")
   # Generate .chk from .out with awk (generic)
   file(REMOVE "${OUTPUT}" "${OUTPUTDIR}/${OUTPUTBASE}.new")
-  execute_process(COMMAND "${AWK}" -f "${SRCDIR}/scripts/checksym.awk"
+  execute_process(COMMAND "${AWK}" -f "${BINDIR}/scripts/checksym.awk"
                           "${SRCDIR}/scripts/${INPUTBASE}.def"
                           "of=${OUTPUTDIR}/${OUTPUTBASE}.new"
                           "${INPUT}"

@@ -8,7 +8,7 @@
 # and license in png.h
 
 set(TEST_OPTIONS "--strict;default=if-safe")
-set(TEST_FILES "C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/png/pngtest.png")
+set(TEST_FILES "C:/Users/jonat/GitHub/DMI_Forge/png/pngtest.png")
 
 foreach(file ${TEST_FILES})
   file(TO_NATIVE_PATH "${file}" native_file)

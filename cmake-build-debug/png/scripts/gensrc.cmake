@@ -9,13 +9,13 @@
 # and license in png.h
 
 # Variables substituted from CMakeLists.txt
-set(SRCDIR "C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/png")
-set(BINDIR "C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/cmake-build-debug/png")
+set(SRCDIR "C:/Users/jonat/GitHub/DMI_Forge/png")
+set(BINDIR "C:/Users/jonat/GitHub/DMI_Forge/cmake-build-debug/png")
 
-set(AWK "AWK-NOTFOUND")
+set(AWK "C:/MinGW/msys/1.0/bin/gawk.exe")
 set(DFA_XTRA "")
 set(PNG_PREFIX "")
-set(PNGLIB_VERSION "1.6.37")
+set(PNGLIB_VERSION "1.6.39")
 
 if("${OUTPUT}" STREQUAL "scripts/pnglibconf.c")
   # Generate scripts/pnglibconf.c

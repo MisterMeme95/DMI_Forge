@@ -1,8 +1,0 @@
-C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/zlib/CMakeFiles/zlib.dir
-C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/zlib/CMakeFiles/zlibstatic.dir
-C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/zlib/CMakeFiles/example.dir
-C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/zlib/CMakeFiles/minigzip.dir
-C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/zlib/CMakeFiles/RUN_TESTS.dir
-C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/zlib/CMakeFiles/INSTALL.dir
-C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/zlib/CMakeFiles/ALL_BUILD.dir
-C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/zlib/CMakeFiles/ZERO_CHECK.dir

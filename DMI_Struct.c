@@ -247,7 +247,7 @@ int PNG_To_DMI(){
 
     //------------------------------
 
-
+/*
     //------------------**********************------------
     int frames_per_row = floor(width / dmiWidth);
     int iterate_rows = ceil(totalFrame/frames_per_row);
@@ -260,6 +260,7 @@ int PNG_To_DMI(){
         }
     }
     //----------------**********************--------------
+  */
     png_write_info(write_png_ptr, write_info_ptr);
     png_write_image(write_png_ptr, row_pointers);
     printf("Write image done!\n");

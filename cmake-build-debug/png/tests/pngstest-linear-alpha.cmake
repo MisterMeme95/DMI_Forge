@@ -8,7 +8,7 @@
 # and license in png.h
 
 set(TEST_OPTIONS "--tmpfile;linear-alpha-;--log")
-set(TEST_FILES "C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/png/contrib/testpngs/gray-alpha-16-linear.png;C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/png/contrib/testpngs/gray-alpha-8-linear.png;C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/png/contrib/testpngs/rgb-alpha-16-linear.png;C:/Users/jonat/OneDrive/Documents/Programming_Files/C_Files/Practice/png/contrib/testpngs/rgb-alpha-8-linear.png")
+set(TEST_FILES "C:/Users/jonat/GitHub/DMI_Forge/png/contrib/testpngs/gray-alpha-16-linear.png;C:/Users/jonat/GitHub/DMI_Forge/png/contrib/testpngs/gray-alpha-8-linear.png;C:/Users/jonat/GitHub/DMI_Forge/png/contrib/testpngs/rgb-alpha-16-linear.png;C:/Users/jonat/GitHub/DMI_Forge/png/contrib/testpngs/rgb-alpha-8-linear.png")
 
 foreach(file ${TEST_FILES})
   file(TO_NATIVE_PATH "${file}" native_file)
