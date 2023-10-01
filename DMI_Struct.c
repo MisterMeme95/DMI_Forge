@@ -226,8 +226,9 @@ int PNG_To_DMI(){
    // png_set_text(png_write_ptr, info_write_ptr, &text_ptr, 1);
     int write_width = ceil(sqrt(totalFrame)) * dmiWidth;
     int write_height = ceil(totalFrame / ceil(sqrt(totalFrame))) * dmiHeight;
-    png_set_IHDR(write_png_ptr, write_info_ptr, (png_uint_32)write_width, (png_uint_32)write_height, bit_depth,
-                 color_type,interlace_method, PNG_COMPRESSION_TYPE_DEFAULT, PNG_FILTER_TYPE_DEFAULT);
+    png_set_IHDR(write_png_ptr, write_info_ptr, (png_uint_32)write_width,
+                 (png_uint_32)write_height, bit_depth,color_type,interlace_method,
+                 PNG_COMPRESSION_TYPE_DEFAULT, PNG_FILTER_TYPE_DEFAULT);
 
     png_set_text(write_png_ptr, write_info_ptr, &text_ptr, 1);
 
@@ -256,7 +257,8 @@ int PNG_To_DMI(){
     int total_row = 0, frame_count = 0, curr_row = 0, curr_col = 0;
     for(int i = 0; i < iterate_rows; i++){
         for(int o = 0; o < 32; o++){
-            memcpy(&row_pointers_new[total_row][frame_count*DMI_WIDTH], &row_pointers[curr_row][curr_col], sizeof(png_byte) * dmiWidth);
+            memcpy(&row_pointers_new[total_row][frame_count*DMI_WIDTH], &row_pointers[curr_row][curr_col],
+            sizeof(png_byte) * dmiWidth);
         }
     }
     //----------------**********************--------------
@@ -273,87 +275,80 @@ int PNG_To_DMI(){
 
 }
 
+void Get_Frame(png_bytepp dest_pixels, png_bytepp src_pixels, int dest_start_row,int dest_start_col,
+               int src_start_row, int src_start_col, int bytes_per_frame, int cols_to_copy) {
+
+    for (int i = 0; i < cols_to_copy; i++) {
+        memcpy(&dest_pixels[dest_start_row + i][dest_start_col],&src_pixels[src_start_row + i][src_start_col],
+               bytes_per_frame);
+    }
+
+}
+
 int DMI_To_Png(DMI* dmi, int pngWidth, int pngHeight, png_bytepp orig_pointer, png_bytepp new_pointer,
-               png_structp png_ptr, png_infop info_ptr, int ppb, int color_type){
+                 png_structp png_ptr, png_infop info_ptr, int ppb, int color_type){
     int DMI_HEIGHT = dmi->height, DMI_WIDTH = (dmi->width) / ppb;
-
     int total_frames = 0;
-
-    /* This will be used to track */
     int state_tracker = 0;
-    int dmi_rows = 0, dmi_cols = 0;
-    int row_counter = 0;
-    int total_row = 0;
     if(color_type == PNG_COLOR_TYPE_RGB_ALPHA || color_type == PNG_COLOR_TYPE_GRAY_ALPHA){
         DMI_WIDTH *= 4;
     }
 
-
-    //Just running a test for the first icon_state atm. There are 11 icon_states in this file
-    while(state_tracker < (dmi->num_of_states)){
-        //I need to run a loop for each direction
-        //printf("Num of states = %d\n", dmi->num_of_states);
-      //  sleep(50);
-        for(int i = 0; i < dmi->begin_icon_state->dirs; i++){
-            //I know that each frame is 32 row. So for each direction, I run a loop 32 times.
-            while(row_counter < DMI_HEIGHT){
-
-                //These keeps track of the starting row for the original image
-                int curr_row = dmi_rows + row_counter;
-
-                //These keeps track of start column. I know that for each new direction, I need to start my column
-                //32 pixels to the right
-                int curr_col = dmi_cols + (i * DMI_WIDTH);
-                if(curr_col > pngWidth - DMI_WIDTH){
-                    curr_col = pngWidth - curr_col;
-                    if(curr_col <= 0){
-                        curr_col *= -1;
-                    }
-                    curr_row += DMI_HEIGHT;
-                }
-
-                int frame_count = 0;
-
-                while(frame_count < dmi->begin_icon_state->frames){
-
-                  // printf("Total_Row = %d, frame_count = %d, curr_row = %d, curr_col = %d\nRow_Counter=%d\n",
-                  // total_row, frame_count * DMI_WIDTH, curr_row, curr_col, row_counter);
-                  // printf("Icon State Frames = %d\n", dmi->begin_icon_state->frames);
-                  // if(total_row >= 1024){
-                  //     printf("Icon State Frames = %d\n", dmi->begin_icon_state->frames);
-                  // }
-                   //if(total_row >= 1024)
-                   //    return 0;
-                   memcpy(&new_pointer[total_row][frame_count*DMI_WIDTH], &orig_pointer[curr_row][curr_col], sizeof(png_byte) * DMI_WIDTH);
-                   frame_count++;
-
-                   if(dmi->begin_icon_state->dirs)
-                       curr_col += (dmi->begin_icon_state->dirs) * DMI_WIDTH;
-                   if(curr_col >= pngWidth){
-                       curr_col = curr_col - pngWidth; //(curr_col - 320);
-                       curr_row += DMI_HEIGHT;
-                   }
-                }
-                row_counter++;
-                total_row++;
-            }
-            row_counter = 0;
-            printf("Row counter set to 0. . . \n");
-        }//for loop end
-
-        //return 0;
-        state_tracker++;
-        total_frames += (dmi->begin_icon_state->dirs) * (dmi->begin_icon_state->frames);
-        //Recalculates starting row and colm based on the total number of frames read thus far.
-        int row_divide = pngWidth / DMI_WIDTH;
-
-        dmi_rows = (total_frames / row_divide) * DMI_HEIGHT;
-        dmi_cols = (total_frames % row_divide) * DMI_WIDTH;
-        if(state_tracker > (dmi->num_of_states))
-            return 0;
-        dmi->begin_icon_state++;
+    if(color_type == PNG_COLOR_TYPE_RGB){
+        DMI_WIDTH *= 3;
     }
-
+    int frames_in_state, frame_tracker = 1;
+    int dest_row = 0, dest_col = 0, source_row = 0, source_col = 0;
+    int start_col = 0, start_row = 0;
+    int row_offset = 0, col_offset = 0;
+    while(state_tracker < (dmi->num_of_states)) {
+        frames_in_state = dmi->begin_icon_state->dirs * dmi->begin_icon_state->frames;
+        for(int i = 0; i < frames_in_state; i++){
+            int copy_col = start_col + source_col + col_offset;
+            int copy_row = start_row + source_row + row_offset;
+            if(copy_col >= pngWidth){
+                copy_row += (copy_col/pngWidth) * DMI_HEIGHT;
+                copy_col = copy_col % pngWidth;
+            }
+            Get_Frame(new_pointer, orig_pointer, dest_row, dest_col,
+                      copy_row, copy_col, DMI_WIDTH, DMI_HEIGHT);
+            dest_col += DMI_WIDTH;
+            if(dmi->begin_icon_state->dirs > 1){
+                source_col += DMI_WIDTH * dmi->begin_icon_state->frames;
+            }
+            else {
+                source_col += DMI_WIDTH;
+            }
+            if(source_col >= pngWidth){
+                source_row += DMI_HEIGHT;
+                source_col = (source_col % pngWidth);
+            }
+            if(frame_tracker >= dmi->begin_icon_state->frames){
+                frame_tracker = 1;
+                dest_row += DMI_HEIGHT;
+                dest_col = 0;
+                col_offset += DMI_WIDTH;
+                source_row = 0;
+                source_col = 0;
+                if(col_offset >= pngWidth){
+                    col_offset = (col_offset % pngWidth);
+                    row_offset += DMI_HEIGHT;
+                }
+            }
+            else
+                frame_tracker++;
+        }
+        total_frames += frames_in_state;
+        dmi->begin_icon_state++;
+        state_tracker++;
+        col_offset = 0;
+        row_offset = 0;
+        source_col = 0;
+        source_row = 0;
+        start_col = (total_frames * DMI_WIDTH) % pngWidth;
+        start_row = ((total_frames * DMI_WIDTH) / pngWidth) * DMI_HEIGHT;
+    }
+    return 1;
 }
 
 void output_pixel_values(png_structp png_ptr, png_infop info_ptr, png_bytep *row_pointers) {
@@ -404,7 +399,8 @@ void output_pixel_values(png_structp png_ptr, png_infop info_ptr, png_bytep *row
                 //sleep(10);
                 if (index < num_palette) {
                     png_color palette_color = palette[index];
-                    printf(" >>> Pixel at (%d, %d): Palette Index=%d, R=%d, G=%d, B=%d\n", x, y, index, palette_color.red, palette_color.green, palette_color.blue);
+                    printf(" >>> Pixel at (%d, %d): Palette Index=%d, R=%d, G=%d, B=%d\n", x, y, index,
+                           palette_color.red, palette_color.green, palette_color.blue);
 
                 } else {
                     printf("Index = %d\n", index);
@@ -425,7 +421,8 @@ void output_pixel_values(png_structp png_ptr, png_infop info_ptr, png_bytep *row
 }
 
 
-void output_pixel_values2(png_structp png_ptr, png_infop info_ptr, png_bytep *row_pointers, int start_row, int between1, int between2, char type) {
+void output_pixel_values2(png_structp png_ptr, png_infop info_ptr, png_bytep *row_pointers, int start_row, int between1,
+                          int between2, char type) {
     int width = png_get_image_width(png_ptr, info_ptr);
     int height = png_get_image_height(png_ptr, info_ptr);
     int color_type = png_get_color_type(png_ptr, info_ptr);
@@ -456,7 +453,8 @@ void output_pixel_values2(png_structp png_ptr, png_infop info_ptr, png_bytep *ro
                 if (index < num_palette) {
                     png_color palette_color = palette[index];
                     if(y >= between1 && y<= between2){
-                        printf("%c - Pixel at (%d, %d): Palette Index=%d, R=%d, G=%d, B=%d\n",type, x, y, index, palette_color.red, palette_color.green, palette_color.blue);
+                        printf("%c - Pixel at (%d, %d): Palette Index=%d, R=%d, G=%d, B=%d\n",type, x, y, index,
+                               palette_color.red, palette_color.green, palette_color.blue);
 
                     }
 

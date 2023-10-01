@@ -16,8 +16,8 @@
 
 int main(int argc, char **argv)
 {
-    PNG_To_DMI();
-    return 1;
+  //  PNG_To_DMI();
+    //return 1;
     png_structp read_png_ptr;
     png_infop read_info_ptr;
     png_uint_32 width, height;
@@ -25,7 +25,7 @@ int main(int argc, char **argv)
     int run_program = 10;
     while(run_program >= 1){
         FILE *input_fp;
-        if(!check_if_png("blueendrift128x128.dmi",&input_fp)){
+        if(!check_if_png("Base_Black.dmi",&input_fp)){
             printf("The file you are attempting to read is not a valid PNG file!\n");
             return 0;
         }
@@ -163,16 +163,14 @@ int main(int argc, char **argv)
             }
         }
 
-        //printf("Starting DMI_To_Png!\n");
         DMI_To_Png(new_icon, png_get_rowbytes(read_png_ptr, read_info_ptr), 144, row_pointers,row_pointers_new,
                    write_png_ptr, write_info_ptr, pixels_per_byte, color_type);
 
 
         png_write_info(write_png_ptr, write_info_ptr);
-      //  printf("write info done!\n");
 
         png_write_image(write_png_ptr, row_pointers_new);
-       // printf("Write image done!\n");
+
         png_write_end(write_png_ptr, NULL);
         png_destroy_write_struct(&write_png_ptr, &write_info_ptr);
 
