@@ -78,6 +78,7 @@ char *Variable_Authentication(char *string){
         value_check[index]='\0';
     }
     value_check[num_of_char]='\0';
+   // printf("Variable = %s\n", value_check);
     /*
     printf("Variable = %s\n", value_check);
     printf("Ending size of string: %d\n", strlen(value_check));
@@ -134,6 +135,7 @@ char *Value_Authentication(char *string){
         token_track++;
     }
     value_check[num_of_char-1]='\0';
+    //printf("Value = %s\n", value_check);
     return value_check;
 }
 
@@ -156,7 +158,7 @@ void Print_Variable(char *string, DMI* dmi){
                 dmi->has_icons=true;
                 dmi->num_of_states++;
             }
-            if(dmi->num_of_states >= dmi->max_state){
+            if(dmi->num_of_states == (dmi->max_state)-1){
                 dmi->max_state += 30;
                 Resize_IconStates(dmi, dmi->max_state);
             }
@@ -177,6 +179,8 @@ void Print_Variable(char *string, DMI* dmi){
         dmi->height = integer_value;
     }
     if(strcmp(check_string, "dirs") == 0){
+
+        printf("For %s the dir = %d\n", dmi->icon_states->state, integer_value);
         Add_Dir(dmi->icon_states, integer_value);
     }
     if(strcmp(check_string, "frames") == 0){

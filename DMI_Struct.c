@@ -28,9 +28,8 @@ void Init_DMI(DMI* dmi, int width, int height){
 
 void Resize_IconStates(DMI* dmi, int new_size){
     icon_state *newStates = realloc(dmi->begin_icon_state, new_size * sizeof(icon_state));
-
     dmi->begin_icon_state = newStates;
-    dmi->icon_states = dmi->begin_icon_state;
+    dmi->icon_states = dmi->begin_icon_state + dmi->num_of_states-1;
 
 }
 
@@ -45,8 +44,9 @@ png_uint_32 Get_Sheet_Size(DMI* dmi){
   //  printf("Sheet #3. . \n");
     for(int i = 0; i < dmi->num_of_states; i++){
         return_total += dmi->icon_states->dirs;
-        printf("Dir = %d\n", dmi->icon_states->dirs);
-        printf("i = %d\n", i);
+
+        printf("%s - Dir = %d\n", dmi->icon_states->state, dmi->icon_states->dirs);
+        //printf("i = %d\n", i);
         dmi->icon_states++;
     }
     //printf("Sheet #4. . \n");
@@ -356,7 +356,7 @@ int DMI_To_Png(DMI* dmi, int pngWidth, int pngHeight, png_bytepp orig_pointer, p
                 copy_row += (copy_col/pngWidth) * DMI_HEIGHT;
                 copy_col = copy_col % pngWidth;
             }
-            printf("Frame = %d\n", i);
+           // printf("Frame = %d\n", i);
             Get_Frame(new_pointer, orig_pointer, dest_row, dest_col,
                       copy_row, copy_col, DMI_WIDTH, DMI_HEIGHT);
             dest_col += DMI_WIDTH;

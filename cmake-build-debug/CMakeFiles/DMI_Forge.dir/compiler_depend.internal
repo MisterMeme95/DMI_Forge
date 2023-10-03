@@ -112,6 +112,11 @@ CMakeFiles/DMI_Forge.dir/Icon_State.c.obj
  C:/Program Files/JetBrains/CLion 2023.2.2/bin/mingw/x86_64-w64-mingw32/include/string.h
  C:/Program Files/JetBrains/CLion 2023.2.2/bin/mingw/x86_64-w64-mingw32/include/sec_api/string_s.h
  C:/Users/jonat/GitHub/DMI_Forge/iconstate.h
+ C:/Program Files/JetBrains/CLion 2023.2.2/bin/mingw/x86_64-w64-mingw32/include/stdio.h
+ C:/Program Files/JetBrains/CLion 2023.2.2/bin/mingw/x86_64-w64-mingw32/include/corecrt_stdio_config.h
+ C:/Program Files/JetBrains/CLion 2023.2.2/bin/mingw/x86_64-w64-mingw32/include/_mingw_off_t.h
+ C:/Program Files/JetBrains/CLion 2023.2.2/bin/mingw/x86_64-w64-mingw32/include/swprintf.inl
+ C:/Program Files/JetBrains/CLion 2023.2.2/bin/mingw/x86_64-w64-mingw32/include/sec_api/stdio_s.h
 
 CMakeFiles/DMI_Forge.dir/main.c.obj
  C:/Users/jonat/GitHub/DMI_Forge/main.c

@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "iconstate.h"
+#include <stdio.h>
 
 void Add_Delay(icon_state* thisNode, int *delay) {
     if(thisNode->delay )
@@ -33,7 +34,7 @@ void Add_Dir(icon_state* thisNode, int dirs) {
 void Initialize_IconState(icon_state* thisNode, char* name) {
    // printf("Name is %s\n", name);
     thisNode->state = name;
- //   printf("Icon State is set to %s\n", thisNode->state);
+    printf("Icon State is set to %s\n", thisNode->state);
     thisNode->dirs = 1;
     thisNode->frames = 1;
     thisNode->loop = 1;
