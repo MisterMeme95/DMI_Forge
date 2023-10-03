@@ -3,6 +3,9 @@
 #define DMI_VERSION "version"
 #define ICON_STATE "state"
 #define DMI_WIDT "width"
+#define HORIZONTAL_FLOW 0
+#define LINEAR_FLOW 1
+#define GRIDLOCK_FLOW 2
 
 #include "iconstate.h"
 #include "png.h"
@@ -10,13 +13,14 @@
 typedef struct DMI_Struct {
     bool has_icons;
     double version;
-    int width, height, num_of_states;
+    int width, height, num_of_states, max_state;
     icon_state *icon_states, *begin_icon_state;
 }DMI;
 
 int DMI_To_Png(DMI* dmi, int pngWidth, int pngHeight, png_bytepp orig_pointer, png_bytepp new_pointer,
-               png_structp png_ptr, png_infop info_ptr, int ppb, int color_type);
+               png_structp png_ptr, png_infop info_ptr, int ppb, int color_type, int flow_type);
 
+void Resize_IconStates(DMI* dmi, int new_size);
 int PNG_To_DMI();
 
 void Init_DMI(DMI* dmi, int width, int height);

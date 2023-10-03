@@ -156,6 +156,10 @@ void Print_Variable(char *string, DMI* dmi){
                 dmi->has_icons=true;
                 dmi->num_of_states++;
             }
+            if(dmi->num_of_states >= dmi->max_state){
+                dmi->max_state += 30;
+                Resize_IconStates(dmi, dmi->max_state);
+            }
         }
         else {
             variable_value = Value_Authentication(found);
