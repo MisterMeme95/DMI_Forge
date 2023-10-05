@@ -25,7 +25,7 @@ int main(int argc, char **argv)
     int run_program = 10;
     while(run_program >= 1){
         FILE *input_fp;
-        if(!check_if_png("armtape_left.dmi",&input_fp)){
+        if(!check_if_png("Base_Black.dmi",&input_fp)){
             printf("The file you are attempting to read is not a valid PNG file!\n");
             return 0;
         }
@@ -115,7 +115,7 @@ int main(int argc, char **argv)
             printf("Error opening output file\n");
             return 1;
         }
-        printf("Died here #1. . \n");
+
         png_structp write_png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
         if (!write_png_ptr) {
             printf("Error creating write struct\n");
@@ -154,7 +154,7 @@ int main(int argc, char **argv)
 
         //png_set_tRNS(write_png_ptr, write_info_ptr, trans_alpha, num_trans, trans_color);
 
-        png_set_IHDR(write_png_ptr, write_info_ptr, (png_uint_32)sheet_width, (png_uint_32)sheet_size,
+        png_set_IHDR(write_png_ptr, write_info_ptr, (png_uint_32)sheet_width*2, (png_uint_32)sheet_size,
                      bit_depth, color_type, interlace_method, PNG_COMPRESSION_TYPE_DEFAULT,
                      PNG_FILTER_TYPE_DEFAULT);
 
@@ -169,17 +169,17 @@ int main(int argc, char **argv)
         }
 
         DMI_To_Png(new_icon, png_get_rowbytes(read_png_ptr, read_info_ptr), 144, row_pointers,row_pointers_new,
-                   write_png_ptr, write_info_ptr, pixels_per_byte, color_type, HORIZONTAL_FLOW);
+                   write_png_ptr, write_info_ptr, pixels_per_byte, color_type, LINEAR_FLOW, LINEAR_FLOW);
 
-
+        //printf("Dmi to png complete!\n");
         png_write_info(write_png_ptr, write_info_ptr);
 
         png_write_image(write_png_ptr, row_pointers_new);
        // printf("Write image done!\n");
         png_write_end(write_png_ptr, NULL);
         png_destroy_write_struct(&write_png_ptr, &write_info_ptr);
-
         fclose(output_fp);
+
         fclose(input_fp);
 
         free(row_pointers_new);

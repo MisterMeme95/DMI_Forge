@@ -180,7 +180,7 @@ void Print_Variable(char *string, DMI* dmi){
     }
     if(strcmp(check_string, "dirs") == 0){
 
-        printf("For %s the dir = %d\n", dmi->icon_states->state, integer_value);
+     //   printf("For %s the dir = %d\n", dmi->icon_states->state, integer_value);
         Add_Dir(dmi->icon_states, integer_value);
     }
     if(strcmp(check_string, "frames") == 0){
@@ -216,10 +216,8 @@ char *find_newline(char **string, int *dmi_index, char *search_for){
     int num_of_char = get_string_char(*string, search_for, 'n');
     char *new_string = (char *) malloc(sizeof(char) * (num_of_char + 1));
     while(index < num_of_char){
-
         new_string[index] = *(*string)++;
         index++;
-
     }
     new_string[num_of_char]='\0';
     (*string)++;

@@ -313,11 +313,77 @@ void Get_Frame(png_bytepp dest_pixels, png_bytepp src_pixels, int dest_start_row
     }
 
 }
+void Fix_Dimension(int *dest_col, int *dest_row, int *source_col, int *source_row, int *copy_row, int *copy_col,
+                   int start_row, int start_col, int *frame_tracker,int input_flow,int output_flow, int DMI_WIDTH,
+                   int DMI_HEIGHT, int pngWidth, int total_frame, int outwidth, DMI *dmi){
+    *dest_col += DMI_WIDTH;
 
+    /* If the input_flow image is designated as HORIZONTAL_FLOW format,
+     * then we simply move source_column by N amount, where N is equal to the DMI_WIDTH * num_of_dir in a particular
+     * icon_state. */
+  //  printf("Check #1\n");
+    if(input_flow == LINEAR_FLOW){
+        *source_col += DMI_WIDTH * dmi->begin_icon_state->dirs; //Add multiplication by direction
+    }
+    /* Otherwise, then the input_image has to be either in GRIDLOCK_FLOW or LINEAR_FLOW. In that case, we instead
+     * move the ROW down a single motion by the designated DMI_HEIGHT. */
+    else if(input_flow == HORIZONTAL_FLOW || input_flow == GRIDLOCK_FLOW){
+        *source_row += DMI_HEIGHT;
+    }
+ //  printf("Check #2\n");
 
+    /* Next we check the frame_tracker. If the frame_tracker is less than the # of frames in an i*/
+
+    int value_to_check;
+    if(input_flow == LINEAR_FLOW){
+        value_to_check = dmi->begin_icon_state->frames;
+    }
+    else{
+        value_to_check = dmi->begin_icon_state->dirs;
+    }
+
+    printf("Value to check = %d\n", value_to_check);
+   // printf("Check #3\n");
+
+    if(*frame_tracker >= value_to_check){
+        (*frame_tracker) = 1;
+        *source_row = 0;
+        *source_col = (DMI_WIDTH * ((total_frame+1)/dmi->begin_icon_state->frames));
+        printf("Source_Col = %d\n", *source_col);
+        if(output_flow == HORIZONTAL_FLOW || output_flow == GRIDLOCK_FLOW){
+            *dest_row += DMI_HEIGHT;
+            *dest_col = 0;
+        }
+    }
+
+    else {
+        (*frame_tracker)++;
+    }
+  //  printf("Check #4\n");
+    /* If the output file is set to be LINEAR_FLOW, then we only need to go down a row when we
+     * are at the end of a column for the png. */
+    if(output_flow == LINEAR_FLOW){
+        printf("Dest_Col = %d\npngWidth =%d\n", *dest_col, pngWidth);
+        if(*dest_col >= outwidth){
+            *dest_col = 0;
+            *dest_row += DMI_HEIGHT;
+        }
+    }
+    //printf("Check #5\n");
+    *copy_col = start_col + *source_col;// + col_offset;
+    *copy_row = start_row + *source_row;;// + row_offset;
+
+    if(*copy_col >= pngWidth){
+        *copy_row += (*copy_col/pngWidth) * DMI_HEIGHT;
+        *copy_col = *copy_col % pngWidth;
+    }
+   // printf("Check #6\n");
+
+}
 
 int DMI_To_Png(DMI* dmi, int pngWidth, int pngHeight, png_bytepp orig_pointer, png_bytepp new_pointer,
-                 png_structp png_ptr, png_infop info_ptr, int ppb, int color_type, int flow_type){
+                 png_structp png_ptr, png_infop info_ptr, int ppb, int color_type, int output_flow_type,
+                 int input_flow_type){
     printf("Dmi started. . .\n");
     int DMI_HEIGHT = dmi->height, DMI_WIDTH = (dmi->width) / ppb;
     int row_bytes = (int)png_get_rowbytes(png_ptr, info_ptr);
@@ -335,75 +401,85 @@ int DMI_To_Png(DMI* dmi, int pngWidth, int pngHeight, png_bytepp orig_pointer, p
     int frames_in_state, frame_tracker = 1;
     int dest_row = 0, dest_col = 0, source_row = 0, source_col = 0;
     int start_col = 0, start_row = 0;
-    int row_offset = 0, col_offset = 0;
-
-
+    //int row_offset = 0, col_offset = 0;
+    int copy_col;
+    int copy_row;
+   // printf("Num of states = %d\n", dmi->num_of_states);
+   // sleep(5);
     while(state_tracker < (dmi->num_of_states)) {
         frames_in_state = dmi->begin_icon_state->dirs * dmi->begin_icon_state->frames;
+        copy_col = start_col + source_col;// + col_offset;
+        copy_row = start_row + source_row;// + row_offset;
         for(int i = 0; i < frames_in_state; i++){
-            /* PLAN - Break down this process to be modular for each type of image flowtype.
-             * Change it so that there's a function that takes pointers and alters the copy_col/copy_row,
-             * and start_col/row. . . etc
-             *
-             *
-             * if Horizontal flow, leave as is.
-             * if VERTICAL_FLOW, instead move
-             * *
-             * */
-            int copy_col = start_col + source_col + col_offset;
-            int copy_row = start_row + source_row + row_offset;
-            if(copy_col >= pngWidth){
-                copy_row += (copy_col/pngWidth) * DMI_HEIGHT;
-                copy_col = copy_col % pngWidth;
-            }
+
            // printf("Frame = %d\n", i);
             Get_Frame(new_pointer, orig_pointer, dest_row, dest_col,
                       copy_row, copy_col, DMI_WIDTH, DMI_HEIGHT);
+            Fix_Dimension(&dest_col, &dest_row, &source_col, &source_row, &copy_row, &copy_col,
+            start_row, start_col, &frame_tracker,input_flow_type,output_flow_type, DMI_WIDTH,
+            DMI_HEIGHT, pngWidth, i, row_bytes, dmi);
+            //printf("Check #7\n");
+            /* In vertical flow for the sprite sheet,  we move horizontally to place each sprite in order.
+             * For
+             *
+             * */
+            /*
             dest_col += DMI_WIDTH;
 
-            if(dmi->begin_icon_state->dirs > 1){
-                source_col += DMI_WIDTH * dmi->begin_icon_state->dirs;
-            }
-            else {
-                source_col += DMI_WIDTH;
-            }
-            if(source_col >= pngWidth){
-                source_row += DMI_HEIGHT;
-                source_col = (source_col % pngWidth);
-            }
+            source_col += DMI_WIDTH * dmi->begin_icon_state->dirs;
+
             if(frame_tracker >= dmi->begin_icon_state->frames){
                 frame_tracker = 1;
-                col_offset += DMI_WIDTH;
+                //col_offset += DMI_WIDTH;
                 source_row = 0;
-                source_col = 0;
-                if(flow_type == HORIZONTAL_FLOW){
+                source_col = (DMI_WIDTH * ((i+1)/dmi->begin_icon_state->frames));
+                if(output_flow_type == HORIZONTAL_FLOW){
                     dest_row += DMI_HEIGHT;
                     dest_col = 0;
                 }
-               // if(col_offset >= pngWidth){
-               //     col_offset = (col_offset % pngWidth);
-              //      row_offset += DMI_HEIGHT;
-              //  }
             }
+
             else
                 frame_tracker++;
+
             if(flow_type == LINEAR_FLOW){
                 if(dest_col >= row_bytes){
                     dest_col = 0;
                     dest_row += DMI_HEIGHT;
                 }
             }
+
+            copy_col = start_col + source_col;// + col_offset;
+            copy_row = start_row + source_row;;// + row_offset;
+
+            if(copy_col >= pngWidth){
+                copy_row += (copy_col/pngWidth) * DMI_HEIGHT;
+                copy_col = copy_col % pngWidth;
+            }
+             */
+     // /      if(i == 4)
+        //        return 1;
         }
+      //  printf("Check #1. . .\n");
         total_frames += frames_in_state;
+        //printf("Check #2. . .\n");
         dmi->begin_icon_state++;
+        //printf("Check #3. . .\n");
         state_tracker++;
-        col_offset = 0;
-        row_offset = 0;
+       // printf("Check #4. . .\n");
+     //   col_offset = 0;
+      //  row_offset = 0;
         source_col = 0;
         source_row = 0;
+        //printf("Check #5. . .\n");
         start_col = (total_frames * DMI_WIDTH) % pngWidth;
         start_row = ((total_frames * DMI_WIDTH) / pngWidth) * DMI_HEIGHT;
+        //printf("Check #6. . .\n");
+  //      printf("State_Tracker = %d\n", state_tracker);
+      //  if(state_tracker == 1)
+      //      return 1;
     }
+    //printf("Check #7. . .\n");
     return 1;
 }
 
@@ -511,7 +587,6 @@ void output_pixel_values2(png_structp png_ptr, png_infop info_ptr, png_bytep *ro
                     if(y >= between1 && y<= between2){
                         printf("%c - Pixel at (%d, %d): Palette Index=%d, R=%d, G=%d, B=%d\n",type, x, y, index,
                                palette_color.red, palette_color.green, palette_color.blue);
-
                     }
 
                 } else {
@@ -519,10 +594,8 @@ void output_pixel_values2(png_structp png_ptr, png_infop info_ptr, png_bytep *ro
                         printf("%c - Index = %d\n",type, index);
                         printf("%c - Pixel at (%d, %d): Palette index out of range\n",type, x, y);
                     }
-
                 }
             }
-
             else {
                 if(y >= between1 && y<= between2){
                     printf("%c - Index = %d",type, row[x]);

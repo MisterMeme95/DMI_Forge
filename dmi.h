@@ -18,11 +18,14 @@ typedef struct DMI_Struct {
 }DMI;
 
 int DMI_To_Png(DMI* dmi, int pngWidth, int pngHeight, png_bytepp orig_pointer, png_bytepp new_pointer,
-               png_structp png_ptr, png_infop info_ptr, int ppb, int color_type, int flow_type);
+               png_structp png_ptr, png_infop info_ptr, int ppb, int color_type, int output_flow_type,
+               int input_flow_type);
 
 void Resize_IconStates(DMI* dmi, int new_size);
 int PNG_To_DMI();
-
+void Fix_Dimension(int *dest_col, int *dest_row, int *source_col, int *source_row, int *copy_row, int *copy_col,
+                   int start_row, int start_col, int *frame_tracker,int input_flow,int output_flow, int DMI_WIDTH,
+                   int DMI_HEIGHT, int pngWidth, int total_frame,int outwidth, DMI *dmi);
 void Init_DMI(DMI* dmi, int width, int height);
 
 png_uint_32 Get_Sheet_Size(DMI* dmi);
