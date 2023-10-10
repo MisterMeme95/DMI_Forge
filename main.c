@@ -12,11 +12,12 @@
 #include "png.h"
 #include "dmi.h"
 
+//#include "pngpriv.h"
 
 
-int main(int argc, char **argv)
-{
-  //  PNG_To_DMI();
+
+int main(int argc, char **argv) {
+  // .f PNG_To_DMI();
     //return 1;
     png_structp read_png_ptr;
     png_infop read_info_ptr;
@@ -58,7 +59,7 @@ int main(int argc, char **argv)
                 break;
         }
 
-
+      //  png_get_x_offset_pixels()
         png_bytepp row_pointers = (png_bytepp)malloc(sizeof(png_bytep) * num_rows);
         printf("Row Bytes = %d\nHeight = %d\n", png_get_rowbytes(read_png_ptr, read_info_ptr), height);
         for (png_uint_32 i = 0; i < height; i++) {
@@ -66,6 +67,7 @@ int main(int argc, char **argv)
         }
 
         png_read_image(read_png_ptr, row_pointers);
+     //   sleep(10);
         //png_read_rows(read_png_ptr, row_pointers, NULL, num_rows);
         printf("Rowbytes = %d\n", png_get_rowbytes(read_png_ptr, read_info_ptr));
         png_textp text_ptr;

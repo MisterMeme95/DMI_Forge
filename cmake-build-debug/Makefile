@@ -128,12 +128,50 @@ DMI_Forge/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DMI_Forge.dir\build.make CMakeFiles/DMI_Forge.dir/build
 .PHONY : DMI_Forge/fast
 
+#=============================================================================
+# Target rules for targets named dmi2sheet
+
+# Build rule for target.
+dmi2sheet: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 dmi2sheet
+.PHONY : dmi2sheet
+
+# fast build rule for target.
+dmi2sheet/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dmi2sheet.dir\build.make CMakeFiles/dmi2sheet.dir/build
+.PHONY : dmi2sheet/fast
+
+DMI2Sheet.obj: DMI2Sheet.c.obj
+.PHONY : DMI2Sheet.obj
+
+# target to build an object file
+DMI2Sheet.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dmi2sheet.dir\build.make CMakeFiles/dmi2sheet.dir/DMI2Sheet.c.obj
+.PHONY : DMI2Sheet.c.obj
+
+DMI2Sheet.i: DMI2Sheet.c.i
+.PHONY : DMI2Sheet.i
+
+# target to preprocess a source file
+DMI2Sheet.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dmi2sheet.dir\build.make CMakeFiles/dmi2sheet.dir/DMI2Sheet.c.i
+.PHONY : DMI2Sheet.c.i
+
+DMI2Sheet.s: DMI2Sheet.c.s
+.PHONY : DMI2Sheet.s
+
+# target to generate assembly for a file
+DMI2Sheet.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dmi2sheet.dir\build.make CMakeFiles/dmi2sheet.dir/DMI2Sheet.c.s
+.PHONY : DMI2Sheet.c.s
+
 DMIParse.obj: DMIParse.c.obj
 .PHONY : DMIParse.obj
 
 # target to build an object file
 DMIParse.c.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DMI_Forge.dir\build.make CMakeFiles/DMI_Forge.dir/DMIParse.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dmi2sheet.dir\build.make CMakeFiles/dmi2sheet.dir/DMIParse.c.obj
 .PHONY : DMIParse.c.obj
 
 DMIParse.i: DMIParse.c.i
@@ -142,6 +180,7 @@ DMIParse.i: DMIParse.c.i
 # target to preprocess a source file
 DMIParse.c.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DMI_Forge.dir\build.make CMakeFiles/DMI_Forge.dir/DMIParse.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dmi2sheet.dir\build.make CMakeFiles/dmi2sheet.dir/DMIParse.c.i
 .PHONY : DMIParse.c.i
 
 DMIParse.s: DMIParse.c.s
@@ -150,6 +189,7 @@ DMIParse.s: DMIParse.c.s
 # target to generate assembly for a file
 DMIParse.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DMI_Forge.dir\build.make CMakeFiles/DMI_Forge.dir/DMIParse.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dmi2sheet.dir\build.make CMakeFiles/dmi2sheet.dir/DMIParse.c.s
 .PHONY : DMIParse.c.s
 
 DMI_Struct.obj: DMI_Struct.c.obj
@@ -158,6 +198,7 @@ DMI_Struct.obj: DMI_Struct.c.obj
 # target to build an object file
 DMI_Struct.c.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DMI_Forge.dir\build.make CMakeFiles/DMI_Forge.dir/DMI_Struct.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dmi2sheet.dir\build.make CMakeFiles/dmi2sheet.dir/DMI_Struct.c.obj
 .PHONY : DMI_Struct.c.obj
 
 DMI_Struct.i: DMI_Struct.c.i
@@ -166,6 +207,7 @@ DMI_Struct.i: DMI_Struct.c.i
 # target to preprocess a source file
 DMI_Struct.c.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DMI_Forge.dir\build.make CMakeFiles/DMI_Forge.dir/DMI_Struct.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dmi2sheet.dir\build.make CMakeFiles/dmi2sheet.dir/DMI_Struct.c.i
 .PHONY : DMI_Struct.c.i
 
 DMI_Struct.s: DMI_Struct.c.s
@@ -174,6 +216,7 @@ DMI_Struct.s: DMI_Struct.c.s
 # target to generate assembly for a file
 DMI_Struct.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DMI_Forge.dir\build.make CMakeFiles/DMI_Forge.dir/DMI_Struct.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dmi2sheet.dir\build.make CMakeFiles/dmi2sheet.dir/DMI_Struct.c.s
 .PHONY : DMI_Struct.c.s
 
 Icon_State.obj: Icon_State.c.obj
@@ -182,6 +225,7 @@ Icon_State.obj: Icon_State.c.obj
 # target to build an object file
 Icon_State.c.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DMI_Forge.dir\build.make CMakeFiles/DMI_Forge.dir/Icon_State.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dmi2sheet.dir\build.make CMakeFiles/dmi2sheet.dir/Icon_State.c.obj
 .PHONY : Icon_State.c.obj
 
 Icon_State.i: Icon_State.c.i
@@ -190,6 +234,7 @@ Icon_State.i: Icon_State.c.i
 # target to preprocess a source file
 Icon_State.c.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DMI_Forge.dir\build.make CMakeFiles/DMI_Forge.dir/Icon_State.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dmi2sheet.dir\build.make CMakeFiles/dmi2sheet.dir/Icon_State.c.i
 .PHONY : Icon_State.c.i
 
 Icon_State.s: Icon_State.c.s
@@ -198,6 +243,7 @@ Icon_State.s: Icon_State.c.s
 # target to generate assembly for a file
 Icon_State.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DMI_Forge.dir\build.make CMakeFiles/DMI_Forge.dir/Icon_State.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dmi2sheet.dir\build.make CMakeFiles/dmi2sheet.dir/Icon_State.c.s
 .PHONY : Icon_State.c.s
 
 main.obj: main.c.obj
@@ -233,6 +279,10 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... DMI_Forge
+	@echo ... dmi2sheet
+	@echo ... DMI2Sheet.obj
+	@echo ... DMI2Sheet.i
+	@echo ... DMI2Sheet.s
 	@echo ... DMIParse.obj
 	@echo ... DMIParse.i
 	@echo ... DMIParse.s

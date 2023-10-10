@@ -63,6 +63,7 @@ CMAKE_BINARY_DIR = C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug
 
 # The main recursive "all" target.
 all: CMakeFiles/DMI_Forge.dir/all
+all: CMakeFiles/dmi2sheet.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -71,6 +72,7 @@ preinstall:
 
 # The main recursive "clean" target.
 clean: CMakeFiles/DMI_Forge.dir/clean
+clean: CMakeFiles/dmi2sheet.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -98,6 +100,32 @@ DMI_Forge: CMakeFiles/DMI_Forge.dir/rule
 CMakeFiles/DMI_Forge.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DMI_Forge.dir\build.make CMakeFiles/DMI_Forge.dir/clean
 .PHONY : CMakeFiles/DMI_Forge.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/dmi2sheet.dir
+
+# All Build rule for target.
+CMakeFiles/dmi2sheet.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dmi2sheet.dir\build.make CMakeFiles/dmi2sheet.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dmi2sheet.dir\build.make CMakeFiles/dmi2sheet.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles --progress-num=6,7,8,9,10 "Built target dmi2sheet"
+.PHONY : CMakeFiles/dmi2sheet.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/dmi2sheet.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles 5
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/dmi2sheet.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles 0
+.PHONY : CMakeFiles/dmi2sheet.dir/rule
+
+# Convenience name for target.
+dmi2sheet: CMakeFiles/dmi2sheet.dir/rule
+.PHONY : dmi2sheet
+
+# clean rule for target.
+CMakeFiles/dmi2sheet.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dmi2sheet.dir\build.make CMakeFiles/dmi2sheet.dir/clean
+.PHONY : CMakeFiles/dmi2sheet.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.
