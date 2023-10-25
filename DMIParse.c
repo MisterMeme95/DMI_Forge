@@ -50,10 +50,10 @@ char *Variable_Authentication(char *string){
     int num_of_char = get_string_char(string, "=", 'n');
     //   printf("num_of_char = %d\n", num_of_char);
     char *value_check = (char *) malloc(sizeof(char) * (num_of_char+1));
-    if(num_of_char == 0){
-        printf("This is not a value!\n");
-        printf("%s\n", string);
-    }
+   // if(num_of_char == 0){
+     //   printf("This is not a value!\n");
+       // printf("%s\n", string);
+   // }
 
 
 

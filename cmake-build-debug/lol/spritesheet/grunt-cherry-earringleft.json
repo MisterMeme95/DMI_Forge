@@ -1,0 +1,1491 @@
+{ "frames": {
+   "grunt-cherry-earringleft 0.aseprite": {
+    "frame": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 200
+   },
+   "grunt-cherry-earringleft 1.aseprite": {
+    "frame": { "x": 62, "y": 0, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 200
+   },
+   "grunt-cherry-earringleft 4.aseprite": {
+    "frame": { "x": 124, "y": 0, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 200
+   },
+   "grunt-cherry-earringleft 5.aseprite": {
+    "frame": { "x": 186, "y": 0, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 200
+   },
+   "grunt-cherry-earringleft 6.aseprite": {
+    "frame": { "x": 248, "y": 0, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 200
+   },
+   "grunt-cherry-earringleft 7.aseprite": {
+    "frame": { "x": 310, "y": 0, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 200
+   },
+   "grunt-cherry-earringleft 9.aseprite": {
+    "frame": { "x": 372, "y": 0, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 10.aseprite": {
+    "frame": { "x": 434, "y": 0, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 11.aseprite": {
+    "frame": { "x": 496, "y": 0, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 12.aseprite": {
+    "frame": { "x": 558, "y": 0, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 13.aseprite": {
+    "frame": { "x": 620, "y": 0, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 14.aseprite": {
+    "frame": { "x": 682, "y": 0, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 15.aseprite": {
+    "frame": { "x": 744, "y": 0, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 16.aseprite": {
+    "frame": { "x": 806, "y": 0, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 17.aseprite": {
+    "frame": { "x": 0, "y": 62, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 18.aseprite": {
+    "frame": { "x": 62, "y": 62, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 19.aseprite": {
+    "frame": { "x": 124, "y": 62, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 20.aseprite": {
+    "frame": { "x": 186, "y": 62, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 120
+   },
+   "grunt-cherry-earringleft 21.aseprite": {
+    "frame": { "x": 248, "y": 62, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 22.aseprite": {
+    "frame": { "x": 310, "y": 62, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 120
+   },
+   "grunt-cherry-earringleft 23.aseprite": {
+    "frame": { "x": 372, "y": 62, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 24.aseprite": {
+    "frame": { "x": 434, "y": 62, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 25.aseprite": {
+    "frame": { "x": 496, "y": 62, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 26.aseprite": {
+    "frame": { "x": 558, "y": 62, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 27.aseprite": {
+    "frame": { "x": 620, "y": 62, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 28.aseprite": {
+    "frame": { "x": 682, "y": 62, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 29.aseprite": {
+    "frame": { "x": 744, "y": 62, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 30.aseprite": {
+    "frame": { "x": 806, "y": 62, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 33.aseprite": {
+    "frame": { "x": 0, "y": 124, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 34.aseprite": {
+    "frame": { "x": 62, "y": 124, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 35.aseprite": {
+    "frame": { "x": 124, "y": 124, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 36.aseprite": {
+    "frame": { "x": 186, "y": 124, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 38.aseprite": {
+    "frame": { "x": 248, "y": 124, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 39.aseprite": {
+    "frame": { "x": 310, "y": 124, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 40.aseprite": {
+    "frame": { "x": 372, "y": 124, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 41.aseprite": {
+    "frame": { "x": 434, "y": 124, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 44.aseprite": {
+    "frame": { "x": 496, "y": 124, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 45.aseprite": {
+    "frame": { "x": 558, "y": 124, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 46.aseprite": {
+    "frame": { "x": 620, "y": 124, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 47.aseprite": {
+    "frame": { "x": 682, "y": 124, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 48.aseprite": {
+    "frame": { "x": 744, "y": 124, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 49.aseprite": {
+    "frame": { "x": 806, "y": 124, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 120
+   },
+   "grunt-cherry-earringleft 50.aseprite": {
+    "frame": { "x": 0, "y": 186, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 51.aseprite": {
+    "frame": { "x": 62, "y": 186, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 120
+   },
+   "grunt-cherry-earringleft 54.aseprite": {
+    "frame": { "x": 124, "y": 186, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 55.aseprite": {
+    "frame": { "x": 186, "y": 186, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 56.aseprite": {
+    "frame": { "x": 248, "y": 186, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 57.aseprite": {
+    "frame": { "x": 310, "y": 186, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 58.aseprite": {
+    "frame": { "x": 372, "y": 186, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 59.aseprite": {
+    "frame": { "x": 434, "y": 186, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 60.aseprite": {
+    "frame": { "x": 496, "y": 186, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 61.aseprite": {
+    "frame": { "x": 558, "y": 186, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 62.aseprite": {
+    "frame": { "x": 620, "y": 186, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 63.aseprite": {
+    "frame": { "x": 682, "y": 186, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 64.aseprite": {
+    "frame": { "x": 744, "y": 186, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 65.aseprite": {
+    "frame": { "x": 806, "y": 186, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 70.aseprite": {
+    "frame": { "x": 0, "y": 248, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 71.aseprite": {
+    "frame": { "x": 62, "y": 248, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 78.aseprite": {
+    "frame": { "x": 124, "y": 248, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 79.aseprite": {
+    "frame": { "x": 186, "y": 248, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 82.aseprite": {
+    "frame": { "x": 248, "y": 248, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 83.aseprite": {
+    "frame": { "x": 310, "y": 248, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 86.aseprite": {
+    "frame": { "x": 372, "y": 248, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 87.aseprite": {
+    "frame": { "x": 434, "y": 248, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 92.aseprite": {
+    "frame": { "x": 496, "y": 248, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 93.aseprite": {
+    "frame": { "x": 558, "y": 248, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 120
+   },
+   "grunt-cherry-earringleft 94.aseprite": {
+    "frame": { "x": 620, "y": 248, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 95.aseprite": {
+    "frame": { "x": 682, "y": 248, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 120
+   },
+   "grunt-cherry-earringleft 102.aseprite": {
+    "frame": { "x": 744, "y": 248, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 103.aseprite": {
+    "frame": { "x": 806, "y": 248, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 106.aseprite": {
+    "frame": { "x": 0, "y": 310, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 107.aseprite": {
+    "frame": { "x": 62, "y": 310, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 110.aseprite": {
+    "frame": { "x": 124, "y": 310, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 111.aseprite": {
+    "frame": { "x": 186, "y": 310, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 118.aseprite": {
+    "frame": { "x": 248, "y": 310, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 119.aseprite": {
+    "frame": { "x": 310, "y": 310, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 122.aseprite": {
+    "frame": { "x": 372, "y": 310, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 123.aseprite": {
+    "frame": { "x": 434, "y": 310, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 124.aseprite": {
+    "frame": { "x": 496, "y": 310, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "grunt-cherry-earringleft 125.aseprite": {
+    "frame": { "x": 558, "y": 310, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "grunt-cherry-earringleft 126.aseprite": {
+    "frame": { "x": 620, "y": 310, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 165
+   },
+   "grunt-cherry-earringleft 127.aseprite": {
+    "frame": { "x": 682, "y": 310, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 165
+   },
+   "grunt-cherry-earringleft 128.aseprite": {
+    "frame": { "x": 744, "y": 310, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 165
+   },
+   "grunt-cherry-earringleft 129.aseprite": {
+    "frame": { "x": 806, "y": 310, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 165
+   },
+   "grunt-cherry-earringleft 130.aseprite": {
+    "frame": { "x": 0, "y": 372, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "grunt-cherry-earringleft 131.aseprite": {
+    "frame": { "x": 62, "y": 372, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "grunt-cherry-earringleft 132.aseprite": {
+    "frame": { "x": 124, "y": 372, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 165
+   },
+   "grunt-cherry-earringleft 133.aseprite": {
+    "frame": { "x": 186, "y": 372, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 165
+   },
+   "grunt-cherry-earringleft 134.aseprite": {
+    "frame": { "x": 248, "y": 372, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 165
+   },
+   "grunt-cherry-earringleft 135.aseprite": {
+    "frame": { "x": 310, "y": 372, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 165
+   },
+   "grunt-cherry-earringleft 136.aseprite": {
+    "frame": { "x": 372, "y": 372, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "grunt-cherry-earringleft 137.aseprite": {
+    "frame": { "x": 434, "y": 372, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "grunt-cherry-earringleft 140.aseprite": {
+    "frame": { "x": 496, "y": 372, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "grunt-cherry-earringleft 141.aseprite": {
+    "frame": { "x": 558, "y": 372, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "grunt-cherry-earringleft 146.aseprite": {
+    "frame": { "x": 620, "y": 372, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 165
+   },
+   "grunt-cherry-earringleft 147.aseprite": {
+    "frame": { "x": 682, "y": 372, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 165
+   },
+   "grunt-cherry-earringleft 148.aseprite": {
+    "frame": { "x": 744, "y": 372, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 165
+   },
+   "grunt-cherry-earringleft 149.aseprite": {
+    "frame": { "x": 806, "y": 372, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 165
+   },
+   "grunt-cherry-earringleft 150.aseprite": {
+    "frame": { "x": 0, "y": 434, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "grunt-cherry-earringleft 151.aseprite": {
+    "frame": { "x": 62, "y": 434, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "grunt-cherry-earringleft 152.aseprite": {
+    "frame": { "x": 124, "y": 434, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 153.aseprite": {
+    "frame": { "x": 186, "y": 434, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 154.aseprite": {
+    "frame": { "x": 248, "y": 434, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 155.aseprite": {
+    "frame": { "x": 310, "y": 434, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 156.aseprite": {
+    "frame": { "x": 372, "y": 434, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "grunt-cherry-earringleft 157.aseprite": {
+    "frame": { "x": 434, "y": 434, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "grunt-cherry-earringleft 158.aseprite": {
+    "frame": { "x": 496, "y": 434, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 159.aseprite": {
+    "frame": { "x": 558, "y": 434, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 160.aseprite": {
+    "frame": { "x": 620, "y": 434, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 161.aseprite": {
+    "frame": { "x": 682, "y": 434, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 164.aseprite": {
+    "frame": { "x": 744, "y": 434, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "grunt-cherry-earringleft 165.aseprite": {
+    "frame": { "x": 806, "y": 434, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "grunt-cherry-earringleft 170.aseprite": {
+    "frame": { "x": 0, "y": 496, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 171.aseprite": {
+    "frame": { "x": 62, "y": 496, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 172.aseprite": {
+    "frame": { "x": 124, "y": 496, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 173.aseprite": {
+    "frame": { "x": 186, "y": 496, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 174.aseprite": {
+    "frame": { "x": 248, "y": 496, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "grunt-cherry-earringleft 175.aseprite": {
+    "frame": { "x": 310, "y": 496, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "grunt-cherry-earringleft 176.aseprite": {
+    "frame": { "x": 372, "y": 496, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "grunt-cherry-earringleft 177.aseprite": {
+    "frame": { "x": 434, "y": 496, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "grunt-cherry-earringleft 180.aseprite": {
+    "frame": { "x": 496, "y": 496, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "grunt-cherry-earringleft 181.aseprite": {
+    "frame": { "x": 558, "y": 496, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "grunt-cherry-earringleft 188.aseprite": {
+    "frame": { "x": 620, "y": 496, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 189.aseprite": {
+    "frame": { "x": 682, "y": 496, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 190.aseprite": {
+    "frame": { "x": 744, "y": 496, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 191.aseprite": {
+    "frame": { "x": 806, "y": 496, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 192.aseprite": {
+    "frame": { "x": 0, "y": 558, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 193.aseprite": {
+    "frame": { "x": 62, "y": 558, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 196.aseprite": {
+    "frame": { "x": 124, "y": 558, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 197.aseprite": {
+    "frame": { "x": 186, "y": 558, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 200.aseprite": {
+    "frame": { "x": 248, "y": 558, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 201.aseprite": {
+    "frame": { "x": 310, "y": 558, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 204.aseprite": {
+    "frame": { "x": 372, "y": 558, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 205.aseprite": {
+    "frame": { "x": 434, "y": 558, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 207.aseprite": {
+    "frame": { "x": 496, "y": 558, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 208.aseprite": {
+    "frame": { "x": 558, "y": 558, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "grunt-cherry-earringleft 209.aseprite": {
+    "frame": { "x": 620, "y": 558, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "grunt-cherry-earringleft 210.aseprite": {
+    "frame": { "x": 682, "y": 558, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "grunt-cherry-earringleft 211.aseprite": {
+    "frame": { "x": 744, "y": 558, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "grunt-cherry-earringleft 212.aseprite": {
+    "frame": { "x": 806, "y": 558, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 213.aseprite": {
+    "frame": { "x": 0, "y": 620, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 214.aseprite": {
+    "frame": { "x": 62, "y": 620, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 215.aseprite": {
+    "frame": { "x": 124, "y": 620, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 216.aseprite": {
+    "frame": { "x": 186, "y": 620, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 217.aseprite": {
+    "frame": { "x": 248, "y": 620, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 224.aseprite": {
+    "frame": { "x": 310, "y": 620, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 225.aseprite": {
+    "frame": { "x": 372, "y": 620, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 226.aseprite": {
+    "frame": { "x": 434, "y": 620, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 227.aseprite": {
+    "frame": { "x": 496, "y": 620, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 228.aseprite": {
+    "frame": { "x": 558, "y": 620, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 229.aseprite": {
+    "frame": { "x": 620, "y": 620, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 230.aseprite": {
+    "frame": { "x": 682, "y": 620, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 231.aseprite": {
+    "frame": { "x": 744, "y": 620, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 232.aseprite": {
+    "frame": { "x": 806, "y": 620, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 233.aseprite": {
+    "frame": { "x": 0, "y": 682, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 234.aseprite": {
+    "frame": { "x": 62, "y": 682, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 235.aseprite": {
+    "frame": { "x": 124, "y": 682, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 240.aseprite": {
+    "frame": { "x": 186, "y": 682, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 241.aseprite": {
+    "frame": { "x": 248, "y": 682, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 244.aseprite": {
+    "frame": { "x": 310, "y": 682, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 245.aseprite": {
+    "frame": { "x": 372, "y": 682, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 246.aseprite": {
+    "frame": { "x": 434, "y": 682, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 247.aseprite": {
+    "frame": { "x": 496, "y": 682, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 248.aseprite": {
+    "frame": { "x": 558, "y": 682, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 249.aseprite": {
+    "frame": { "x": 620, "y": 682, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 250.aseprite": {
+    "frame": { "x": 682, "y": 682, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 251.aseprite": {
+    "frame": { "x": 744, "y": 682, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 252.aseprite": {
+    "frame": { "x": 806, "y": 682, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 253.aseprite": {
+    "frame": { "x": 0, "y": 744, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 254.aseprite": {
+    "frame": { "x": 62, "y": 744, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 255.aseprite": {
+    "frame": { "x": 124, "y": 744, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 258.aseprite": {
+    "frame": { "x": 186, "y": 744, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 259.aseprite": {
+    "frame": { "x": 248, "y": 744, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 260.aseprite": {
+    "frame": { "x": 310, "y": 744, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 261.aseprite": {
+    "frame": { "x": 372, "y": 744, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 262.aseprite": {
+    "frame": { "x": 434, "y": 744, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 263.aseprite": {
+    "frame": { "x": 496, "y": 744, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 264.aseprite": {
+    "frame": { "x": 558, "y": 744, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 265.aseprite": {
+    "frame": { "x": 620, "y": 744, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 268.aseprite": {
+    "frame": { "x": 682, "y": 744, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 269.aseprite": {
+    "frame": { "x": 744, "y": 744, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 270.aseprite": {
+    "frame": { "x": 806, "y": 744, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 271.aseprite": {
+    "frame": { "x": 0, "y": 806, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 274.aseprite": {
+    "frame": { "x": 62, "y": 806, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "grunt-cherry-earringleft 275.aseprite": {
+    "frame": { "x": 124, "y": 806, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.3-rc6-x64",
+  "image": "grunt-cherry-earringleft.png",
+  "format": "RGBA8888",
+  "size": { "w": 868, "h": 868 },
+  "scale": "1"
+ }
+}

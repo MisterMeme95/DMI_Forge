@@ -17,8 +17,8 @@
 
 
 int main(int argc, char **argv) {
-  // .f PNG_To_DMI();
-    //return 1;
+  ////  PNG_To_DMI();
+   // return 1;
     png_structp read_png_ptr;
     png_infop read_info_ptr;
     png_uint_32 width, height;
@@ -69,7 +69,7 @@ int main(int argc, char **argv) {
         png_read_image(read_png_ptr, row_pointers);
      //   sleep(10);
         //png_read_rows(read_png_ptr, row_pointers, NULL, num_rows);
-        printf("Rowbytes = %d\n", png_get_rowbytes(read_png_ptr, read_info_ptr));
+   //     printf("Rowbytes = %d\n", png_get_rowbytes(read_png_ptr, read_info_ptr));
         png_textp text_ptr;
         int num_text;
         if (png_get_text(read_png_ptr, read_info_ptr, &text_ptr, &num_text) > 0) {
@@ -108,7 +108,7 @@ int main(int argc, char **argv) {
             string_parser = find_newline(&dmi_check, &dmi_length, "\n");
             Print_Variable(string_parser, new_icon);
         }
-        printf("while(dmi_length > 0) done \n");
+        //printf("while(dmi_length > 0) done \n");
         int sheet_size = Get_Sheet_Size(new_icon);
         int sheet_width = Get_Sheet_Width(new_icon);
         png_bytepp row_pointers_new = (png_bytepp)malloc(sizeof(png_bytep) * sheet_size);

@@ -141,6 +141,43 @@ dmi2sheet/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dmi2sheet.dir\build.make CMakeFiles/dmi2sheet.dir/build
 .PHONY : dmi2sheet/fast
 
+#=============================================================================
+# Target rules for targets named aespritefix
+
+# Build rule for target.
+aespritefix: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 aespritefix
+.PHONY : aespritefix
+
+# fast build rule for target.
+aespritefix/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\aespritefix.dir\build.make CMakeFiles/aespritefix.dir/build
+.PHONY : aespritefix/fast
+
+Aesprite_Fixer.obj: Aesprite_Fixer.c.obj
+.PHONY : Aesprite_Fixer.obj
+
+# target to build an object file
+Aesprite_Fixer.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\aespritefix.dir\build.make CMakeFiles/aespritefix.dir/Aesprite_Fixer.c.obj
+.PHONY : Aesprite_Fixer.c.obj
+
+Aesprite_Fixer.i: Aesprite_Fixer.c.i
+.PHONY : Aesprite_Fixer.i
+
+# target to preprocess a source file
+Aesprite_Fixer.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\aespritefix.dir\build.make CMakeFiles/aespritefix.dir/Aesprite_Fixer.c.i
+.PHONY : Aesprite_Fixer.c.i
+
+Aesprite_Fixer.s: Aesprite_Fixer.c.s
+.PHONY : Aesprite_Fixer.s
+
+# target to generate assembly for a file
+Aesprite_Fixer.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\aespritefix.dir\build.make CMakeFiles/aespritefix.dir/Aesprite_Fixer.c.s
+.PHONY : Aesprite_Fixer.c.s
+
 DMI2Sheet.obj: DMI2Sheet.c.obj
 .PHONY : DMI2Sheet.obj
 
@@ -172,6 +209,7 @@ DMIParse.obj: DMIParse.c.obj
 DMIParse.c.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DMI_Forge.dir\build.make CMakeFiles/DMI_Forge.dir/DMIParse.c.obj
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dmi2sheet.dir\build.make CMakeFiles/dmi2sheet.dir/DMIParse.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\aespritefix.dir\build.make CMakeFiles/aespritefix.dir/DMIParse.c.obj
 .PHONY : DMIParse.c.obj
 
 DMIParse.i: DMIParse.c.i
@@ -181,6 +219,7 @@ DMIParse.i: DMIParse.c.i
 DMIParse.c.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DMI_Forge.dir\build.make CMakeFiles/DMI_Forge.dir/DMIParse.c.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dmi2sheet.dir\build.make CMakeFiles/dmi2sheet.dir/DMIParse.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\aespritefix.dir\build.make CMakeFiles/aespritefix.dir/DMIParse.c.i
 .PHONY : DMIParse.c.i
 
 DMIParse.s: DMIParse.c.s
@@ -190,6 +229,7 @@ DMIParse.s: DMIParse.c.s
 DMIParse.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DMI_Forge.dir\build.make CMakeFiles/DMI_Forge.dir/DMIParse.c.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dmi2sheet.dir\build.make CMakeFiles/dmi2sheet.dir/DMIParse.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\aespritefix.dir\build.make CMakeFiles/aespritefix.dir/DMIParse.c.s
 .PHONY : DMIParse.c.s
 
 DMI_Struct.obj: DMI_Struct.c.obj
@@ -199,6 +239,7 @@ DMI_Struct.obj: DMI_Struct.c.obj
 DMI_Struct.c.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DMI_Forge.dir\build.make CMakeFiles/DMI_Forge.dir/DMI_Struct.c.obj
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dmi2sheet.dir\build.make CMakeFiles/dmi2sheet.dir/DMI_Struct.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\aespritefix.dir\build.make CMakeFiles/aespritefix.dir/DMI_Struct.c.obj
 .PHONY : DMI_Struct.c.obj
 
 DMI_Struct.i: DMI_Struct.c.i
@@ -208,6 +249,7 @@ DMI_Struct.i: DMI_Struct.c.i
 DMI_Struct.c.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DMI_Forge.dir\build.make CMakeFiles/DMI_Forge.dir/DMI_Struct.c.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dmi2sheet.dir\build.make CMakeFiles/dmi2sheet.dir/DMI_Struct.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\aespritefix.dir\build.make CMakeFiles/aespritefix.dir/DMI_Struct.c.i
 .PHONY : DMI_Struct.c.i
 
 DMI_Struct.s: DMI_Struct.c.s
@@ -217,6 +259,7 @@ DMI_Struct.s: DMI_Struct.c.s
 DMI_Struct.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DMI_Forge.dir\build.make CMakeFiles/DMI_Forge.dir/DMI_Struct.c.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dmi2sheet.dir\build.make CMakeFiles/dmi2sheet.dir/DMI_Struct.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\aespritefix.dir\build.make CMakeFiles/aespritefix.dir/DMI_Struct.c.s
 .PHONY : DMI_Struct.c.s
 
 Icon_State.obj: Icon_State.c.obj
@@ -226,6 +269,7 @@ Icon_State.obj: Icon_State.c.obj
 Icon_State.c.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DMI_Forge.dir\build.make CMakeFiles/DMI_Forge.dir/Icon_State.c.obj
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dmi2sheet.dir\build.make CMakeFiles/dmi2sheet.dir/Icon_State.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\aespritefix.dir\build.make CMakeFiles/aespritefix.dir/Icon_State.c.obj
 .PHONY : Icon_State.c.obj
 
 Icon_State.i: Icon_State.c.i
@@ -235,6 +279,7 @@ Icon_State.i: Icon_State.c.i
 Icon_State.c.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DMI_Forge.dir\build.make CMakeFiles/DMI_Forge.dir/Icon_State.c.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dmi2sheet.dir\build.make CMakeFiles/dmi2sheet.dir/Icon_State.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\aespritefix.dir\build.make CMakeFiles/aespritefix.dir/Icon_State.c.i
 .PHONY : Icon_State.c.i
 
 Icon_State.s: Icon_State.c.s
@@ -244,6 +289,7 @@ Icon_State.s: Icon_State.c.s
 Icon_State.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DMI_Forge.dir\build.make CMakeFiles/DMI_Forge.dir/Icon_State.c.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dmi2sheet.dir\build.make CMakeFiles/dmi2sheet.dir/Icon_State.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\aespritefix.dir\build.make CMakeFiles/aespritefix.dir/Icon_State.c.s
 .PHONY : Icon_State.c.s
 
 main.obj: main.c.obj
@@ -279,7 +325,11 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... DMI_Forge
+	@echo ... aespritefix
 	@echo ... dmi2sheet
+	@echo ... Aesprite_Fixer.obj
+	@echo ... Aesprite_Fixer.i
+	@echo ... Aesprite_Fixer.s
 	@echo ... DMI2Sheet.obj
 	@echo ... DMI2Sheet.i
 	@echo ... DMI2Sheet.s

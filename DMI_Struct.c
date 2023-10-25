@@ -14,6 +14,7 @@
 #include <unistd.h>
 #include <math.h>
 
+
 /* A basic function to initialize a DMI struct. */
 void Init_DMI(DMI* dmi, int width, int height){
     dmi->num_of_states = 0;
@@ -45,13 +46,13 @@ png_uint_32 Get_Sheet_Size(DMI* dmi){
     for(int i = 0; i < dmi->num_of_states; i++){
         return_total += dmi->icon_states->dirs;
 
-        printf("%s - Dir = %d\n", dmi->icon_states->state, dmi->icon_states->dirs);
+      //  printf("%s - Dir = %d\n", dmi->icon_states->state, dmi->icon_states->dirs);
         //printf("i = %d\n", i);
         dmi->icon_states++;
     }
     //printf("Sheet #4. . \n");
     dmi->icon_states = dmi->begin_icon_state;
-    printf("Value = %d\n", (png_uint_32)(return_total * dmi->height));
+   // printf("Value = %d\n", (png_uint_32)(return_total * dmi->height));
     return (png_uint_32)(return_total * dmi->height);
 }
 
@@ -342,14 +343,14 @@ void Fix_Dimension(int *dest_col, int *dest_row, int *source_col, int *source_ro
         value_to_check = dmi->begin_icon_state->dirs;
     }
 
-    printf("Value to check = %d\n", value_to_check);
+   // printf("Value to check = %d\n", value_to_check);
    // printf("Check #3\n");
 
     if(*frame_tracker >= value_to_check){
         (*frame_tracker) = 1;
         *source_row = 0;
         *source_col = (DMI_WIDTH * ((total_frame+1)/dmi->begin_icon_state->frames));
-        printf("Source_Col = %d\n", *source_col);
+       // printf("Source_Col = %d\n", *source_col);
         if(output_flow == HORIZONTAL_FLOW || output_flow == GRIDLOCK_FLOW){
             *dest_row += DMI_HEIGHT;
             *dest_col = 0;
@@ -363,7 +364,7 @@ void Fix_Dimension(int *dest_col, int *dest_row, int *source_col, int *source_ro
     /* If the output file is set to be LINEAR_FLOW, then we only need to go down a row when we
      * are at the end of a column for the png. */
     if(output_flow == LINEAR_FLOW){
-        printf("Dest_Col = %d\npngWidth =%d\n", *dest_col, pngWidth);
+      //  printf("Dest_Col = %d\npngWidth =%d\n", *dest_col, pngWidth);
         if(*dest_col >= outwidth){
             *dest_col = 0;
             *dest_row += DMI_HEIGHT;
@@ -381,10 +382,12 @@ void Fix_Dimension(int *dest_col, int *dest_row, int *source_col, int *source_ro
 
 }
 
+
+
 int DMI_To_Png(DMI* dmi, int pngWidth, int pngHeight, png_bytepp orig_pointer, png_bytepp new_pointer,
                  png_structp png_ptr, png_infop info_ptr, int ppb, int color_type, int output_flow_type,
                  int input_flow_type){
-    printf("Dmi started. . .\n");
+    //printf("Dmi started. . .\n");
     int DMI_HEIGHT = dmi->height, DMI_WIDTH = (dmi->width) / ppb;
     int row_bytes = (int)png_get_rowbytes(png_ptr, info_ptr);
 

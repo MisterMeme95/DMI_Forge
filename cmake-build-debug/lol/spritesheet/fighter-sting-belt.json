@@ -1,0 +1,2219 @@
+{ "frames": {
+   "fighter-sting-belt 0.aseprite": {
+    "frame": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 200
+   },
+   "fighter-sting-belt 1.aseprite": {
+    "frame": { "x": 62, "y": 0, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 200
+   },
+   "fighter-sting-belt 2.aseprite": {
+    "frame": { "x": 124, "y": 0, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 200
+   },
+   "fighter-sting-belt 3.aseprite": {
+    "frame": { "x": 186, "y": 0, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 200
+   },
+   "fighter-sting-belt 4.aseprite": {
+    "frame": { "x": 248, "y": 0, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 200
+   },
+   "fighter-sting-belt 5.aseprite": {
+    "frame": { "x": 310, "y": 0, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 200
+   },
+   "fighter-sting-belt 6.aseprite": {
+    "frame": { "x": 372, "y": 0, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 200
+   },
+   "fighter-sting-belt 7.aseprite": {
+    "frame": { "x": 434, "y": 0, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 200
+   },
+   "fighter-sting-belt 8.aseprite": {
+    "frame": { "x": 496, "y": 0, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 200
+   },
+   "fighter-sting-belt 9.aseprite": {
+    "frame": { "x": 558, "y": 0, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 10.aseprite": {
+    "frame": { "x": 620, "y": 0, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 11.aseprite": {
+    "frame": { "x": 682, "y": 0, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 12.aseprite": {
+    "frame": { "x": 744, "y": 0, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 13.aseprite": {
+    "frame": { "x": 806, "y": 0, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 14.aseprite": {
+    "frame": { "x": 0, "y": 62, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 15.aseprite": {
+    "frame": { "x": 62, "y": 62, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 16.aseprite": {
+    "frame": { "x": 124, "y": 62, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 17.aseprite": {
+    "frame": { "x": 186, "y": 62, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 18.aseprite": {
+    "frame": { "x": 248, "y": 62, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 19.aseprite": {
+    "frame": { "x": 310, "y": 62, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 20.aseprite": {
+    "frame": { "x": 372, "y": 62, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 120
+   },
+   "fighter-sting-belt 21.aseprite": {
+    "frame": { "x": 434, "y": 62, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 22.aseprite": {
+    "frame": { "x": 496, "y": 62, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 120
+   },
+   "fighter-sting-belt 23.aseprite": {
+    "frame": { "x": 558, "y": 62, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 24.aseprite": {
+    "frame": { "x": 620, "y": 62, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 25.aseprite": {
+    "frame": { "x": 682, "y": 62, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 26.aseprite": {
+    "frame": { "x": 744, "y": 62, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 27.aseprite": {
+    "frame": { "x": 806, "y": 62, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 28.aseprite": {
+    "frame": { "x": 0, "y": 124, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 29.aseprite": {
+    "frame": { "x": 62, "y": 124, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 30.aseprite": {
+    "frame": { "x": 124, "y": 124, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 31.aseprite": {
+    "frame": { "x": 186, "y": 124, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 32.aseprite": {
+    "frame": { "x": 248, "y": 124, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 33.aseprite": {
+    "frame": { "x": 310, "y": 124, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 34.aseprite": {
+    "frame": { "x": 372, "y": 124, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 35.aseprite": {
+    "frame": { "x": 434, "y": 124, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 36.aseprite": {
+    "frame": { "x": 496, "y": 124, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 37.aseprite": {
+    "frame": { "x": 558, "y": 124, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 200
+   },
+   "fighter-sting-belt 38.aseprite": {
+    "frame": { "x": 620, "y": 124, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 39.aseprite": {
+    "frame": { "x": 682, "y": 124, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 40.aseprite": {
+    "frame": { "x": 744, "y": 124, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 41.aseprite": {
+    "frame": { "x": 806, "y": 124, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 42.aseprite": {
+    "frame": { "x": 0, "y": 186, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 43.aseprite": {
+    "frame": { "x": 62, "y": 186, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 44.aseprite": {
+    "frame": { "x": 124, "y": 186, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 45.aseprite": {
+    "frame": { "x": 186, "y": 186, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 46.aseprite": {
+    "frame": { "x": 248, "y": 186, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 47.aseprite": {
+    "frame": { "x": 310, "y": 186, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 48.aseprite": {
+    "frame": { "x": 372, "y": 186, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 49.aseprite": {
+    "frame": { "x": 434, "y": 186, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 120
+   },
+   "fighter-sting-belt 50.aseprite": {
+    "frame": { "x": 496, "y": 186, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 51.aseprite": {
+    "frame": { "x": 558, "y": 186, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 120
+   },
+   "fighter-sting-belt 52.aseprite": {
+    "frame": { "x": 620, "y": 186, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 53.aseprite": {
+    "frame": { "x": 682, "y": 186, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 54.aseprite": {
+    "frame": { "x": 744, "y": 186, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 55.aseprite": {
+    "frame": { "x": 806, "y": 186, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 56.aseprite": {
+    "frame": { "x": 0, "y": 248, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 57.aseprite": {
+    "frame": { "x": 62, "y": 248, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 58.aseprite": {
+    "frame": { "x": 124, "y": 248, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 59.aseprite": {
+    "frame": { "x": 186, "y": 248, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 60.aseprite": {
+    "frame": { "x": 248, "y": 248, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 61.aseprite": {
+    "frame": { "x": 310, "y": 248, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 62.aseprite": {
+    "frame": { "x": 372, "y": 248, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 63.aseprite": {
+    "frame": { "x": 434, "y": 248, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 64.aseprite": {
+    "frame": { "x": 496, "y": 248, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 65.aseprite": {
+    "frame": { "x": 558, "y": 248, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 66.aseprite": {
+    "frame": { "x": 620, "y": 248, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 200
+   },
+   "fighter-sting-belt 67.aseprite": {
+    "frame": { "x": 682, "y": 248, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 68.aseprite": {
+    "frame": { "x": 744, "y": 248, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 69.aseprite": {
+    "frame": { "x": 806, "y": 248, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 200
+   },
+   "fighter-sting-belt 70.aseprite": {
+    "frame": { "x": 0, "y": 310, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 71.aseprite": {
+    "frame": { "x": 62, "y": 310, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 72.aseprite": {
+    "frame": { "x": 124, "y": 310, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 73.aseprite": {
+    "frame": { "x": 186, "y": 310, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 74.aseprite": {
+    "frame": { "x": 248, "y": 310, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 75.aseprite": {
+    "frame": { "x": 310, "y": 310, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 76.aseprite": {
+    "frame": { "x": 372, "y": 310, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 77.aseprite": {
+    "frame": { "x": 434, "y": 310, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 78.aseprite": {
+    "frame": { "x": 496, "y": 310, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 79.aseprite": {
+    "frame": { "x": 558, "y": 310, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 80.aseprite": {
+    "frame": { "x": 620, "y": 310, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 81.aseprite": {
+    "frame": { "x": 682, "y": 310, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 82.aseprite": {
+    "frame": { "x": 744, "y": 310, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 83.aseprite": {
+    "frame": { "x": 806, "y": 310, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 84.aseprite": {
+    "frame": { "x": 0, "y": 372, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 85.aseprite": {
+    "frame": { "x": 62, "y": 372, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 86.aseprite": {
+    "frame": { "x": 124, "y": 372, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 87.aseprite": {
+    "frame": { "x": 186, "y": 372, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 88.aseprite": {
+    "frame": { "x": 248, "y": 372, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 89.aseprite": {
+    "frame": { "x": 310, "y": 372, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 120
+   },
+   "fighter-sting-belt 90.aseprite": {
+    "frame": { "x": 372, "y": 372, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 91.aseprite": {
+    "frame": { "x": 434, "y": 372, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 120
+   },
+   "fighter-sting-belt 92.aseprite": {
+    "frame": { "x": 496, "y": 372, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 93.aseprite": {
+    "frame": { "x": 558, "y": 372, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 120
+   },
+   "fighter-sting-belt 94.aseprite": {
+    "frame": { "x": 620, "y": 372, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 95.aseprite": {
+    "frame": { "x": 682, "y": 372, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 120
+   },
+   "fighter-sting-belt 96.aseprite": {
+    "frame": { "x": 744, "y": 372, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 97.aseprite": {
+    "frame": { "x": 806, "y": 372, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 98.aseprite": {
+    "frame": { "x": 0, "y": 434, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 99.aseprite": {
+    "frame": { "x": 62, "y": 434, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 100.aseprite": {
+    "frame": { "x": 124, "y": 434, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 101.aseprite": {
+    "frame": { "x": 186, "y": 434, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 102.aseprite": {
+    "frame": { "x": 248, "y": 434, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 103.aseprite": {
+    "frame": { "x": 310, "y": 434, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 104.aseprite": {
+    "frame": { "x": 372, "y": 434, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 105.aseprite": {
+    "frame": { "x": 434, "y": 434, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 106.aseprite": {
+    "frame": { "x": 496, "y": 434, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 107.aseprite": {
+    "frame": { "x": 558, "y": 434, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 108.aseprite": {
+    "frame": { "x": 620, "y": 434, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 109.aseprite": {
+    "frame": { "x": 682, "y": 434, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 110.aseprite": {
+    "frame": { "x": 744, "y": 434, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 111.aseprite": {
+    "frame": { "x": 806, "y": 434, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 112.aseprite": {
+    "frame": { "x": 0, "y": 496, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 113.aseprite": {
+    "frame": { "x": 62, "y": 496, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 114.aseprite": {
+    "frame": { "x": 124, "y": 496, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 115.aseprite": {
+    "frame": { "x": 186, "y": 496, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 116.aseprite": {
+    "frame": { "x": 248, "y": 496, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 117.aseprite": {
+    "frame": { "x": 310, "y": 496, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 118.aseprite": {
+    "frame": { "x": 372, "y": 496, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 119.aseprite": {
+    "frame": { "x": 434, "y": 496, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 120.aseprite": {
+    "frame": { "x": 496, "y": 496, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 121.aseprite": {
+    "frame": { "x": 558, "y": 496, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 122.aseprite": {
+    "frame": { "x": 620, "y": 496, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 123.aseprite": {
+    "frame": { "x": 682, "y": 496, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 124.aseprite": {
+    "frame": { "x": 744, "y": 496, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "fighter-sting-belt 125.aseprite": {
+    "frame": { "x": 806, "y": 496, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "fighter-sting-belt 126.aseprite": {
+    "frame": { "x": 0, "y": 558, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 165
+   },
+   "fighter-sting-belt 127.aseprite": {
+    "frame": { "x": 62, "y": 558, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 165
+   },
+   "fighter-sting-belt 128.aseprite": {
+    "frame": { "x": 124, "y": 558, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 165
+   },
+   "fighter-sting-belt 129.aseprite": {
+    "frame": { "x": 186, "y": 558, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 165
+   },
+   "fighter-sting-belt 130.aseprite": {
+    "frame": { "x": 248, "y": 558, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "fighter-sting-belt 131.aseprite": {
+    "frame": { "x": 310, "y": 558, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "fighter-sting-belt 132.aseprite": {
+    "frame": { "x": 372, "y": 558, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 165
+   },
+   "fighter-sting-belt 133.aseprite": {
+    "frame": { "x": 434, "y": 558, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 165
+   },
+   "fighter-sting-belt 134.aseprite": {
+    "frame": { "x": 496, "y": 558, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 165
+   },
+   "fighter-sting-belt 135.aseprite": {
+    "frame": { "x": 558, "y": 558, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 165
+   },
+   "fighter-sting-belt 136.aseprite": {
+    "frame": { "x": 620, "y": 558, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "fighter-sting-belt 137.aseprite": {
+    "frame": { "x": 682, "y": 558, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "fighter-sting-belt 138.aseprite": {
+    "frame": { "x": 744, "y": 558, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "fighter-sting-belt 139.aseprite": {
+    "frame": { "x": 806, "y": 558, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "fighter-sting-belt 140.aseprite": {
+    "frame": { "x": 0, "y": 620, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "fighter-sting-belt 141.aseprite": {
+    "frame": { "x": 62, "y": 620, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "fighter-sting-belt 142.aseprite": {
+    "frame": { "x": 124, "y": 620, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 150
+   },
+   "fighter-sting-belt 143.aseprite": {
+    "frame": { "x": 186, "y": 620, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 150
+   },
+   "fighter-sting-belt 144.aseprite": {
+    "frame": { "x": 248, "y": 620, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 150
+   },
+   "fighter-sting-belt 145.aseprite": {
+    "frame": { "x": 310, "y": 620, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 150
+   },
+   "fighter-sting-belt 146.aseprite": {
+    "frame": { "x": 372, "y": 620, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 165
+   },
+   "fighter-sting-belt 147.aseprite": {
+    "frame": { "x": 434, "y": 620, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 165
+   },
+   "fighter-sting-belt 148.aseprite": {
+    "frame": { "x": 496, "y": 620, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 165
+   },
+   "fighter-sting-belt 149.aseprite": {
+    "frame": { "x": 558, "y": 620, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 165
+   },
+   "fighter-sting-belt 150.aseprite": {
+    "frame": { "x": 620, "y": 620, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "fighter-sting-belt 151.aseprite": {
+    "frame": { "x": 682, "y": 620, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "fighter-sting-belt 152.aseprite": {
+    "frame": { "x": 744, "y": 620, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 153.aseprite": {
+    "frame": { "x": 806, "y": 620, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 154.aseprite": {
+    "frame": { "x": 0, "y": 682, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 155.aseprite": {
+    "frame": { "x": 62, "y": 682, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 156.aseprite": {
+    "frame": { "x": 124, "y": 682, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "fighter-sting-belt 157.aseprite": {
+    "frame": { "x": 186, "y": 682, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "fighter-sting-belt 158.aseprite": {
+    "frame": { "x": 248, "y": 682, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 159.aseprite": {
+    "frame": { "x": 310, "y": 682, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 160.aseprite": {
+    "frame": { "x": 372, "y": 682, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 161.aseprite": {
+    "frame": { "x": 434, "y": 682, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 162.aseprite": {
+    "frame": { "x": 496, "y": 682, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "fighter-sting-belt 163.aseprite": {
+    "frame": { "x": 558, "y": 682, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "fighter-sting-belt 164.aseprite": {
+    "frame": { "x": 620, "y": 682, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "fighter-sting-belt 165.aseprite": {
+    "frame": { "x": 682, "y": 682, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "fighter-sting-belt 166.aseprite": {
+    "frame": { "x": 744, "y": 682, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 120
+   },
+   "fighter-sting-belt 167.aseprite": {
+    "frame": { "x": 806, "y": 682, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 120
+   },
+   "fighter-sting-belt 168.aseprite": {
+    "frame": { "x": 0, "y": 744, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 120
+   },
+   "fighter-sting-belt 169.aseprite": {
+    "frame": { "x": 62, "y": 744, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 120
+   },
+   "fighter-sting-belt 170.aseprite": {
+    "frame": { "x": 124, "y": 744, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 171.aseprite": {
+    "frame": { "x": 186, "y": 744, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 172.aseprite": {
+    "frame": { "x": 248, "y": 744, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 173.aseprite": {
+    "frame": { "x": 310, "y": 744, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 174.aseprite": {
+    "frame": { "x": 372, "y": 744, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "fighter-sting-belt 175.aseprite": {
+    "frame": { "x": 434, "y": 744, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "fighter-sting-belt 176.aseprite": {
+    "frame": { "x": 496, "y": 744, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "fighter-sting-belt 177.aseprite": {
+    "frame": { "x": 558, "y": 744, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "fighter-sting-belt 178.aseprite": {
+    "frame": { "x": 620, "y": 744, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "fighter-sting-belt 179.aseprite": {
+    "frame": { "x": 682, "y": 744, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "fighter-sting-belt 180.aseprite": {
+    "frame": { "x": 744, "y": 744, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "fighter-sting-belt 181.aseprite": {
+    "frame": { "x": 806, "y": 744, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "fighter-sting-belt 182.aseprite": {
+    "frame": { "x": 0, "y": 806, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 183.aseprite": {
+    "frame": { "x": 62, "y": 806, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 184.aseprite": {
+    "frame": { "x": 124, "y": 806, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 185.aseprite": {
+    "frame": { "x": 186, "y": 806, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 186.aseprite": {
+    "frame": { "x": 248, "y": 806, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 187.aseprite": {
+    "frame": { "x": 310, "y": 806, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 188.aseprite": {
+    "frame": { "x": 372, "y": 806, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 189.aseprite": {
+    "frame": { "x": 434, "y": 806, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 190.aseprite": {
+    "frame": { "x": 496, "y": 806, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 191.aseprite": {
+    "frame": { "x": 558, "y": 806, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 192.aseprite": {
+    "frame": { "x": 620, "y": 806, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 193.aseprite": {
+    "frame": { "x": 682, "y": 806, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 194.aseprite": {
+    "frame": { "x": 744, "y": 806, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "fighter-sting-belt 195.aseprite": {
+    "frame": { "x": 806, "y": 806, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "fighter-sting-belt 196.aseprite": {
+    "frame": { "x": 0, "y": 868, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 197.aseprite": {
+    "frame": { "x": 62, "y": 868, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 198.aseprite": {
+    "frame": { "x": 124, "y": 868, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 199.aseprite": {
+    "frame": { "x": 186, "y": 868, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 200.aseprite": {
+    "frame": { "x": 248, "y": 868, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 201.aseprite": {
+    "frame": { "x": 310, "y": 868, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 202.aseprite": {
+    "frame": { "x": 372, "y": 868, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 203.aseprite": {
+    "frame": { "x": 434, "y": 868, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 204.aseprite": {
+    "frame": { "x": 496, "y": 868, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 205.aseprite": {
+    "frame": { "x": 558, "y": 868, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 206.aseprite": {
+    "frame": { "x": 620, "y": 868, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 207.aseprite": {
+    "frame": { "x": 682, "y": 868, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 208.aseprite": {
+    "frame": { "x": 744, "y": 868, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "fighter-sting-belt 209.aseprite": {
+    "frame": { "x": 806, "y": 868, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "fighter-sting-belt 210.aseprite": {
+    "frame": { "x": 0, "y": 930, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "fighter-sting-belt 211.aseprite": {
+    "frame": { "x": 62, "y": 930, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 500
+   },
+   "fighter-sting-belt 212.aseprite": {
+    "frame": { "x": 124, "y": 930, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 213.aseprite": {
+    "frame": { "x": 186, "y": 930, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 214.aseprite": {
+    "frame": { "x": 248, "y": 930, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 215.aseprite": {
+    "frame": { "x": 310, "y": 930, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 216.aseprite": {
+    "frame": { "x": 372, "y": 930, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 217.aseprite": {
+    "frame": { "x": 434, "y": 930, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 218.aseprite": {
+    "frame": { "x": 496, "y": 930, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 219.aseprite": {
+    "frame": { "x": 558, "y": 930, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 220.aseprite": {
+    "frame": { "x": 620, "y": 930, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 221.aseprite": {
+    "frame": { "x": 682, "y": 930, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 222.aseprite": {
+    "frame": { "x": 744, "y": 930, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 223.aseprite": {
+    "frame": { "x": 806, "y": 930, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 224.aseprite": {
+    "frame": { "x": 0, "y": 992, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 225.aseprite": {
+    "frame": { "x": 62, "y": 992, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 226.aseprite": {
+    "frame": { "x": 124, "y": 992, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 227.aseprite": {
+    "frame": { "x": 186, "y": 992, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 228.aseprite": {
+    "frame": { "x": 248, "y": 992, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 229.aseprite": {
+    "frame": { "x": 310, "y": 992, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 230.aseprite": {
+    "frame": { "x": 372, "y": 992, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 231.aseprite": {
+    "frame": { "x": 434, "y": 992, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 232.aseprite": {
+    "frame": { "x": 496, "y": 992, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 233.aseprite": {
+    "frame": { "x": 558, "y": 992, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 234.aseprite": {
+    "frame": { "x": 620, "y": 992, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 235.aseprite": {
+    "frame": { "x": 682, "y": 992, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 236.aseprite": {
+    "frame": { "x": 744, "y": 992, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 237.aseprite": {
+    "frame": { "x": 806, "y": 992, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 238.aseprite": {
+    "frame": { "x": 0, "y": 1054, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 239.aseprite": {
+    "frame": { "x": 62, "y": 1054, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 240.aseprite": {
+    "frame": { "x": 124, "y": 1054, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 241.aseprite": {
+    "frame": { "x": 186, "y": 1054, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 242.aseprite": {
+    "frame": { "x": 248, "y": 1054, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 243.aseprite": {
+    "frame": { "x": 310, "y": 1054, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 244.aseprite": {
+    "frame": { "x": 372, "y": 1054, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 245.aseprite": {
+    "frame": { "x": 434, "y": 1054, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 246.aseprite": {
+    "frame": { "x": 496, "y": 1054, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 247.aseprite": {
+    "frame": { "x": 558, "y": 1054, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 248.aseprite": {
+    "frame": { "x": 620, "y": 1054, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 249.aseprite": {
+    "frame": { "x": 682, "y": 1054, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 250.aseprite": {
+    "frame": { "x": 744, "y": 1054, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 251.aseprite": {
+    "frame": { "x": 806, "y": 1054, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 252.aseprite": {
+    "frame": { "x": 0, "y": 1116, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 253.aseprite": {
+    "frame": { "x": 62, "y": 1116, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 254.aseprite": {
+    "frame": { "x": 124, "y": 1116, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 255.aseprite": {
+    "frame": { "x": 186, "y": 1116, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 256.aseprite": {
+    "frame": { "x": 248, "y": 1116, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 257.aseprite": {
+    "frame": { "x": 310, "y": 1116, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 258.aseprite": {
+    "frame": { "x": 372, "y": 1116, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 259.aseprite": {
+    "frame": { "x": 434, "y": 1116, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 260.aseprite": {
+    "frame": { "x": 496, "y": 1116, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 261.aseprite": {
+    "frame": { "x": 558, "y": 1116, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 262.aseprite": {
+    "frame": { "x": 620, "y": 1116, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 263.aseprite": {
+    "frame": { "x": 682, "y": 1116, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 264.aseprite": {
+    "frame": { "x": 744, "y": 1116, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 265.aseprite": {
+    "frame": { "x": 806, "y": 1116, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 266.aseprite": {
+    "frame": { "x": 0, "y": 1178, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 267.aseprite": {
+    "frame": { "x": 62, "y": 1178, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 268.aseprite": {
+    "frame": { "x": 124, "y": 1178, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 269.aseprite": {
+    "frame": { "x": 186, "y": 1178, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 270.aseprite": {
+    "frame": { "x": 248, "y": 1178, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 271.aseprite": {
+    "frame": { "x": 310, "y": 1178, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 272.aseprite": {
+    "frame": { "x": 372, "y": 1178, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 273.aseprite": {
+    "frame": { "x": 434, "y": 1178, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 274.aseprite": {
+    "frame": { "x": 496, "y": 1178, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   },
+   "fighter-sting-belt 275.aseprite": {
+    "frame": { "x": 558, "y": 1178, "w": 62, "h": 62 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 62 },
+    "sourceSize": { "w": 62, "h": 62 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.3-rc6-x64",
+  "image": "fighter-sting-belt.png",
+  "format": "RGBA8888",
+  "size": { "w": 868, "h": 1240 },
+  "scale": "1"
+ }
+}

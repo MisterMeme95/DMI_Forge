@@ -1,0 +1,78 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.21"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "DMI_FORGE",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "DMI_Forge::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-DMI_Forge-Debug-59a40bb692b0baa1a7f9.json",
+					"name" : "DMI_Forge",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "aespritefix::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-aespritefix-Debug-1617ec1ed7bf6b904cb9.json",
+					"name" : "aespritefix",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dmi2sheet::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dmi2sheet-Debug-a8d79baf38c7735e549f.json",
+					"name" : "dmi2sheet",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/jonat/GitHub/DMI_Forge/cmake-build-debug",
+		"source" : "C:/Users/jonat/GitHub/DMI_Forge"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 5
+	}
+}
