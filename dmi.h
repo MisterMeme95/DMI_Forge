@@ -21,8 +21,12 @@ int DMI_To_Png(DMI* dmi, int pngWidth, int pngHeight, png_bytepp orig_pointer, p
                png_structp png_ptr, png_infop info_ptr, int ppb, int color_type, int output_flow_type,
                int input_flow_type);
 
+void Get_Gridlock_Size(DMI *dmi, int *height, int *width);
 void Resize_IconStates(DMI* dmi, int new_size);
 int PNG_To_DMI();
+
+int Get_Dest_Col(icon_state *state, int DMI_WIDTH, int iteration);
+int Get_Dest_Row(icon_state* state, int DMI_HEIGHT);
 void Fix_Dimension(int *dest_col, int *dest_row, int *source_col, int *source_row, int *copy_row, int *copy_col,
                    int start_row, int start_col, int *frame_tracker,int input_flow,int output_flow, int DMI_WIDTH,
                    int DMI_HEIGHT, int pngWidth, int total_frame,int outwidth, DMI *dmi);

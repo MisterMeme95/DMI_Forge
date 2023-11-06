@@ -68,6 +68,7 @@ int main(int argc, char **argv){
 
     static char options_text[] = "  -o";
     static int verbose_flag = 0;
+    static int fflag = 0;
     while (1)
     {
         static struct option long_options[] =
@@ -83,7 +84,7 @@ int main(int argc, char **argv){
                         {"append",  no_argument,       0, 'b'},
                         {"delete",  required_argument, 0, 'd'},
                         {"create",  required_argument, 0, 'c'},
-                        {"file",    required_argument, 0, 'f'},
+                        {"force",    no_argument, 0, 'f'},
                         {0, 0, 0, 0}
                 };
         /* getopt_long stores the option index here. */
@@ -126,12 +127,9 @@ int main(int argc, char **argv){
                 break;
 
             case 'f':
-                printf ("option -f with value `%s'\n", optarg);
+                //printf ("option -f with value `%s'\n", optarg);
+                fflag = 1;
                 break;
-
-          //  case 'i':
-            //    strcpy(file_name, optarg);
-              //  break;
 
             case 'o':
                 printf ("option -o with value `%s'\n", optarg);
@@ -273,55 +271,57 @@ int main(int argc, char **argv){
     int sheet_size = Get_Sheet_Size(new_icon);
     int sheet_width = Get_Sheet_Width(new_icon);
     png_bytepp row_pointers_new = (png_bytepp)malloc(sizeof(png_bytep) * sheet_size);
-    if(access(output_name, F_OK) == 0){
-        char overwrite;
-        printf("Warning: %s already exists!\nDo you wish to overwrite it? (Y/N): ", output_name);
-        fflush(stdout);
-        do {
-            scanf(" %c", &overwrite); // space before %c consumes any whitespace characters, including 'enter'
-            while (getchar() != '\n'); // clean the buffer
+    if(fflag == 0) {
+        if (access(output_name, F_OK) == 0) {
+            char overwrite;
+            printf("Warning: %s already exists!\nDo you wish to overwrite it? (Y/N): ", output_name);
+            fflush(stdout);
+            do {
+                scanf(" %c", &overwrite); // space before %c consumes any whitespace characters, including 'enter'
+                while (getchar() != '\n'); // clean the buffer
 
-            if(overwrite == 'Y' || overwrite == 'y' || overwrite == 'N' || overwrite == 'n') {
-                break; // Exit the loop if a valid input is given
-            } else {
-                printf("Invalid input. Please enter 'Y' or 'N': ");
-                fflush(stdout);
-            }
-        } while(1); // Keep looping until a valid input is provided
-
-        if(overwrite != 'Y' && overwrite != 'y'){
-            int count = 1;
-            char new_string[256];
-            char base_string[256];
-            bool found_match = false;
-            for(int i = strlen(output_name) - 1; i >= 0; i--){
-                if(output_name[i] == '.'){
-                    strncpy(base_string, output_name, i);
-                    base_string[i] = '\0';
-                    break;
+                if (overwrite == 'Y' || overwrite == 'y' || overwrite == 'N' || overwrite == 'n') {
+                    break; // Exit the loop if a valid input is given
+                } else {
+                    printf("Invalid input. Please enter 'Y' or 'N': ");
+                    fflush(stdout);
                 }
-            }
+            } while (1); // Keep looping until a valid input is provided
 
-           // printf("new_string = %s\n", new_string);
-          //  fflush(stdout);
-          //  sleep(50);
-
-            while(!found_match){
-                sprintf(new_string, "%s (%d).png", base_string, count);
-                if(access(new_string, F_OK) != 0){
-                    output_name = realloc(output_name, strlen(new_string) + 1);
-                    sprintf(output_name, "%s", new_string);
-                    found_match = true;
+            if (overwrite != 'Y' && overwrite != 'y') {
+                int count = 1;
+                char new_string[256];
+                char base_string[256];
+                bool found_match = false;
+                for (int i = strlen(output_name) - 1; i >= 0; i--) {
+                    if (output_name[i] == '.') {
+                        strncpy(base_string, output_name, i);
+                        base_string[i] = '\0';
+                        break;
+                    }
                 }
-                count++;
+
+                // printf("new_string = %s\n", new_string);
+                //  fflush(stdout);
+                //  sleep(50);
+
+                while (!found_match) {
+                    sprintf(new_string, "%s (%d).png", base_string, count);
+                    if (access(new_string, F_OK) != 0) {
+                        output_name = realloc(output_name, strlen(new_string) + 1);
+                        sprintf(output_name, "%s", new_string);
+                        found_match = true;
+                    }
+                    count++;
+                }
+                printf("File will be saved as: %s\n", new_string);
+                //printf("Okay, so you don't want to save the file. Choose a different output!\n");
+                //
+                // return 0;
             }
-            printf("File will be saved as: %s\n", new_string);
-            //printf("Okay, so you don't want to save the file. Choose a different output!\n");
-            //
-            // return 0;
+
+            //  return 0;
         }
-
-      //  return 0;
     }
    // printf("output name = %s\n", output_name);
     FILE *output_fp = fopen(output_name, "wb");
@@ -371,25 +371,31 @@ int main(int argc, char **argv){
      * -------------
      *  This is where I would have to run calculations to set different widths and height based on the format type.
      * */
-    png_set_IHDR(write_png_ptr, write_info_ptr, (png_uint_32)sheet_width*2, (png_uint_32)sheet_size,
+    int new_height = 0;
+    int new_width = 0;
+    Get_Gridlock_Size(new_icon, &new_height, &new_width);
+    //printf("New height = %d, New Width = %d\n", new_height, new_width);
+   // fflush(stdout);
+    //sleep(50);
+    png_set_IHDR(write_png_ptr, write_info_ptr, (png_uint_32)new_width, (png_uint_32)new_height,
                  bit_depth, color_type, interlace_method, PNG_COMPRESSION_TYPE_DEFAULT,
                  PNG_FILTER_TYPE_DEFAULT);
 
-    for (png_uint_32 i = 0; i < sheet_size; i++) {
+    for (png_uint_32 i = 0; i < new_height; i++) {
         row_pointers_new[i] = (png_bytep)malloc(png_get_rowbytes(write_png_ptr, write_info_ptr));
     }
 
-    for(png_uint_32 i = 0; i < sheet_size; i++) {
+    for(png_uint_32 i = 0; i < new_height; i++) {
         for (png_uint_32 j = 0; j < png_get_rowbytes(write_png_ptr, write_info_ptr); j++) {
             row_pointers_new[i][j] = 0;
         }
     }
-
+    printf("Starting print f!\n");
     DMI_To_Png(new_icon, png_get_rowbytes(read_png_ptr, read_info_ptr), 144,
                row_pointers,row_pointers_new,write_png_ptr, write_info_ptr,
-               pixels_per_byte, color_type, HORIZONTAL_FLOW, LINEAR_FLOW);
+               pixels_per_byte, color_type, GRIDLOCK_FLOW, LINEAR_FLOW);
 
-
+    printf("Dies here. .. \n");
     png_write_info(write_png_ptr, write_info_ptr);
     png_write_image(write_png_ptr, row_pointers_new);
 
