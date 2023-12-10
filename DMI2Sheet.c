@@ -69,6 +69,7 @@ int main(int argc, char **argv){
     static char options_text[] = "  -o";
     static int verbose_flag = 0;
     static int fflag = 0;
+    int sheet_format = 0;
     while (1)
     {
         static struct option long_options[] =
@@ -85,10 +86,12 @@ int main(int argc, char **argv){
                         {"delete",  required_argument, 0, 'd'},
                         {"create",  required_argument, 0, 'c'},
                         {"force",    no_argument, 0, 'f'},
+                        {"sheetformat", required_argument, 0, 200},
                         {0, 0, 0, 0}
                 };
         /* getopt_long stores the option index here. */
         int option_index = 0;
+
 
         c = getopt_long (argc, argv, "abc:d:f:o:",
                          long_options, &option_index);
@@ -138,6 +141,10 @@ int main(int argc, char **argv){
 
             case '?':
                 /* getopt_long already printed an error message. */
+                break;
+
+            case 200:
+                sheet_format = atoi(optarg);
                 break;
 
             default:
@@ -268,9 +275,7 @@ int main(int argc, char **argv){
         Print_Variable(string_parser, new_icon);
     }
     //printf("while(dmi_length > 0) done \n");
-    int sheet_size = Get_Sheet_Size(new_icon);
-    int sheet_width = Get_Sheet_Width(new_icon);
-    png_bytepp row_pointers_new = (png_bytepp)malloc(sizeof(png_bytep) * sheet_size);
+
     if(fflag == 0) {
         if (access(output_name, F_OK) == 0) {
             char overwrite;
@@ -315,12 +320,7 @@ int main(int argc, char **argv){
                     count++;
                 }
                 printf("File will be saved as: %s\n", new_string);
-                //printf("Okay, so you don't want to save the file. Choose a different output!\n");
-                //
-                // return 0;
             }
-
-            //  return 0;
         }
     }
    // printf("output name = %s\n", output_name);
@@ -367,13 +367,31 @@ int main(int argc, char **argv){
         png_get_tRNS(read_png_ptr, read_info_ptr, &trans_alpha, &num_trans, &trans_color);
         png_set_tRNS(write_png_ptr, write_info_ptr, trans_alpha, num_trans, trans_color);
     }
+    //printf("Trans_alpha = %d\nnum_trans");
     /* IMPORTANT
      * -------------
      *  This is where I would have to run calculations to set different widths and height based on the format type.
      * */
+   // int sheet_size = Get_Sheet_Size(new_icon);
+   // int sheet_width = Get_Sheet_Width(new_icon);
+
     int new_height = 0;
     int new_width = 0;
-    Get_Gridlock_Size(new_icon, &new_height, &new_width);
+    if(sheet_format == LINEAR_FLOW){
+        new_height = (int)height;
+        new_width = (int)width;
+    }
+    else if(sheet_format == HORIZONTAL_FLOW){
+        new_height = (int)Get_Sheet_Size(new_icon);
+        new_width = (int)Get_Sheet_Width(new_icon);
+    }
+    else if(sheet_format == GRIDLOCK_FLOW){
+        Get_Gridlock_Size(new_icon, &new_height, &new_width);
+    }
+
+
+
+    png_bytepp row_pointers_new = (png_bytepp)malloc(sizeof(png_bytep) * new_height);
     //printf("New height = %d, New Width = %d\n", new_height, new_width);
    // fflush(stdout);
     //sleep(50);
@@ -390,12 +408,25 @@ int main(int argc, char **argv){
             row_pointers_new[i][j] = 0;
         }
     }
-    printf("Starting print f!\n");
-    DMI_To_Png(new_icon, png_get_rowbytes(read_png_ptr, read_info_ptr), 144,
-               row_pointers,row_pointers_new,write_png_ptr, write_info_ptr,
-               pixels_per_byte, color_type, GRIDLOCK_FLOW, LINEAR_FLOW);
+   // printf("Starting print f!\n");
+    if(sheet_format == LINEAR_FLOW){
+        dmiToPng(new_icon, png_get_rowbytes(read_png_ptr, read_info_ptr), 144,
+                 row_pointers, row_pointers_new, write_png_ptr, write_info_ptr,
+                 pixels_per_byte, color_type, LINEAR_FLOW, LINEAR_FLOW);
+    }
+    else if(sheet_format == HORIZONTAL_FLOW){
+        dmiToPng(new_icon, png_get_rowbytes(read_png_ptr, read_info_ptr), 144,
+                 row_pointers, row_pointers_new, write_png_ptr, write_info_ptr,
+                 pixels_per_byte, color_type, HORIZONTAL_FLOW, LINEAR_FLOW);
+    }
+    else if(sheet_format == GRIDLOCK_FLOW){
+        dmiToPng(new_icon, png_get_rowbytes(read_png_ptr, read_info_ptr), 144,
+                 row_pointers, row_pointers_new, write_png_ptr, write_info_ptr,
+                 pixels_per_byte, color_type, GRIDLOCK_FLOW, LINEAR_FLOW);
+    }
 
-    printf("Dies here. .. \n");
+
+    //printf("Dies here. .. \n");
     png_write_info(write_png_ptr, write_info_ptr);
     png_write_image(write_png_ptr, row_pointers_new);
 

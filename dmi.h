@@ -17,9 +17,9 @@ typedef struct DMI_Struct {
     icon_state *icon_states, *begin_icon_state;
 }DMI;
 
-int DMI_To_Png(DMI* dmi, int pngWidth, int pngHeight, png_bytepp orig_pointer, png_bytepp new_pointer,
-               png_structp png_ptr, png_infop info_ptr, int ppb, int color_type, int output_flow_type,
-               int input_flow_type);
+int dmiToPng(DMI* dmi, int pngWidth, int pngHeight, png_bytepp orig_pointer, png_bytepp new_pointer,
+             png_structp png_ptr, png_infop info_ptr, int ppb, int color_type, int output_flow_type,
+             int input_flow_type);
 
 void Get_Gridlock_Size(DMI *dmi, int *height, int *width);
 void Resize_IconStates(DMI* dmi, int new_size);

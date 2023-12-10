@@ -401,9 +401,9 @@ void Fix_Dimension(int *dest_col, int *dest_row, int *source_col, int *source_ro
 
 
 
-int DMI_To_Png(DMI* dmi, int pngWidth, int pngHeight, png_bytepp orig_pointer, png_bytepp new_pointer,
-                 png_structp png_ptr, png_infop info_ptr, int ppb, int color_type, int output_flow_type,
-                 int input_flow_type){
+int dmiToPng(DMI* dmi, int pngWidth, int pngHeight, png_bytepp orig_pointer, png_bytepp new_pointer,
+             png_structp png_ptr, png_infop info_ptr, int ppb, int color_type, int output_flow_type,
+             int input_flow_type){
 
     int DMI_HEIGHT = dmi->height, DMI_WIDTH = (dmi->width) / ppb;
     int row_bytes = (int)png_get_rowbytes(png_ptr, info_ptr);
@@ -426,7 +426,7 @@ int DMI_To_Png(DMI* dmi, int pngWidth, int pngHeight, png_bytepp orig_pointer, p
     int copy_row;
 
     while(state_tracker < (dmi->num_of_states)) {
-        printf("Starting while loop. . .%d\n\n\n\n\n", state_tracker);
+        //printf("Starting while loop. . .%d\n\n\n\n\n", state_tracker);
         frames_in_state = dmi->begin_icon_state->dirs * dmi->begin_icon_state->frames;
         copy_col = start_col + source_col;
         copy_row = start_row + source_row;
@@ -435,8 +435,8 @@ int DMI_To_Png(DMI* dmi, int pngWidth, int pngHeight, png_bytepp orig_pointer, p
             int destination_row = start_dest_row + dest_row;
             int destination_col = start_dest_col + dest_col;
             //printf("Died #0.56\n");
-            printf("destination_row = %d, destination_col = %d\n", destination_row, destination_col);
-            printf("copy_row = %d, copy_col = %d\n", copy_row, copy_col);
+         //   printf("destination_row = %d, destination_col = %d\n", destination_row, destination_col);
+         //   printf("copy_row = %d, copy_col = %d\n", copy_row, copy_col);
             Get_Frame(new_pointer, orig_pointer, destination_row, destination_col,
                       copy_row, copy_col, DMI_WIDTH, DMI_HEIGHT);
            // printf("Died #0.57\n");
@@ -459,7 +459,7 @@ int DMI_To_Png(DMI* dmi, int pngWidth, int pngHeight, png_bytepp orig_pointer, p
              * for dest_col, what I'd
              * */
             start_dest_col += Get_Dest_Col(dmi->begin_icon_state, DMI_WIDTH, state_tracker);
-            printf("Iteration = %d\n", state_tracker);
+            //printf("Iteration = %d\n", state_tracker);
             if(state_tracker % 3 == 0){
                 start_dest_row += Get_Dest_Row(dmi->begin_icon_state, DMI_HEIGHT);
                 start_dest_col = 0;
@@ -602,6 +602,7 @@ void output_pixel_values2(png_structp png_ptr, png_infop info_ptr, png_bytep *ro
     int color_type = png_get_color_type(png_ptr, info_ptr);
     int bit_depth = png_get_bit_depth(png_ptr, info_ptr);
     png_colorp palette = NULL;
+    png_color_8 f;
     int num_palette = 0;
     if (color_type == PNG_COLOR_TYPE_PALETTE) {
         png_get_PLTE(png_ptr, info_ptr, &palette, &num_palette);
@@ -613,6 +614,7 @@ void output_pixel_values2(png_structp png_ptr, png_infop info_ptr, png_bytep *ro
         for (int x = 0; x < width; x++) {
             if (color_type == PNG_COLOR_TYPE_RGB) {
                 png_bytep px = &(row[x * 3]);
+
                 // printf("Pixel at (%d, %d): R=%d, G=%d, B=%d\n", x, y, px[0], px[1], px[2]);
             } else if (color_type == PNG_COLOR_TYPE_RGBA) {
                 png_bytep px = &(row[x * 4]);

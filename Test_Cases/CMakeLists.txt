@@ -1,14 +1,10 @@
 cmake_minimum_required(VERSION 3.21)
+find_package(PNG REQUIRED)
 
-add_executable(Test_Cases ./DMI_Verification_Test.c)
-add_executable(dmi_verify ./DMI_Verify.c)
-target_include_directories(Test_Cases PUBLIC "${PROJECT_SOURCE_DIR}"
-        "${PROJECT_SOURCE_DIR}/png")
+add_executable(Test_Cases DMI_Verification_Test.c ../DMI_Struct.c ../DMIParse.c ../Icon_State.c)
+add_executable(dmi_verify DMI_Verify.c ../DMI_Struct.c ../DMIParse.c ../Icon_State.c)
+add_executable(image_convert Image_Converter.c ../DMI_Struct.c ../DMIParse.c ../Icon_State.c ../PixelManip.c)
+target_link_libraries(dmi_verify PUBLIC PNG::PNG)
+target_link_libraries(Test_Cases PUBLIC PNG::PNG)
+target_link_libraries(image_convert PUBLIC PNG::PNG)
 
-target_include_directories(dmi_verify PUBLIC "${PROJECT_SOURCE_DIR}"
-        "${PROJECT_SOURCE_DIR}/png")
-
-target_link_libraries(dmi_verify PUBLIC png)
-target_link_libraries(Test_Cases PUBLIC png)
-
-add_subdirectory(png)

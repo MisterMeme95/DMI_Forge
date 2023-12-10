@@ -35,6 +35,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "C:/Program Files/JetBrains/CLion 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/WindowsPaths.cmake"
   "C:/Program Files/JetBrains/CLion 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/ProcessorCount.cmake"
   "C:/Users/jonat/GitHub/DMI_Forge/CMakeLists.txt"
+  "C:/Users/jonat/GitHub/DMI_Forge/Test_Cases/CMakeLists.txt"
   "CMakeFiles/3.26.4/CMakeCCompiler.cmake"
   "CMakeFiles/3.26.4/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.26.4/CMakeRCCompiler.cmake"
@@ -63,6 +64,7 @@ set(CMAKE_MAKEFILE_OUTPUTS
 # Byproducts of CMake generate step:
 set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/CMakeDirectoryInformation.cmake"
+  "Test_Cases/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
@@ -70,4 +72,7 @@ set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/DMI_Forge.dir/DependInfo.cmake"
   "CMakeFiles/dmi2sheet.dir/DependInfo.cmake"
   "CMakeFiles/aespritefix.dir/DependInfo.cmake"
+  "Test_Cases/CMakeFiles/Test_Cases.dir/DependInfo.cmake"
+  "Test_Cases/CMakeFiles/dmi_verify.dir/DependInfo.cmake"
+  "Test_Cases/CMakeFiles/image_convert.dir/DependInfo.cmake"
   )

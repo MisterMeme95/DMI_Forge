@@ -65,17 +65,38 @@ CMAKE_BINARY_DIR = C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug
 all: CMakeFiles/DMI_Forge.dir/all
 all: CMakeFiles/dmi2sheet.dir/all
 all: CMakeFiles/aespritefix.dir/all
+all: Test_Cases/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
-preinstall:
+preinstall: Test_Cases/preinstall
 .PHONY : preinstall
 
 # The main recursive "clean" target.
 clean: CMakeFiles/DMI_Forge.dir/clean
 clean: CMakeFiles/dmi2sheet.dir/clean
 clean: CMakeFiles/aespritefix.dir/clean
+clean: Test_Cases/clean
 .PHONY : clean
+
+#=============================================================================
+# Directory level rules for directory Test_Cases
+
+# Recursive "all" directory target.
+Test_Cases/all: Test_Cases/CMakeFiles/Test_Cases.dir/all
+Test_Cases/all: Test_Cases/CMakeFiles/dmi_verify.dir/all
+Test_Cases/all: Test_Cases/CMakeFiles/image_convert.dir/all
+.PHONY : Test_Cases/all
+
+# Recursive "preinstall" directory target.
+Test_Cases/preinstall:
+.PHONY : Test_Cases/preinstall
+
+# Recursive "clean" directory target.
+Test_Cases/clean: Test_Cases/CMakeFiles/Test_Cases.dir/clean
+Test_Cases/clean: Test_Cases/CMakeFiles/dmi_verify.dir/clean
+Test_Cases/clean: Test_Cases/CMakeFiles/image_convert.dir/clean
+.PHONY : Test_Cases/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/DMI_Forge.dir
@@ -110,7 +131,7 @@ CMakeFiles/DMI_Forge.dir/clean:
 CMakeFiles/dmi2sheet.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dmi2sheet.dir\build.make CMakeFiles/dmi2sheet.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dmi2sheet.dir\build.make CMakeFiles/dmi2sheet.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles --progress-num=11,12,13,14,15 "Built target dmi2sheet"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles --progress-num=16,17,18,19,20 "Built target dmi2sheet"
 .PHONY : CMakeFiles/dmi2sheet.dir/all
 
 # Build rule for subdir invocation for target.
@@ -136,7 +157,7 @@ CMakeFiles/dmi2sheet.dir/clean:
 CMakeFiles/aespritefix.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\aespritefix.dir\build.make CMakeFiles/aespritefix.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\aespritefix.dir\build.make CMakeFiles/aespritefix.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles --progress-num=6,7,8,9,10 "Built target aespritefix"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles --progress-num=11,12,13,14,15 "Built target aespritefix"
 .PHONY : CMakeFiles/aespritefix.dir/all
 
 # Build rule for subdir invocation for target.
@@ -154,6 +175,84 @@ aespritefix: CMakeFiles/aespritefix.dir/rule
 CMakeFiles/aespritefix.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\aespritefix.dir\build.make CMakeFiles/aespritefix.dir/clean
 .PHONY : CMakeFiles/aespritefix.dir/clean
+
+#=============================================================================
+# Target rules for target Test_Cases/CMakeFiles/Test_Cases.dir
+
+# All Build rule for target.
+Test_Cases/CMakeFiles/Test_Cases.dir/all:
+	$(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\Test_Cases.dir\build.make Test_Cases/CMakeFiles/Test_Cases.dir/depend
+	$(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\Test_Cases.dir\build.make Test_Cases/CMakeFiles/Test_Cases.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles --progress-num=6,7,8,9,10 "Built target Test_Cases"
+.PHONY : Test_Cases/CMakeFiles/Test_Cases.dir/all
+
+# Build rule for subdir invocation for target.
+Test_Cases/CMakeFiles/Test_Cases.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles 5
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 Test_Cases/CMakeFiles/Test_Cases.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles 0
+.PHONY : Test_Cases/CMakeFiles/Test_Cases.dir/rule
+
+# Convenience name for target.
+Test_Cases: Test_Cases/CMakeFiles/Test_Cases.dir/rule
+.PHONY : Test_Cases
+
+# clean rule for target.
+Test_Cases/CMakeFiles/Test_Cases.dir/clean:
+	$(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\Test_Cases.dir\build.make Test_Cases/CMakeFiles/Test_Cases.dir/clean
+.PHONY : Test_Cases/CMakeFiles/Test_Cases.dir/clean
+
+#=============================================================================
+# Target rules for target Test_Cases/CMakeFiles/dmi_verify.dir
+
+# All Build rule for target.
+Test_Cases/CMakeFiles/dmi_verify.dir/all:
+	$(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\dmi_verify.dir\build.make Test_Cases/CMakeFiles/dmi_verify.dir/depend
+	$(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\dmi_verify.dir\build.make Test_Cases/CMakeFiles/dmi_verify.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles --progress-num=21,22,23,24,25 "Built target dmi_verify"
+.PHONY : Test_Cases/CMakeFiles/dmi_verify.dir/all
+
+# Build rule for subdir invocation for target.
+Test_Cases/CMakeFiles/dmi_verify.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles 5
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 Test_Cases/CMakeFiles/dmi_verify.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles 0
+.PHONY : Test_Cases/CMakeFiles/dmi_verify.dir/rule
+
+# Convenience name for target.
+dmi_verify: Test_Cases/CMakeFiles/dmi_verify.dir/rule
+.PHONY : dmi_verify
+
+# clean rule for target.
+Test_Cases/CMakeFiles/dmi_verify.dir/clean:
+	$(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\dmi_verify.dir\build.make Test_Cases/CMakeFiles/dmi_verify.dir/clean
+.PHONY : Test_Cases/CMakeFiles/dmi_verify.dir/clean
+
+#=============================================================================
+# Target rules for target Test_Cases/CMakeFiles/image_convert.dir
+
+# All Build rule for target.
+Test_Cases/CMakeFiles/image_convert.dir/all:
+	$(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\image_convert.dir\build.make Test_Cases/CMakeFiles/image_convert.dir/depend
+	$(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\image_convert.dir\build.make Test_Cases/CMakeFiles/image_convert.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles --progress-num=26,27,28,29,30,31 "Built target image_convert"
+.PHONY : Test_Cases/CMakeFiles/image_convert.dir/all
+
+# Build rule for subdir invocation for target.
+Test_Cases/CMakeFiles/image_convert.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles 6
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 Test_Cases/CMakeFiles/image_convert.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles 0
+.PHONY : Test_Cases/CMakeFiles/image_convert.dir/rule
+
+# Convenience name for target.
+image_convert: Test_Cases/CMakeFiles/image_convert.dir/rule
+.PHONY : image_convert
+
+# clean rule for target.
+Test_Cases/CMakeFiles/image_convert.dir/clean:
+	$(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\image_convert.dir\build.make Test_Cases/CMakeFiles/image_convert.dir/clean
+.PHONY : Test_Cases/CMakeFiles/image_convert.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

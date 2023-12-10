@@ -1,0 +1,124 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.21"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						2,
+						3
+					]
+				},
+				{
+					"build" : "Test_Cases",
+					"jsonFile" : "directory-Test_Cases-Debug-d3b48c834af17a9a32e5.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.21"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "Test_Cases",
+					"targetIndexes" : 
+					[
+						1,
+						4,
+						5
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1
+					],
+					"name" : "DMI_FORGE",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "DMI_Forge::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-DMI_Forge-Debug-15527204c1fe90548325.json",
+					"name" : "DMI_Forge",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "Test_Cases::@90a6c9376dfca71ba4b0",
+					"jsonFile" : "target-Test_Cases-Debug-8763e07a81fcc01f9181.json",
+					"name" : "Test_Cases",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "aespritefix::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-aespritefix-Debug-cb7c39fb2a95657a4420.json",
+					"name" : "aespritefix",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dmi2sheet::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dmi2sheet-Debug-9df7720d1da4f4da259c.json",
+					"name" : "dmi2sheet",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "dmi_verify::@90a6c9376dfca71ba4b0",
+					"jsonFile" : "target-dmi_verify-Debug-58f6c43ae5e1f1788822.json",
+					"name" : "dmi_verify",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "image_convert::@90a6c9376dfca71ba4b0",
+					"jsonFile" : "target-image_convert-Debug-cdc16e647832a5eb4fd9.json",
+					"name" : "image_convert",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/jonat/GitHub/DMI_Forge/cmake-build-debug",
+		"source" : "C:/Users/jonat/GitHub/DMI_Forge"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 5
+	}
+}

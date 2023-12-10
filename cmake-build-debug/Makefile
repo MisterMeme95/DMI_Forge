@@ -154,6 +154,45 @@ aespritefix/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\aespritefix.dir\build.make CMakeFiles/aespritefix.dir/build
 .PHONY : aespritefix/fast
 
+#=============================================================================
+# Target rules for targets named Test_Cases
+
+# Build rule for target.
+Test_Cases: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 Test_Cases
+.PHONY : Test_Cases
+
+# fast build rule for target.
+Test_Cases/fast:
+	$(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\Test_Cases.dir\build.make Test_Cases/CMakeFiles/Test_Cases.dir/build
+.PHONY : Test_Cases/fast
+
+#=============================================================================
+# Target rules for targets named dmi_verify
+
+# Build rule for target.
+dmi_verify: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 dmi_verify
+.PHONY : dmi_verify
+
+# fast build rule for target.
+dmi_verify/fast:
+	$(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\dmi_verify.dir\build.make Test_Cases/CMakeFiles/dmi_verify.dir/build
+.PHONY : dmi_verify/fast
+
+#=============================================================================
+# Target rules for targets named image_convert
+
+# Build rule for target.
+image_convert: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 image_convert
+.PHONY : image_convert
+
+# fast build rule for target.
+image_convert/fast:
+	$(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\image_convert.dir\build.make Test_Cases/CMakeFiles/image_convert.dir/build
+.PHONY : image_convert/fast
+
 Aesprite_Fixer.obj: Aesprite_Fixer.c.obj
 .PHONY : Aesprite_Fixer.obj
 
@@ -325,8 +364,11 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... DMI_Forge
+	@echo ... Test_Cases
 	@echo ... aespritefix
 	@echo ... dmi2sheet
+	@echo ... dmi_verify
+	@echo ... image_convert
 	@echo ... Aesprite_Fixer.obj
 	@echo ... Aesprite_Fixer.i
 	@echo ... Aesprite_Fixer.s

@@ -170,8 +170,8 @@ int main(int argc, char **argv) {
             }
         }
 
-        DMI_To_Png(new_icon, png_get_rowbytes(read_png_ptr, read_info_ptr), 144, row_pointers,row_pointers_new,
-                   write_png_ptr, write_info_ptr, pixels_per_byte, color_type, LINEAR_FLOW, LINEAR_FLOW);
+        dmiToPng(new_icon, png_get_rowbytes(read_png_ptr, read_info_ptr), 144, row_pointers, row_pointers_new,
+                 write_png_ptr, write_info_ptr, pixels_per_byte, color_type, LINEAR_FLOW, LINEAR_FLOW);
 
         //printf("Dmi to png complete!\n");
         png_write_info(write_png_ptr, write_info_ptr);
