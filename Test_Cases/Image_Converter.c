@@ -16,7 +16,9 @@ void read_and_write_png(const char* input_filename, const char* output_filename)
 
     // Initialize the reading structures.
     png_structp read_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+
     png_infop read_info_ptr = png_create_info_struct(read_ptr);
+
     png_init_io(read_ptr, input_file);
     png_read_info(read_ptr, read_info_ptr);
 
@@ -64,15 +66,7 @@ void read_and_write_png(const char* input_filename, const char* output_filename)
     //   png_set_tRNS(write_ptr, write_info_ptr, trans_alpha, num_trans, trans_color);
     // }
 
-   // printf("Reading image now. . \n");
- //   sleep(5);
-//    output_pixel_values(read_ptr, read_info_ptr, row_pointers);
-  //  printf("Done!!ee");
 
-    // Set up the data in the write structure.
-    //png_set_rows(write_ptr, write_info_ptr, row_pointers);
-
-    // Finally, write the image to the file.
     png_bytepp row_pointers_new = (png_bytepp)malloc(sizeof(png_bytep) * height);
 
     for (png_uint_32 i = 0; i < height; i++) {
@@ -87,13 +81,20 @@ void read_and_write_png(const char* input_filename, const char* output_filename)
 
     for (int i = 0; i < height; i++) {
         for (int o = 0; o < width; o++) {
+            png_bytep isolated_pixel = Get_Pixel(row_pointers, o, i, PNG_COLOR_TYPE_PALETTE,
+                                                 8,NULL, NULL, NULL);
 
-            int index = row_pointers[i][o];
-            png_color palette_color = palette[index];
+            /*
+            if(png_get_color_type(read_ptr, read_info_ptr) == PNG_COLOR_TYPE_PALETTE){
+                int index = row_pointers[i][o];
+                png_color palette_color = palette[index];
 
-            png_bytep new_pixel = Transform_Indexed_PNG(palette_color, PNG_COLOR_TYPE_GRAY_ALPHA, 8);
+                png_bytep new_pixel = Transform_Indexed_PNG(palette_color, PNG_COLOR_TYPE_GRAY_ALPHA, 8);
 
-            memcpy(&row_pointers_new[i][o*2], new_pixel, sizeof(png_byte) * 2);
+                memcpy(&row_pointers_new[i][o*2], new_pixel, sizeof(png_byte) * 2);
+            }
+            */
+
         }
     }
 

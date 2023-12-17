@@ -1,10 +1,120 @@
-//
-// Created by jonat on 11/8/2023.
-//
+
 #include "PixelManip.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <math.h>
+png_bytep Get_Pixel(png_bytepp image, int x_coord, int y_coord, int color_type, int bit_depth, png_colorp palette,
+                    png_bytep trans_alpha, int *num_trans){
+
+    int pixel_index;
+    png_bytep pixel_value = NULL;
+    Initialize_Pixel(&pixel_value, color_type, bit_depth);
+
+    if(bit_depth == 4){
+        pixel_index = (int)floor(x_coord/2);
+    }
+
+    else if(bit_depth == 2){
+        pixel_index = (int)floor(x_coord/4);
+    }
+
+    else if(bit_depth == 1){
+        pixel_index = (int)floor(x_coord/8);
+    }
+
+    if(color_type == PNG_COLOR_TYPE_PALETTE){
+        png_byte palette_index = image[pixel_index][y_coord];
+        png_color selected_color = palette[palette_index];
+        pixel_value[0] = selected_color.red;
+        pixel_value[1] = selected_color.green;
+        pixel_value[2] = selected_color.blue;
+
+        if(palette_index < (*num_trans)){
+            pixel_value[3] = trans_alpha[palette_index];
+        }
+        else
+            pixel_value[3] = 255;
+
+    }
+    else {
+        Copy_Pixel(pixel_value, image, x_coord, y_coord, color_type, bit_depth);
+
+    }
+
+    if(bit_depth == 4){
+        int which_pixel = x_coord % 2;
+        if(which_pixel == 0){
+            //simply move 4 bits to the right
+        }
+
+        else {
+            //simply cancel out the first 4 bits using AND operator
+            //then store the value that remains
+            //BIT4_L_OFF
+        }
+    }
+
+
+
+    return pixel_value;
+}
+
+
+png_bytep Set_Pixel(){
+
+
+}
+
+void Copy_Pixel(png_bytep copy_destination, png_bytepp copy_source, int x_coord,
+                int y_coord, int color_type, int bit_depth){
+
+    switch(color_type){
+        case PNG_COLOR_TYPE_RGB:
+            if(bit_depth == 16){
+                memcpy(copy_destination, &copy_source[y_coord][x_coord], sizeof(png_byte) * 6);
+            }
+
+            else {
+                memcpy(copy_destination, &copy_source[y_coord][x_coord], sizeof(png_byte) * 3);
+            }
+            break;
+
+        case PNG_COLOR_TYPE_RGBA:
+            if(bit_depth == 16) {
+                memcpy(copy_destination, &copy_source[y_coord][x_coord], sizeof(png_byte) * 8);
+            }
+
+            else {
+                memcpy(copy_destination, &copy_source[y_coord][x_coord], sizeof(png_byte) * 4);
+            }
+            break;
+
+        case PNG_COLOR_TYPE_GRAY_ALPHA:
+            if(bit_depth == 16) {
+                memcpy(copy_destination, &copy_source[y_coord][x_coord], sizeof(png_byte) * 4);
+            }
+            else {
+                memcpy(copy_destination, &copy_source[y_coord][x_coord], sizeof(png_byte) * 2);
+            }
+            break;
+
+        case PNG_COLOR_TYPE_GRAY:
+            if(bit_depth == 16) {
+                memcpy(copy_destination, &copy_source[y_coord][x_coord], sizeof(png_byte) * 2);
+            }
+
+            else {
+                memcpy(copy_destination, &copy_source[y_coord][x_coord], sizeof(png_byte) * 1);
+            }
+            break;
+
+        default:
+            memcpy(copy_destination, &copy_source[y_coord][x_coord], sizeof(png_byte) * 1);
+            break;
+    }
+
+}
 
 png_channels Get_Channels(const png_byte* pixel, int pixel_color_type, int pixel_bit_depth){
     png_channels return_channel;
@@ -198,7 +308,7 @@ void Initialize_Pixel(png_bytepp pixel, int color_type, int bit_depth){
             break;
 
         default:
-            (*pixel) = (png_bytep)malloc(sizeof(png_byte) * 3);
+            (*pixel) = (png_bytep)malloc(sizeof(png_byte) * 4);
             break;
     }
 }
