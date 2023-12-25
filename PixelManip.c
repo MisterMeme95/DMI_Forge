@@ -1,37 +1,166 @@
-
 #include "PixelManip.h"
 #include <stdlib.h>
-#include <stdio.h>
 #include <unistd.h>
 #include <math.h>
+
 png_bytep Get_Pixel(png_bytepp image, int x_coord, int y_coord, int color_type, int bit_depth, png_colorp palette,
                     png_bytep trans_alpha, int *num_trans){
 
-    int pixel_index;
+    /** @Description pixel_index is a simple int variable that we'll use to get the proper x_coordinate.
+     * Since it is possible for a pixel to be less than a byte at certain bit_depths.
+     *
+     * Default value is x_coord. */
+    int pixel_index = x_coord;
+    printf("BIT DEPTH = %d\n", bit_depth);
+   // sleep(100);
+    /** @Description This value represents the number of pixels packed into a single byte.
+     * This is only relevant whenever a pixel's bit_depth is less than 8. */
+    int pixels_per_byte;
+
+    /**@Description Pixel Data is the data we extract from the image (the pixel array). After pixel_index is calculated,
+     * we save the information in pixel_data, and can modify it depending on the size of the bit_depth to get
+     * the useful information.
+     * */
+    int pixel_data = image[y_coord][pixel_index];
+
+    /** @Description This represents the amount of bits to shift a byte by to unpack the pixel value.
+     * By default, it is 0. */
+    int pixel_bit_shift = 0;
+
+    /** @Description pixel_value is a pointer that we set to represent the various values in the various channels for a
+     * png_byte. The size of the pixel_value depends on the color_type and bit_depth. It is set using Initialize_Pixel(). */
     png_bytep pixel_value = NULL;
     Initialize_Pixel(&pixel_value, color_type, bit_depth);
-
+    printf("X-Coord = %d\n", x_coord);
+    /* If bit_depth is 4, then we know that there are 2 pixels per byte. So we simply have and floor the value. */
     if(bit_depth == 4){
-        pixel_index = (int)floor(x_coord/2);
+        pixels_per_byte = 2;
+        int pixel_in_byte = x_coord % pixels_per_byte;
+
+        pixel_bit_shift = (bit_depth) * ((pixels_per_byte - 1) -pixel_in_byte);
+
+        pixel_index = (int)floor(x_coord / pixels_per_byte);
+
+        pixel_data = image[y_coord][pixel_index];
+
+        if(pixel_in_byte == 0){
+            pixel_data = pixel_data & BIT4_L_ON;
+            pixel_data = (pixel_data >> pixel_bit_shift);
+        }
+
+        else {
+            pixel_data = pixel_data & BIT4_R_ON;
+        }
+
     }
 
+    /* There are 4 pixels per byte, so we floor after dividing by 4. */
     else if(bit_depth == 2){
-        pixel_index = (int)floor(x_coord/4);
+        pixels_per_byte = 4;
+        int pixel_in_byte = x_coord % pixels_per_byte;
+
+        pixel_bit_shift = (bit_depth) * ((pixels_per_byte - 1) -pixel_in_byte);
+        pixel_index = (int)floor(x_coord/pixels_per_byte);
+        pixel_data = image[y_coord][pixel_index];
+
+        if(pixel_in_byte == 0){
+            pixel_data = pixel_data & BIT2_1_ON;
+            pixel_data = (pixel_data >> pixel_bit_shift);
+        }
+
+        else if(pixel_in_byte == 1){
+            pixel_data = pixel_data & BIT2_2_ON;
+            pixel_data = (pixel_data >> pixel_bit_shift);
+        }
+
+        else if(pixel_in_byte == 2){
+            pixel_data = pixel_data & BIT2_3_ON;
+            pixel_data = (pixel_data >> pixel_bit_shift);
+        }
+        else {
+            pixel_data = pixel_data & BIT2_4_ON;
+        }
     }
 
+    /* At a bit_depth of 1 we have 8 pixels per byte. */
     else if(bit_depth == 1){
-        pixel_index = (int)floor(x_coord/8);
+        pixels_per_byte = 8;
+        int pixel_in_byte = x_coord % pixels_per_byte;
+
+        pixel_bit_shift = (bit_depth) * ((pixels_per_byte - 1) -pixel_in_byte);
+        pixel_index = (int)floor(x_coord / pixels_per_byte);
+        pixel_data = image[y_coord][pixel_index];
+
+        if(pixel_in_byte == 0){
+            pixel_data = pixel_data & BIT1_1_ON;
+            pixel_data = (pixel_data >> pixel_bit_shift);
+        }
+
+        else if(pixel_in_byte == 1){
+            pixel_data = pixel_data & BIT1_2_ON;
+            pixel_data = (pixel_data >> pixel_bit_shift);
+        }
+
+        else if(pixel_in_byte == 2){
+            pixel_data = pixel_data & BIT1_3_ON;
+            pixel_data = (pixel_data >> pixel_bit_shift);
+        }
+
+        else if(pixel_in_byte == 3){
+            pixel_data = pixel_data & BIT1_4_ON;
+            pixel_data = (pixel_data >> pixel_bit_shift);
+        }
+
+        else if(pixel_in_byte == 4){
+            pixel_data = pixel_data & BIT1_5_ON;
+            pixel_data = (pixel_data >> pixel_bit_shift);
+        }
+
+        else if(pixel_in_byte == 5){
+            pixel_data = pixel_data & BIT1_6_ON;
+            pixel_data = (pixel_data >> pixel_bit_shift);
+        }
+
+        else if(pixel_in_byte == 6){
+            pixel_data = pixel_data & BIT1_7_ON;
+            pixel_data = (pixel_data >> pixel_bit_shift);
+        }
+
+        else {
+            pixel_data = pixel_data & BIT1_7_ON;
+        }
+
     }
+
+
 
     if(color_type == PNG_COLOR_TYPE_PALETTE){
-        png_byte palette_index = image[pixel_index][y_coord];
-        png_color selected_color = palette[palette_index];
-        pixel_value[0] = selected_color.red;
-        pixel_value[1] = selected_color.green;
-        pixel_value[2] = selected_color.blue;
+        printf("Num_Trans - %d\nPixel_Date = %d\n", *num_trans, pixel_data);
+        //printf("This is a palette image! \n");
+        /* Get the byte in the pixel array.
+         * After, use bit_masking to isolate the relevant parts of the byte.
+         * Then use bit shifting to push it to the right, so I can get the value as a plain integer. */
+      //  png_byte palette_index = image[y_coord][pixel_index];
 
-        if(palette_index < (*num_trans)){
-            pixel_value[3] = trans_alpha[palette_index];
+        //palette_index = palette_index & BIT4_L_ON;
+
+     //   palette_index = palette_index >> pixel_bit_shift;
+
+       // printf("Pixel_date = %d\n", pixel_data);
+        png_color selected_color = palette[pixel_data];
+
+       // printf("Colored selected. . .\n");
+        pixel_value[0] = selected_color.red;
+        //printf("Selected color (red) = %d\n", selected_color.red);
+
+        pixel_value[1] = selected_color.green;
+       // printf("Selected color (green) = %d\n", selected_color.green);
+//
+        pixel_value[2] = selected_color.blue;
+       // printf("Selected color (blue) = %d\n", selected_color.green);
+
+        if(pixel_data < (*num_trans)){
+            pixel_value[3] = trans_alpha[pixel_data];
         }
         else
             pixel_value[3] = 255;

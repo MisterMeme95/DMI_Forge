@@ -62,9 +62,9 @@ void read_and_write_png(const char* input_filename, const char* output_filename)
     int num_trans = 0;
     png_color_16p trans_color = NULL;
 
-    //if (png_get_tRNS(read_ptr, read_info_ptr, &trans_alpha, &num_trans, &trans_color)) {
-    //   png_set_tRNS(write_ptr, write_info_ptr, trans_alpha, num_trans, trans_color);
-    // }
+    if (png_get_tRNS(read_ptr, read_info_ptr, &trans_alpha, &num_trans, &trans_color)) {
+       png_set_tRNS(write_ptr, write_info_ptr, trans_alpha, num_trans, trans_color);
+     }
 
 
     png_bytepp row_pointers_new = (png_bytepp)malloc(sizeof(png_bytep) * height);
@@ -79,10 +79,20 @@ void read_and_write_png(const char* input_filename, const char* output_filename)
         }
     }
 
+    printf("Died jere #1. . .\n");
     for (int i = 0; i < height; i++) {
         for (int o = 0; o < width; o++) {
+            printf("(x, y)) = (%d, %d)\n", o+1, i+1);
+
             png_bytep isolated_pixel = Get_Pixel(row_pointers, o, i, PNG_COLOR_TYPE_PALETTE,
-                                                 8,NULL, NULL, NULL);
+                                                 2,palette, trans_alpha, &num_trans);
+
+
+            printf("Red Channel = %d\n", isolated_pixel[0]);
+            printf("Green Channel = %d\n", isolated_pixel[1]);
+            printf("Blue Channel = %d\n", isolated_pixel[2]);
+            printf("Alpha Channel = %d\n", isolated_pixel[3]);
+            printf("\n\n");
 
             /*
             if(png_get_color_type(read_ptr, read_info_ptr) == PNG_COLOR_TYPE_PALETTE){
@@ -95,13 +105,15 @@ void read_and_write_png(const char* input_filename, const char* output_filename)
             }
             */
 
+
+
         }
     }
 
+    printf("Died jere #2. . .\n");
+    //png_write_info(write_ptr, write_info_ptr);
 
-    png_write_info(write_ptr, write_info_ptr);
-
-    png_write_image(write_ptr, row_pointers_new);
+   // png_write_image(write_ptr, row_pointers_new);
 
     // Clean up.
     fclose(input_file);
@@ -114,6 +126,7 @@ void read_and_write_png(const char* input_filename, const char* output_filename)
     for (png_uint_32 i = 0; i < height; i++) {
         free(row_pointers[i]);
     }
+    printf("Done. . .\n");
     free(row_pointers);
 }
 
@@ -121,8 +134,10 @@ void read_and_write_png(const char* input_filename, const char* output_filename)
 
 int main(){
 
-    read_and_write_png("Base_Black.dmi", "_output.png");
-
+    printf("Starting. . .\n");
+    read_and_write_png("testicon.dmi", "_output.png");
+    //sleep(1000);
+    printf("Done. . .\n");
 
     return 1;
 }
