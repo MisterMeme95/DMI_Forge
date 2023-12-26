@@ -136,55 +136,35 @@ png_bytep Get_Pixel(png_bytepp image, int x_coord, int y_coord, int color_type, 
 
     if(color_type == PNG_COLOR_TYPE_PALETTE){
         printf("Num_Trans - %d\nPixel_Date = %d\n", *num_trans, pixel_data);
-        //printf("This is a palette image! \n");
-        /* Get the byte in the pixel array.
-         * After, use bit_masking to isolate the relevant parts of the byte.
-         * Then use bit shifting to push it to the right, so I can get the value as a plain integer. */
-      //  png_byte palette_index = image[y_coord][pixel_index];
 
-        //palette_index = palette_index & BIT4_L_ON;
-
-     //   palette_index = palette_index >> pixel_bit_shift;
-
-       // printf("Pixel_date = %d\n", pixel_data);
+        /** @Description By using the pixel_data that we processed earlier, we now have the palette's index.
+         * This allows us to store the data in selected_color.*/
         png_color selected_color = palette[pixel_data];
 
-       // printf("Colored selected. . .\n");
+
+        /* From there, we simply copy the values from png_color into a png_byte array.*/
         pixel_value[0] = selected_color.red;
-        //printf("Selected color (red) = %d\n", selected_color.red);
-
         pixel_value[1] = selected_color.green;
-       // printf("Selected color (green) = %d\n", selected_color.green);
-//
         pixel_value[2] = selected_color.blue;
-       // printf("Selected color (blue) = %d\n", selected_color.green);
 
+        /* Next up, if the index that we have in our pixel_data is less than the number of indexes in the
+         * trans_alpha array, then we know that our selected color has an alpha value that is not 255.
+         * Let's just copy that over. */
         if(pixel_data < (*num_trans)){
             pixel_value[3] = trans_alpha[pixel_data];
         }
+
+        /* Otherwise, the alpha value is 255.*/
         else
             pixel_value[3] = 255;
 
     }
+
+    /* If it is not an indexed image, then we can simply copy the pixel directly.*/
     else {
         Copy_Pixel(pixel_value, image, x_coord, y_coord, color_type, bit_depth);
 
     }
-
-    if(bit_depth == 4){
-        int which_pixel = x_coord % 2;
-        if(which_pixel == 0){
-            //simply move 4 bits to the right
-        }
-
-        else {
-            //simply cancel out the first 4 bits using AND operator
-            //then store the value that remains
-            //BIT4_L_OFF
-        }
-    }
-
-
 
     return pixel_value;
 }
@@ -195,6 +175,12 @@ png_bytep Set_Pixel(){
 
 }
 
+
+/**
+ * @INCOMPLETE_FUNCTION - Make it able to work with bit_depth values less than 8 for Gray Scaled Image, and Index
+ * images.
+ *
+ * */
 void Copy_Pixel(png_bytep copy_destination, png_bytepp copy_source, int x_coord,
                 int y_coord, int color_type, int bit_depth){
 
