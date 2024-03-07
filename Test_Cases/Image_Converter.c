@@ -48,72 +48,99 @@ void read_and_write_png(const char* input_filename, const char* output_filename)
     // Copy the image data from the read structures to the write structures.
     png_set_IHDR(write_ptr, write_info_ptr, png_get_image_width(read_ptr, read_info_ptr),
                  png_get_image_height(read_ptr, read_info_ptr), 8,
-                 PNG_COLOR_TYPE_GRAY_ALPHA, png_get_interlace_type(read_ptr, read_info_ptr),
+                 PNG_COLOR_TYPE_RGBA, png_get_interlace_type(read_ptr, read_info_ptr),
                  png_get_compression_type(read_ptr, read_info_ptr), png_get_filter_type(read_ptr, read_info_ptr));
 
     png_colorp palette;
     int num_palette;
-
-    if (png_get_PLTE(read_ptr, read_info_ptr, &palette, &num_palette)) {
-        png_set_PLTE(write_ptr, write_info_ptr, palette, num_palette);
-    }
+    png_get_PLTE(read_ptr, read_info_ptr, &palette, &num_palette);
+//    if (png_get_PLTE(read_ptr, read_info_ptr, &palette, &num_palette)) {
+ //       png_set_PLTE(write_ptr, write_info_ptr, palette, num_palette);
+  //x  }
 
     png_bytep trans_alpha = NULL;
     int num_trans = 0;
     png_color_16p trans_color = NULL;
-
-    if (png_get_tRNS(read_ptr, read_info_ptr, &trans_alpha, &num_trans, &trans_color)) {
-       png_set_tRNS(write_ptr, write_info_ptr, trans_alpha, num_trans, trans_color);
-     }
+    png_get_tRNS(read_ptr, read_info_ptr, &trans_alpha, &num_trans, &trans_color);
+ //   if (png_get_tRNS(read_ptr, read_info_ptr, &trans_alpha, &num_trans, &trans_color)) {
+   //    png_set_tRNS(write_ptr, write_info_ptr, trans_alpha, num_trans, trans_color);
+    //}
 
 
     png_bytepp row_pointers_new = (png_bytepp)malloc(sizeof(png_bytep) * height);
 
     for (png_uint_32 i = 0; i < height; i++) {
-        row_pointers_new[i] = (png_bytep)malloc(png_get_image_width(read_ptr, read_info_ptr) * 3);
+        row_pointers_new[i] = (png_bytep)malloc(png_get_image_width(write_ptr, read_info_ptr) * 4);
     }
 
     for(png_uint_32 i = 0; i < height; i++) {
         for (png_uint_32 j = 0; j < png_get_rowbytes(write_ptr, write_info_ptr); j++) {
-            row_pointers_new[i][j] = 12;
+            row_pointers_new[i][j] = 0;
         }
     }
 
-    printf("Died jere #1. . .\n");
+   // printf("Died jere #1. . .\n");
     for (int i = 0; i < height; i++) {
+
         for (int o = 0; o < width; o++) {
-            printf("(x, y)) = (%d, %d)\n", o+1, i+1);
-
-            png_bytep isolated_pixel = Get_Pixel(row_pointers, o, i, PNG_COLOR_TYPE_PALETTE,
-                                                 2,palette, trans_alpha, &num_trans);
 
 
-            printf("Red Channel = %d\n", isolated_pixel[0]);
-            printf("Green Channel = %d\n", isolated_pixel[1]);
-            printf("Blue Channel = %d\n", isolated_pixel[2]);
-            printf("Alpha Channel = %d\n", isolated_pixel[3]);
-            printf("\n\n");
+        //    printf("(x, y)) = (%d, %d)\n", o+1, i+1);
 
-            /*
-            if(png_get_color_type(read_ptr, read_info_ptr) == PNG_COLOR_TYPE_PALETTE){
-                int index = row_pointers[i][o];
-                png_color palette_color = palette[index];
+/*         //   png_bytep isolated_pixel = Get_Pixel(row_pointers, o, i, PNG_COLOR_TYPE_PALETTE,
+                                                2,palette, trans_alpha, &num_trans);
+   */
 
-                png_bytep new_pixel = Transform_Indexed_PNG(palette_color, PNG_COLOR_TYPE_GRAY_ALPHA, 8);
+            Pixel_Data isolated_pixel = Get_Pixel2(row_pointers, o, i, PNG_COLOR_TYPE_PALETTE,
+                                                   8,palette, trans_alpha, &num_trans);
 
-                memcpy(&row_pointers_new[i][o*2], new_pixel, sizeof(png_byte) * 2);
-            }
-            */
+      //      printf("RGB = (%d, %d, %d)\n", isolated_pixel.color_data->red, isolated_pixel.color_data->green,
+            //       isolated_pixel.color_data->blue);
+          //  printf("Starting transforms. . .\n");
 
 
+            Pixel_Data transformed_pixel = Pixel_Transformation(isolated_pixel,
+                                                                PNG_COLOR_TYPE_RGBA, 8);
 
+//            transformed_pixel.byte_data[0] = 23;
+//            transformed_pixel.byte_data[1] = 223;
+//            transformed_pixel.byte_data[2] = 80;
+//            transformed_pixel.byte_data[3] = 225;
+            //printf("New RGBA = (%d, %d, %d, %d)\n", transformed_pixel.byte_data[0], transformed_pixel.byte_data[1],
+              //     transformed_pixel.byte_data[2], transformed_pixel.byte_data[3]);
+
+           // printf("Died here. .?#2\n");
+            Set_Pixel(row_pointers_new, &transformed_pixel, o, i, PNG_COLOR_TYPE_RGBA,
+                      8, NULL, NULL, NULL);
+
+
+
+            /**
+             * TO DO
+             * - New Transform Pixel.
+             * - New Set Pixel Function
+             * */
+
+           // png_bytep transformed_pixel = Transform_Indexed_PNG2(isolated_pixel,PNG_COLOR_TYPE_GRAY_ALPHA, 8);
+//            printf("Red Channel = %d\n", isolated_pixel[0]);
+//            printf("Green Channel = %d\n", isolated_pixel[1]);
+//            printf("Blue Channel = %d\n", isolated_pixel[2]);
+//            printf("Alpha Channel = %d\n", isolated_pixel[3]);
+//            printf("\n\n");
+
+//            if(png_get_color_type(read_ptr, read_info_ptr) == PNG_COLOR_TYPE_PALETTE){
+//                int index = row_pointers[i][o];
+//                png_color palette_color = palette[index];
+//                png_bytep new_pixel = Transform_Indexed_PNG(palette_color, PNG_COLOR_TYPE_GRAY_ALPHA, 8);
+//                memcpy(&row_pointers_new[i][o*2], new_pixel, sizeof(png_byte) * 2);
+//            }
         }
     }
 
     printf("Died jere #2. . .\n");
-    //png_write_info(write_ptr, write_info_ptr);
+    png_write_info(write_ptr, write_info_ptr);
 
-   // png_write_image(write_ptr, row_pointers_new);
+    png_write_image(write_ptr, row_pointers_new);
 
     // Clean up.
     fclose(input_file);
@@ -135,7 +162,7 @@ void read_and_write_png(const char* input_filename, const char* output_filename)
 int main(){
 
     printf("Starting. . .\n");
-    read_and_write_png("testicon.dmi", "_output.png");
+    read_and_write_png("Base_Black.dmi", "_output.png");
     //sleep(1000);
     printf("Done. . .\n");
 
