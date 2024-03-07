@@ -203,6 +203,7 @@ png_color Byte_To_Color(const png_byte* pixel, int color_type, png_bytep trans_b
 void Copy_Pixel(png_bytep copy_destination, png_bytepp copy_source, int x_coord,
                 int y_coord, int color_type, int bit_depth);
 
+
 /** @Description This function is designed any specific pixel that is in PNG file.
  *  Get_Pixel contains the necessarily functionality to unpack pixels that are less than a single byte. At the end
  *  of the function, it sends over a png_bytep that represents the values for each channel in a pixel.
@@ -216,11 +217,8 @@ void Copy_Pixel(png_bytep copy_destination, png_bytepp copy_source, int x_coord,
  * @param palette - An optional pointer to a palette. Only used when using PNG_COLOR_TYPE_PALETTE.
  * @param trans_alpha - Optional value containing alpha channel for indexed images.
  * @param num_trans - Optional value to denote # of entries in trans_alpha. */
-png_bytep Get_Pixel(png_bytepp image, int x_coord, int y_coord, int color_type, int bit_depth, png_colorp palette,
-                    png_bytep trans_alpha, int *num_trans);
-
-Pixel_Data Get_Pixel2(png_bytepp image, int x_coord, int y_coord, int color_type, int bit_depth, png_colorp palette,
-                      png_bytep trans_alpha, int *num_trans);
+Pixel_Data Get_Pixel(png_bytepp image, int x_coord, int y_coord, int color_type, int bit_depth, png_colorp palette,
+                     png_bytep trans_alpha, int *num_trans);
 
 
 /** @Description Transform_RGBA_PNG is a function that carries a pixel transformation. Basically, it takes a pixel that is currently

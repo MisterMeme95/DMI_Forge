@@ -91,8 +91,8 @@ void read_and_write_png(const char* input_filename, const char* output_filename)
                                                 2,palette, trans_alpha, &num_trans);
    */
 
-            Pixel_Data isolated_pixel = Get_Pixel2(row_pointers, o, i, PNG_COLOR_TYPE_PALETTE,
-                                                   8,palette, trans_alpha, &num_trans);
+            Pixel_Data isolated_pixel = Get_Pixel(row_pointers, o, i, PNG_COLOR_TYPE_PALETTE,
+                                                  8, palette, trans_alpha, &num_trans);
 
       //      printf("RGB = (%d, %d, %d)\n", isolated_pixel.color_data->red, isolated_pixel.color_data->green,
             //       isolated_pixel.color_data->blue);
