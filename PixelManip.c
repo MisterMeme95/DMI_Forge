@@ -4,50 +4,160 @@
 #include <math.h>
 
 //Pixel_Data
-void Get_Channel(Pixel_Data pixel) {
 
-    switch (pixel.color_type) {
-        case PNG_COLOR_TYPE_PALETTE:
-            break;
+void Set_Channels(Pixel_Data *pixel) {
+    if(pixel->color_type != PNG_COLOR_TYPE_PALETTE) {
+        Set_Red_Channel(pixel);
+        Set_Green_Channel(pixel);
+        Set_Blue_Channel(pixel);
+    }
+}
+void Set_Channel_Value(Pixel_Data *pixel, png_bytep channel, int channel_offset) {
+    if (pixel->bit_depth == 8) {
+        *channel = pixel->byte_data[channel_offset];
+    } else if (pixel->bit_depth == 16) {
+        memcpy(channel, &pixel->byte_data_16[channel_offset * 2], sizeof(png_byte) * 2);
+        // If your system is little-endian, you might need to swap the bytes
+        // *channel = (*channel >> 8) | (*channel << 8);
+    }
+}
 
-        default:
-            break;
+void Set_Red_Channel(Pixel_Data *pixel) {
+    if (pixel->color_type == PNG_COLOR_TYPE_RGBA || pixel->color_type == PNG_COLOR_TYPE_RGB ||
+        pixel->color_type == PNG_COLOR_TYPE_GRAY_ALPHA || pixel->color_type == PNG_COLOR_TYPE_GRAY) {
+        Set_Channel_Value(pixel, &pixel->red, 0);
+    }
+}
+
+void Set_Green_Channel(Pixel_Data *pixel) {
+    if (pixel->color_type == PNG_COLOR_TYPE_RGBA || pixel->color_type == PNG_COLOR_TYPE_RGB) {
+        Set_Channel_Value(pixel, &pixel->green, 1);
+    } else if (pixel->color_type == PNG_COLOR_TYPE_GRAY_ALPHA || pixel->color_type == PNG_COLOR_TYPE_GRAY) {
+        Set_Channel_Value(pixel, &pixel->green, 0);
+    }
+}
+
+void Set_Blue_Channel(Pixel_Data *pixel) {
+    if (pixel->color_type == PNG_COLOR_TYPE_RGBA || pixel->color_type == PNG_COLOR_TYPE_RGB) {
+        Set_Channel_Value(pixel, &pixel->blue, 2);
+    } else if (pixel->color_type == PNG_COLOR_TYPE_GRAY_ALPHA || pixel->color_type == PNG_COLOR_TYPE_GRAY) {
+        Set_Channel_Value(pixel, &pixel->blue, 0);
+    }
+}
+
+
+int Get_Red_Channel(Pixel_Data pixel, int bit_depth){
+    if(pixel.color_type == PNG_COLOR_TYPE_PALETTE){
+        return pixel.color_data->red;
+    }
+
+    else if(pixel.color_type == PNG_COLOR_TYPE_RGBA || pixel.color_type == PNG_COLOR_TYPE_RGB){
+        if(bit_depth == 8)
+            return pixel.byte_data[0];
+    }
+    /* If gray, then we simply return gray value.
+     * If index, then we simply return index.red
+     * if gray_alpha, return gray value
+     * if rgba and rgb,
+     *      check bit_depth. if bit_depth = 8
+     *          return png_bytep[0]
+     *
+     *       otherwise
+     *          png_bytep[1]
+     * */
+}
+
+int Get_Green_Channel(Pixel_Data pixel, int bit_depth){
+    if(pixel.color_type == PNG_COLOR_TYPE_PALETTE){
+        return pixel.color_data->green;
+    }
+
+    else if(pixel.color_type == PNG_COLOR_TYPE_RGBA || pixel.color_type == PNG_COLOR_TYPE_RGB){
+        if(bit_depth == 8)
+            return pixel.byte_data[1];
+    }
+}
+
+int Get_Blue_Channel(Pixel_Data pixel, int bit_depth){
+    if(pixel.color_type == PNG_COLOR_TYPE_PALETTE){
+        return pixel.color_data->blue;
+    }
+
+    else if(pixel.color_type == PNG_COLOR_TYPE_RGBA || pixel.color_type == PNG_COLOR_TYPE_RGB){
+        if(bit_depth == 8)
+            return pixel.byte_data[2];
     }
 
 }
 
+int Get_Alpha_Channel(Pixel_Data pixel, int bit_depth){
+    if(pixel.color_type == PNG_COLOR_TYPE_PALETTE){
+        return 255;
+    }
+
+
+    else if(pixel.color_type == PNG_COLOR_TYPE_RGBA || pixel.color_type == PNG_COLOR_TYPE_RGB){
+        if(bit_depth == 8)
+            return pixel.byte_data[3];
+    }
+}
+
+int Get_Gray_Value(Pixel_Data pixel){
+    int gray_value;
+    if(pixel.color_type == PNG_COLOR_TYPE_PALETTE){
+        gray_value = (int)ceil(0.299 * pixel.color_data->red + 0.587 * pixel.color_data->green + 0.114 * pixel.color_data->blue);
+    }
+
+    else {
+        gray_value = (int)ceil(0.299 * pixel.byte_data[0] + 0.587 * pixel.byte_data[1] + 0.114 * pixel.byte_data[2]);
+    }
+
+    return gray_value;
+}
 
 Pixel_Data Pixel_Transformation(Pixel_Data pixel, int target_color_type, int target_bit_depth){
     Pixel_Data pixel_transformed;
     pixel_transformed.color_type = target_color_type;
     pixel_transformed.byte_data = NULL;
 
-    switch(target_color_type){
-        case PNG_COLOR_TYPE_PALETTE:
-            printf("Lok. . \n");
-            break;
-
-        case PNG_COLOR_TYPE_RGBA:
-            Transform_Indexed_PNG3(pixel, &pixel_transformed, PNG_COLOR_TYPE_RGBA,
-                                   target_bit_depth);
-            break;
-
-        case PNG_COLOR_TYPE_RGB:
-            printf("Yo. . !\n");
-            /* NOTE: Call function that transforms RGB */
-            break;
-
-        case PNG_COLOR_TYPE_GRAY_ALPHA:
-            printf("Yo.3 . !\n");
-            /* NOTE: Call function that transforms GA */
-            break;
-
-        case PNG_COLOR_TYPE_GRAY:
-            /* NOTE: Call function that transforms GA */
-            break;
+    if(pixel.color_type == PNG_COLOR_TYPE_PALETTE){
+        Transform_Indexed_PNG(pixel, &pixel_transformed, target_color_type,
+                              target_bit_depth);
     }
 
+    /* Otherwise, we'll do regular transformations. */
 
+
+//    switch(target_color_type){
+//        case PNG_COLOR_TYPE_PALETTE:
+//            break;
+//
+//        case PNG_COLOR_TYPE_RGBA:
+//            Transform_Indexed_PNG(pixel, &pixel_transformed, PNG_COLOR_TYPE_RGBA,
+//                                   target_bit_depth);
+//            break;
+//
+//        case PNG_COLOR_TYPE_RGB:
+//            printf("Yo. . !\n");
+//            /* NOTE: Call function that transforms RGB */
+//            break;
+//
+//        case PNG_COLOR_TYPE_GRAY_ALPHA:
+//            printf("Yo.3 . !\n");
+//            /* NOTE: Call function that transforms GA */
+//            break;
+//
+//        case PNG_COLOR_TYPE_GRAY:
+//            printf("Yo3r.3 . !\n");
+//            /* NOTE: Call function that transforms GA */
+//            break;
+//
+//        default:
+//            pixel_transformed.byte_data = NULL;
+//            break;
+//    }
+
+    Set_Channels(&pixel_transformed);
     return pixel_transformed;
 
 }
@@ -61,6 +171,7 @@ Pixel_Data Get_Pixel(png_bytepp image, int x_coord, int y_coord, int color_type,
     Pixel_Data pixel;
 
     //Let's make sure to initialize it.
+    pixel.bit_depth = bit_depth;
     pixel.color_type = color_type;
     pixel.byte_data = NULL;
 
@@ -276,11 +387,13 @@ Pixel_Data Get_Pixel(png_bytepp image, int x_coord, int y_coord, int color_type,
 
         /* If it is not an indexed image, then we can simply copy the pixel directly.*/
     else {
-        // pixel_data = image[yx_coord][pixel_index];
         Copy_Pixel(pixel.byte_data, image, pixel_index, y_coord, color_type, bit_depth);
 
     }
 
+
+    /* Set up the channels before sending the pixel off. */
+    Set_Channels(&pixel);
     return pixel;
 }
 
@@ -928,12 +1041,14 @@ png_bytep Transform_RBG_PNG(const png_byte* pixel, int target_color_type, int bi
 }
 
 
-void Transform_Indexed_PNG3(Pixel_Data pixel, Pixel_Data* new_pixel, int target_color_type, int target_bit_depth){
+void Transform_Indexed_PNG(Pixel_Data pixel, Pixel_Data* new_pixel, int target_color_type, int target_bit_depth){
+
     png_bytep target_pixel;
     Initialize_Pixel(&target_pixel, target_color_type, target_bit_depth);
 
     /* First you want to take the pixel, and have it normalized. IE, set to the proper value for the target_bit_depth.
      * */
+
     if(target_color_type == PNG_COLOR_TYPE_RGB) {
         if(target_bit_depth == 8){
             //memcpy(target_pixel, pixel, sizeof(png_byte) * 3);
@@ -949,9 +1064,9 @@ void Transform_Indexed_PNG3(Pixel_Data pixel, Pixel_Data* new_pixel, int target_
         }
 
     }
+
     else if(target_color_type == PNG_COLOR_TYPE_GRAY_ALPHA) {
-        /* Copy first 2 bytes */
-        /* Then do the pixel transformation*/
+
         double gray_value = 0.299 * pixel.color_data->red + 0.587 * pixel.color_data->green + 0.114 * pixel.color_data->blue;
         if(target_bit_depth == 8){
             target_pixel[0] = (png_byte)gray_value; // Grayscale value
@@ -966,7 +1081,7 @@ void Transform_Indexed_PNG3(Pixel_Data pixel, Pixel_Data* new_pixel, int target_
     }
 
     else if(target_color_type == PNG_COLOR_TYPE_RGBA) {
-        /*Copy first 4 bytes */
+
         if(target_bit_depth == 8){
             target_pixel[0] = pixel.color_data->red;
             target_pixel[1] = pixel.color_data->green;
@@ -1009,73 +1124,7 @@ void Transform_Indexed_PNG3(Pixel_Data pixel, Pixel_Data* new_pixel, int target_
 
 
 }
-png_bytep Transform_Indexed_PNG(png_color pixel, int target_color_type, int bit_depth){
-    png_bytep target_pixel;
-    Initialize_Pixel(&target_pixel, target_color_type, bit_depth);
 
-    if(target_color_type == PNG_COLOR_TYPE_RGB) {
-        target_pixel[0] = pixel.red;
-        target_pixel[1] = pixel.green;
-        target_pixel[2] = pixel.blue;
-    }
-    else if(target_color_type == PNG_COLOR_TYPE_GRAY_ALPHA) {
-        double gray_value = 0.299 * pixel.red + 0.587 * pixel.green + 0.114 * pixel.blue;
-        target_pixel[0] = (png_byte)gray_value; // Grayscale value
-        target_pixel[1] = 150; // Alpha value
-    }
-
-    else if(target_color_type == PNG_COLOR_TYPE_RGBA) {
-        target_pixel[0] = pixel.red;
-        target_pixel[1] = pixel.green;
-        target_pixel[2] = pixel.blue;
-        target_pixel[3] = 255;
-    }
-
-    else if(target_color_type == PNG_COLOR_TYPE_GRAY){
-        double gray_value = 0.299 * pixel.red + 0.587 * pixel.green + 0.114 * pixel.blue;
-        target_pixel[0] = (png_byte)gray_value;
-    }
-    else {
-        target_pixel[0] = 1;
-        target_pixel[1] = 1;
-        target_pixel[2] = 1;
-    }
-    return target_pixel;
-}
-
-png_bytep Transform_Indexed_PNG1(png_color pixel, int target_color_type, int bit_depth){
-    png_bytep target_pixel;
-    Initialize_Pixel(&target_pixel, target_color_type, bit_depth);
-
-    if(target_color_type == PNG_COLOR_TYPE_RGB) {
-        target_pixel[0] = pixel.red;
-        target_pixel[1] = pixel.green;
-        target_pixel[2] = pixel.blue;
-    }
-    else if(target_color_type == PNG_COLOR_TYPE_GRAY_ALPHA) {
-        double gray_value = 0.299 * pixel.red + 0.587 * pixel.green + 0.114 * pixel.blue;
-        target_pixel[0] = (png_byte)gray_value; // Grayscale value
-        target_pixel[1] = 150; // Alpha value
-    }
-
-    else if(target_color_type == PNG_COLOR_TYPE_RGBA) {
-        target_pixel[0] = pixel.red;
-        target_pixel[1] = pixel.green;
-        target_pixel[2] = pixel.blue;
-        target_pixel[3] = 255;
-    }
-
-    else if(target_color_type == PNG_COLOR_TYPE_GRAY){
-        double gray_value = 0.299 * pixel.red + 0.587 * pixel.green + 0.114 * pixel.blue;
-        target_pixel[0] = (png_byte)gray_value;
-    }
-    else {
-        target_pixel[0] = 1;
-        target_pixel[1] = 1;
-        target_pixel[2] = 1;
-    }
-    return target_pixel;
-}
 void Combine_Pixels(int color_type){
     /*
     PNG_COLOR_TYPE_PALETTE;

@@ -84,32 +84,12 @@ void read_and_write_png(const char* input_filename, const char* output_filename)
 
         for (int o = 0; o < width; o++) {
 
-
-        //    printf("(x, y)) = (%d, %d)\n", o+1, i+1);
-
-/*         //   png_bytep isolated_pixel = Get_Pixel(row_pointers, o, i, PNG_COLOR_TYPE_PALETTE,
-                                                2,palette, trans_alpha, &num_trans);
-   */
-
             Pixel_Data isolated_pixel = Get_Pixel(row_pointers, o, i, PNG_COLOR_TYPE_PALETTE,
                                                   8, palette, trans_alpha, &num_trans);
-
-      //      printf("RGB = (%d, %d, %d)\n", isolated_pixel.color_data->red, isolated_pixel.color_data->green,
-            //       isolated_pixel.color_data->blue);
-          //  printf("Starting transforms. . .\n");
-
 
             Pixel_Data transformed_pixel = Pixel_Transformation(isolated_pixel,
                                                                 PNG_COLOR_TYPE_RGBA, 8);
 
-//            transformed_pixel.byte_data[0] = 23;
-//            transformed_pixel.byte_data[1] = 223;
-//            transformed_pixel.byte_data[2] = 80;
-//            transformed_pixel.byte_data[3] = 225;
-            //printf("New RGBA = (%d, %d, %d, %d)\n", transformed_pixel.byte_data[0], transformed_pixel.byte_data[1],
-              //     transformed_pixel.byte_data[2], transformed_pixel.byte_data[3]);
-
-           // printf("Died here. .?#2\n");
             Set_Pixel(row_pointers_new, &transformed_pixel, o, i, PNG_COLOR_TYPE_RGBA,
                       8, NULL, NULL, NULL);
 
