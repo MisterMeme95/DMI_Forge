@@ -48,7 +48,7 @@ void read_and_write_png(const char* input_filename, const char* output_filename)
     // Copy the image data from the read structures to the write structures.
     png_set_IHDR(write_ptr, write_info_ptr, png_get_image_width(read_ptr, read_info_ptr),
                  png_get_image_height(read_ptr, read_info_ptr), 8,
-                 PNG_COLOR_TYPE_RGBA, png_get_interlace_type(read_ptr, read_info_ptr),
+                 PNG_COLOR_TYPE_GRAY_ALPHA, png_get_interlace_type(read_ptr, read_info_ptr),
                  png_get_compression_type(read_ptr, read_info_ptr), png_get_filter_type(read_ptr, read_info_ptr));
 
     png_colorp palette;
@@ -70,7 +70,7 @@ void read_and_write_png(const char* input_filename, const char* output_filename)
     png_bytepp row_pointers_new = (png_bytepp)malloc(sizeof(png_bytep) * height);
 
     for (png_uint_32 i = 0; i < height; i++) {
-        row_pointers_new[i] = (png_bytep)malloc(png_get_image_width(write_ptr, read_info_ptr) * 4);
+        row_pointers_new[i] = (png_bytep)malloc(png_get_image_width(read_ptr, read_info_ptr) * 2);
     }
 
     for(png_uint_32 i = 0; i < height; i++) {
@@ -81,16 +81,26 @@ void read_and_write_png(const char* input_filename, const char* output_filename)
 
    // printf("Died jere #1. . .\n");
     for (int i = 0; i < height; i++) {
-
+//
         for (int o = 0; o < width; o++) {
 
             Pixel_Data isolated_pixel = Get_Pixel(row_pointers, o, i, PNG_COLOR_TYPE_PALETTE,
                                                   8, palette, trans_alpha, &num_trans);
 
+//            printf("(RGB) = (%d, %d, %d)\n",  isolated_pixel.color_data->red, isolated_pixel.color_data->green,
+//                   isolated_pixel.color_data->blue);
+            //sleep(10);
             Pixel_Data transformed_pixel = Pixel_Transformation(isolated_pixel,
-                                                                PNG_COLOR_TYPE_RGBA, 8);
+                                                                PNG_COLOR_TYPE_GRAY_ALPHA, 8);
 
-            Set_Pixel(row_pointers_new, &transformed_pixel, o, i, PNG_COLOR_TYPE_RGBA,
+//            printf("transformed_pixel.byte_data[0] - %d\n",  transformed_pixel.byte_data[0]);
+//            printf("transformed_pixel.byte_data[1] - %d\n",  transformed_pixel.byte_data[1]);
+//            printf("transformed_pixel.byte_data[2] - %d\n",  transformed_pixel.byte_data[2]);
+//            if(transformed_pixel.color_type == PNG_COLOR_TYPE_RGB){
+//                printf("New (RGB) = (%d, %d, %d)\n",  transformed_pixel.red, transformed_pixel.green, transformed_pixel.blue);
+//
+//            }
+            Set_Pixel(row_pointers_new, &transformed_pixel, o, i, PNG_COLOR_TYPE_GRAY_ALPHA,
                       8, NULL, NULL, NULL);
 
 
