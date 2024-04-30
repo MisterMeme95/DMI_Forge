@@ -235,12 +235,12 @@ Test_Cases/CMakeFiles/dmi_verify.dir/clean:
 Test_Cases/CMakeFiles/image_convert.dir/all:
 	$(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\image_convert.dir\build.make Test_Cases/CMakeFiles/image_convert.dir/depend
 	$(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\image_convert.dir\build.make Test_Cases/CMakeFiles/image_convert.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles --progress-num=26,27,28,29,30,31 "Built target image_convert"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles --progress-num=26,27,28,29,30,31,32 "Built target image_convert"
 .PHONY : Test_Cases/CMakeFiles/image_convert.dir/all
 
 # Build rule for subdir invocation for target.
 Test_Cases/CMakeFiles/image_convert.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles 7
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 Test_Cases/CMakeFiles/image_convert.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles 0
 .PHONY : Test_Cases/CMakeFiles/image_convert.dir/rule

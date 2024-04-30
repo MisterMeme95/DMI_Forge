@@ -6,7 +6,8 @@
 #include <stdio.h>
 #include <unistd.h>
 #include "../dmi.h"
-#include "../PixelManip.h"
+#include "../data_structure.h"
+
 void read_and_write_png(const char* input_filename, const char* output_filename) {
     FILE* input_file = fopen(input_filename, "rb");
     if(!input_file) {
@@ -48,12 +49,20 @@ void read_and_write_png(const char* input_filename, const char* output_filename)
     // Copy the image data from the read structures to the write structures.
     png_set_IHDR(write_ptr, write_info_ptr, png_get_image_width(read_ptr, read_info_ptr),
                  png_get_image_height(read_ptr, read_info_ptr), 8,
-                 PNG_COLOR_TYPE_GRAY_ALPHA, png_get_interlace_type(read_ptr, read_info_ptr),
+                 PNG_COLOR_TYPE_PALETTE, png_get_interlace_type(read_ptr, read_info_ptr),
                  png_get_compression_type(read_ptr, read_info_ptr), png_get_filter_type(read_ptr, read_info_ptr));
 
     png_colorp palette;
+    png_colorp new_palette = (png_colorp)malloc(sizeof(png_color) * 256);
+
     int num_palette;
+    int new_num_palette;
+    palette_hash new_pal;
+    for (int i = 0; i < 256; i++) {
+        new_pal.hash_bucket[i] = NULL;
+    }
     png_get_PLTE(read_ptr, read_info_ptr, &palette, &num_palette);
+    png_set_PLTE(write_ptr, write_info_ptr, palette, num_palette);
 //    if (png_get_PLTE(read_ptr, read_info_ptr, &palette, &num_palette)) {
  //       png_set_PLTE(write_ptr, write_info_ptr, palette, num_palette);
   //x  }
@@ -62,6 +71,7 @@ void read_and_write_png(const char* input_filename, const char* output_filename)
     int num_trans = 0;
     png_color_16p trans_color = NULL;
     png_get_tRNS(read_ptr, read_info_ptr, &trans_alpha, &num_trans, &trans_color);
+    png_set_tRNS(write_ptr, write_info_ptr, trans_alpha, num_trans, trans_color);
  //   if (png_get_tRNS(read_ptr, read_info_ptr, &trans_alpha, &num_trans, &trans_color)) {
    //    png_set_tRNS(write_ptr, write_info_ptr, trans_alpha, num_trans, trans_color);
     //}
@@ -70,7 +80,7 @@ void read_and_write_png(const char* input_filename, const char* output_filename)
     png_bytepp row_pointers_new = (png_bytepp)malloc(sizeof(png_bytep) * height);
 
     for (png_uint_32 i = 0; i < height; i++) {
-        row_pointers_new[i] = (png_bytep)malloc(png_get_image_width(read_ptr, read_info_ptr) * 2);
+        row_pointers_new[i] = (png_bytep)malloc(png_get_image_width(read_ptr, read_info_ptr) );
     }
 
     for(png_uint_32 i = 0; i < height; i++) {
@@ -87,12 +97,15 @@ void read_and_write_png(const char* input_filename, const char* output_filename)
             Pixel_Data isolated_pixel = Get_Pixel(row_pointers, o, i, PNG_COLOR_TYPE_PALETTE,
                                                   8, palette, trans_alpha, &num_trans);
 
+
+
 //            printf("(RGB) = (%d, %d, %d)\n",  isolated_pixel.color_data->red, isolated_pixel.color_data->green,
 //                   isolated_pixel.color_data->blue);
             //sleep(10);
             Pixel_Data transformed_pixel = Pixel_Transformation(isolated_pixel,
-                                                                PNG_COLOR_TYPE_GRAY_ALPHA, 8);
+                                                                PNG_COLOR_TYPE_PALETTE, 8);
 
+          //  printf("Red Check =%d\n", Get_Red_Channel(transformed_pixel));
 //            printf("transformed_pixel.byte_data[0] - %d\n",  transformed_pixel.byte_data[0]);
 //            printf("transformed_pixel.byte_data[1] - %d\n",  transformed_pixel.byte_data[1]);
 //            printf("transformed_pixel.byte_data[2] - %d\n",  transformed_pixel.byte_data[2]);
@@ -100,11 +113,8 @@ void read_and_write_png(const char* input_filename, const char* output_filename)
 //                printf("New (RGB) = (%d, %d, %d)\n",  transformed_pixel.red, transformed_pixel.green, transformed_pixel.blue);
 //
 //            }
-            Set_Pixel(row_pointers_new, &transformed_pixel, o, i, PNG_COLOR_TYPE_GRAY_ALPHA,
-                      8, NULL, NULL, NULL);
-
-
-
+            Set_Pixel(row_pointers_new, &transformed_pixel, o, i, PNG_COLOR_TYPE_PALETTE,
+                      8, new_palette, NULL, &new_num_palette, &new_pal);
             /**
              * TO DO
              * - New Transform Pixel.
@@ -127,7 +137,10 @@ void read_and_write_png(const char* input_filename, const char* output_filename)
         }
     }
 
-    printf("Died jere #2. . .\n");
+
+    printf("new_num_pal = %d\n", new_num_palette);
+    png_set_PLTE(write_ptr, write_info_ptr, new_palette, new_num_palette);
+   // printf("Died jere #2. . .\n");
     png_write_info(write_ptr, write_info_ptr);
 
     png_write_image(write_ptr, row_pointers_new);
@@ -143,7 +156,7 @@ void read_and_write_png(const char* input_filename, const char* output_filename)
     for (png_uint_32 i = 0; i < height; i++) {
         free(row_pointers[i]);
     }
-    printf("Done. . .\n");
+   // printf("Done. . .\n");
     free(row_pointers);
 }
 
@@ -152,9 +165,9 @@ void read_and_write_png(const char* input_filename, const char* output_filename)
 int main(){
 
     printf("Starting. . .\n");
-    read_and_write_png("Base_Black.dmi", "_output.png");
+    read_and_write_png("goku.dmi", "_output.png");
     //sleep(1000);
-    printf("Done. . .\n");
+  //  printf("Done. . .\n");
 
     return 1;
 }

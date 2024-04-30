@@ -343,6 +343,30 @@ __/PixelManip.c.s:
 	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\image_convert.dir\build.make Test_Cases/CMakeFiles/image_convert.dir/__/PixelManip.c.s
 .PHONY : __/PixelManip.c.s
 
+__/data_structure.obj: __/data_structure.c.obj
+.PHONY : __/data_structure.obj
+
+# target to build an object file
+__/data_structure.c.obj:
+	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\image_convert.dir\build.make Test_Cases/CMakeFiles/image_convert.dir/__/data_structure.c.obj
+.PHONY : __/data_structure.c.obj
+
+__/data_structure.i: __/data_structure.c.i
+.PHONY : __/data_structure.i
+
+# target to preprocess a source file
+__/data_structure.c.i:
+	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\image_convert.dir\build.make Test_Cases/CMakeFiles/image_convert.dir/__/data_structure.c.i
+.PHONY : __/data_structure.c.i
+
+__/data_structure.s: __/data_structure.c.s
+.PHONY : __/data_structure.s
+
+# target to generate assembly for a file
+__/data_structure.c.s:
+	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\image_convert.dir\build.make Test_Cases/CMakeFiles/image_convert.dir/__/data_structure.c.s
+.PHONY : __/data_structure.c.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -375,6 +399,9 @@ help:
 	@echo ... __/PixelManip.obj
 	@echo ... __/PixelManip.i
 	@echo ... __/PixelManip.s
+	@echo ... __/data_structure.obj
+	@echo ... __/data_structure.i
+	@echo ... __/data_structure.s
 .PHONY : help
 
 

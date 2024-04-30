@@ -371,6 +371,12 @@
 		<Unit filename="C:/Users/jonat/GitHub/DMI_Forge/Test_Cases/Image_Converter.c">
 			<Option target="image_convert"/>
 		</Unit>
+		<Unit filename="C:/Users/jonat/GitHub/DMI_Forge/data_structure.c">
+			<Option target="image_convert"/>
+		</Unit>
+		<Unit filename="C:/Users/jonat/GitHub/DMI_Forge/data_structure.h">
+			<Option target="image_convert"/>
+		</Unit>
 		<Unit filename="C:/Users/jonat/GitHub/DMI_Forge/main.c">
 			<Option target="DMI_Forge"/>
 		</Unit>

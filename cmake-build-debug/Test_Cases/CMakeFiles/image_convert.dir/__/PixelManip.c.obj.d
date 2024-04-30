@@ -1,6 +1,6 @@
 Test_Cases/CMakeFiles/image_convert.dir/__/PixelManip.c.obj: \
  C:\Users\jonat\GitHub\DMI_Forge\PixelManip.c \
- C:\Users\jonat\GitHub\DMI_Forge\PixelManip.h \
+ C:\Users\jonat\GitHub\DMI_Forge\data_structure.h \
  C:/Users/jonat/.conan2/p/b/libpnda601e8f63f19/p/include/png.h \
  C:/Users/jonat/.conan2/p/b/libpnda601e8f63f19/p/include/pnglibconf.h \
  C:/Users/jonat/.conan2/p/b/libpnda601e8f63f19/p/include/pngconf.h \
@@ -27,6 +27,7 @@ Test_Cases/CMakeFiles/image_convert.dir/__/PixelManip.c.obj: \
  C:/Program\ Files/JetBrains/CLion\ 2023.2.2/bin/mingw/x86_64-w64-mingw32/include/sec_api/sys/timeb_s.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.2.2/bin/mingw/x86_64-w64-mingw32/include/_timeval.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.2.2/bin/mingw/x86_64-w64-mingw32/include/pthread_time.h \
+ C:\Users\jonat\GitHub\DMI_Forge\PixelManip.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.2.2/bin/mingw/x86_64-w64-mingw32/include/stdlib.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.2.2/bin/mingw/x86_64-w64-mingw32/include/corecrt_wstdlib.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.2.2/bin/mingw/x86_64-w64-mingw32/include/sec_api/stdlib_s.h \

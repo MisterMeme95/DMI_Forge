@@ -9,6 +9,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/image_convert.dir/__/Icon_State.c.obj.d"
   "CMakeFiles/image_convert.dir/__/PixelManip.c.obj"
   "CMakeFiles/image_convert.dir/__/PixelManip.c.obj.d"
+  "CMakeFiles/image_convert.dir/__/data_structure.c.obj"
+  "CMakeFiles/image_convert.dir/__/data_structure.c.obj.d"
   "image_convert.exe"
   "image_convert.exe.manifest"
   "image_convert.pdb"

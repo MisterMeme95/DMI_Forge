@@ -1,4 +1,7 @@
+
+
 /* ************************
+ *
  * Bit Depth 4 Masks ******
  **************************/
 /** @Description Used when you want to isolate the first 4 bits of a byte.
@@ -179,18 +182,18 @@ typedef struct {
 } Pixel_Data;
 
 
-typedef struct Node {
-    void *data;
-    void *next;
-    void *prev;
-} Node;
+typedef struct PNG_Node {
+    int index;
+    Pixel_Data pixel_info;
+    struct PNG_Node *next;
+    struct PNG_Node *prev;
+} node;
 
 
-
-typedef struct Linked_list {
-    Node* head;
-    Node* tail;
-} Linked_list;
+typedef struct palette_hash_table {
+    const int MAX_VALUE;
+    node *hash_bucket[256];
+} palette_hash;
 
 
 typedef struct png_channels {
@@ -251,9 +254,13 @@ png_bytep Transform_GRAY_PNG(const png_byte* pixel, int target_color_type, int b
 /** @Description Transforms a traditional RGB pixel into any other type. */
 png_bytep Transform_RBG_PNG(const png_byte* pixel, int target_color_type, int bit_depth);
 
+/**
+ * @TO_DO FIX SCENARIO FOR PIXELS THAT ARE LESS THAN 1 BYTE. IT IS NOT PROPERLY CLEARING THE BITS AND USES A AND instead
+ * OF AN OR BITMASK.
+ * */
 void Set_Pixel(png_bytepp image, Pixel_Data* new_pixel, int x_coord,
                int y_coord, int color_type, int bit_depth, png_colorp palette,
-               png_bytep trans_alpha, int *num_trans);
+               png_bytep trans_alpha, int *num_trans, palette_hash* pal_hash);
 
 
 /** @Description This function takes pixel data of the color_type PNG_COLOR_TYPE_PALETTE, and transforms it into
@@ -280,3 +287,8 @@ void Set_Channel_Value(Pixel_Data *pixel, png_bytep channel, int channel_offset)
 void Set_Red_Channel(Pixel_Data *pixel);
 void Set_Green_Channel(Pixel_Data *pixel);
 void Set_Blue_Channel(Pixel_Data *pixel);
+
+int Get_Red_Channel(Pixel_Data pixel);
+int Get_Green_Channel(Pixel_Data pixel);
+int Get_Blue_Channel(Pixel_Data pixel);
+int Get_Alpha_Channel(Pixel_Data pixel);

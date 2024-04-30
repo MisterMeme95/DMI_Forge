@@ -13,6 +13,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "C:/Users/jonat/GitHub/DMI_Forge/DMI_Struct.c" "Test_Cases/CMakeFiles/image_convert.dir/__/DMI_Struct.c.obj" "gcc" "Test_Cases/CMakeFiles/image_convert.dir/__/DMI_Struct.c.obj.d"
   "C:/Users/jonat/GitHub/DMI_Forge/Icon_State.c" "Test_Cases/CMakeFiles/image_convert.dir/__/Icon_State.c.obj" "gcc" "Test_Cases/CMakeFiles/image_convert.dir/__/Icon_State.c.obj.d"
   "C:/Users/jonat/GitHub/DMI_Forge/PixelManip.c" "Test_Cases/CMakeFiles/image_convert.dir/__/PixelManip.c.obj" "gcc" "Test_Cases/CMakeFiles/image_convert.dir/__/PixelManip.c.obj.d"
+  "C:/Users/jonat/GitHub/DMI_Forge/data_structure.c" "Test_Cases/CMakeFiles/image_convert.dir/__/data_structure.c.obj" "gcc" "Test_Cases/CMakeFiles/image_convert.dir/__/data_structure.c.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

@@ -1,8 +1,8 @@
-#include "PixelManip.h"
+
+#include "data_structure.h"
 #include <stdlib.h>
 #include <unistd.h>
 #include <math.h>
-
 //Pixel_Data
 
 void Set_Channels(Pixel_Data *pixel) {
@@ -46,49 +46,52 @@ void Set_Blue_Channel(Pixel_Data *pixel) {
 }
 
 
-int Get_Red_Channel(Pixel_Data pixel, int bit_depth){
+int Get_Red_Channel(Pixel_Data pixel){
+    //printf("Get red. . .#1\n");
     if(pixel.color_type == PNG_COLOR_TYPE_PALETTE){
+     //   printf("Red_Val = %d\n", pixel.color_data->red);
+
         return pixel.color_data->red;
     }
 
     else if(pixel.color_type == PNG_COLOR_TYPE_RGBA || pixel.color_type == PNG_COLOR_TYPE_RGB){
-        if(bit_depth == 8)
+        if(pixel.bit_depth == 8)
             return pixel.byte_data[0];
     }
 
 }
 
-int Get_Green_Channel(Pixel_Data pixel, int bit_depth){
+int Get_Green_Channel(Pixel_Data pixel){
     if(pixel.color_type == PNG_COLOR_TYPE_PALETTE){
         return pixel.color_data->green;
     }
 
     else if(pixel.color_type == PNG_COLOR_TYPE_RGBA || pixel.color_type == PNG_COLOR_TYPE_RGB){
-        if(bit_depth == 8)
+        if(pixel.bit_depth == 8)
             return pixel.byte_data[1];
     }
 }
 
-int Get_Blue_Channel(Pixel_Data pixel, int bit_depth){
+int Get_Blue_Channel(Pixel_Data pixel){
     if(pixel.color_type == PNG_COLOR_TYPE_PALETTE){
         return pixel.color_data->blue;
     }
 
     else if(pixel.color_type == PNG_COLOR_TYPE_RGBA || pixel.color_type == PNG_COLOR_TYPE_RGB){
-        if(bit_depth == 8)
+        if(pixel.bit_depth == 8)
             return pixel.byte_data[2];
     }
 
 }
 
-int Get_Alpha_Channel(Pixel_Data pixel, int bit_depth){
+int Get_Alpha_Channel(Pixel_Data pixel){
     if(pixel.color_type == PNG_COLOR_TYPE_PALETTE){
         return 255;
     }
 
 
     else if(pixel.color_type == PNG_COLOR_TYPE_RGBA || pixel.color_type == PNG_COLOR_TYPE_RGB){
-        if(bit_depth == 8)
+        if(pixel.bit_depth == 8)
             return pixel.byte_data[3];
     }
 }
@@ -112,6 +115,14 @@ Pixel_Data Pixel_Transformation(Pixel_Data pixel, int target_color_type, int tar
     pixel_transformed.byte_data = NULL;
 
     if(pixel.color_type == PNG_COLOR_TYPE_PALETTE){
+        /* If the target color is NOT PNG_COLOR_TYPE_PALETTE
+         *      Then do the regular transformation.
+         *
+         *     Otherwise
+         *      Just set pixel_transformed to the regular pixel.
+         *      Likewise, no bit_depth operations may be performed on paletted pixels.
+         * */
+
         Transform_Indexed_PNG(pixel, &pixel_transformed, target_color_type,
                               target_bit_depth);
     }
@@ -362,14 +373,14 @@ void Pixel_Transform(){
 
 void Set_Pixel(png_bytepp image, Pixel_Data* new_pixel, int x_coord,
                int y_coord, int color_type, int bit_depth, png_colorp palette,
-                png_bytep trans_alpha, int *num_trans){
+                png_bytep trans_alpha, int *num_trans, palette_hash* pal_hash){
 
     /** @Description A data structure that serves as a neat encapsulation of the various data-types that libpng
      * stores pixel information in.
      *
      * It is of the "Pixel_Data" struct. */
 
-
+    //printf("Set pixel#1\n");
 
 
     /** @Description pixel_index is a simple int variable that we'll use to get the proper x_coordinate.
@@ -430,6 +441,7 @@ void Set_Pixel(png_bytepp image, Pixel_Data* new_pixel, int x_coord,
     }
 
     if(bit_depth == 8) {
+     //   printf("Set pixel#2\n");
         if(color_type == PNG_COLOR_TYPE_RGBA){
             pixel_index *= 4;
             memcpy(&image[y_coord][pixel_index], new_pixel->byte_data, sizeof(png_byte) * 4);
@@ -446,6 +458,50 @@ void Set_Pixel(png_bytepp image, Pixel_Data* new_pixel, int x_coord,
         }
         else if(color_type == PNG_COLOR_TYPE_GRAY) {
             memcpy(&image[y_coord][pixel_index], new_pixel->byte_data, sizeof(png_byte));
+        }
+
+        else if(color_type == PNG_COLOR_TYPE_PALETTE){
+      //      printf("Set pixel#3\n");
+            int get_index = 0;
+//            printf("Before find_key, Get_Index = %d\n", get_index);
+            get_index = find_key(*new_pixel, pal_hash);
+//            printf("After find_key, Get_Index = %d\n", get_index);
+
+          //  printf("Died here. . \n");
+            if(get_index != -1){
+                //printf("Hrm. . ");
+                image[y_coord][pixel_index] = get_index;
+              //  printf("Get_Index = %d\n", get_index);
+                //memcpy(&image[y_coord][pixel_index], new_pixel->byte_data, sizeof(png_byte));
+            }
+            else {
+            //    printf("Died here #1\n");
+              //  printf("Rofl\n");
+                //printf("Inserting. . . \n");
+                insert_key(*new_pixel, pal_hash, *num_trans);
+//
+//                printf("Num_Trans = %d\n", *num_trans);
+//                printf("Adding Color = (%d, %d, %d)\n",new_pixel->color_data->red,new_pixel->color_data->green, new_pixel->color_data->blue);
+//
+                palette[*num_trans] = *(new_pixel->color_data);
+//                printf("Palette - %d = (%d, %d, %d)\n", *num_trans,
+//                       palette[*num_trans].red,palette[*num_trans].green, palette[*num_trans].blue);
+                image[y_coord][pixel_index] = (png_byte)(*num_trans);
+                *(num_trans)+=1;
+            }
+            /* Have a look up table. Check to see if the palette contains new_pixel->color_data.
+             * If it does, get the index from the lookup table.
+             *
+             *  Otherwise, add a new index to palette. */
+//            memcpy(&image[y_coord][pixel_index], new_pixel->byte_data, sizeof(png_byte));
+
+            //if find_key(new_pixel, palettehash)
+                //get index for key of "new_pixel"
+            //else
+                // insert_key(new_pixel, palette, current_index)
+                //Add to palette new_pixel
+                //add current index to image[y_coord][pixel_index] = index
+
         }
     }
 
@@ -896,9 +952,9 @@ png_bytep Transform_RBGA_PNG(const png_byte* pixel, int target_color_type, int s
              * Get Green Channel
              * Get Bluue Channel */
 
-            /* Red channel >> depth_difference */
-            /* Blue Channel >> depth_difference */
-            /* Green channel >> depth_difference */
+            /* Red channel >> depth_difference
+            Blue Channel >> depth_difference
+            Green channel >> depth_difference */
         }
     }
 
@@ -1073,6 +1129,13 @@ void Transform_Indexed_PNG(Pixel_Data pixel, Pixel_Data* new_pixel, int target_c
 
         new_pixel->color_type = PNG_COLOR_TYPE_GRAY;
         new_pixel->byte_data = target_pixel;
+
+    }
+
+    else if(target_color_type == PNG_COLOR_TYPE_PALETTE){
+        /* new_pixel needs to copy pixel.
+         * */
+        memcpy(new_pixel, &pixel, sizeof(Pixel_Data));
 
     }
     else {
