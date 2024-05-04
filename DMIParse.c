@@ -114,7 +114,7 @@ char *State_Authentication(char *string){
     return value_check;
 }
 
-char *Value_Authentication(char *string){
+char *Value_Authentication(char *string) {
     //We have to find the = symbol
     int index = 0, token_track = 0;
     int num_of_char = get_string_char(string, "\0", 'y');
@@ -139,7 +139,7 @@ char *Value_Authentication(char *string){
     return value_check;
 }
 
-void Print_Variable(char *string, DMI* dmi){
+void Print_Variable(char *string, DMI* dmi) {
     char *check_string = Variable_Authentication(string);
     char *found = strstr(string, "=");
     char *variable_value;// = Value_Authentication(found);
@@ -251,13 +251,10 @@ int initialize_image(png_structp *png_ptr, png_infop *png_info, FILE **fp){
     png_read_info(*png_ptr, *png_info);
 
     return 0;
-
 }
 
-int check_if_png(char *file_name, FILE **fp)
-{
+int check_if_png(char *file_name, FILE **fp) {
     char buf[PNG_BYTES_TO_CHECK];
-
     /* Open the prospective PNG file. */
     if ((*fp = fopen(file_name, "rb")) == NULL) {
         printf("Error opening input file\n");
@@ -270,9 +267,7 @@ int check_if_png(char *file_name, FILE **fp)
         return 0;
     }
 
-
     /* Compare the first PNG_BYTES_TO_CHECK bytes of the signature.
-     * Return nonzero (true) if they match.
-     */
+     * Return nonzero (true) if they match. */
     return(!png_sig_cmp(buf, 0, PNG_BYTES_TO_CHECK));
 }

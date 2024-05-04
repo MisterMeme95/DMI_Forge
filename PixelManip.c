@@ -13,12 +13,16 @@ void Set_Channels(Pixel_Data *pixel) {
     }
 }
 void Set_Channel_Value(Pixel_Data *pixel, png_bytep channel, int channel_offset) {
+//    printf("Set = %d\n", pixel->bit_depth);
     if (pixel->bit_depth == 8) {
         *channel = pixel->byte_data[channel_offset];
     } else if (pixel->bit_depth == 16) {
         memcpy(channel, &pixel->byte_data_16[channel_offset * 2], sizeof(png_byte) * 2);
         // If your system is little-endian, you might need to swap the bytes
         // *channel = (*channel >> 8) | (*channel << 8);
+    }
+    else {
+        *channel = pixel->byte_data[channel_offset];
     }
 }
 
@@ -47,10 +51,7 @@ void Set_Blue_Channel(Pixel_Data *pixel) {
 
 
 int Get_Red_Channel(Pixel_Data pixel){
-    //printf("Get red. . .#1\n");
     if(pixel.color_type == PNG_COLOR_TYPE_PALETTE){
-     //   printf("Red_Val = %d\n", pixel.color_data->red);
-
         return pixel.color_data->red;
     }
 
@@ -88,8 +89,6 @@ int Get_Alpha_Channel(Pixel_Data pixel){
     if(pixel.color_type == PNG_COLOR_TYPE_PALETTE){
         return 255;
     }
-
-
     else if(pixel.color_type == PNG_COLOR_TYPE_RGBA || pixel.color_type == PNG_COLOR_TYPE_RGB){
         if(pixel.bit_depth == 8)
             return pixel.byte_data[3];
@@ -113,19 +112,14 @@ Pixel_Data Pixel_Transformation(Pixel_Data pixel, int target_color_type, int tar
     Pixel_Data pixel_transformed;
     pixel_transformed.color_type = target_color_type;
     pixel_transformed.byte_data = NULL;
-
+    pixel_transformed.bit_depth = target_bit_depth;
+    Initialize_Pixel(&pixel_transformed.byte_data, target_color_type, target_bit_depth);
+    /* If the Pixel is an indexed-pixel, then we have to run very specific operations. */
     if(pixel.color_type == PNG_COLOR_TYPE_PALETTE){
-        /* If the target color is NOT PNG_COLOR_TYPE_PALETTE
-         *      Then do the regular transformation.
-         *
-         *     Otherwise
-         *      Just set pixel_transformed to the regular pixel.
-         *      Likewise, no bit_depth operations may be performed on paletted pixels.
-         * */
-
         Transform_Indexed_PNG(pixel, &pixel_transformed, target_color_type,
                               target_bit_depth);
     }
+//    printf("Pixel Trans BitDepth = %d\n", pixel_transformed.bit_depth);
 
     Set_Channels(&pixel_transformed);
     return pixel_transformed;
@@ -367,9 +361,6 @@ Pixel_Data Get_Pixel(png_bytepp image, int x_coord, int y_coord, int color_type,
     return pixel;
 }
 
-void Pixel_Transform(){
-
-}
 
 void Set_Pixel(png_bytepp image, Pixel_Data* new_pixel, int x_coord,
                int y_coord, int color_type, int bit_depth, png_colorp palette,
@@ -461,47 +452,22 @@ void Set_Pixel(png_bytepp image, Pixel_Data* new_pixel, int x_coord,
         }
 
         else if(color_type == PNG_COLOR_TYPE_PALETTE){
-      //      printf("Set pixel#3\n");
             int get_index = 0;
-//            printf("Before find_key, Get_Index = %d\n", get_index);
             get_index = find_key(*new_pixel, pal_hash);
-//            printf("After find_key, Get_Index = %d\n", get_index);
 
-          //  printf("Died here. . \n");
             if(get_index != -1){
-                //printf("Hrm. . ");
                 image[y_coord][pixel_index] = get_index;
-              //  printf("Get_Index = %d\n", get_index);
-                //memcpy(&image[y_coord][pixel_index], new_pixel->byte_data, sizeof(png_byte));
+
             }
             else {
-            //    printf("Died here #1\n");
-              //  printf("Rofl\n");
-                //printf("Inserting. . . \n");
+
                 insert_key(*new_pixel, pal_hash, *num_trans);
-//
-//                printf("Num_Trans = %d\n", *num_trans);
-//                printf("Adding Color = (%d, %d, %d)\n",new_pixel->color_data->red,new_pixel->color_data->green, new_pixel->color_data->blue);
-//
+
                 palette[*num_trans] = *(new_pixel->color_data);
-//                printf("Palette - %d = (%d, %d, %d)\n", *num_trans,
-//                       palette[*num_trans].red,palette[*num_trans].green, palette[*num_trans].blue);
+
                 image[y_coord][pixel_index] = (png_byte)(*num_trans);
                 *(num_trans)+=1;
             }
-            /* Have a look up table. Check to see if the palette contains new_pixel->color_data.
-             * If it does, get the index from the lookup table.
-             *
-             *  Otherwise, add a new index to palette. */
-//            memcpy(&image[y_coord][pixel_index], new_pixel->byte_data, sizeof(png_byte));
-
-            //if find_key(new_pixel, palettehash)
-                //get index for key of "new_pixel"
-            //else
-                // insert_key(new_pixel, palette, current_index)
-                //Add to palette new_pixel
-                //add current index to image[y_coord][pixel_index] = index
-
         }
     }
 
@@ -710,8 +676,16 @@ void Copy_Pixel(png_bytep copy_destination, png_bytepp copy_source, int x_coord,
 
 
 /* May be redundant. */
-png_channels Get_Channels(const png_byte* pixel, int pixel_color_type, int pixel_bit_depth){
+png_channels Get_Channels(const Pixel_Data pixel, int pixel_color_type, int pixel_bit_depth){
     png_channels return_channel;
+
+    return_channel.red = Get_Red_Channel(pixel);
+    return_channel.green = Get_Red_Channel(pixel);
+    return_channel.blue = Get_Red_Channel(pixel);
+    return_channel.alpha = Get_Alpha_Channel(pixel);
+
+    return return_channel;
+    /*
     switch(pixel_color_type){
         case PNG_COLOR_TYPE_RGBA:
             if(pixel_bit_depth == 16){
@@ -826,6 +800,7 @@ png_channels Get_Channels(const png_byte* pixel, int pixel_color_type, int pixel
     }
 
     return return_channel;
+     */
 }
 /** I think this is to get a png_color from a png_byte. */
 png_color Byte_To_Color(const png_byte* pixel, int color_type, png_bytep trans_byte){
@@ -905,14 +880,10 @@ void Initialize_Pixel(png_bytepp pixel, int color_type, int bit_depth){
     }
 }
 
-void Transform_Pixel(png_structp index_png_ptr, png_infop index_info_ptr, int source_color_type, int target_color_type){
+Pixel_Data Transform_RBGA_PNG2(Pixel_Data pixel, int target_color_type, int src_bit_depth, int target_bit_depth) {
 
-
-}
-png_bytep Transform_RBGA_PNG(const png_byte* pixel, int target_color_type, int src_bit_depth, int target_bit_depth) {
-
-    png_bytep target_pixel;
-    Initialize_Pixel(&target_pixel, target_color_type, target_bit_depth);
+    Pixel_Data target_pixel;
+    Initialize_Pixel(&target_pixel.byte_data, target_color_type, target_bit_depth);
 
     if(target_color_type == PNG_COLOR_TYPE_RGB) {
         /* If the bit depth for RGBA is 16, and RGB is 16.
@@ -934,52 +905,125 @@ png_bytep Transform_RBGA_PNG(const png_byte* pixel, int target_color_type, int s
             //check bit_depth. If both are 16, copy first 6 bytes to rgba.
             //otherwise both are 8, and you copy first 3 bytes
             if(src_bit_depth == 16){
-                memcpy(target_pixel, pixel, sizeof(png_byte) * 6);
+                memcpy(target_pixel.byte_data, pixel.byte_data, sizeof(png_byte) * 6);
             }
 
             else {
-                memcpy(target_pixel, pixel, sizeof(png_byte) * 3);
+                memcpy(target_pixel.byte_data, pixel.byte_data, sizeof(png_byte) * 3);
             }
 
         }
-        else if(depth_difference > 0){
-            //run code to get the total value from a channel
-            //then right_shift by the amount of the depth_difference
-            //Then we copy that value to the target_pixel appropriate channelo
+        else {
+            if(src_bit_depth == 16){
+                target_pixel.byte_data[0] = target_pixel.byte_data[0] >> 8;
+                target_pixel.byte_data[2] = target_pixel.byte_data[2] >> 8;
+                target_pixel.byte_data[4] = target_pixel.byte_data[4] >> 8;
+                memcpy(target_pixel.byte_data, pixel.byte_data, sizeof(png_byte) * 3);
+             }
 
-            png_channels rgba_channels = Get_Channels(pixel, PNG_COLOR_TYPE_RGBA ,src_bit_depth);
-            /* Get Red Channel.
-             * Get Green Channel
-             * Get Bluue Channel */
-
-            /* Red channel >> depth_difference
-            Blue Channel >> depth_difference
-            Green channel >> depth_difference */
+            else {
+                target_pixel.byte_data[0] = target_pixel.byte_data[1] << 8;
+                target_pixel.byte_data[1] = target_pixel.byte_data[2] << 8;
+                target_pixel.byte_data[2] = target_pixel.byte_data[3] << 8;
+                memcpy(target_pixel.byte_data, pixel.byte_data, sizeof(png_byte) * 6);
+            }
         }
     }
 
     else if(target_color_type == PNG_COLOR_TYPE_GRAY_ALPHA) {
-        double gray_value = 0.299 * pixel[0] + 0.587 * pixel[1] + 0.114 * pixel[2];
-        target_pixel[0] = (png_byte)gray_value;
-        target_pixel[1] = pixel[3];
+        //double gray_value = 0.299 * pixel.byte_data[0] + 0.587 * pixel.byte_data[1] + 0.114 * pixel.byte_data[2];
+        int gray_value = Get_Gray_Value(pixel);
+        target_pixel.byte_data[0] = (png_byte)gray_value;
+        target_pixel.byte_data[1] = pixel.byte_data[3];
     }
 
     else if(target_color_type == PNG_COLOR_TYPE_GRAY){
-        double gray_value = 0.299 * pixel[0] + 0.587 * pixel[1] + 0.114 * pixel[2];
-        target_pixel[0] = (png_byte)gray_value;
+        //double gray_value = 0.299 * pixel.byte_data[0] + 0.587 * pixel.byte_data[1] + 0.114 * pixel.byte_data[2];
+        int gray_value = Get_Gray_Value(pixel);
+        target_pixel.byte_data[0] = (png_byte)gray_value;
     }
     else {
-        target_pixel[0] = 1;
-        target_pixel[1] = 1;
-        target_pixel[2] = 1;
-        target_pixel[3] = 255;
+        target_pixel.byte_data[0] = 1;
+        target_pixel.byte_data[1] = 1;
+        target_pixel.byte_data[2] = 1;
+        target_pixel.byte_data[3] = 255;
     }
     return target_pixel;
 }
 
-png_bytep Transform_GRAYALPHA_PNG(const png_byte* pixel, int target_color_type, int bit_depth) {
+
+
+//png_bytep Transform_RBGA_PNG(const png_byte* pixel, int target_color_type, int src_bit_depth, int target_bit_depth) {
+//
+//    png_bytep target_pixel;
+//    Initialize_Pixel(&target_pixel, target_color_type, target_bit_depth);
+//
+//    if(target_color_type == PNG_COLOR_TYPE_RGB) {
+//        /* If the bit depth for RGBA is 16, and RGB is 16.
+//         *      - Then I simply copy the first 6 bytes from the RGBA byte.
+//         *
+//         *  If bit_depth for RGBA is 16, and RGB is 8.
+//         *      - Then I have to run code to get the value of each channel.
+//         *      - Then I must move the value >> 8 to the right.
+//         *
+//         *  if RGBA bit_depth is 8 and RGB is 16.
+//         *      - Then I take the value of each channel and << to the left.
+//         *
+//         *  if RGBA bit_depth is 8 and RGB is 8.
+//         *      - Then I just copy the first 3 bytes.
+//         *
+//         *  */
+//        int depth_difference = src_bit_depth - target_bit_depth;
+//        if(depth_difference == 0){
+//            //check bit_depth. If both are 16, copy first 6 bytes to rgba.
+//            //otherwise both are 8, and you copy first 3 bytes
+//            if(src_bit_depth == 16){
+//                memcpy(target_pixel, pixel, sizeof(png_byte) * 6);
+//            }
+//
+//            else {
+//                memcpy(target_pixel, pixel, sizeof(png_byte) * 3);
+//            }
+//
+//        }
+//        else if(depth_difference > 0){
+//            //run code to get the total value from a channel
+//            //then right_shift by the amount of the depth_difference
+//            //Then we copy that value to the target_pixel appropriate channelo
+//
+//            png_channels rgba_channels = Get_Channels(pixel, PNG_COLOR_TYPE_RGBA ,src_bit_depth);
+//            /* Get Red Channel.
+//             * Get Green Channel
+//             * Get Bluue Channel */
+//
+//            /* Red channel >> depth_difference
+//            Blue Channel >> depth_difference
+//            Green channel >> depth_difference */
+//        }
+//    }
+//
+//    else if(target_color_type == PNG_COLOR_TYPE_GRAY_ALPHA) {
+//        double gray_value = 0.299 * pixel[0] + 0.587 * pixel[1] + 0.114 * pixel[2];
+//        target_pixel[0] = (png_byte)gray_value;
+//        target_pixel[1] = pixel[3];
+//    }
+//
+//    else if(target_color_type == PNG_COLOR_TYPE_GRAY){
+//        double gray_value = 0.299 * pixel[0] + 0.587 * pixel[1] + 0.114 * pixel[2];
+//        target_pixel[0] = (png_byte)gray_value;
+//    }
+//    else {
+//        target_pixel[0] = 1;
+//        target_pixel[1] = 1;
+//        target_pixel[2] = 1;
+//        target_pixel[3] = 255;
+//    }
+//    return target_pixel;
+//}
+
+png_bytep Transform_GRAYALPHA_PNG(const png_byte* pixel, int target_color_type, int target_bit_depth) {
     png_bytep target_pixel;
-    Initialize_Pixel(&target_pixel, target_color_type, bit_depth);
+    Initialize_Pixel(&target_pixel, target_color_type, target_bit_depth);
 
     if(target_color_type == PNG_COLOR_TYPE_RGBA) {
         target_pixel[0] = pixel[0];
@@ -1079,7 +1123,8 @@ void Transform_Indexed_PNG(Pixel_Data pixel, Pixel_Data* new_pixel, int target_c
     }
 
     else if(target_color_type == PNG_COLOR_TYPE_GRAY_ALPHA) {
-        double gray_value = 0.299 * pixel.color_data->red + 0.587 * pixel.color_data->green + 0.114 * pixel.color_data->blue;
+        //double gray_value = 0.299 * pixel.color_data->red + 0.587 * pixel.color_data->green + 0.114 * pixel.color_data->blue;
+        int gray_value = Get_Gray_Value(pixel);
         if(target_bit_depth == 8){
             target_pixel[0] = (png_byte)gray_value; // Grayscale value
             target_pixel[1] = pixel.alpha_channel; // Alpha value
@@ -1189,4 +1234,117 @@ void Combine_Pixels(int color_type){
          *          - Convert to RGBA
          * */
     }
+}
+
+void Initialize_PNG(png_structp* read_ptr, png_infop* read_info_ptr, FILE* input_file){
+    *read_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+    *read_info_ptr = png_create_info_struct(*read_ptr);
+
+    png_init_io(*read_ptr, input_file);
+
+
+}
+void Read_PNG(png_structp* read_ptr, png_infop* read_info_ptr, FILE* input_file, png_bytepp* row_pointers,
+              png_uint_32 *height, png_uint_32* width) {
+    Initialize_PNG_Reader(read_ptr, read_info_ptr, input_file);
+
+    png_read_info((*read_ptr), (*read_info_ptr));
+
+    *width = png_get_image_width((*read_ptr), (*read_info_ptr));
+    *height = png_get_image_height((*read_ptr), (*read_info_ptr));
+    *row_pointers = (png_bytepp)malloc(sizeof(png_bytep) * (*height));
+    if (*row_pointers == NULL) {
+        fprintf(stderr, "Memory allocation failed for row pointers.\n");
+        exit(EXIT_FAILURE); // Or handle the error appropriately
+    }
+
+    for (png_uint_32 i = 0; i < *height; i++) {
+        (*row_pointers)[i] = (png_bytep)malloc(png_get_rowbytes(*read_ptr, *read_info_ptr));
+        if ((*row_pointers)[i] == NULL) {
+            fprintf(stderr, "Memory allocation failed for row %u.\n", i);
+            // Proper cleanup for already allocated memory
+            while (i-- > 0) {
+                free((*row_pointers)[i]);
+            }
+            free(*row_pointers);
+            png_destroy_read_struct(read_ptr, read_info_ptr, NULL);
+            fclose(input_file);
+            exit(EXIT_FAILURE); // Or handle the error appropriately
+        }
+    }
+
+    png_read_image(*read_ptr, *row_pointers);
+}
+
+
+void Write_PNG(png_structp* write_ptr, png_infop* write_info_ptr, FILE* output_file, png_bytepp row_pointers,
+               png_uint_32 height, png_uint_32 width, int bit_depth, int color_type) {
+    Initialize_PNG_Writer(write_ptr, write_info_ptr, output_file);
+
+    // Set image attributes
+    png_set_IHDR(*write_ptr, *write_info_ptr, width, height, bit_depth,
+                 color_type, PNG_INTERLACE_NONE, PNG_COMPRESSION_TYPE_DEFAULT, PNG_FILTER_TYPE_DEFAULT);
+
+    // Write header
+    png_write_info(*write_ptr, *write_info_ptr);
+
+    // Write image data
+    if (row_pointers != NULL) {
+        png_write_image(*write_ptr, row_pointers);
+    }
+
+    // Finish writing
+    png_write_end(*write_ptr, NULL);
+
+    // Clean up
+    png_destroy_write_struct(write_ptr, write_info_ptr);
+    fclose(output_file);
+    // Note: Caller should free row_pointers if allocated dynamically
+}
+
+void Initialize_Pixels(png_bytepp *pixel_array, int height, size_t bytes_per_row){
+
+    *pixel_array = (png_bytepp)malloc(sizeof(png_bytep) * height);
+    for (size_t i = 0; i < height; i++) {
+        (*pixel_array)[i] = (png_bytep)malloc(bytes_per_row);
+    }
+    for(size_t i = 0; i < height; i++) {
+        for (size_t j = 0; j < bytes_per_row; j++) {
+            (*pixel_array)[i][j] = 0;
+        }
+    }
+}
+
+void Initialize_PNG_Reader(png_structp* read_ptr, png_infop* read_info_ptr, FILE* input_file){
+    *read_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+    if (!*read_ptr) {
+        fprintf(stderr, "Failed to create PNG read struct.\n");
+        return;
+    }
+
+    *read_info_ptr = png_create_info_struct(*read_ptr);
+    if (!*read_info_ptr) {
+        png_destroy_read_struct(read_ptr, NULL, NULL);
+        fprintf(stderr, "Failed to create PNG info struct.\n");
+        return;
+    }
+
+    png_init_io(*read_ptr, input_file);
+}
+
+void Initialize_PNG_Writer(png_structp* write_ptr, png_infop* write_info_ptr, FILE* output_file){
+    *write_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+    if (!*write_ptr) {
+        fprintf(stderr, "Failed to create PNG write struct.\n");
+        return;
+    }
+
+    *write_info_ptr = png_create_info_struct(*write_ptr);
+    if (!*write_info_ptr) {
+        png_destroy_write_struct(write_ptr, NULL);
+        fprintf(stderr, "Failed to create PNG info struct for writing.\n");
+        return;
+    }
+
+    png_init_io(*write_ptr, output_file);
 }

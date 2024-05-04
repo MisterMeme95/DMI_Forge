@@ -1,12 +1,10 @@
-#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 #include "iconstate.h"
-#include <stdio.h>
 
 void Add_Delay(icon_state* thisNode, int *delay) {
-    if(thisNode->delay )
-        thisNode->delay = delay;
+    if(thisNode->delays )
+        thisNode->delays = delay;
 }
 
 void Add_Loop(icon_state* thisNode, int loop) {

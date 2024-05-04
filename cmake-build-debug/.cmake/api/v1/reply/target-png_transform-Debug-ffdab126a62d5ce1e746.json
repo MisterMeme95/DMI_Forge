@@ -2,10 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "aespritefix.exe"
+			"path" : "png_transform.exe"
 		},
 		{
-			"path" : "aespritefix.pdb"
+			"path" : "png_transform.pdb"
 		}
 	],
 	"backtrace" : 1,
@@ -40,19 +40,19 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 8,
+				"line" : 9,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 15,
+				"line" : 18,
 				"parent" : 0
 			},
 			{
 				"command" : 4,
 				"file" : 0,
-				"line" : 12,
+				"line" : 14,
 				"parent" : 0
 			},
 			{
@@ -171,12 +171,11 @@
 			[
 				0,
 				1,
-				2,
-				3
+				2
 			]
 		}
 	],
-	"id" : "aespritefix::@6890427a1f51a3e7e1df",
+	"id" : "png_transform::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -216,8 +215,8 @@
 		],
 		"language" : "C"
 	},
-	"name" : "aespritefix",
-	"nameOnDisk" : "aespritefix.exe",
+	"name" : "png_transform",
+	"nameOnDisk" : "png_transform.exe",
 	"paths" : 
 	{
 		"build" : ".",
@@ -231,8 +230,7 @@
 			[
 				0,
 				1,
-				2,
-				3
+				2
 			]
 		}
 	],
@@ -241,25 +239,19 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "Aesprite_Fixer.c",
+			"path" : "png_transform.c",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "DMIParse.c",
+			"path" : "PixelManip.c",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "Icon_State.c",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "DMI_Struct.c",
+			"path" : "data_structure.c",
 			"sourceGroupIndex" : 0
 		}
 	],

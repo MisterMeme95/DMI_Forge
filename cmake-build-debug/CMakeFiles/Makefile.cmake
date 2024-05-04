@@ -71,6 +71,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/DMI_Forge.dir/DependInfo.cmake"
   "CMakeFiles/dmi2sheet.dir/DependInfo.cmake"
+  "CMakeFiles/png_transform.dir/DependInfo.cmake"
   "CMakeFiles/aespritefix.dir/DependInfo.cmake"
   "Test_Cases/CMakeFiles/Test_Cases.dir/DependInfo.cmake"
   "Test_Cases/CMakeFiles/dmi_verify.dir/DependInfo.cmake"

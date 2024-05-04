@@ -142,6 +142,19 @@ dmi2sheet/fast:
 .PHONY : dmi2sheet/fast
 
 #=============================================================================
+# Target rules for targets named png_transform
+
+# Build rule for target.
+png_transform: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 png_transform
+.PHONY : png_transform
+
+# fast build rule for target.
+png_transform/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\png_transform.dir\build.make CMakeFiles/png_transform.dir/build
+.PHONY : png_transform/fast
+
+#=============================================================================
 # Target rules for targets named aespritefix
 
 # Build rule for target.
@@ -331,6 +344,54 @@ Icon_State.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\aespritefix.dir\build.make CMakeFiles/aespritefix.dir/Icon_State.c.s
 .PHONY : Icon_State.c.s
 
+PixelManip.obj: PixelManip.c.obj
+.PHONY : PixelManip.obj
+
+# target to build an object file
+PixelManip.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\png_transform.dir\build.make CMakeFiles/png_transform.dir/PixelManip.c.obj
+.PHONY : PixelManip.c.obj
+
+PixelManip.i: PixelManip.c.i
+.PHONY : PixelManip.i
+
+# target to preprocess a source file
+PixelManip.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\png_transform.dir\build.make CMakeFiles/png_transform.dir/PixelManip.c.i
+.PHONY : PixelManip.c.i
+
+PixelManip.s: PixelManip.c.s
+.PHONY : PixelManip.s
+
+# target to generate assembly for a file
+PixelManip.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\png_transform.dir\build.make CMakeFiles/png_transform.dir/PixelManip.c.s
+.PHONY : PixelManip.c.s
+
+data_structure.obj: data_structure.c.obj
+.PHONY : data_structure.obj
+
+# target to build an object file
+data_structure.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\png_transform.dir\build.make CMakeFiles/png_transform.dir/data_structure.c.obj
+.PHONY : data_structure.c.obj
+
+data_structure.i: data_structure.c.i
+.PHONY : data_structure.i
+
+# target to preprocess a source file
+data_structure.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\png_transform.dir\build.make CMakeFiles/png_transform.dir/data_structure.c.i
+.PHONY : data_structure.c.i
+
+data_structure.s: data_structure.c.s
+.PHONY : data_structure.s
+
+# target to generate assembly for a file
+data_structure.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\png_transform.dir\build.make CMakeFiles/png_transform.dir/data_structure.c.s
+.PHONY : data_structure.c.s
+
 main.obj: main.c.obj
 .PHONY : main.obj
 
@@ -355,6 +416,30 @@ main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DMI_Forge.dir\build.make CMakeFiles/DMI_Forge.dir/main.c.s
 .PHONY : main.c.s
 
+png_transform.obj: png_transform.c.obj
+.PHONY : png_transform.obj
+
+# target to build an object file
+png_transform.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\png_transform.dir\build.make CMakeFiles/png_transform.dir/png_transform.c.obj
+.PHONY : png_transform.c.obj
+
+png_transform.i: png_transform.c.i
+.PHONY : png_transform.i
+
+# target to preprocess a source file
+png_transform.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\png_transform.dir\build.make CMakeFiles/png_transform.dir/png_transform.c.i
+.PHONY : png_transform.c.i
+
+png_transform.s: png_transform.c.s
+.PHONY : png_transform.s
+
+# target to generate assembly for a file
+png_transform.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\png_transform.dir\build.make CMakeFiles/png_transform.dir/png_transform.c.s
+.PHONY : png_transform.c.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -369,6 +454,7 @@ help:
 	@echo ... dmi2sheet
 	@echo ... dmi_verify
 	@echo ... image_convert
+	@echo ... png_transform
 	@echo ... Aesprite_Fixer.obj
 	@echo ... Aesprite_Fixer.i
 	@echo ... Aesprite_Fixer.s
@@ -384,9 +470,18 @@ help:
 	@echo ... Icon_State.obj
 	@echo ... Icon_State.i
 	@echo ... Icon_State.s
+	@echo ... PixelManip.obj
+	@echo ... PixelManip.i
+	@echo ... PixelManip.s
+	@echo ... data_structure.obj
+	@echo ... data_structure.i
+	@echo ... data_structure.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
+	@echo ... png_transform.obj
+	@echo ... png_transform.i
+	@echo ... png_transform.s
 .PHONY : help
 
 

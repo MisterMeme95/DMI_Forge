@@ -21,7 +21,8 @@
 					[
 						0,
 						2,
-						3
+						3,
+						6
 					]
 				},
 				{
@@ -59,7 +60,8 @@
 						2,
 						3,
 						4,
-						5
+						5,
+						6
 					]
 				}
 			],
@@ -68,7 +70,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "DMI_Forge::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-DMI_Forge-Debug-15527204c1fe90548325.json",
+					"jsonFile" : "target-DMI_Forge-Debug-a0fa6f17b087501d5751.json",
 					"name" : "DMI_Forge",
 					"projectIndex" : 0
 				},
@@ -82,14 +84,14 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "aespritefix::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-aespritefix-Debug-cb7c39fb2a95657a4420.json",
+					"jsonFile" : "target-aespritefix-Debug-1779ccbf60a46bf5cb0e.json",
 					"name" : "aespritefix",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "dmi2sheet::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-dmi2sheet-Debug-9df7720d1da4f4da259c.json",
+					"jsonFile" : "target-dmi2sheet-Debug-b8ddeb66103dfe135029.json",
 					"name" : "dmi2sheet",
 					"projectIndex" : 0
 				},
@@ -105,6 +107,13 @@
 					"id" : "image_convert::@90a6c9376dfca71ba4b0",
 					"jsonFile" : "target-image_convert-Debug-50710ce74783025aefb5.json",
 					"name" : "image_convert",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "png_transform::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-png_transform-Debug-ffdab126a62d5ce1e746.json",
+					"name" : "png_transform",
 					"projectIndex" : 0
 				}
 			]

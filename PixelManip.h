@@ -215,7 +215,7 @@ typedef struct png_channels {
  * @param bit_depth - The bit_depth for the pixel. It represents the size of each individual channel.
  * */
 void Initialize_Pixel(png_bytepp pixel, int color_type, int bit_depth);
-/** @ByteToColor Writing
+/** @ByteToColor Writing. Probably deleting
 *
 */
 png_color Byte_To_Color(const png_byte* pixel, int color_type, png_bytep trans_byte);
@@ -258,11 +258,13 @@ png_bytep Transform_RBG_PNG(const png_byte* pixel, int target_color_type, int bi
  * @TO_DO FIX SCENARIO FOR PIXELS THAT ARE LESS THAN 1 BYTE. IT IS NOT PROPERLY CLEARING THE BITS AND USES A AND instead
  * OF AN OR BITMASK.
  * */
+
 void Set_Pixel(png_bytepp image, Pixel_Data* new_pixel, int x_coord,
                int y_coord, int color_type, int bit_depth, png_colorp palette,
                png_bytep trans_alpha, int *num_trans, palette_hash* pal_hash);
 
-
+Pixel_Data Transform_RBGA_PNG2(Pixel_Data pixel, int target_color_type, int src_bit_depth, int target_bit_depth);
+int Get_Gray_Value(Pixel_Data pixel);
 /** @Description This function takes pixel data of the color_type PNG_COLOR_TYPE_PALETTE, and transforms it into
  * the equivalent values of another color_type and bit_depth.
  * */
@@ -292,3 +294,14 @@ int Get_Red_Channel(Pixel_Data pixel);
 int Get_Green_Channel(Pixel_Data pixel);
 int Get_Blue_Channel(Pixel_Data pixel);
 int Get_Alpha_Channel(Pixel_Data pixel);
+
+
+void Read_PNG(png_structp* read_ptr, png_infop* read_info_ptr, FILE* input_file, png_bytepp* row_pointers,
+              png_uint_32 *height, png_uint_32* width);
+
+void Write_PNG(png_structp* write_ptr, png_infop* write_info_ptr, FILE* output_file, png_bytepp row_pointers,
+               png_uint_32 height, png_uint_32 width, int bit_depth, int color_type);
+void Initialize_Pixels(png_bytepp *pixel_array, int height, size_t bytes_per_row);
+void Initialize_PNG(png_structp* read_ptr, png_infop* read_info_ptr, FILE* input_file);
+void Initialize_PNG_Writer(png_structp* write_ptr, png_infop* write_info_ptr, FILE* output_file);
+void Initialize_PNG_Reader(png_structp* read_ptr, png_infop* read_info_ptr, FILE* input_file);

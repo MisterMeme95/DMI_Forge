@@ -15,24 +15,15 @@ void read_and_write_png(const char* input_filename, const char* output_filename)
         return;
     }
 
-    // Initialize the reading structures.
-    png_structp read_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
-
-    png_infop read_info_ptr = png_create_info_struct(read_ptr);
-
-    png_init_io(read_ptr, input_file);
-    png_read_info(read_ptr, read_info_ptr);
+    png_structp read_ptr;
+    png_infop read_info_ptr;
+    png_bytepp row_pointers;
 
     png_uint_32 height = png_get_image_height(read_ptr, read_info_ptr);
-    png_bytepp row_pointers = (png_bytepp)malloc(sizeof(png_bytep) * height);
+    png_uint_32 width1 = png_get_image_width(read_ptr, read_info_ptr);
+    Read_PNG(&read_ptr, &read_info_ptr, input_file, &row_pointers, &height, &width1);
 
-    for (png_uint_32 i = 0; i < height; i++) {
-        row_pointers[i] = (png_bytep)malloc(png_get_rowbytes(read_ptr, read_info_ptr));
-    }
 
-    png_read_image(read_ptr, row_pointers);
-
-    // Now that we've read the image, let's write it to another file.
     FILE* output_file = fopen(output_filename, "wb");
     if(!output_file) {
         printf("Can't open file %s for writing\n", output_filename);
@@ -46,7 +37,7 @@ void read_and_write_png(const char* input_filename, const char* output_filename)
     // Set up the output.
     png_init_io(write_ptr, output_file);
     int width = (int)png_get_image_width(read_ptr, read_info_ptr);
-    // Copy the image data from the read structures to the write structures.
+
     png_set_IHDR(write_ptr, write_info_ptr, png_get_image_width(read_ptr, read_info_ptr),
                  png_get_image_height(read_ptr, read_info_ptr), 8,
                  PNG_COLOR_TYPE_PALETTE, png_get_interlace_type(read_ptr, read_info_ptr),
@@ -55,8 +46,8 @@ void read_and_write_png(const char* input_filename, const char* output_filename)
     png_colorp palette;
     png_colorp new_palette = (png_colorp)malloc(sizeof(png_color) * 256);
 
-    int num_palette;
-    int new_num_palette;
+    int num_palette = 0;
+    int new_num_palette = 0;
     palette_hash new_pal;
     for (int i = 0; i < 256; i++) {
         new_pal.hash_bucket[i] = NULL;
@@ -71,69 +62,27 @@ void read_and_write_png(const char* input_filename, const char* output_filename)
     int num_trans = 0;
     png_color_16p trans_color = NULL;
     png_get_tRNS(read_ptr, read_info_ptr, &trans_alpha, &num_trans, &trans_color);
-    png_set_tRNS(write_ptr, write_info_ptr, trans_alpha, num_trans, trans_color);
+ //   png_set_tRNS(write_ptr, write_info_ptr, trans_alpha, num_trans, trans_color);
  //   if (png_get_tRNS(read_ptr, read_info_ptr, &trans_alpha, &num_trans, &trans_color)) {
    //    png_set_tRNS(write_ptr, write_info_ptr, trans_alpha, num_trans, trans_color);
     //}
 
 
+
     png_bytepp row_pointers_new = (png_bytepp)malloc(sizeof(png_bytep) * height);
+    Initialize_Pixels(&row_pointers_new, height, png_get_rowbytes(read_ptr, read_info_ptr));
 
-    for (png_uint_32 i = 0; i < height; i++) {
-        row_pointers_new[i] = (png_bytep)malloc(png_get_image_width(read_ptr, read_info_ptr) );
-    }
 
-    for(png_uint_32 i = 0; i < height; i++) {
-        for (png_uint_32 j = 0; j < png_get_rowbytes(write_ptr, write_info_ptr); j++) {
-            row_pointers_new[i][j] = 0;
-        }
-    }
-
-   // printf("Died jere #1. . .\n");
-    for (int i = 0; i < height; i++) {
-//
-        for (int o = 0; o < width; o++) {
-
+    for (size_t i = 0; i < height; i++) {
+        for (size_t o = 0; o < width; o++) {
             Pixel_Data isolated_pixel = Get_Pixel(row_pointers, o, i, PNG_COLOR_TYPE_PALETTE,
                                                   8, palette, trans_alpha, &num_trans);
 
-
-
-//            printf("(RGB) = (%d, %d, %d)\n",  isolated_pixel.color_data->red, isolated_pixel.color_data->green,
-//                   isolated_pixel.color_data->blue);
-            //sleep(10);
             Pixel_Data transformed_pixel = Pixel_Transformation(isolated_pixel,
                                                                 PNG_COLOR_TYPE_PALETTE, 8);
 
-          //  printf("Red Check =%d\n", Get_Red_Channel(transformed_pixel));
-//            printf("transformed_pixel.byte_data[0] - %d\n",  transformed_pixel.byte_data[0]);
-//            printf("transformed_pixel.byte_data[1] - %d\n",  transformed_pixel.byte_data[1]);
-//            printf("transformed_pixel.byte_data[2] - %d\n",  transformed_pixel.byte_data[2]);
-//            if(transformed_pixel.color_type == PNG_COLOR_TYPE_RGB){
-//                printf("New (RGB) = (%d, %d, %d)\n",  transformed_pixel.red, transformed_pixel.green, transformed_pixel.blue);
-//
-//            }
             Set_Pixel(row_pointers_new, &transformed_pixel, o, i, PNG_COLOR_TYPE_PALETTE,
                       8, new_palette, NULL, &new_num_palette, &new_pal);
-            /**
-             * TO DO
-             * - New Transform Pixel.
-             * - New Set Pixel Function
-             * */
-
-           // png_bytep transformed_pixel = Transform_Indexed_PNG2(isolated_pixel,PNG_COLOR_TYPE_GRAY_ALPHA, 8);
-//            printf("Red Channel = %d\n", isolated_pixel[0]);
-//            printf("Green Channel = %d\n", isolated_pixel[1]);
-//            printf("Blue Channel = %d\n", isolated_pixel[2]);
-//            printf("Alpha Channel = %d\n", isolated_pixel[3]);
-//            printf("\n\n");
-
-//            if(png_get_color_type(read_ptr, read_info_ptr) == PNG_COLOR_TYPE_PALETTE){
-//                int index = row_pointers[i][o];
-//                png_color palette_color = palette[index];
-//                png_bytep new_pixel = Transform_Indexed_PNG(palette_color, PNG_COLOR_TYPE_GRAY_ALPHA, 8);
-//                memcpy(&row_pointers_new[i][o*2], new_pixel, sizeof(png_byte) * 2);
-//            }
         }
     }
 
@@ -155,9 +104,11 @@ void read_and_write_png(const char* input_filename, const char* output_filename)
     // Free the memory associated with row_pointers
     for (png_uint_32 i = 0; i < height; i++) {
         free(row_pointers[i]);
+        free(row_pointers_new[i]);
     }
    // printf("Done. . .\n");
     free(row_pointers);
+    free(row_pointers_new);
 }
 
 
@@ -169,5 +120,5 @@ int main(){
     //sleep(1000);
   //  printf("Done. . .\n");
 
-    return 1;
+    return EXIT_SUCCESS;
 }
