@@ -3,6 +3,8 @@ project (DMI_FORGE C CXX)
 
 
 set(CMAKE_C_STANDARD 23)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wuninitialized")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wuninitialized")
 
 add_executable(DMI_Forge main.c DMI_Struct.c DMIParse.c Icon_State.c)
 add_executable(dmi2sheet DMI2Sheet.c  DMIParse.c Icon_State.c DMI_Struct.c)

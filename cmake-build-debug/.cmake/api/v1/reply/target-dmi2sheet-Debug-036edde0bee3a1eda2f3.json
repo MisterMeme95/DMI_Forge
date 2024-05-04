@@ -2,10 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "aespritefix.exe"
+			"path" : "dmi2sheet.exe"
 		},
 		{
-			"path" : "aespritefix.pdb"
+			"path" : "dmi2sheet.pdb"
 		}
 	],
 	"backtrace" : 1,
@@ -46,13 +46,13 @@
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 17,
+				"line" : 18,
 				"parent" : 0
 			},
 			{
 				"command" : 4,
 				"file" : 0,
-				"line" : 14,
+				"line" : 16,
 				"parent" : 0
 			},
 			{
@@ -147,7 +147,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-g -std=gnu2x -fdiagnostics-color=always"
+					"fragment" : " -Wuninitialized -g -std=gnu2x -fdiagnostics-color=always"
 				}
 			],
 			"includes" : 
@@ -176,13 +176,13 @@
 			]
 		}
 	],
-	"id" : "aespritefix::@6890427a1f51a3e7e1df",
+	"id" : "dmi2sheet::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
 		[
 			{
-				"fragment" : "-g",
+				"fragment" : "-Wuninitialized -g",
 				"role" : "flags"
 			},
 			{
@@ -216,8 +216,8 @@
 		],
 		"language" : "C"
 	},
-	"name" : "aespritefix",
-	"nameOnDisk" : "aespritefix.exe",
+	"name" : "dmi2sheet",
+	"nameOnDisk" : "dmi2sheet.exe",
 	"paths" : 
 	{
 		"build" : ".",
@@ -241,7 +241,7 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "Aesprite_Fixer.c",
+			"path" : "DMI2Sheet.c",
 			"sourceGroupIndex" : 0
 		},
 		{

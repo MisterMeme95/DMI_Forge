@@ -6,5 +6,5 @@ C_DEFINES =
 
 C_INCLUDES = @CMakeFiles/dmi_verify.dir/includes_C.rsp
 
-C_FLAGS = -g -std=gnu2x -fdiagnostics-color=always
+C_FLAGS =  -Wuninitialized -g -std=gnu2x -fdiagnostics-color=always
 

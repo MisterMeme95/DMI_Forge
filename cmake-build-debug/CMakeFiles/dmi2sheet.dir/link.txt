@@ -1,3 +1,3 @@
 "C:\Program Files\JetBrains\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" -E rm -f CMakeFiles\dmi2sheet.dir/objects.a
 C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\ar.exe qc CMakeFiles\dmi2sheet.dir/objects.a @CMakeFiles\dmi2sheet.dir\objects1.rsp
-C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\gcc.exe -g -Wl,--whole-archive CMakeFiles\dmi2sheet.dir/objects.a -Wl,--no-whole-archive -o dmi2sheet.exe -Wl,--out-implib,libdmi2sheet.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\dmi2sheet.dir\linkLibs.rsp
+C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\gcc.exe  -Wuninitialized -g -Wl,--whole-archive CMakeFiles\dmi2sheet.dir/objects.a -Wl,--no-whole-archive -o dmi2sheet.exe -Wl,--out-implib,libdmi2sheet.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\dmi2sheet.dir\linkLibs.rsp

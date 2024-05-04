@@ -2,10 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "dmi2sheet.exe"
+			"path" : "DMI_Forge.exe"
 		},
 		{
-			"path" : "dmi2sheet.pdb"
+			"path" : "DMI_Forge.pdb"
 		}
 	],
 	"backtrace" : 1,
@@ -40,19 +40,19 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 8,
+				"line" : 9,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 16,
+				"line" : 17,
 				"parent" : 0
 			},
 			{
 				"command" : 4,
 				"file" : 0,
-				"line" : 14,
+				"line" : 16,
 				"parent" : 0
 			},
 			{
@@ -147,7 +147,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-g -std=gnu2x -fdiagnostics-color=always"
+					"fragment" : " -Wuninitialized -g -std=gnu2x -fdiagnostics-color=always"
 				}
 			],
 			"includes" : 
@@ -176,13 +176,13 @@
 			]
 		}
 	],
-	"id" : "dmi2sheet::@6890427a1f51a3e7e1df",
+	"id" : "DMI_Forge::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
 		[
 			{
-				"fragment" : "-g",
+				"fragment" : "-Wuninitialized -g",
 				"role" : "flags"
 			},
 			{
@@ -216,8 +216,8 @@
 		],
 		"language" : "C"
 	},
-	"name" : "dmi2sheet",
-	"nameOnDisk" : "dmi2sheet.exe",
+	"name" : "DMI_Forge",
+	"nameOnDisk" : "DMI_Forge.exe",
 	"paths" : 
 	{
 		"build" : ".",
@@ -241,7 +241,13 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "DMI2Sheet.c",
+			"path" : "main.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "DMI_Struct.c",
 			"sourceGroupIndex" : 0
 		},
 		{
@@ -254,12 +260,6 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "Icon_State.c",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "DMI_Struct.c",
 			"sourceGroupIndex" : 0
 		}
 	],

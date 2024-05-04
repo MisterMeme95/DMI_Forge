@@ -113,6 +113,7 @@ Pixel_Data Pixel_Transformation(Pixel_Data pixel, int target_color_type, int tar
     pixel_transformed.color_type = target_color_type;
     pixel_transformed.byte_data = NULL;
     pixel_transformed.bit_depth = target_bit_depth;
+
     Initialize_Pixel(&pixel_transformed.byte_data, target_color_type, target_bit_depth);
     /* If the Pixel is an indexed-pixel, then we have to run very specific operations. */
     if(pixel.color_type == PNG_COLOR_TYPE_PALETTE){
@@ -440,6 +441,8 @@ void Set_Pixel(png_bytepp image, Pixel_Data* new_pixel, int x_coord,
 
         else if(color_type == PNG_COLOR_TYPE_RGB){
             pixel_index *= 3;
+          //  printf("(%d, %d)\n", y_coord, (int)(pixel_index/3));
+            //printf("%d - %d\n", pixel_index, pixel_index+3);
             memcpy(&image[y_coord][pixel_index], new_pixel->byte_data, sizeof(png_byte) * 3);
         }
 
@@ -1111,15 +1114,18 @@ void Transform_Indexed_PNG(Pixel_Data pixel, Pixel_Data* new_pixel, int target_c
             target_pixel[0] = pixel.color_data->red;
             target_pixel[1] = pixel.color_data->green;
             target_pixel[2] = pixel.color_data->blue;
+            memcpy(new_pixel->byte_data, target_pixel, sizeof(png_byte) * 3);
         }
         else {
             target_pixel[0] = pixel.color_data->red;
             target_pixel[2] = pixel.color_data->green;
             target_pixel[4] = pixel.color_data->blue;
+            memcpy(new_pixel->byte_data, target_pixel, sizeof(png_byte) * 6);
         }
 
         new_pixel->color_type = PNG_COLOR_TYPE_RGB;
-        new_pixel->byte_data = target_pixel;
+
+        //new_pixel->byte_data = target_pixel;
     }
 
     else if(target_color_type == PNG_COLOR_TYPE_GRAY_ALPHA) {

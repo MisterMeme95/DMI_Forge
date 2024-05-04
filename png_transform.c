@@ -144,7 +144,13 @@ int main(int argc, char **argv) {
     }
 
     Initialize_PNG_Writer(&write_ptr,&write_info_ptr, destination_file);
-    Initialize_Pixels(&image_data, height, png_get_rowbytes(read_ptr, read_info_ptr));
+    png_set_IHDR(write_ptr, write_info_ptr, width, height, target_bit_depth,
+                 target_color_type, png_get_interlace_type(read_ptr, read_info_ptr),
+                 png_get_compression_type(read_ptr, read_info_ptr),
+                 png_get_filter_type(read_ptr, read_info_ptr));
+
+    
+    Initialize_Pixels(&image_data, height, png_get_rowbytes(write_ptr, write_info_ptr));
 
     for (int i = 0; i < 256; i++) {
         new_pal.hash_bucket[i] = NULL;
@@ -153,10 +159,6 @@ int main(int argc, char **argv) {
         png_get_PLTE(read_ptr, read_info_ptr, &source_palette, &src_palette_length);
         png_get_tRNS(read_ptr, read_info_ptr, &trans_alpha, &trans_num, &trans_color);
     }
-    png_set_IHDR(write_ptr, write_info_ptr, width, height, target_bit_depth,
-                 target_color_type, png_get_interlace_type(read_ptr, read_info_ptr),
-                 png_get_compression_type(read_ptr, read_info_ptr),
-                 png_get_filter_type(read_ptr, read_info_ptr));
 
 
 
@@ -172,8 +174,11 @@ int main(int argc, char **argv) {
             Set_Pixel(image_data, &transformed_pixel, o, i, target_color_type,
                       target_bit_depth, destination_palette, NULL, &dest_palette_length,
                       &new_pal);
+
+
         }
     }
+    printf("Finished loop. . \n");
 //    if(input_file != NULL)
 //        printf("Input File: %s\n", input_file);
 //    if(output_file != NULL)
@@ -185,21 +190,14 @@ int main(int argc, char **argv) {
         png_set_PLTE(write_ptr, write_info_ptr, destination_palette, dest_palette_length);
 
     }
-    // printf("Died jere #2. . .\n");
+    //printf("Died jere #2. . .\n");
     png_write_info(write_ptr, write_info_ptr);
+    //printf("Died jere #3. . .\n");
 
     png_write_image(write_ptr, image_data);
+    //printf("Died jere #4. . .\n");
 
-    // Clean up.
-    fclose(source_file);
-    fclose(destination_file);
 
-    png_destroy_read_struct(&read_ptr, &read_info_ptr, NULL);
-    png_destroy_write_struct(&write_ptr, &write_info_ptr);
-
-    // Free allocated memory
-    free(input_file);
-    free(output_file);
 
     return EXIT_SUCCESS;
 
