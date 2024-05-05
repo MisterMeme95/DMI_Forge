@@ -29,7 +29,8 @@ int main(int argc, char **argv) {
     png_colorp source_palette;
     int src_palette_length = 0;
     png_uint_32 width = 0, height = 0;
-
+    char *endptr;
+    errno = 0;
 
     /* These are all the variables needed for my output.*/
     FILE *destination_file = NULL;
@@ -39,7 +40,7 @@ int main(int argc, char **argv) {
     char *color_input = NULL;
     png_structp write_ptr = NULL;
     png_infop write_info_ptr = NULL;
-    png_colorp destination_palette = (png_colorp)malloc(sizeof(png_color) * 16);
+    png_colorp destination_palette = (png_colorp)malloc(sizeof(png_color) * 256);
     int dest_palette_length = 0;
     palette_hash new_pal;
 
@@ -70,7 +71,7 @@ int main(int argc, char **argv) {
                 break;
 
             case 'b':
-                target_bit_depth = atoi(optarg);
+                target_bit_depth = strtol(optarg, &endptr, 10);
                 if(target_bit_depth != 1 && target_bit_depth != 2 && target_bit_depth != 4 &&
                    target_bit_depth != 8 && target_bit_depth != 16){
                     printf("Error: The specified bit depth '%s' is invalid. "
@@ -149,7 +150,7 @@ int main(int argc, char **argv) {
                  png_get_compression_type(read_ptr, read_info_ptr),
                  png_get_filter_type(read_ptr, read_info_ptr));
 
-    
+
     Initialize_Pixels(&image_data, height, png_get_rowbytes(write_ptr, write_info_ptr));
 
     for (int i = 0; i < 256; i++) {
@@ -186,6 +187,7 @@ int main(int argc, char **argv) {
 //    if(target_bit_depth != -1)
 //        printf("Bit Depth: %d\n", target_bit_depth);
 
+    printf("Num of new pal = %d\n", dest_palette_length);
     if(target_color_type == PNG_COLOR_TYPE_PALETTE){
         png_set_PLTE(write_ptr, write_info_ptr, destination_palette, dest_palette_length);
 

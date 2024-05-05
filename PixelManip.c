@@ -1,10 +1,8 @@
-
 #include "data_structure.h"
 #include <stdlib.h>
 #include <unistd.h>
 #include <math.h>
 //Pixel_Data
-
 void Set_Channels(Pixel_Data *pixel) {
     if(pixel->color_type != PNG_COLOR_TYPE_PALETTE) {
         Set_Red_Channel(pixel);
@@ -13,7 +11,6 @@ void Set_Channels(Pixel_Data *pixel) {
     }
 }
 void Set_Channel_Value(Pixel_Data *pixel, png_bytep channel, int channel_offset) {
-//    printf("Set = %d\n", pixel->bit_depth);
     if (pixel->bit_depth == 8) {
         *channel = pixel->byte_data[channel_offset];
     } else if (pixel->bit_depth == 16) {
@@ -372,7 +369,6 @@ void Set_Pixel(png_bytepp image, Pixel_Data* new_pixel, int x_coord,
      *
      * It is of the "Pixel_Data" struct. */
 
-    //printf("Set pixel#1\n");
 
 
     /** @Description pixel_index is a simple int variable that we'll use to get the proper x_coordinate.
@@ -391,25 +387,13 @@ void Set_Pixel(png_bytepp image, Pixel_Data* new_pixel, int x_coord,
      *
      * ONLY for indexed/gray images. [Since a pixel can be less than a byte in size]
      * */
-    int pixel_data = image[y_coord][pixel_index];
+    int pixel_data;// = image[y_coord][pixel_index];
 
     /** @Description This represents the amount of bits to shift a byte by to unpack the pixel value.
      * By default, it is 0.
      *
      * Once more, only useful for Index/Gray images.*/
     int pixel_bit_shift = 0;
-
-    /** @Description pixel_value is a pointer that we set to represent the various values in the various channels for a
-     * png_byte. The size of the pixel_value depends on the color_type and bit_depth. It is set using Initialize_Pixel(). */
-    //png_bytep pixel_value = NULL;
-
-   // if(pixel.color_type == PNG_COLOR_TYPE_PALETTE) {
-     //   pixel.color_data = (png_colorp)malloc(sizeof(png_color));
-    //}
-
-    //else{
-      //  Initialize_Pixel(&pixel.byte_data, color_type, bit_depth);
-    //}
 
     if(bit_depth == 16) {
         if(color_type == PNG_COLOR_TYPE_RGBA){
@@ -463,9 +447,7 @@ void Set_Pixel(png_bytepp image, Pixel_Data* new_pixel, int x_coord,
 
             }
             else {
-
                 insert_key(*new_pixel, pal_hash, *num_trans);
-
                 palette[*num_trans] = *(new_pixel->color_data);
 
                 image[y_coord][pixel_index] = (png_byte)(*num_trans);
@@ -483,15 +465,64 @@ void Set_Pixel(png_bytepp image, Pixel_Data* new_pixel, int x_coord,
         //pixel_data = image[y_coord][pixel_index];
 
         if(pixel_in_byte == 0) {
-            *new_pixel->byte_data = (*new_pixel->byte_data) << pixel_bit_shift;
-            image[y_coord][pixel_index] = (image[y_coord][pixel_index])^(*new_pixel->byte_data);
+            if(color_type == PNG_COLOR_TYPE_PALETTE){
+                int get_index = 0;
+                get_index = find_key(*new_pixel, pal_hash);
+
+                if(get_index != -1){
+                    get_index = get_index << pixel_bit_shift;
+                    image[y_coord][pixel_index] = (image[y_coord][pixel_index])^get_index;
+                    //image[y_coord][pixel_index] = get_index;
+
+                }
+                else {
+                    insert_key(*new_pixel, pal_hash, *num_trans);
+                    int insert_index = (png_byte)(*num_trans);
+                    insert_index = insert_index << (pixel_bit_shift + 1);
+                    palette[*num_trans] = *(new_pixel->color_data);
+
+                    image[y_coord][pixel_index] = (image[y_coord][pixel_index])^insert_index;
+                    *(num_trans)+=1;
+                }
+            }
+            else {
+
+                *new_pixel->byte_data = (*new_pixel->byte_data) << pixel_bit_shift;
+                image[y_coord][pixel_index] = (image[y_coord][pixel_index])^(*new_pixel->byte_data);
+
+            }
+
            // pixel_data = pixel_data & BIT4_L_ON;
             //pixel_data = (pixel_data >> pixel_bit_shift);
         }
 
         else {
             //pixel_data = pixel_data & BIT4_R_ON;
-            image[y_coord][pixel_index] = (image[y_coord][pixel_index])^(*new_pixel->byte_data);
+
+            if(color_type == PNG_COLOR_TYPE_PALETTE){
+                int get_index = 0;
+                get_index = find_key(*new_pixel, pal_hash);
+
+                if(get_index != -1){
+                    //get_index = get_index << pixel_bit_shift;
+                    image[y_coord][pixel_index] = (image[y_coord][pixel_index])^get_index;
+                    //image[y_coord][pixel_index] = get_index;
+
+                }
+                else {
+                    insert_key(*new_pixel, pal_hash, *num_trans);
+                    int insert_index = (png_byte)(*num_trans);
+                    //insert_index = insert_index << pixel_bit_shift;
+                    palette[*num_trans] = *(new_pixel->color_data);
+
+                    image[y_coord][pixel_index] = (image[y_coord][pixel_index])^insert_index;
+                    *(num_trans)+=1;
+                }
+            }
+
+            else{
+                image[y_coord][pixel_index] = (image[y_coord][pixel_index])^(*new_pixel->byte_data);
+            }
         }
 
     }
@@ -574,45 +605,6 @@ void Set_Pixel(png_bytepp image, Pixel_Data* new_pixel, int x_coord,
 
     }
 
-
-
-//    if(color_type == PNG_COLOR_TYPE_PALETTE){
-//        printf("Num_Trans - %d\nPixel_Date = %d\n", *num_trans, pixel_data);
-//
-//        /** @Description By using the pixel_data that we processed earlier, we now have the palette's index.
-//         * This allows us to store the data in selected_color.*/
-//        png_color selected_color = palette[pixel_data];
-//
-//
-//        /* From there, we simply copy the values from png_color into a png_byte array.*/
-//        //[0] = selected_color.red;
-//        //pixel.byte_data[1] = selected_color.green;
-//        //pixel.byte_data[2] = selected_color.blue;
-//
-//        pixel.color_data->red = selected_color.red;
-//        pixel.color_data->green = selected_color.green;
-//        pixel.color_data->blue = selected_color.blue;
-//
-//
-//        /* Next up, if the index that we have in our pixel_data is less than the number of indexes in the
-//         * trans_alpha array, then we know that our selected color has an alpha value that is not 255.
-//         * Let's just copy that over. */
-//        if(pixel_data < (*num_trans)){
-//            pixel.alpha_channel = trans_alpha[pixel_data];
-//        }
-//
-//            /* Otherwise, the alpha value is 255.*/
-//        else
-//            pixel.alpha_channel = 255;
-//
-//    }
-//
-//        /* If it is not an indexed image, then we can simply copy the pixel directly.*/
-//    else {
-//        // pixel_data = image[yx_coord][pixel_index];
-//        Copy_Pixel(pixel.byte_data, image, pixel_index, y_coord, color_type, bit_depth);
-//
-//    }
 
 }
 
@@ -1146,48 +1138,45 @@ void Transform_Indexed_PNG(Pixel_Data pixel, Pixel_Data* new_pixel, int target_c
     }
 
     else if(target_color_type == PNG_COLOR_TYPE_RGBA) {
-
         if(target_bit_depth == 8){
             target_pixel[0] = pixel.color_data->red;
             target_pixel[1] = pixel.color_data->green;
             target_pixel[2] = pixel.color_data->blue;
             target_pixel[3] = pixel.alpha_channel;
         }
-
         else {
             target_pixel[0] = pixel.color_data->red;
             target_pixel[2] = pixel.color_data->green;
             target_pixel[4] = pixel.color_data->blue;
             target_pixel[6] = pixel.alpha_channel;
         }
-
         new_pixel->color_type = PNG_COLOR_TYPE_RGBA;
         new_pixel->byte_data = target_pixel;
-
     }
 
     else if(target_color_type == PNG_COLOR_TYPE_GRAY){
         /*Color transformation. Then copy that value to first entry. */
         double gray_value = 0.299 * pixel.color_data->red + 0.587 * pixel.color_data->green + 0.114 * pixel.color_data->blue;
         if(target_bit_depth == 8){
-      //      printf("Gray value = %f\n", gray_value);
             target_pixel[0] = (png_byte)((int)gray_value);
         }
-
+        else if(target_bit_depth == 4){
+            target_pixel[0] = ((png_byte)((int)gray_value) >> 4);
+        }
+        else if(target_bit_depth == 2){
+            target_pixel[0] = ((png_byte)((int)gray_value) >> 6);
+        }
+        else if(target_bit_depth == 1){
+            target_pixel[0] = ((png_byte)((int)gray_value) >> 7);
+        }
         else {
             target_pixel[0] = (png_byte)gray_value;
         }
-
         new_pixel->color_type = PNG_COLOR_TYPE_GRAY;
         new_pixel->byte_data = target_pixel;
-
     }
-
     else if(target_color_type == PNG_COLOR_TYPE_PALETTE){
-        /* new_pixel needs to copy pixel.
-         * */
         memcpy(new_pixel, &pixel, sizeof(Pixel_Data));
-
     }
     else {
         target_pixel[0] = 0;
