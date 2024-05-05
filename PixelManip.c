@@ -360,252 +360,94 @@ Pixel_Data Get_Pixel(png_bytepp image, int x_coord, int y_coord, int color_type,
 }
 
 
-void Set_Pixel(png_bytepp image, Pixel_Data* new_pixel, int x_coord,
-               int y_coord, int color_type, int bit_depth, png_colorp palette,
-                png_bytep trans_alpha, int *num_trans, palette_hash* pal_hash){
-
-    /** @Description A data structure that serves as a neat encapsulation of the various data-types that libpng
-     * stores pixel information in.
-     *
-     * It is of the "Pixel_Data" struct. */
-
-
-
+void Set_Pixel(png_bytepp image, Pixel_Data* new_pixel, int x_coord,int y_coord, int color_type,int bit_depth,
+               png_colorp palette, png_bytep trans_alpha, int *num_trans, palette_hash* pal_hash){
     /** @Description pixel_index is a simple int variable that we'll use to get the proper x_coordinate.
      * Since it is possible for a pixel to be less than a byte at certain bit_depths.
      *
      * Default value is x_coord. */
     int pixel_index = x_coord;
-
     /** @Description This value represents the number of pixels packed into a single byte.
      * This is only relevant whenever a pixel's bit_depth is less than 8. */
-    int pixels_per_byte;
-
-    /**@Description Pixel Data is the data we extract from the image (the pixel array). After pixel_index is calculated,
-     * we save the information in pixel_data, and can modify it depending on the size of the bit_depth to get
-     * the useful information.
-     *
-     * ONLY for indexed/gray images. [Since a pixel can be less than a byte in size]
-     * */
-    int pixel_data;// = image[y_coord][pixel_index];
-
+    int pixels_per_byte = 0;
     /** @Description This represents the amount of bits to shift a byte by to unpack the pixel value.
      * By default, it is 0.
      *
      * Once more, only useful for Index/Gray images.*/
     int pixel_bit_shift = 0;
-
-    if(bit_depth == 16) {
-        if(color_type == PNG_COLOR_TYPE_RGBA){
-            pixel_index *= 8;
-        }
-
-        else if(color_type == PNG_COLOR_TYPE_RGB){
-            pixel_index *= 6;
-        }
-
-        else if(color_type == PNG_COLOR_TYPE_GRAY_ALPHA) {
-            pixel_index *= 4;
-        }
-
-            /** We run a check here for Gray-scaled images because with 16 bit depth,
-             * each pixel will be 2 bytes long. We don't need to check this for 8-bits because
-             * each pixel there is 1-byte long. */
-        else if(color_type == PNG_COLOR_TYPE_GRAY) {
-            pixel_index *= 2;
-        }
+    int insert_index = 0;
+    double bpp = 0.0;
+    int pixel_in_byte = 0;
+    switch(bit_depth) {
+        case 16:
+            bpp = 2;
+            break;
+        case 8:
+            bpp = 1;
+            break;
+        case 4:
+            bpp = 0.5;
+            pixel_in_byte = x_coord % 2;
+            break;
+        case 2:
+            bpp = 0.25;
+            pixel_in_byte = x_coord % 4;
+            break;
+        case 1:
+            bpp = 0.125;
+            pixel_in_byte = x_coord % 8;
+            break;
+        default:
+            break;
     }
+    pixels_per_byte = (int)(1/bpp);
+    pixel_bit_shift = (bit_depth) * ((pixels_per_byte - 1) - pixel_in_byte);
+    *new_pixel->byte_data = (*new_pixel->byte_data) << pixel_bit_shift;
 
-    if(bit_depth == 8) {
-     //   printf("Set pixel#2\n");
-        if(color_type == PNG_COLOR_TYPE_RGBA){
-            pixel_index *= 4;
-            memcpy(&image[y_coord][pixel_index], new_pixel->byte_data, sizeof(png_byte) * 4);
-        }
-
-        else if(color_type == PNG_COLOR_TYPE_RGB){
-            pixel_index *= 3;
-          //  printf("(%d, %d)\n", y_coord, (int)(pixel_index/3));
-            //printf("%d - %d\n", pixel_index, pixel_index+3);
-            memcpy(&image[y_coord][pixel_index], new_pixel->byte_data, sizeof(png_byte) * 3);
-        }
-
-        else if(color_type == PNG_COLOR_TYPE_GRAY_ALPHA) {
-            pixel_index *= 2;
-            memcpy(&image[y_coord][pixel_index], new_pixel->byte_data, sizeof(png_byte) * 2);
-        }
-        else if(color_type == PNG_COLOR_TYPE_GRAY) {
-            memcpy(&image[y_coord][pixel_index], new_pixel->byte_data, sizeof(png_byte));
-        }
-
-        else if(color_type == PNG_COLOR_TYPE_PALETTE){
-            int get_index = 0;
-            get_index = find_key(*new_pixel, pal_hash);
-
-            if(get_index != -1){
-                image[y_coord][pixel_index] = get_index;
-
-            }
-            else {
+    switch(color_type) {
+        case PNG_COLOR_TYPE_RGBA:
+            bpp *= 4;
+            break;
+        case PNG_COLOR_TYPE_RGB:
+            bpp *= 3;
+            break;
+        case PNG_COLOR_TYPE_GRAY_ALPHA:
+            bpp *= 2;
+            break;
+        case PNG_COLOR_TYPE_PALETTE: {
+            int get_index = find_key(*new_pixel, pal_hash);
+            if (get_index == -1){
                 insert_key(*new_pixel, pal_hash, *num_trans);
+                insert_index = (png_byte)(*num_trans);
                 palette[*num_trans] = *(new_pixel->color_data);
-
-                image[y_coord][pixel_index] = (png_byte)(*num_trans);
-                *(num_trans)+=1;
+                image[y_coord][pixel_index] = insert_index;
+                *num_trans += 1;
             }
+            break;
         }
+
+        default:
+            bpp *= 1;
+            break;
     }
-
-    /* If bit_depth is 4, then we know that there are 2 pixels per byte. So we simply have and floor the value. */
-    if(bit_depth == 4) {
-        pixels_per_byte = 2;
-        int pixel_in_byte = x_coord % pixels_per_byte;
-        pixel_bit_shift = (bit_depth) * ((pixels_per_byte - 1) -pixel_in_byte);
-        pixel_index = (int)floor(x_coord / pixels_per_byte);
-        //pixel_data = image[y_coord][pixel_index];
-
-        if(pixel_in_byte == 0) {
-            if(color_type == PNG_COLOR_TYPE_PALETTE){
-                int get_index = 0;
-                get_index = find_key(*new_pixel, pal_hash);
-
-                if(get_index != -1){
-                    get_index = get_index << pixel_bit_shift;
-                    image[y_coord][pixel_index] = (image[y_coord][pixel_index])^get_index;
-                    //image[y_coord][pixel_index] = get_index;
-
-                }
-                else {
-                    insert_key(*new_pixel, pal_hash, *num_trans);
-                    int insert_index = (png_byte)(*num_trans);
-                    insert_index = insert_index << (pixel_bit_shift + 1);
-                    palette[*num_trans] = *(new_pixel->color_data);
-
-                    image[y_coord][pixel_index] = (image[y_coord][pixel_index])^insert_index;
-                    *(num_trans)+=1;
-                }
-            }
-            else {
-
-                *new_pixel->byte_data = (*new_pixel->byte_data) << pixel_bit_shift;
-                image[y_coord][pixel_index] = (image[y_coord][pixel_index])^(*new_pixel->byte_data);
-
-            }
-
-           // pixel_data = pixel_data & BIT4_L_ON;
-            //pixel_data = (pixel_data >> pixel_bit_shift);
-        }
-
-        else {
-            //pixel_data = pixel_data & BIT4_R_ON;
-
-            if(color_type == PNG_COLOR_TYPE_PALETTE){
-                int get_index = 0;
-                get_index = find_key(*new_pixel, pal_hash);
-
-                if(get_index != -1){
-                    //get_index = get_index << pixel_bit_shift;
-                    image[y_coord][pixel_index] = (image[y_coord][pixel_index])^get_index;
-                    //image[y_coord][pixel_index] = get_index;
-
-                }
-                else {
-                    insert_key(*new_pixel, pal_hash, *num_trans);
-                    int insert_index = (png_byte)(*num_trans);
-                    //insert_index = insert_index << pixel_bit_shift;
-                    palette[*num_trans] = *(new_pixel->color_data);
-
-                    image[y_coord][pixel_index] = (image[y_coord][pixel_index])^insert_index;
-                    *(num_trans)+=1;
-                }
-            }
-
-            else{
-                image[y_coord][pixel_index] = (image[y_coord][pixel_index])^(*new_pixel->byte_data);
-            }
-        }
-
-    }
-
-        /** There are 4 pixels per byte, so we floor after dividing by 4. **/
-    else if(bit_depth == 2){
-        pixels_per_byte = 4;
-        int pixel_in_byte = x_coord % pixels_per_byte;
-
-        pixel_bit_shift = (bit_depth) * ((pixels_per_byte - 1) -pixel_in_byte);
-        pixel_index = (int)floor(x_coord/pixels_per_byte);
-       // pixel_data = image[y_coord][pixel_index];
-
-        if(pixel_in_byte == 0){
-            *new_pixel->byte_data = (*new_pixel->byte_data) << pixel_bit_shift;
-            image[y_coord][pixel_index] = (image[y_coord][pixel_index])^(*new_pixel->byte_data);
-        }
-
-        else if(pixel_in_byte == 1){
-            *new_pixel->byte_data = (*new_pixel->byte_data) << pixel_bit_shift;
-            image[y_coord][pixel_index] = (image[y_coord][pixel_index])^(*new_pixel->byte_data);
-        }
-
-        else if(pixel_in_byte == 2){
-            *new_pixel->byte_data = (*new_pixel->byte_data) << pixel_bit_shift;
-            image[y_coord][pixel_index] = (image[y_coord][pixel_index])^(*new_pixel->byte_data);
+    if(bit_depth < 8){
+        pixel_index = (int)floor((int)(x_coord / pixels_per_byte));
+        if(color_type == PNG_COLOR_TYPE_PALETTE){
+            insert_index = insert_index << (pixel_bit_shift);
+            image[y_coord][pixel_index] = (image[y_coord][pixel_index])^insert_index;
         }
         else {
             image[y_coord][pixel_index] = (image[y_coord][pixel_index])^(*new_pixel->byte_data);
         }
     }
-
-        /* At a bit_depth of 1 we have 8 pixels per byte. */
-    else if(bit_depth == 1){
-        pixels_per_byte = 8;
-        int pixel_in_byte = x_coord % pixels_per_byte;
-
-        pixel_bit_shift = (bit_depth) * ((pixels_per_byte - 1) -pixel_in_byte);
-        pixel_index = (int)floor(x_coord / pixels_per_byte);
-        pixel_data = image[y_coord][pixel_index];
-
-        if(pixel_in_byte == 0){
-            *new_pixel->byte_data = (*new_pixel->byte_data) << pixel_bit_shift;
-            image[y_coord][pixel_index] = (image[y_coord][pixel_index])^(*new_pixel->byte_data);
+    else{
+        if(color_type == PNG_COLOR_TYPE_PALETTE){
+            image[y_coord][pixel_index] = insert_index;
         }
-
-        else if(pixel_in_byte == 1){
-            *new_pixel->byte_data = (*new_pixel->byte_data) << pixel_bit_shift;
-            image[y_coord][pixel_index] = (image[y_coord][pixel_index])^(*new_pixel->byte_data);
-        }
-
-        else if(pixel_in_byte == 2){
-            *new_pixel->byte_data = (*new_pixel->byte_data) << pixel_bit_shift;
-            image[y_coord][pixel_index] = (image[y_coord][pixel_index])^(*new_pixel->byte_data);
-        }
-
-        else if(pixel_in_byte == 3){
-            *new_pixel->byte_data = (*new_pixel->byte_data) << pixel_bit_shift;
-            image[y_coord][pixel_index] = (image[y_coord][pixel_index])^(*new_pixel->byte_data);
-        }
-
-        else if(pixel_in_byte == 4){
-            *new_pixel->byte_data = (*new_pixel->byte_data) << pixel_bit_shift;
-            image[y_coord][pixel_index] = (image[y_coord][pixel_index])^(*new_pixel->byte_data);
-        }
-
-        else if(pixel_in_byte == 5){
-            *new_pixel->byte_data = (*new_pixel->byte_data) << pixel_bit_shift;
-            image[y_coord][pixel_index] = (image[y_coord][pixel_index])^(*new_pixel->byte_data);
-        }
-
-        else if(pixel_in_byte == 6){
-            *new_pixel->byte_data = (*new_pixel->byte_data) << pixel_bit_shift;
-            image[y_coord][pixel_index] = (image[y_coord][pixel_index])^(*new_pixel->byte_data);
-        }
-
-        else {
-            image[y_coord][pixel_index] = (image[y_coord][pixel_index])^(*new_pixel->byte_data);
-        }
-
+        pixel_index = (int)(pixel_index * bpp);
+        size_t bytes_to_copy = (size_t)(sizeof(png_byte) * bpp);
+        memcpy(&image[y_coord][pixel_index], new_pixel->byte_data, bytes_to_copy);
     }
-
-
 }
 
 
