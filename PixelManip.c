@@ -402,8 +402,6 @@ void Set_Pixel(png_bytepp image, Pixel_Data* new_pixel, int x_coord,int y_coord,
     }
     pixels_per_byte = (int)(1/bpp);
     pixel_bit_shift = (bit_depth) * ((pixels_per_byte - 1) - pixel_in_byte);
-    *new_pixel->byte_data = (*new_pixel->byte_data) << pixel_bit_shift;
-
     switch(color_type) {
         case PNG_COLOR_TYPE_RGBA:
             bpp *= 4;
@@ -416,24 +414,26 @@ void Set_Pixel(png_bytepp image, Pixel_Data* new_pixel, int x_coord,int y_coord,
             break;
         case PNG_COLOR_TYPE_PALETTE: {
             int get_index = find_key(*new_pixel, pal_hash);
-            if (get_index == -1){
+            if(get_index == -1){
                 insert_key(*new_pixel, pal_hash, *num_trans);
-                insert_index = (png_byte)(*num_trans);
                 palette[*num_trans] = *(new_pixel->color_data);
-                image[y_coord][pixel_index] = insert_index;
-                *num_trans += 1;
+                insert_index = *num_trans;
+                *(num_trans)+=1;
+            }
+            else {
+                insert_index = get_index;
             }
             break;
         }
-
         default:
+            *new_pixel->byte_data = (*new_pixel->byte_data) << pixel_bit_shift;
             bpp *= 1;
             break;
     }
     if(bit_depth < 8){
-        pixel_index = (int)floor((int)(x_coord / pixels_per_byte));
+        pixel_index = (int)floor((x_coord / pixels_per_byte));
         if(color_type == PNG_COLOR_TYPE_PALETTE){
-            insert_index = insert_index << (pixel_bit_shift);
+            insert_index = (insert_index << (pixel_bit_shift));
             image[y_coord][pixel_index] = (image[y_coord][pixel_index])^insert_index;
         }
         else {
@@ -442,11 +442,13 @@ void Set_Pixel(png_bytepp image, Pixel_Data* new_pixel, int x_coord,int y_coord,
     }
     else{
         if(color_type == PNG_COLOR_TYPE_PALETTE){
-            image[y_coord][pixel_index] = insert_index;
+            image[y_coord][pixel_index] = (png_byte)insert_index;
         }
-        pixel_index = (int)(pixel_index * bpp);
-        size_t bytes_to_copy = (size_t)(sizeof(png_byte) * bpp);
-        memcpy(&image[y_coord][pixel_index], new_pixel->byte_data, bytes_to_copy);
+        else {
+            pixel_index = (int)(pixel_index * bpp);
+            size_t bytes_to_copy = (size_t)(sizeof(png_byte) * bpp);
+            memcpy(&image[y_coord][pixel_index], new_pixel->byte_data, bytes_to_copy);
+        }
     }
 }
 
