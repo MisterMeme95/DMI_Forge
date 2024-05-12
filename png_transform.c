@@ -45,9 +45,7 @@ int main(int argc, char **argv) {
     palette_hash new_pal;
 
 
-
     int pixels_per_byte;
-
 
     int overwrite_flag = 0;
     int opt;
@@ -113,15 +111,12 @@ int main(int argc, char **argv) {
                 print_usage();
                 break;
 
-            default: // '?' is used for unrecognized options
-
+            default:
                 fprintf(stderr, "Invalid option\n");
                 print_usage();
                 return EXIT_FAILURE;
         }
     }
-
-
     source_file = fopen(input_file, "rb");
     if(!source_file) {
         printf("Can't open file %s for reading\n", input_file);
@@ -150,7 +145,6 @@ int main(int argc, char **argv) {
                  png_get_compression_type(read_ptr, read_info_ptr),
                  png_get_filter_type(read_ptr, read_info_ptr));
 
-
     Initialize_Pixels(&image_data, height, png_get_rowbytes(write_ptr, write_info_ptr));
 
     for (int i = 0; i < 256; i++) {
@@ -161,46 +155,23 @@ int main(int argc, char **argv) {
         png_get_tRNS(read_ptr, read_info_ptr, &trans_alpha, &trans_num, &trans_color);
     }
 
-
-
-
     for (size_t i = 0; i < height; i++) {
         for (size_t o = 0; o < width; o++) {
             Pixel_Data isolated_pixel = Get_Pixel(row_pointers, o, i, color_type,
                                                   bit_depth, source_palette, trans_alpha, &trans_num);
-
-//            printf("isolated = %d\n", isolated_pixel.bit_depth);
             Pixel_Data transformed_pixel = Pixel_Transformation(isolated_pixel, target_color_type, target_bit_depth);
-
             Set_Pixel(image_data, &transformed_pixel, o, i, target_color_type,
                       target_bit_depth, destination_palette, NULL, &dest_palette_length,
                       &new_pal);
 
-
         }
     }
-    printf("Finished loop. . \n");
-//    if(input_file != NULL)
-//        printf("Input File: %s\n", input_file);
-//    if(output_file != NULL)
-//        printf("Output File: %s\n", output_file);
-//    if(target_bit_depth != -1)
-//        printf("Bit Depth: %d\n", target_bit_depth);
 
     printf("Num of new pal = %d\n", dest_palette_length);
     if(target_color_type == PNG_COLOR_TYPE_PALETTE){
         png_set_PLTE(write_ptr, write_info_ptr, destination_palette, dest_palette_length);
-
     }
-    //printf("Died jere #2. . .\n");
     png_write_info(write_ptr, write_info_ptr);
-    //printf("Died jere #3. . .\n");
-
     png_write_image(write_ptr, image_data);
-    //printf("Died jere #4. . .\n");
-
-
-
     return EXIT_SUCCESS;
-
 }

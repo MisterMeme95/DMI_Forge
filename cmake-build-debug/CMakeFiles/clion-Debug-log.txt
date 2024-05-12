@@ -90,6 +90,6 @@ Install finished successfully
 -- Conan: Target declared 'PNG::PNG'
 -- CMake-Conan: find_package(ZLIB) found, 'conan install' already ran
 -- Conan: Target declared 'ZLIB::ZLIB'
--- Configuring done (1.8s)
--- Generating done (0.1s)
+-- Configuring done (3.6s)
+-- Generating done (0.3s)
 -- Build files have been written to: C:/Users/jonat/GitHub/DMI_Forge/cmake-build-debug

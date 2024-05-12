@@ -240,6 +240,7 @@ void Copy_Pixel(png_bytep copy_destination, png_bytepp copy_source, int x_coord,
 Pixel_Data Get_Pixel(png_bytepp image, int x_coord, int y_coord, int color_type, int bit_depth, png_colorp palette,
                      png_bytep trans_alpha, int *num_trans);
 
+Pixel_Data Transform_RGBA_PNG2(Pixel_Data pixel, int target_color_type, int src_bit_depth, int target_bit_depth);
 
 /** @Description Transform_RGBA_PNG is a function that carries a pixel transformation. Basically, it takes a pixel that is currently
  * in RGBA form, and transform it to the target_color_type specified.*/
@@ -252,7 +253,7 @@ png_bytep Transform_GRAYALPHA_PNG(const png_byte* pixel, int target_color_type, 
 png_bytep Transform_GRAY_PNG(const png_byte* pixel, int target_color_type, int bit_depth);
 
 /** @Description Transforms a traditional RGB pixel into any other type. */
-png_bytep Transform_RBG_PNG(const png_byte* pixel, int target_color_type, int bit_depth);
+Pixel_Data Transform_RGB_PNG(Pixel_Data* pixel, int target_color_type, int bit_depth);
 
 /**
  * @TO_DO FIX SCENARIO FOR PIXELS THAT ARE LESS THAN 1 BYTE. IT IS NOT PROPERLY CLEARING THE BITS AND USES A AND instead
@@ -295,13 +296,14 @@ int Get_Green_Channel(Pixel_Data pixel);
 int Get_Blue_Channel(Pixel_Data pixel);
 int Get_Alpha_Channel(Pixel_Data pixel);
 
-
+Pixel_Data Combine_Pixels(Pixel_Data foreground, Pixel_Data background, int color_type);
 void Read_PNG(png_structp* read_ptr, png_infop* read_info_ptr, FILE* input_file, png_bytepp* row_pointers,
               png_uint_32 *height, png_uint_32* width);
 
 void Write_PNG(png_structp* write_ptr, png_infop* write_info_ptr, FILE* output_file, png_bytepp row_pointers,
                png_uint_32 height, png_uint_32 width, int bit_depth, int color_type);
 void Initialize_Pixels(png_bytepp *pixel_array, int height, size_t bytes_per_row);
+void Initialize_Pixel2(Pixel_Data* pixel, int color_type, int bit_depth);
 void Initialize_PNG(png_structp* read_ptr, png_infop* read_info_ptr, FILE* input_file);
 void Initialize_PNG_Writer(png_structp* write_ptr, png_infop* write_info_ptr, FILE* output_file);
 void Initialize_PNG_Reader(png_structp* read_ptr, png_infop* read_info_ptr, FILE* input_file);

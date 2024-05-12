@@ -144,6 +144,20 @@ dmi_verify/fast:
 .PHONY : dmi_verify/fast
 
 # Convenience name for target.
+Test_Cases/CMakeFiles/json_test.dir/rule:
+	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 Test_Cases/CMakeFiles/json_test.dir/rule
+.PHONY : Test_Cases/CMakeFiles/json_test.dir/rule
+
+# Convenience name for target.
+json_test: Test_Cases/CMakeFiles/json_test.dir/rule
+.PHONY : json_test
+
+# fast build rule for target.
+json_test/fast:
+	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\json_test.dir\build.make Test_Cases/CMakeFiles/json_test.dir/build
+.PHONY : json_test/fast
+
+# Convenience name for target.
 Test_Cases/CMakeFiles/image_convert.dir/rule:
 	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 Test_Cases/CMakeFiles/image_convert.dir/rule
 .PHONY : Test_Cases/CMakeFiles/image_convert.dir/rule
@@ -324,6 +338,7 @@ __/PixelManip.obj: __/PixelManip.c.obj
 
 # target to build an object file
 __/PixelManip.c.obj:
+	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\json_test.dir\build.make Test_Cases/CMakeFiles/json_test.dir/__/PixelManip.c.obj
 	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\image_convert.dir\build.make Test_Cases/CMakeFiles/image_convert.dir/__/PixelManip.c.obj
 .PHONY : __/PixelManip.c.obj
 
@@ -332,6 +347,7 @@ __/PixelManip.i: __/PixelManip.c.i
 
 # target to preprocess a source file
 __/PixelManip.c.i:
+	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\json_test.dir\build.make Test_Cases/CMakeFiles/json_test.dir/__/PixelManip.c.i
 	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\image_convert.dir\build.make Test_Cases/CMakeFiles/image_convert.dir/__/PixelManip.c.i
 .PHONY : __/PixelManip.c.i
 
@@ -340,14 +356,40 @@ __/PixelManip.s: __/PixelManip.c.s
 
 # target to generate assembly for a file
 __/PixelManip.c.s:
+	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\json_test.dir\build.make Test_Cases/CMakeFiles/json_test.dir/__/PixelManip.c.s
 	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\image_convert.dir\build.make Test_Cases/CMakeFiles/image_convert.dir/__/PixelManip.c.s
 .PHONY : __/PixelManip.c.s
+
+__/cJSON/cJSON.obj: __/cJSON/cJSON.c.obj
+.PHONY : __/cJSON/cJSON.obj
+
+# target to build an object file
+__/cJSON/cJSON.c.obj:
+	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\json_test.dir\build.make Test_Cases/CMakeFiles/json_test.dir/__/cJSON/cJSON.c.obj
+.PHONY : __/cJSON/cJSON.c.obj
+
+__/cJSON/cJSON.i: __/cJSON/cJSON.c.i
+.PHONY : __/cJSON/cJSON.i
+
+# target to preprocess a source file
+__/cJSON/cJSON.c.i:
+	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\json_test.dir\build.make Test_Cases/CMakeFiles/json_test.dir/__/cJSON/cJSON.c.i
+.PHONY : __/cJSON/cJSON.c.i
+
+__/cJSON/cJSON.s: __/cJSON/cJSON.c.s
+.PHONY : __/cJSON/cJSON.s
+
+# target to generate assembly for a file
+__/cJSON/cJSON.c.s:
+	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\json_test.dir\build.make Test_Cases/CMakeFiles/json_test.dir/__/cJSON/cJSON.c.s
+.PHONY : __/cJSON/cJSON.c.s
 
 __/data_structure.obj: __/data_structure.c.obj
 .PHONY : __/data_structure.obj
 
 # target to build an object file
 __/data_structure.c.obj:
+	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\json_test.dir\build.make Test_Cases/CMakeFiles/json_test.dir/__/data_structure.c.obj
 	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\image_convert.dir\build.make Test_Cases/CMakeFiles/image_convert.dir/__/data_structure.c.obj
 .PHONY : __/data_structure.c.obj
 
@@ -356,6 +398,7 @@ __/data_structure.i: __/data_structure.c.i
 
 # target to preprocess a source file
 __/data_structure.c.i:
+	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\json_test.dir\build.make Test_Cases/CMakeFiles/json_test.dir/__/data_structure.c.i
 	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\image_convert.dir\build.make Test_Cases/CMakeFiles/image_convert.dir/__/data_structure.c.i
 .PHONY : __/data_structure.c.i
 
@@ -364,8 +407,33 @@ __/data_structure.s: __/data_structure.c.s
 
 # target to generate assembly for a file
 __/data_structure.c.s:
+	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\json_test.dir\build.make Test_Cases/CMakeFiles/json_test.dir/__/data_structure.c.s
 	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\image_convert.dir\build.make Test_Cases/CMakeFiles/image_convert.dir/__/data_structure.c.s
 .PHONY : __/data_structure.c.s
+
+json_test.obj: json_test.c.obj
+.PHONY : json_test.obj
+
+# target to build an object file
+json_test.c.obj:
+	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\json_test.dir\build.make Test_Cases/CMakeFiles/json_test.dir/json_test.c.obj
+.PHONY : json_test.c.obj
+
+json_test.i: json_test.c.i
+.PHONY : json_test.i
+
+# target to preprocess a source file
+json_test.c.i:
+	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\json_test.dir\build.make Test_Cases/CMakeFiles/json_test.dir/json_test.c.i
+.PHONY : json_test.c.i
+
+json_test.s: json_test.c.s
+.PHONY : json_test.s
+
+# target to generate assembly for a file
+json_test.c.s:
+	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\json_test.dir\build.make Test_Cases/CMakeFiles/json_test.dir/json_test.c.s
+.PHONY : json_test.c.s
 
 # Help Target
 help:
@@ -378,6 +446,7 @@ help:
 	@echo ... Test_Cases
 	@echo ... dmi_verify
 	@echo ... image_convert
+	@echo ... json_test
 	@echo ... DMI_Verification_Test.obj
 	@echo ... DMI_Verification_Test.i
 	@echo ... DMI_Verification_Test.s
@@ -399,9 +468,15 @@ help:
 	@echo ... __/PixelManip.obj
 	@echo ... __/PixelManip.i
 	@echo ... __/PixelManip.s
+	@echo ... __/cJSON/cJSON.obj
+	@echo ... __/cJSON/cJSON.i
+	@echo ... __/cJSON/cJSON.s
 	@echo ... __/data_structure.obj
 	@echo ... __/data_structure.i
 	@echo ... __/data_structure.s
+	@echo ... json_test.obj
+	@echo ... json_test.i
+	@echo ... json_test.s
 .PHONY : help
 
 

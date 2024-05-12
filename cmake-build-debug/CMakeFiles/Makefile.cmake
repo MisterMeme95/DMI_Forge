@@ -75,5 +75,6 @@ set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/aespritefix.dir/DependInfo.cmake"
   "Test_Cases/CMakeFiles/Test_Cases.dir/DependInfo.cmake"
   "Test_Cases/CMakeFiles/dmi_verify.dir/DependInfo.cmake"
+  "Test_Cases/CMakeFiles/json_test.dir/DependInfo.cmake"
   "Test_Cases/CMakeFiles/image_convert.dir/DependInfo.cmake"
   )

@@ -194,6 +194,19 @@ dmi_verify/fast:
 .PHONY : dmi_verify/fast
 
 #=============================================================================
+# Target rules for targets named json_test
+
+# Build rule for target.
+json_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 json_test
+.PHONY : json_test
+
+# fast build rule for target.
+json_test/fast:
+	$(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\json_test.dir\build.make Test_Cases/CMakeFiles/json_test.dir/build
+.PHONY : json_test/fast
+
+#=============================================================================
 # Target rules for targets named image_convert
 
 # Build rule for target.
@@ -454,6 +467,7 @@ help:
 	@echo ... dmi2sheet
 	@echo ... dmi_verify
 	@echo ... image_convert
+	@echo ... json_test
 	@echo ... png_transform
 	@echo ... Aesprite_Fixer.obj
 	@echo ... Aesprite_Fixer.i
