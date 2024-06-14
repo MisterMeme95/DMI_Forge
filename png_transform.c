@@ -4,7 +4,33 @@
 #include <string.h>
 #include "PixelManip.h"
 #include <png.h>
+#include "dmi.h"
+#include <unistd.h>
+int authenticate_transform(int color_flag, int bit_flag, int write_flag, char** debug_report){
+    int is_valid = 1;
 
+    if(!color_flag){
+        debug_report[0] = (char*) malloc(sizeof(char) * 11);
+        strcpy(debug_report[0], "color_type");
+        debug_report[0][10] = '\0';
+        is_valid = 0;
+    }
+
+    if(!bit_flag){
+        debug_report[1] = (char*) malloc(sizeof(char) * 10);
+        strcpy(debug_report[1], "bit_depth");
+        debug_report[1][9] = '\0';
+        is_valid = 0;
+    }
+
+    if(!write_flag){
+        debug_report[2] = (char*) malloc(sizeof(char) * 11);
+        strcpy(debug_report[2], "input file");
+        debug_report[2][10] = '\0';
+        is_valid = 0;
+    }
+    return is_valid;
+}
 void print_usage() {
     printf("Usage: png_transform [OPTIONS]\n");
     printf("Options:\n");
@@ -17,9 +43,20 @@ void print_usage() {
 
 int main(int argc, char **argv) {
 
+    /* These are flags for arguments that must be submitted in order for the program to run properly. */
+    int write_flag = 0, depth_flag = 0, color_flag = 0;
+
     FILE *source_file;
-    png_bytepp row_pointers;
     char *input_file = NULL;
+
+    FILE *destination_file = NULL;
+    char *output_file = NULL;
+
+    int target_bit_depth = -1, target_color_type = -1;
+    char *color_input = NULL;
+
+
+    png_bytepp row_pointers;
     int bit_depth = 0, color_type = 0, interlace_method = 0, compression = 0, filter = 0;
     png_structp read_ptr;
     png_infop read_info_ptr;
@@ -33,11 +70,7 @@ int main(int argc, char **argv) {
     errno = 0;
 
     /* These are all the variables needed for my output.*/
-    FILE *destination_file = NULL;
     png_bytepp image_data = NULL;
-    char *output_file = NULL;
-    int target_bit_depth = - 1, target_color_type = -1;
-    char *color_input = NULL;
     png_structp write_ptr = NULL;
     png_infop write_info_ptr = NULL;
     png_colorp destination_palette = (png_colorp)malloc(sizeof(png_color) * 256);
@@ -62,6 +95,7 @@ int main(int argc, char **argv) {
         switch (opt) {
             case 'i':
                 input_file = strdup(optarg);
+                write_flag = 1;
                 break;
 
             case 'o':
@@ -76,6 +110,7 @@ int main(int argc, char **argv) {
                            "Please choose one of the following valid values: 1, 2, 4, 8, or 16.\n", optarg);
                     return EXIT_FAILURE;
                 }
+                depth_flag = 1;
                 break;
 
             case 'c':
@@ -105,6 +140,7 @@ int main(int argc, char **argv) {
                         printf("Invalid color type input. Please specify one of: gray, rgb, indexed, gray_alpha, rgba.\n");
                     }
                 }
+                color_flag = 1;
                 break;
 
             case 'h':
@@ -117,11 +153,24 @@ int main(int argc, char **argv) {
                 return EXIT_FAILURE;
         }
     }
+
+    char **debug_text = (char**)malloc(sizeof(char*) * 3);
+    int validation = authenticate_transform(color_flag, depth_flag, write_flag, debug_text);
+    if(!validation){
+        fprintf(stderr,"Missing the following arguments: ");
+        for(int i = 0; i < 3; i++){
+            fprintf(stderr,"%s, ", debug_text[i]);
+        }
+        fprintf(stderr,"\n\nFor more information, please use: png_transform --help");
+        return EXIT_FAILURE;
+    }
+
     source_file = fopen(input_file, "rb");
     if(!source_file) {
         printf("Can't open file %s for reading\n", input_file);
         return EXIT_FAILURE;
     }
+
 
     Read_PNG(&read_ptr, &read_info_ptr, source_file, &row_pointers, &height, &width);
     png_get_IHDR(read_ptr, read_info_ptr, &width, &height, &bit_depth,
@@ -167,7 +216,7 @@ int main(int argc, char **argv) {
         }
     }
 
-    printf("Num of new pal = %d\n", dest_palette_length);
+    //printf("Num of new pal = %d\n", dest_palette_length);
     if(target_color_type == PNG_COLOR_TYPE_PALETTE){
         png_set_PLTE(write_ptr, write_info_ptr, destination_palette, dest_palette_length);
     }

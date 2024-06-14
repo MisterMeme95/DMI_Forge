@@ -7,6 +7,7 @@
 #include <ctype.h>
 #include "dmi.h"
 
+
 /**
  * the get_fstring function is designed specifically to return the # of characters
  * that precedes either a newline, the "=" sign, or the '

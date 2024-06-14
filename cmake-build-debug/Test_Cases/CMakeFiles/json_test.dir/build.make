@@ -128,12 +128,60 @@ Test_Cases/CMakeFiles/json_test.dir/__/data_structure.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/json_test.dir/__/data_structure.c.s"
 	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\Test_Cases && C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\jonat\GitHub\DMI_Forge\data_structure.c -o CMakeFiles\json_test.dir\__\data_structure.c.s
 
+Test_Cases/CMakeFiles/json_test.dir/__/DMI_Struct.c.obj: Test_Cases/CMakeFiles/json_test.dir/flags.make
+Test_Cases/CMakeFiles/json_test.dir/__/DMI_Struct.c.obj: Test_Cases/CMakeFiles/json_test.dir/includes_C.rsp
+Test_Cases/CMakeFiles/json_test.dir/__/DMI_Struct.c.obj: C:/Users/jonat/GitHub/DMI_Forge/DMI_Struct.c
+Test_Cases/CMakeFiles/json_test.dir/__/DMI_Struct.c.obj: Test_Cases/CMakeFiles/json_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object Test_Cases/CMakeFiles/json_test.dir/__/DMI_Struct.c.obj"
+	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\Test_Cases && C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT Test_Cases/CMakeFiles/json_test.dir/__/DMI_Struct.c.obj -MF CMakeFiles\json_test.dir\__\DMI_Struct.c.obj.d -o CMakeFiles\json_test.dir\__\DMI_Struct.c.obj -c C:\Users\jonat\GitHub\DMI_Forge\DMI_Struct.c
+
+Test_Cases/CMakeFiles/json_test.dir/__/DMI_Struct.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/json_test.dir/__/DMI_Struct.c.i"
+	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\Test_Cases && C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\jonat\GitHub\DMI_Forge\DMI_Struct.c > CMakeFiles\json_test.dir\__\DMI_Struct.c.i
+
+Test_Cases/CMakeFiles/json_test.dir/__/DMI_Struct.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/json_test.dir/__/DMI_Struct.c.s"
+	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\Test_Cases && C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\jonat\GitHub\DMI_Forge\DMI_Struct.c -o CMakeFiles\json_test.dir\__\DMI_Struct.c.s
+
+Test_Cases/CMakeFiles/json_test.dir/__/DMIParse.c.obj: Test_Cases/CMakeFiles/json_test.dir/flags.make
+Test_Cases/CMakeFiles/json_test.dir/__/DMIParse.c.obj: Test_Cases/CMakeFiles/json_test.dir/includes_C.rsp
+Test_Cases/CMakeFiles/json_test.dir/__/DMIParse.c.obj: C:/Users/jonat/GitHub/DMI_Forge/DMIParse.c
+Test_Cases/CMakeFiles/json_test.dir/__/DMIParse.c.obj: Test_Cases/CMakeFiles/json_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object Test_Cases/CMakeFiles/json_test.dir/__/DMIParse.c.obj"
+	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\Test_Cases && C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT Test_Cases/CMakeFiles/json_test.dir/__/DMIParse.c.obj -MF CMakeFiles\json_test.dir\__\DMIParse.c.obj.d -o CMakeFiles\json_test.dir\__\DMIParse.c.obj -c C:\Users\jonat\GitHub\DMI_Forge\DMIParse.c
+
+Test_Cases/CMakeFiles/json_test.dir/__/DMIParse.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/json_test.dir/__/DMIParse.c.i"
+	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\Test_Cases && C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\jonat\GitHub\DMI_Forge\DMIParse.c > CMakeFiles\json_test.dir\__\DMIParse.c.i
+
+Test_Cases/CMakeFiles/json_test.dir/__/DMIParse.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/json_test.dir/__/DMIParse.c.s"
+	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\Test_Cases && C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\jonat\GitHub\DMI_Forge\DMIParse.c -o CMakeFiles\json_test.dir\__\DMIParse.c.s
+
+Test_Cases/CMakeFiles/json_test.dir/__/Icon_State.c.obj: Test_Cases/CMakeFiles/json_test.dir/flags.make
+Test_Cases/CMakeFiles/json_test.dir/__/Icon_State.c.obj: Test_Cases/CMakeFiles/json_test.dir/includes_C.rsp
+Test_Cases/CMakeFiles/json_test.dir/__/Icon_State.c.obj: C:/Users/jonat/GitHub/DMI_Forge/Icon_State.c
+Test_Cases/CMakeFiles/json_test.dir/__/Icon_State.c.obj: Test_Cases/CMakeFiles/json_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object Test_Cases/CMakeFiles/json_test.dir/__/Icon_State.c.obj"
+	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\Test_Cases && C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT Test_Cases/CMakeFiles/json_test.dir/__/Icon_State.c.obj -MF CMakeFiles\json_test.dir\__\Icon_State.c.obj.d -o CMakeFiles\json_test.dir\__\Icon_State.c.obj -c C:\Users\jonat\GitHub\DMI_Forge\Icon_State.c
+
+Test_Cases/CMakeFiles/json_test.dir/__/Icon_State.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/json_test.dir/__/Icon_State.c.i"
+	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\Test_Cases && C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\jonat\GitHub\DMI_Forge\Icon_State.c > CMakeFiles\json_test.dir\__\Icon_State.c.i
+
+Test_Cases/CMakeFiles/json_test.dir/__/Icon_State.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/json_test.dir/__/Icon_State.c.s"
+	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\Test_Cases && C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\jonat\GitHub\DMI_Forge\Icon_State.c -o CMakeFiles\json_test.dir\__\Icon_State.c.s
+
 # Object files for target json_test
 json_test_OBJECTS = \
 "CMakeFiles/json_test.dir/json_test.c.obj" \
 "CMakeFiles/json_test.dir/__/cJSON/cJSON.c.obj" \
 "CMakeFiles/json_test.dir/__/PixelManip.c.obj" \
-"CMakeFiles/json_test.dir/__/data_structure.c.obj"
+"CMakeFiles/json_test.dir/__/data_structure.c.obj" \
+"CMakeFiles/json_test.dir/__/DMI_Struct.c.obj" \
+"CMakeFiles/json_test.dir/__/DMIParse.c.obj" \
+"CMakeFiles/json_test.dir/__/Icon_State.c.obj"
 
 # External object files for target json_test
 json_test_EXTERNAL_OBJECTS =
@@ -142,13 +190,16 @@ Test_Cases/json_test.exe: Test_Cases/CMakeFiles/json_test.dir/json_test.c.obj
 Test_Cases/json_test.exe: Test_Cases/CMakeFiles/json_test.dir/__/cJSON/cJSON.c.obj
 Test_Cases/json_test.exe: Test_Cases/CMakeFiles/json_test.dir/__/PixelManip.c.obj
 Test_Cases/json_test.exe: Test_Cases/CMakeFiles/json_test.dir/__/data_structure.c.obj
+Test_Cases/json_test.exe: Test_Cases/CMakeFiles/json_test.dir/__/DMI_Struct.c.obj
+Test_Cases/json_test.exe: Test_Cases/CMakeFiles/json_test.dir/__/DMIParse.c.obj
+Test_Cases/json_test.exe: Test_Cases/CMakeFiles/json_test.dir/__/Icon_State.c.obj
 Test_Cases/json_test.exe: Test_Cases/CMakeFiles/json_test.dir/build.make
 Test_Cases/json_test.exe: C:/Users/jonat/.conan2/p/b/libpnda601e8f63f19/p/lib/libpng16d.a
 Test_Cases/json_test.exe: C:/Users/jonat/.conan2/p/b/zlib6f01ae82dbf0d/p/lib/libz.a
 Test_Cases/json_test.exe: Test_Cases/CMakeFiles/json_test.dir/linkLibs.rsp
 Test_Cases/json_test.exe: Test_Cases/CMakeFiles/json_test.dir/objects1.rsp
 Test_Cases/json_test.exe: Test_Cases/CMakeFiles/json_test.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking C executable json_test.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking C executable json_test.exe"
 	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\Test_Cases && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\json_test.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

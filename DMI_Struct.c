@@ -322,6 +322,8 @@ void Set_Sheet_Size(){
      * */
 
 }
+
+
 void Get_Frame(png_bytepp dest_pixels, png_bytepp src_pixels, int dest_start_row,int dest_start_col,
                int src_start_row, int src_start_col, int bytes_per_frame, int cols_to_copy) {
 
@@ -408,6 +410,7 @@ int dmiToPng(DMI* dmi, int pngWidth, int pngHeight, png_bytepp orig_pointer, png
     int DMI_HEIGHT = dmi->height, DMI_WIDTH = (dmi->width) / ppb;
     int row_bytes = (int)png_get_rowbytes(png_ptr, info_ptr);
 
+    /* GRAY ALPHA is only 2 per byte. Fix this later.*/
     if(color_type == PNG_COLOR_TYPE_RGB_ALPHA || color_type == PNG_COLOR_TYPE_GRAY_ALPHA){
         DMI_WIDTH *= 4;
     }
@@ -426,50 +429,39 @@ int dmiToPng(DMI* dmi, int pngWidth, int pngHeight, png_bytepp orig_pointer, png
     int copy_row;
 
     while(state_tracker < (dmi->num_of_states)) {
-        //printf("Starting while loop. . .%d\n\n\n\n\n", state_tracker);
         frames_in_state = dmi->begin_icon_state->dirs * dmi->begin_icon_state->frames;
         copy_col = start_col + source_col;
         copy_row = start_row + source_row;
-       // printf("Died #0.5\n");
+
         for(int i = 0; i < frames_in_state; i++){
             int destination_row = start_dest_row + dest_row;
             int destination_col = start_dest_col + dest_col;
-            //printf("Died #0.56\n");
-         //   printf("destination_row = %d, destination_col = %d\n", destination_row, destination_col);
-         //   printf("copy_row = %d, copy_col = %d\n", copy_row, copy_col);
+
             Get_Frame(new_pointer, orig_pointer, destination_row, destination_col,
                       copy_row, copy_col, DMI_WIDTH, DMI_HEIGHT);
-           // printf("Died #0.57\n");
+            //This fixes the dimensions
             Fix_Dimension(&dest_col, &dest_row, &source_col, &source_row, &copy_row, &copy_col,
             start_row, start_col, &frame_tracker,input_flow_type,output_flow_type,
             DMI_WIDTH,DMI_HEIGHT, pngWidth, i, row_bytes, dmi);
-           // printf("Died #0.58\n");
         }
         total_frames += frames_in_state;
         state_tracker++;
-        //("Died #1\n");
         source_col = 0;
         source_row = 0;
 
         start_col = (total_frames * DMI_WIDTH) % pngWidth;
         start_row = ((total_frames * DMI_WIDTH) / pngWidth) * DMI_HEIGHT;
-        //printf("Died #2\n");
+
         if(output_flow_type == GRIDLOCK_FLOW){
-            /* Run functions to get the calculation for the next starting row/col for the outputted spritesheet.
-             * for dest_col, what I'd
-             * */
             start_dest_col += Get_Dest_Col(dmi->begin_icon_state, DMI_WIDTH, state_tracker);
-            //printf("Iteration = %d\n", state_tracker);
             if(state_tracker % 3 == 0){
                 start_dest_row += Get_Dest_Row(dmi->begin_icon_state, DMI_HEIGHT);
                 start_dest_col = 0;
             }
             dest_row = 0;
         }
-        //printf("Died #3\n");
         dmi->begin_icon_state++;
-        //if(state_tracker == 6)
-          //  return 1;
+
     }
     return 1;
 }
@@ -526,8 +518,8 @@ int Get_Dest_Row(icon_state* state, int DMI_HEIGHT){
     return biggest_dir * DMI_HEIGHT;
 }
 void output_pixel_values(png_structp png_ptr, png_infop info_ptr, png_bytep *row_pointers) {
-    int width = png_get_image_width(png_ptr, info_ptr);
-    int height = png_get_image_height(png_ptr, info_ptr);
+    png_uint_32 width = png_get_image_width(png_ptr, info_ptr);
+    png_uint_32 height = png_get_image_height(png_ptr, info_ptr);
     int color_type = png_get_color_type(png_ptr, info_ptr);
     int bit_depth = png_get_bit_depth(png_ptr, info_ptr);
     png_colorp palette = NULL;
@@ -550,8 +542,6 @@ void output_pixel_values(png_structp png_ptr, png_infop info_ptr, png_bytep *row
                 int gray_value = num_bytes == 1 ? px[0] : (px[0] << 8) + px[1];
                 printf("Pixel at (%d, %d): Gray=%d\n", x, y, gray_value);
             } else if (color_type == PNG_COLOR_TYPE_PALETTE) {
-             //   int index = row[x];
-
                 int index, ppb = 8/bit_depth;    // pixels per byte
                 switch (bit_depth){
                     default: printf("bit depth %d not implemented\n", bit_depth); exit(1);
@@ -560,91 +550,23 @@ void output_pixel_values(png_structp png_ptr, png_infop info_ptr, png_bytep *row
                     case 4:
                     case 8: index = row[x/ppb]>>8-(x%ppb+1)*bit_depth&255>>8-bit_depth;
                 }
-                /* First, get the width.
-                 * Divide width by the pixels per bit.
-                 * Shift
-                 * */
-
                 printf("8-bit_depth = %d\n", 8-bit_depth);
                 printf("Index = %d\n", index);
                 if(y >= 5){
                     sleep(10);
                 }
-                //sleep(10);
                 if (index < num_palette) {
                     png_color palette_color = palette[index];
                     printf(" >>> Pixel at (%d, %d): Palette Index=%d, R=%d, G=%d, B=%d\n", x, y, index,
                            palette_color.red, palette_color.green, palette_color.blue);
-
                 } else {
                     printf("Index = %d\n", index);
                     printf("Pixel at (%d, %d): Palette index out of range\n", x, y);
-                    //row[x] = 0;
-                    sleep(10);
-
-
                }
             }
-
             else {
                 printf("Index = %d", row[x]);
                 printf("Pixel at (%d, %d): Color type not supported\n", x, y);
-            }
-        }
-    }
-}
-
-
-void output_pixel_values2(png_structp png_ptr, png_infop info_ptr, png_bytep *row_pointers, int start_row, int between1,
-                          int between2, char type) {
-    int width = png_get_image_width(png_ptr, info_ptr);
-    int height = png_get_image_height(png_ptr, info_ptr);
-    int color_type = png_get_color_type(png_ptr, info_ptr);
-    int bit_depth = png_get_bit_depth(png_ptr, info_ptr);
-    png_colorp palette = NULL;
-    png_color_8 f;
-    int num_palette = 0;
-    if (color_type == PNG_COLOR_TYPE_PALETTE) {
-        png_get_PLTE(png_ptr, info_ptr, &palette, &num_palette);
-    }
-    for (int y = start_row; y < start_row+1; y++) {
-        png_bytep row = row_pointers[y];
-        //printf("Height = %d\n", height);
-        //    sleep(10);
-        for (int x = 0; x < width; x++) {
-            if (color_type == PNG_COLOR_TYPE_RGB) {
-                png_bytep px = &(row[x * 3]);
-
-                // printf("Pixel at (%d, %d): R=%d, G=%d, B=%d\n", x, y, px[0], px[1], px[2]);
-            } else if (color_type == PNG_COLOR_TYPE_RGBA) {
-                png_bytep px = &(row[x * 4]);
-                //    printf("Pixel at (%d, %d): R=%d, G=%d, B=%d, A=%d\n", x, y, px[0], px[1], px[2], px[3]);
-            } else if (color_type == PNG_COLOR_TYPE_GRAY) {
-                int num_bytes = bit_depth == 8 ? 1 : 2;
-                png_bytep px = &(row[x * num_bytes]);
-                int gray_value = num_bytes == 1 ? px[0] : (px[0] << 8) + px[1];
-                printf("Pixel at (%d, %d): Gray=%d\n", x, y, gray_value);
-            } else if (color_type == PNG_COLOR_TYPE_PALETTE) {
-                int index = row[x];
-                if (index < num_palette) {
-                    png_color palette_color = palette[index];
-                    if(y >= between1 && y<= between2){
-                        printf("%c - Pixel at (%d, %d): Palette Index=%d, R=%d, G=%d, B=%d\n",type, x, y, index,
-                               palette_color.red, palette_color.green, palette_color.blue);
-                    }
-
-                } else {
-                    if(y >= between1 && y<= between2){
-                        printf("%c - Index = %d\n",type, index);
-                        printf("%c - Pixel at (%d, %d): Palette index out of range\n",type, x, y);
-                    }
-                }
-            }
-            else {
-                if(y >= between1 && y<= between2){
-                    printf("%c - Index = %d",type, row[x]);
-                    printf("%c - Pixel at (%d, %d): Color type not supported\n",type, x, y);
-                }
             }
         }
     }

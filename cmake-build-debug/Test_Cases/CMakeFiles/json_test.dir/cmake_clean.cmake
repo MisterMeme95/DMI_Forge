@@ -1,4 +1,10 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/json_test.dir/__/DMIParse.c.obj"
+  "CMakeFiles/json_test.dir/__/DMIParse.c.obj.d"
+  "CMakeFiles/json_test.dir/__/DMI_Struct.c.obj"
+  "CMakeFiles/json_test.dir/__/DMI_Struct.c.obj.d"
+  "CMakeFiles/json_test.dir/__/Icon_State.c.obj"
+  "CMakeFiles/json_test.dir/__/Icon_State.c.obj.d"
   "CMakeFiles/json_test.dir/__/PixelManip.c.obj"
   "CMakeFiles/json_test.dir/__/PixelManip.c.obj.d"
   "CMakeFiles/json_test.dir/__/cJSON/cJSON.c.obj"

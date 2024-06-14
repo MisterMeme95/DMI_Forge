@@ -6,6 +6,8 @@
 #define HORIZONTAL_FLOW 0
 #define LINEAR_FLOW 1
 #define GRIDLOCK_FLOW 2
+#define HORIZONTAL 0
+#define GRID 1
 
 #include "iconstate.h"
 #include "png.h"
@@ -16,6 +18,7 @@ typedef struct DMI_Struct {
     int width, height, num_of_states, max_state;
     icon_state *icon_states, *begin_icon_state;
 }DMI;
+
 
 int dmiToPng(DMI* dmi, int pngWidth, int pngHeight, png_bytepp orig_pointer, png_bytepp new_pointer,
              png_structp png_ptr, png_infop info_ptr, int ppb, int color_type, int output_flow_type,

@@ -8,6 +8,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "C:/Users/jonat/GitHub/DMI_Forge/DMIParse.c" "Test_Cases/CMakeFiles/json_test.dir/__/DMIParse.c.obj" "gcc" "Test_Cases/CMakeFiles/json_test.dir/__/DMIParse.c.obj.d"
+  "C:/Users/jonat/GitHub/DMI_Forge/DMI_Struct.c" "Test_Cases/CMakeFiles/json_test.dir/__/DMI_Struct.c.obj" "gcc" "Test_Cases/CMakeFiles/json_test.dir/__/DMI_Struct.c.obj.d"
+  "C:/Users/jonat/GitHub/DMI_Forge/Icon_State.c" "Test_Cases/CMakeFiles/json_test.dir/__/Icon_State.c.obj" "gcc" "Test_Cases/CMakeFiles/json_test.dir/__/Icon_State.c.obj.d"
   "C:/Users/jonat/GitHub/DMI_Forge/PixelManip.c" "Test_Cases/CMakeFiles/json_test.dir/__/PixelManip.c.obj" "gcc" "Test_Cases/CMakeFiles/json_test.dir/__/PixelManip.c.obj.d"
   "C:/Users/jonat/GitHub/DMI_Forge/cJSON/cJSON.c" "Test_Cases/CMakeFiles/json_test.dir/__/cJSON/cJSON.c.obj" "gcc" "Test_Cases/CMakeFiles/json_test.dir/__/cJSON/cJSON.c.obj.d"
   "C:/Users/jonat/GitHub/DMI_Forge/data_structure.c" "Test_Cases/CMakeFiles/json_test.dir/__/data_structure.c.obj" "gcc" "Test_Cases/CMakeFiles/json_test.dir/__/data_structure.c.obj.d"

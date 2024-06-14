@@ -5,6 +5,7 @@
 #include <png.h>
 #include "../PixelManip.h"
 #include <math.h>
+
 #include <unistd.h>
 #define MAX_NODES 400
 
@@ -253,47 +254,6 @@ void Initialize_DM(DMNode* node) {
 
 }
 
-
-void extract_tile_data(png_bytepp source_image, int local_id, png_bytepp dest_tile, int image_width, int image_height) {
-    int tile_row = local_id / 32;
-    int tile_col = local_id % 32;
-
-    int start_row = tile_row * 32;
-    int start_col = tile_col * 32;
-
-    for (int i = 0; i < 32; i++) {
-        int src_row = start_row + i;
-        if (src_row >= image_height) break; // Stay within source image bounds
-
-        for (int j = 0; j < 32; j++) {
-            int src_col = start_col + j;
-            if (src_col >= image_width) break; // Stay within source image bounds
-
-            int pixel_index = src_col * 4; // Assuming RGBA channels
-
-            // Get source pixel RGBA components
-            png_byte src_r = source_image[src_row][pixel_index];
-            png_byte src_g = source_image[src_row][pixel_index + 1];
-            png_byte src_b = source_image[src_row][pixel_index + 2];
-            png_byte src_a = source_image[src_row][pixel_index + 3];
-
-            // Normalize source alpha
-            double alpha = src_a / 255.0;
-
-            // Get destination pixel RGBA components
-            png_byte dst_r = dest_tile[i][j * 4];
-            png_byte dst_g = dest_tile[i][j * 4 + 1];
-            png_byte dst_b = dest_tile[i][j * 4 + 2];
-            png_byte dst_a = dest_tile[i][j * 4 + 3];
-
-            // Perform alpha blending
-            dest_tile[i][j * 4]     = (png_byte)(alpha * src_r + (1 - alpha) * dst_r);
-            dest_tile[i][j * 4 + 1] = (png_byte)(alpha * src_g + (1 - alpha) * dst_g);
-            dest_tile[i][j * 4 + 2] = (png_byte)(alpha * src_b + (1 - alpha) * dst_b);
-            dest_tile[i][j * 4 + 3] = (png_byte)(255 * (alpha + (1 - alpha) * (dst_a / 255.0)));
-        }
-    }
-}
 DMNode* allocate_and_initialize_nodes(size_t num_nodes) {
     DMNode* nodes = (DMNode*)malloc(num_nodes * sizeof(DMNode));
     if (nodes == NULL) {

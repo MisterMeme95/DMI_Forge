@@ -2,10 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "Test_Cases/json_test.exe"
+			"path" : "Test_Cases/dmi_verify.exe"
 		},
 		{
-			"path" : "Test_Cases/json_test.pdb"
+			"path" : "Test_Cases/dmi_verify.pdb"
 		}
 	],
 	"backtrace" : 1,
@@ -40,13 +40,13 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 6,
+				"line" : 5,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 11,
+				"line" : 10,
 				"parent" : 0
 			},
 			{
@@ -176,7 +176,7 @@
 			]
 		}
 	],
-	"id" : "json_test::@90a6c9376dfca71ba4b0",
+	"id" : "dmi_verify::@90a6c9376dfca71ba4b0",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -216,8 +216,8 @@
 		],
 		"language" : "C"
 	},
-	"name" : "json_test",
-	"nameOnDisk" : "json_test.exe",
+	"name" : "dmi_verify",
+	"nameOnDisk" : "dmi_verify.exe",
 	"paths" : 
 	{
 		"build" : "Test_Cases",
@@ -241,25 +241,25 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "Test_Cases/json_test.c",
+			"path" : "Test_Cases/DMI_Verify.c",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "cJSON/cJSON.c",
+			"path" : "DMI_Struct.c",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "PixelManip.c",
+			"path" : "DMIParse.c",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "data_structure.c",
+			"path" : "Icon_State.c",
 			"sourceGroupIndex" : 0
 		}
 	],

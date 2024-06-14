@@ -155,6 +155,19 @@ png_transform/fast:
 .PHONY : png_transform/fast
 
 #=============================================================================
+# Target rules for targets named partition_test
+
+# Build rule for target.
+partition_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 partition_test
+.PHONY : partition_test
+
+# fast build rule for target.
+partition_test/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\partition_test.dir\build.make CMakeFiles/partition_test.dir/build
+.PHONY : partition_test/fast
+
+#=============================================================================
 # Target rules for targets named aespritefix
 
 # Build rule for target.
@@ -274,6 +287,8 @@ DMIParse.obj: DMIParse.c.obj
 DMIParse.c.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DMI_Forge.dir\build.make CMakeFiles/DMI_Forge.dir/DMIParse.c.obj
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dmi2sheet.dir\build.make CMakeFiles/dmi2sheet.dir/DMIParse.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\png_transform.dir\build.make CMakeFiles/png_transform.dir/DMIParse.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\partition_test.dir\build.make CMakeFiles/partition_test.dir/DMIParse.c.obj
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\aespritefix.dir\build.make CMakeFiles/aespritefix.dir/DMIParse.c.obj
 .PHONY : DMIParse.c.obj
 
@@ -284,6 +299,8 @@ DMIParse.i: DMIParse.c.i
 DMIParse.c.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DMI_Forge.dir\build.make CMakeFiles/DMI_Forge.dir/DMIParse.c.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dmi2sheet.dir\build.make CMakeFiles/dmi2sheet.dir/DMIParse.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\png_transform.dir\build.make CMakeFiles/png_transform.dir/DMIParse.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\partition_test.dir\build.make CMakeFiles/partition_test.dir/DMIParse.c.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\aespritefix.dir\build.make CMakeFiles/aespritefix.dir/DMIParse.c.i
 .PHONY : DMIParse.c.i
 
@@ -294,6 +311,8 @@ DMIParse.s: DMIParse.c.s
 DMIParse.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DMI_Forge.dir\build.make CMakeFiles/DMI_Forge.dir/DMIParse.c.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dmi2sheet.dir\build.make CMakeFiles/dmi2sheet.dir/DMIParse.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\png_transform.dir\build.make CMakeFiles/png_transform.dir/DMIParse.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\partition_test.dir\build.make CMakeFiles/partition_test.dir/DMIParse.c.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\aespritefix.dir\build.make CMakeFiles/aespritefix.dir/DMIParse.c.s
 .PHONY : DMIParse.c.s
 
@@ -304,6 +323,8 @@ DMI_Struct.obj: DMI_Struct.c.obj
 DMI_Struct.c.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DMI_Forge.dir\build.make CMakeFiles/DMI_Forge.dir/DMI_Struct.c.obj
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dmi2sheet.dir\build.make CMakeFiles/dmi2sheet.dir/DMI_Struct.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\png_transform.dir\build.make CMakeFiles/png_transform.dir/DMI_Struct.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\partition_test.dir\build.make CMakeFiles/partition_test.dir/DMI_Struct.c.obj
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\aespritefix.dir\build.make CMakeFiles/aespritefix.dir/DMI_Struct.c.obj
 .PHONY : DMI_Struct.c.obj
 
@@ -314,6 +335,8 @@ DMI_Struct.i: DMI_Struct.c.i
 DMI_Struct.c.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DMI_Forge.dir\build.make CMakeFiles/DMI_Forge.dir/DMI_Struct.c.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dmi2sheet.dir\build.make CMakeFiles/dmi2sheet.dir/DMI_Struct.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\png_transform.dir\build.make CMakeFiles/png_transform.dir/DMI_Struct.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\partition_test.dir\build.make CMakeFiles/partition_test.dir/DMI_Struct.c.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\aespritefix.dir\build.make CMakeFiles/aespritefix.dir/DMI_Struct.c.i
 .PHONY : DMI_Struct.c.i
 
@@ -324,6 +347,8 @@ DMI_Struct.s: DMI_Struct.c.s
 DMI_Struct.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DMI_Forge.dir\build.make CMakeFiles/DMI_Forge.dir/DMI_Struct.c.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dmi2sheet.dir\build.make CMakeFiles/dmi2sheet.dir/DMI_Struct.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\png_transform.dir\build.make CMakeFiles/png_transform.dir/DMI_Struct.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\partition_test.dir\build.make CMakeFiles/partition_test.dir/DMI_Struct.c.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\aespritefix.dir\build.make CMakeFiles/aespritefix.dir/DMI_Struct.c.s
 .PHONY : DMI_Struct.c.s
 
@@ -334,6 +359,8 @@ Icon_State.obj: Icon_State.c.obj
 Icon_State.c.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DMI_Forge.dir\build.make CMakeFiles/DMI_Forge.dir/Icon_State.c.obj
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dmi2sheet.dir\build.make CMakeFiles/dmi2sheet.dir/Icon_State.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\png_transform.dir\build.make CMakeFiles/png_transform.dir/Icon_State.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\partition_test.dir\build.make CMakeFiles/partition_test.dir/Icon_State.c.obj
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\aespritefix.dir\build.make CMakeFiles/aespritefix.dir/Icon_State.c.obj
 .PHONY : Icon_State.c.obj
 
@@ -344,6 +371,8 @@ Icon_State.i: Icon_State.c.i
 Icon_State.c.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DMI_Forge.dir\build.make CMakeFiles/DMI_Forge.dir/Icon_State.c.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dmi2sheet.dir\build.make CMakeFiles/dmi2sheet.dir/Icon_State.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\png_transform.dir\build.make CMakeFiles/png_transform.dir/Icon_State.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\partition_test.dir\build.make CMakeFiles/partition_test.dir/Icon_State.c.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\aespritefix.dir\build.make CMakeFiles/aespritefix.dir/Icon_State.c.i
 .PHONY : Icon_State.c.i
 
@@ -354,6 +383,8 @@ Icon_State.s: Icon_State.c.s
 Icon_State.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DMI_Forge.dir\build.make CMakeFiles/DMI_Forge.dir/Icon_State.c.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\dmi2sheet.dir\build.make CMakeFiles/dmi2sheet.dir/Icon_State.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\png_transform.dir\build.make CMakeFiles/png_transform.dir/Icon_State.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\partition_test.dir\build.make CMakeFiles/partition_test.dir/Icon_State.c.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\aespritefix.dir\build.make CMakeFiles/aespritefix.dir/Icon_State.c.s
 .PHONY : Icon_State.c.s
 
@@ -363,6 +394,7 @@ PixelManip.obj: PixelManip.c.obj
 # target to build an object file
 PixelManip.c.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\png_transform.dir\build.make CMakeFiles/png_transform.dir/PixelManip.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\partition_test.dir\build.make CMakeFiles/partition_test.dir/PixelManip.c.obj
 .PHONY : PixelManip.c.obj
 
 PixelManip.i: PixelManip.c.i
@@ -371,6 +403,7 @@ PixelManip.i: PixelManip.c.i
 # target to preprocess a source file
 PixelManip.c.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\png_transform.dir\build.make CMakeFiles/png_transform.dir/PixelManip.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\partition_test.dir\build.make CMakeFiles/partition_test.dir/PixelManip.c.i
 .PHONY : PixelManip.c.i
 
 PixelManip.s: PixelManip.c.s
@@ -379,6 +412,7 @@ PixelManip.s: PixelManip.c.s
 # target to generate assembly for a file
 PixelManip.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\png_transform.dir\build.make CMakeFiles/png_transform.dir/PixelManip.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\partition_test.dir\build.make CMakeFiles/partition_test.dir/PixelManip.c.s
 .PHONY : PixelManip.c.s
 
 data_structure.obj: data_structure.c.obj
@@ -387,6 +421,7 @@ data_structure.obj: data_structure.c.obj
 # target to build an object file
 data_structure.c.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\png_transform.dir\build.make CMakeFiles/png_transform.dir/data_structure.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\partition_test.dir\build.make CMakeFiles/partition_test.dir/data_structure.c.obj
 .PHONY : data_structure.c.obj
 
 data_structure.i: data_structure.c.i
@@ -395,6 +430,7 @@ data_structure.i: data_structure.c.i
 # target to preprocess a source file
 data_structure.c.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\png_transform.dir\build.make CMakeFiles/png_transform.dir/data_structure.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\partition_test.dir\build.make CMakeFiles/partition_test.dir/data_structure.c.i
 .PHONY : data_structure.c.i
 
 data_structure.s: data_structure.c.s
@@ -403,6 +439,7 @@ data_structure.s: data_structure.c.s
 # target to generate assembly for a file
 data_structure.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\png_transform.dir\build.make CMakeFiles/png_transform.dir/data_structure.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\partition_test.dir\build.make CMakeFiles/partition_test.dir/data_structure.c.s
 .PHONY : data_structure.c.s
 
 main.obj: main.c.obj
@@ -428,6 +465,30 @@ main.s: main.c.s
 main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DMI_Forge.dir\build.make CMakeFiles/DMI_Forge.dir/main.c.s
 .PHONY : main.c.s
+
+partition_test.obj: partition_test.c.obj
+.PHONY : partition_test.obj
+
+# target to build an object file
+partition_test.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\partition_test.dir\build.make CMakeFiles/partition_test.dir/partition_test.c.obj
+.PHONY : partition_test.c.obj
+
+partition_test.i: partition_test.c.i
+.PHONY : partition_test.i
+
+# target to preprocess a source file
+partition_test.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\partition_test.dir\build.make CMakeFiles/partition_test.dir/partition_test.c.i
+.PHONY : partition_test.c.i
+
+partition_test.s: partition_test.c.s
+.PHONY : partition_test.s
+
+# target to generate assembly for a file
+partition_test.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\partition_test.dir\build.make CMakeFiles/partition_test.dir/partition_test.c.s
+.PHONY : partition_test.c.s
 
 png_transform.obj: png_transform.c.obj
 .PHONY : png_transform.obj
@@ -468,6 +529,7 @@ help:
 	@echo ... dmi_verify
 	@echo ... image_convert
 	@echo ... json_test
+	@echo ... partition_test
 	@echo ... png_transform
 	@echo ... Aesprite_Fixer.obj
 	@echo ... Aesprite_Fixer.i
@@ -493,6 +555,9 @@ help:
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
+	@echo ... partition_test.obj
+	@echo ... partition_test.i
+	@echo ... partition_test.s
 	@echo ... png_transform.obj
 	@echo ... png_transform.i
 	@echo ... png_transform.s

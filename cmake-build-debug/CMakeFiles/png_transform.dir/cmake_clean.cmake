@@ -1,4 +1,10 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/png_transform.dir/DMIParse.c.obj"
+  "CMakeFiles/png_transform.dir/DMIParse.c.obj.d"
+  "CMakeFiles/png_transform.dir/DMI_Struct.c.obj"
+  "CMakeFiles/png_transform.dir/DMI_Struct.c.obj.d"
+  "CMakeFiles/png_transform.dir/Icon_State.c.obj"
+  "CMakeFiles/png_transform.dir/Icon_State.c.obj.d"
   "CMakeFiles/png_transform.dir/PixelManip.c.obj"
   "CMakeFiles/png_transform.dir/PixelManip.c.obj.d"
   "CMakeFiles/png_transform.dir/data_structure.c.obj"

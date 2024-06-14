@@ -1,5 +1,3 @@
-
-
 /* ************************
  *
  * Bit Depth 4 Masks ******
@@ -145,7 +143,6 @@
  * This flag represents 254 in decimal, and 11111110 in binary. */
 #define BIT1_8_OFF 0xFE
 
-
 #include "png.h"
 
 /** @Description Pixel_Data is a struct that provides a unified way to dynamically reference different types of pixel
@@ -189,6 +186,15 @@ typedef struct PNG_Node {
     struct PNG_Node *prev;
 } node;
 
+typedef struct {
+    png_bytepp frame_data;
+}Frame;
+
+typedef struct Frame_ArrayStruct{
+    int color_type, bit_depth, width, height;
+    png_colorp palette;
+    Frame* array;
+} Frame_Array;
 
 typedef struct palette_hash_table {
     const int MAX_VALUE;
@@ -274,12 +280,11 @@ void Transform_Indexed_PNG(Pixel_Data pixel, Pixel_Data* new_pixel, int target_c
 /**
  * @Description Transforms the pixel into a specified color type and bit depth.
  *
- *
  * This function converts the color representation and bit depth of a given pixel to the target specifications.
  * It supports various color types and bit depths, providing flexibility in how pixel data is processed and stored.
  * It works by using various subroutines like: [INCLUDE THEM HERE]
  *
- * @param pixel The pixel data to be transformed.
+ * @param pixel DMThe pixel data to be transformed.
  * @param target_color_type - The desired color type for the transformed pixel.
  * @param target_bit_depth - The desired bit depth for the transformed pixel.
  * @return A new Pixel_Data structure containing the transformed pixel data.
@@ -307,3 +312,7 @@ void Initialize_Pixel2(Pixel_Data* pixel, int color_type, int bit_depth);
 void Initialize_PNG(png_structp* read_ptr, png_infop* read_info_ptr, FILE* input_file);
 void Initialize_PNG_Writer(png_structp* write_ptr, png_infop* write_info_ptr, FILE* output_file);
 void Initialize_PNG_Reader(png_structp* read_ptr, png_infop* read_info_ptr, FILE* input_file);
+Frame_Array Frame_Partition(png_bytepp image, int bit_depth, int png_width, int png_height, int frame_width,
+                            int frame_height, int color_type);
+int Get_Pixel_Size(int bit_depth, int color_type);
+int calculate_frame_count(int frame_width, int frame_height, int png_width, int png_height);

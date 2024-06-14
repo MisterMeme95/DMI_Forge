@@ -250,6 +250,7 @@ __/DMIParse.obj: __/DMIParse.c.obj
 __/DMIParse.c.obj:
 	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\Test_Cases.dir\build.make Test_Cases/CMakeFiles/Test_Cases.dir/__/DMIParse.c.obj
 	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\dmi_verify.dir\build.make Test_Cases/CMakeFiles/dmi_verify.dir/__/DMIParse.c.obj
+	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\json_test.dir\build.make Test_Cases/CMakeFiles/json_test.dir/__/DMIParse.c.obj
 	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\image_convert.dir\build.make Test_Cases/CMakeFiles/image_convert.dir/__/DMIParse.c.obj
 .PHONY : __/DMIParse.c.obj
 
@@ -260,6 +261,7 @@ __/DMIParse.i: __/DMIParse.c.i
 __/DMIParse.c.i:
 	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\Test_Cases.dir\build.make Test_Cases/CMakeFiles/Test_Cases.dir/__/DMIParse.c.i
 	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\dmi_verify.dir\build.make Test_Cases/CMakeFiles/dmi_verify.dir/__/DMIParse.c.i
+	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\json_test.dir\build.make Test_Cases/CMakeFiles/json_test.dir/__/DMIParse.c.i
 	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\image_convert.dir\build.make Test_Cases/CMakeFiles/image_convert.dir/__/DMIParse.c.i
 .PHONY : __/DMIParse.c.i
 
@@ -270,6 +272,7 @@ __/DMIParse.s: __/DMIParse.c.s
 __/DMIParse.c.s:
 	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\Test_Cases.dir\build.make Test_Cases/CMakeFiles/Test_Cases.dir/__/DMIParse.c.s
 	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\dmi_verify.dir\build.make Test_Cases/CMakeFiles/dmi_verify.dir/__/DMIParse.c.s
+	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\json_test.dir\build.make Test_Cases/CMakeFiles/json_test.dir/__/DMIParse.c.s
 	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\image_convert.dir\build.make Test_Cases/CMakeFiles/image_convert.dir/__/DMIParse.c.s
 .PHONY : __/DMIParse.c.s
 
@@ -280,6 +283,7 @@ __/DMI_Struct.obj: __/DMI_Struct.c.obj
 __/DMI_Struct.c.obj:
 	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\Test_Cases.dir\build.make Test_Cases/CMakeFiles/Test_Cases.dir/__/DMI_Struct.c.obj
 	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\dmi_verify.dir\build.make Test_Cases/CMakeFiles/dmi_verify.dir/__/DMI_Struct.c.obj
+	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\json_test.dir\build.make Test_Cases/CMakeFiles/json_test.dir/__/DMI_Struct.c.obj
 	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\image_convert.dir\build.make Test_Cases/CMakeFiles/image_convert.dir/__/DMI_Struct.c.obj
 .PHONY : __/DMI_Struct.c.obj
 
@@ -290,6 +294,7 @@ __/DMI_Struct.i: __/DMI_Struct.c.i
 __/DMI_Struct.c.i:
 	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\Test_Cases.dir\build.make Test_Cases/CMakeFiles/Test_Cases.dir/__/DMI_Struct.c.i
 	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\dmi_verify.dir\build.make Test_Cases/CMakeFiles/dmi_verify.dir/__/DMI_Struct.c.i
+	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\json_test.dir\build.make Test_Cases/CMakeFiles/json_test.dir/__/DMI_Struct.c.i
 	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\image_convert.dir\build.make Test_Cases/CMakeFiles/image_convert.dir/__/DMI_Struct.c.i
 .PHONY : __/DMI_Struct.c.i
 
@@ -300,6 +305,7 @@ __/DMI_Struct.s: __/DMI_Struct.c.s
 __/DMI_Struct.c.s:
 	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\Test_Cases.dir\build.make Test_Cases/CMakeFiles/Test_Cases.dir/__/DMI_Struct.c.s
 	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\dmi_verify.dir\build.make Test_Cases/CMakeFiles/dmi_verify.dir/__/DMI_Struct.c.s
+	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\json_test.dir\build.make Test_Cases/CMakeFiles/json_test.dir/__/DMI_Struct.c.s
 	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\image_convert.dir\build.make Test_Cases/CMakeFiles/image_convert.dir/__/DMI_Struct.c.s
 .PHONY : __/DMI_Struct.c.s
 
@@ -310,6 +316,7 @@ __/Icon_State.obj: __/Icon_State.c.obj
 __/Icon_State.c.obj:
 	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\Test_Cases.dir\build.make Test_Cases/CMakeFiles/Test_Cases.dir/__/Icon_State.c.obj
 	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\dmi_verify.dir\build.make Test_Cases/CMakeFiles/dmi_verify.dir/__/Icon_State.c.obj
+	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\json_test.dir\build.make Test_Cases/CMakeFiles/json_test.dir/__/Icon_State.c.obj
 	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\image_convert.dir\build.make Test_Cases/CMakeFiles/image_convert.dir/__/Icon_State.c.obj
 .PHONY : __/Icon_State.c.obj
 
@@ -320,6 +327,7 @@ __/Icon_State.i: __/Icon_State.c.i
 __/Icon_State.c.i:
 	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\Test_Cases.dir\build.make Test_Cases/CMakeFiles/Test_Cases.dir/__/Icon_State.c.i
 	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\dmi_verify.dir\build.make Test_Cases/CMakeFiles/dmi_verify.dir/__/Icon_State.c.i
+	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\json_test.dir\build.make Test_Cases/CMakeFiles/json_test.dir/__/Icon_State.c.i
 	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\image_convert.dir\build.make Test_Cases/CMakeFiles/image_convert.dir/__/Icon_State.c.i
 .PHONY : __/Icon_State.c.i
 
@@ -330,6 +338,7 @@ __/Icon_State.s: __/Icon_State.c.s
 __/Icon_State.c.s:
 	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\Test_Cases.dir\build.make Test_Cases/CMakeFiles/Test_Cases.dir/__/Icon_State.c.s
 	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\dmi_verify.dir\build.make Test_Cases/CMakeFiles/dmi_verify.dir/__/Icon_State.c.s
+	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\json_test.dir\build.make Test_Cases/CMakeFiles/json_test.dir/__/Icon_State.c.s
 	cd /d C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug && $(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\image_convert.dir\build.make Test_Cases/CMakeFiles/image_convert.dir/__/Icon_State.c.s
 .PHONY : __/Icon_State.c.s
 

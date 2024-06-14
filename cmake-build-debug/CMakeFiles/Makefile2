@@ -65,6 +65,7 @@ CMAKE_BINARY_DIR = C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug
 all: CMakeFiles/DMI_Forge.dir/all
 all: CMakeFiles/dmi2sheet.dir/all
 all: CMakeFiles/png_transform.dir/all
+all: CMakeFiles/partition_test.dir/all
 all: CMakeFiles/aespritefix.dir/all
 all: Test_Cases/all
 .PHONY : all
@@ -77,6 +78,7 @@ preinstall: Test_Cases/preinstall
 clean: CMakeFiles/DMI_Forge.dir/clean
 clean: CMakeFiles/dmi2sheet.dir/clean
 clean: CMakeFiles/png_transform.dir/clean
+clean: CMakeFiles/partition_test.dir/clean
 clean: CMakeFiles/aespritefix.dir/clean
 clean: Test_Cases/clean
 .PHONY : clean
@@ -161,12 +163,12 @@ CMakeFiles/dmi2sheet.dir/clean:
 CMakeFiles/png_transform.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\png_transform.dir\build.make CMakeFiles/png_transform.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\png_transform.dir\build.make CMakeFiles/png_transform.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles --progress-num=38,39,40,41 "Built target png_transform"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles --progress-num=48,49,50,51,52,53,54 "Built target png_transform"
 .PHONY : CMakeFiles/png_transform.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/png_transform.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles 7
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/png_transform.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles 0
 .PHONY : CMakeFiles/png_transform.dir/rule
@@ -179,6 +181,32 @@ png_transform: CMakeFiles/png_transform.dir/rule
 CMakeFiles/png_transform.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\png_transform.dir\build.make CMakeFiles/png_transform.dir/clean
 .PHONY : CMakeFiles/png_transform.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/partition_test.dir
+
+# All Build rule for target.
+CMakeFiles/partition_test.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\partition_test.dir\build.make CMakeFiles/partition_test.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\partition_test.dir\build.make CMakeFiles/partition_test.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles --progress-num=41,42,43,44,45,46,47 "Built target partition_test"
+.PHONY : CMakeFiles/partition_test.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/partition_test.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles 7
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/partition_test.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles 0
+.PHONY : CMakeFiles/partition_test.dir/rule
+
+# Convenience name for target.
+partition_test: CMakeFiles/partition_test.dir/rule
+.PHONY : partition_test
+
+# clean rule for target.
+CMakeFiles/partition_test.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\partition_test.dir\build.make CMakeFiles/partition_test.dir/clean
+.PHONY : CMakeFiles/partition_test.dir/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/aespritefix.dir
@@ -265,12 +293,12 @@ Test_Cases/CMakeFiles/dmi_verify.dir/clean:
 Test_Cases/CMakeFiles/json_test.dir/all:
 	$(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\json_test.dir\build.make Test_Cases/CMakeFiles/json_test.dir/depend
 	$(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\json_test.dir\build.make Test_Cases/CMakeFiles/json_test.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles --progress-num=33,34,35,36,37 "Built target json_test"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles --progress-num=33,34,35,36,37,38,39,40 "Built target json_test"
 .PHONY : Test_Cases/CMakeFiles/json_test.dir/all
 
 # Build rule for subdir invocation for target.
 Test_Cases/CMakeFiles/json_test.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles 8
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 Test_Cases/CMakeFiles/json_test.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles 0
 .PHONY : Test_Cases/CMakeFiles/json_test.dir/rule

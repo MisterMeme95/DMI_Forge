@@ -2,10 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "aespritefix.exe"
+			"path" : "Test_Cases/json_test.exe"
 		},
 		{
-			"path" : "aespritefix.pdb"
+			"path" : "Test_Cases/json_test.pdb"
 		}
 	],
 	"backtrace" : 1,
@@ -22,7 +22,7 @@
 		],
 		"files" : 
 		[
-			"CMakeLists.txt",
+			"Test_Cases/CMakeLists.txt",
 			"cmake-build-debug/conan/build/Debug/generators/PNG-Target-debug.cmake",
 			"cmake-build-debug/conan/build/Debug/generators/PNGTargets.cmake",
 			"cmake-build-debug/conan/build/Debug/generators/PNGConfig.cmake",
@@ -40,19 +40,19 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 12,
+				"line" : 6,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 19,
+				"line" : 13,
 				"parent" : 0
 			},
 			{
 				"command" : 4,
 				"file" : 0,
-				"line" : 16,
+				"line" : 2,
 				"parent" : 0
 			},
 			{
@@ -172,11 +172,14 @@
 				0,
 				1,
 				2,
-				3
+				3,
+				4,
+				5,
+				6
 			]
 		}
 	],
-	"id" : "aespritefix::@6890427a1f51a3e7e1df",
+	"id" : "json_test::@90a6c9376dfca71ba4b0",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -216,12 +219,12 @@
 		],
 		"language" : "C"
 	},
-	"name" : "aespritefix",
-	"nameOnDisk" : "aespritefix.exe",
+	"name" : "json_test",
+	"nameOnDisk" : "json_test.exe",
 	"paths" : 
 	{
-		"build" : ".",
-		"source" : "."
+		"build" : "Test_Cases",
+		"source" : "Test_Cases"
 	},
 	"sourceGroups" : 
 	[
@@ -232,7 +235,10 @@
 				0,
 				1,
 				2,
-				3
+				3,
+				4,
+				5,
+				6
 			]
 		}
 	],
@@ -241,7 +247,31 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "Aesprite_Fixer.c",
+			"path" : "Test_Cases/json_test.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "cJSON/cJSON.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "PixelManip.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "data_structure.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "DMI_Struct.c",
 			"sourceGroupIndex" : 0
 		},
 		{
@@ -254,12 +284,6 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "Icon_State.c",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "DMI_Struct.c",
 			"sourceGroupIndex" : 0
 		}
 	],

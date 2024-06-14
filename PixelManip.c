@@ -1,4 +1,5 @@
 #include "data_structure.h"
+#include "dmi.h"
 #include <stdlib.h>
 #include <unistd.h>
 #include <math.h>
@@ -111,7 +112,7 @@ Pixel_Data Pixel_Transformation(Pixel_Data pixel, int target_color_type, int tar
     pixel_transformed.color_type = target_color_type;
     pixel_transformed.byte_data = NULL;
     pixel_transformed.bit_depth = target_bit_depth;
-
+    Initialize_Pixel(&pixel_transformed.byte_data, target_color_type, target_bit_depth);
     if(pixel.color_type == PNG_COLOR_TYPE_PALETTE){
         Transform_Indexed_PNG(pixel, &pixel_transformed, target_color_type,
                               target_bit_depth);
@@ -300,20 +301,14 @@ Pixel_Data Get_Pixel(png_bytepp image, int x_coord, int y_coord, int color_type,
             pixel_data = pixel_data & BIT1_6_ON;
             pixel_data = (pixel_data >> pixel_bit_shift);
         }
-
         else if(pixel_in_byte == 6){
             pixel_data = pixel_data & BIT1_7_ON;
             pixel_data = (pixel_data >> pixel_bit_shift);
         }
-
         else {
             pixel_data = pixel_data & BIT1_7_ON;
         }
-
     }
-
-
-
     if(color_type == PNG_COLOR_TYPE_PALETTE){
         //printf("Num_Trans - %d\nPixel_Date = %d\n", *num_trans, pixel_data);
 
@@ -321,29 +316,15 @@ Pixel_Data Get_Pixel(png_bytepp image, int x_coord, int y_coord, int color_type,
          * This allows us to store the data in selected_color.*/
         png_color selected_color = palette[pixel_data];
 
-
-        /* From there, we simply copy the values from png_color into a png_byte array.*/
-        //[0] = selected_color.red;
-        //pixel.byte_data[1] = selected_color.green;
-        //pixel.byte_data[2] = selected_color.blue;
-      //  if(pixel_data != 0){
-         //   printf("pixel_data = %d",pixel_data);
-           // sleep(10);
-        //}
-
-
-
-       // printf("Selected color. .(%d, %d, %d)\n", selected_color.red, selected_color.green, selected_color.blue);
         pixel.color_data->red = selected_color.red;//100;
         pixel.color_data->green = selected_color.green;
         pixel.color_data->blue = selected_color.blue;
-
 
         /* Next up, if the index that we have in our pixel_data is less than the number of indexes in the
          * trans_alpha array, then we know that our selected color has an alpha value that is not 255.
          * Let's just copy that over. */
         if(pixel_data < (*num_trans)){
-            pixel.alpha_channel = 0;
+            pixel.alpha_channel = trans_alpha[pixel_data];
         }
 
             /* Otherwise, the alpha value is 255.*/
@@ -529,122 +510,6 @@ png_channels Get_Channels(const Pixel_Data pixel, int pixel_color_type, int pixe
     return_channel.alpha = Get_Alpha_Channel(pixel);
 
     return return_channel;
-    /*
-    switch(pixel_color_type){
-        case PNG_COLOR_TYPE_RGBA:
-            if(pixel_bit_depth == 16){
-                int red_first_byte = pixel[0] << 8;
-                int red_second_byte = pixel[1];
-                int red_resultant = red_first_byte + red_second_byte;
-
-                return_channel.red = red_resultant;
-
-                int green_first_byte = pixel[2] << 8;
-                int green_second_byte = pixel[3];
-                int green_resultant = green_first_byte + green_second_byte;
-
-                return_channel.green = green_resultant;
-
-
-
-                int blue_first_byte = pixel[4] << 8;
-                int blue_second_byte = pixel[5];
-                int blue_resultant = blue_first_byte + blue_second_byte;
-                return_channel.blue = blue_resultant;
-
-
-                int alpha_first_byte = pixel[6] << 8;
-                int alpha_second_byte = pixel[7];
-                int alpha_resultant = alpha_first_byte + alpha_second_byte;
-                return_channel.alpha = alpha_resultant;
-
-            }
-
-            else {
-                return_channel.red = pixel[0];
-                return_channel.green = pixel[1];
-                return_channel.blue = pixel[2];
-                return_channel.alpha = pixel[3];
-            }
-
-            break;
-        case PNG_COLOR_TYPE_RGB:
-            if(pixel_bit_depth == 16){
-                int red_first_byte = pixel[0] << 8;
-                int red_second_byte = pixel[1];
-                int red_resultant = red_first_byte + red_second_byte;
-
-                return_channel.red = red_resultant;
-
-                int green_first_byte = pixel[2] << 8;
-                int green_second_byte = pixel[3];
-                int green_resultant = green_first_byte + green_second_byte;
-
-                return_channel.green = green_resultant;
-
-
-
-                int blue_first_byte = pixel[4] << 8;
-                int blue_second_byte = pixel[5];
-                int blue_resultant = blue_first_byte + blue_second_byte;
-                return_channel.blue = blue_resultant;
-                return_channel.alpha = 255;
-            }
-
-            else {
-                return_channel.red = pixel[0];
-                return_channel.green = pixel[1];
-                return_channel.blue = pixel[2];
-                return_channel.alpha = 255;
-            }
-            break;
-        case PNG_COLOR_TYPE_GRAY_ALPHA:
-            if(pixel_bit_depth == 16){
-                int red_first_byte = pixel[0] << 8;
-                int red_second_byte = pixel[1];
-                int red_resultant = red_first_byte + red_second_byte;
-
-                return_channel.red = red_resultant;
-                return_channel.green = red_resultant;
-                return_channel.blue = red_resultant;
-
-                int alpha_first_byte = pixel[2] << 8;
-                int alpha_second_byte = pixel[3];
-                int alpha_resultant = alpha_first_byte + alpha_second_byte;
-                return_channel.alpha = alpha_resultant;
-            }
-
-            else {
-                return_channel.red = pixel[0];
-                return_channel.green = pixel[0];
-                return_channel.blue = pixel[0];
-                return_channel.alpha = pixel[1];
-            }
-            break;
-        case PNG_COLOR_TYPE_GRAY:
-            if(pixel_bit_depth == 16){
-                int red_first_byte = pixel[0] << 8;
-                int red_second_byte = pixel[1];
-                int red_resultant = red_first_byte + red_second_byte;
-
-                return_channel.red = red_resultant;
-                return_channel.green = red_resultant;
-                return_channel.blue = red_resultant;
-            }
-            else {
-                return_channel.red = pixel[0];
-                return_channel.green = pixel[0];
-                return_channel.blue = pixel[0];
-            }
-
-            break;
-
-        default:
-            break;
-    }
-
-    return return_channel;
-     */
 }
 /** I think this is to get a png_color from a png_byte. */
 png_color Byte_To_Color(const png_byte* pixel, int color_type, png_bytep trans_byte){
@@ -678,6 +543,88 @@ png_color Byte_To_Color(const png_byte* pixel, int color_type, png_bytep trans_b
         palette_pixel.blue = 1;
     }
     return palette_pixel;
+}
+
+int calculate_frame_count(int frame_width, int frame_height, int png_width, int png_height) {
+    int frames_per_row = png_width / frame_width;
+    int frames_per_column = png_height / frame_height;
+    return frames_per_row * frames_per_column;
+}
+
+
+int Get_Pixel_Size(int bit_depth, int color_type) {
+    int channels;
+    switch (color_type) {
+        case PNG_COLOR_TYPE_GRAY:
+            channels = 1;
+            break;
+        case PNG_COLOR_TYPE_RGB:
+            channels = 3;
+            break;
+        case PNG_COLOR_TYPE_PALETTE:
+            channels = 1;  // Palette entries are indexed, typically 1 byte per pixel
+            break;
+        case PNG_COLOR_TYPE_GRAY_ALPHA:
+            channels = 2;
+            break;
+        case PNG_COLOR_TYPE_RGBA:
+            channels = 4;
+            break;
+        default:
+            fprintf(stderr, "Unsupported color type\n");
+            return 0;
+    }
+    return channels * (bit_depth / 8);  // Calculate the pixel size in bytes
+}
+
+size_t Get_Bytes_Per_Row(int bit_depth, int color_type, int image_width) {
+    int channels = Get_Pixel_Size(bit_depth, color_type);
+    size_t row_bits = image_width * channels * bit_depth;
+    size_t row_bytes = (row_bits + 7) / 8;  // Equivalent to ceil(row_bits / 8.0)
+    return row_bytes;
+}
+
+//void Initialize_Frames(Frame_Array array, png_structp png_ptr, png_infop info_ptr){
+//    png_get_PLTE(png_ptr, info_ptr, array.palette, NULL);
+//}
+
+Frame_Array Frame_Partition(png_bytepp image, int bit_depth, int png_width, int png_height, int frame_width,
+                            int frame_height, int color_type){
+
+    /* Calculate # of frames in the image. Malloc new_frames.array to # of frames. */
+    int num_of_frames = calculate_frame_count(frame_width, frame_height, png_width, png_height);
+    int current_frame = 0;
+
+
+    size_t row_bytes = Get_Bytes_Per_Row(bit_depth, color_type, frame_width);
+    Frame_Array new_frames;
+    new_frames.array = (Frame*)malloc(sizeof(Frame) * num_of_frames);
+
+    if (new_frames.array == NULL) {
+        fprintf(stderr, "Failed to allocate memory for frames array\n");
+        exit(EXIT_FAILURE);
+    }
+
+    new_frames.color_type = color_type;
+    new_frames.bit_depth = bit_depth;
+    int pixel_size = Get_Pixel_Size(bit_depth, color_type);
+
+    for(int o = 0; o < png_height; o+= frame_height) {
+        for (int i = 0; i < png_width; i += frame_width) {
+            Frame new_frame;
+            new_frame.frame_data = (png_bytepp) malloc(sizeof(png_bytep) * frame_height);
+            for(int row = 0; row < frame_height; row++){
+                new_frame.frame_data[row] = (png_bytep) malloc(row_bytes);
+            }
+
+            Get_Frame(new_frame.frame_data, image, 0, 0,
+                      o, i*pixel_size, (int)row_bytes, frame_height);
+            new_frames.array[current_frame] = new_frame;
+            current_frame++;
+        }
+    }
+
+    return new_frames;
 }
 
 void Initialize_Pixel2(Pixel_Data* pixel, int color_type, int bit_depth){
@@ -1060,15 +1007,18 @@ void Transform_Indexed_PNG(Pixel_Data pixel, Pixel_Data* new_pixel, int target_c
             target_pixel[1] = pixel.color_data->green;
             target_pixel[2] = pixel.color_data->blue;
             target_pixel[3] = pixel.alpha_channel;
+            memcpy(new_pixel->byte_data, target_pixel, sizeof(png_byte) * 4);
         }
         else {
             target_pixel[0] = pixel.color_data->red;
             target_pixel[2] = pixel.color_data->green;
             target_pixel[4] = pixel.color_data->blue;
             target_pixel[6] = pixel.alpha_channel;
+            memcpy(new_pixel->byte_data, target_pixel, sizeof(png_byte) * 8);
         }
         new_pixel->color_type = PNG_COLOR_TYPE_RGBA;
-        new_pixel->byte_data = target_pixel;
+
+        //new_pixel->byte_data = target_pixel;
     }
 
     else if(target_color_type == PNG_COLOR_TYPE_GRAY){

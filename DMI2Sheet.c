@@ -1,6 +1,3 @@
-//
-// Created by jonat on 10/6/2023.
-//
 #include <unistd.h>
 #include <stdlib.h>
 #include "png.h"
@@ -9,28 +6,7 @@
 
 
 #define STDERR stdout
-/*
- * -l, --layout: layout for the sprite sheet. HORIZONTAL_FLOW, VERTICAL_FLOW, GRIDLOCK_FLOW
- * -s, --size:  Size of the sprite. W x H where W = width and H = height. By default, the size is automatically
- *              set to whatver the height/width is for the DMI. If the manually set size is less, the program
- *              should automatically ask for confirmation if you want to split up the frames in portions.
- *
- *              Otherwise, if it is larger, I need to create program to off set the canvas.
- *
- * -r, --rows: Num of Rows in sprite sheet.
- * -c, --cols: num of cols in sprite sheet produced.
- * -p, --padding: The amount of padding between each frame.
- * -b, -background: set background color for the sprite sheet. Only valid for non-RGBA sprites.
- * -o, --overwrite: Set overwrite settings. [Yes, no, ask.]
- * -f, --force: ignores all prompts, so causing overwrite will go through automatically, no prompt for changing size, etc.
- * -m, --metadata: copy to a dmt file.
- * -d, --directory <path>: Where to send output file. By default, it will be relative path.
- * -t, --transform: Flip, rotate, etc.
- * */
-
-typedef struct LinkedList{
-
-}linked_list;
+#define INVALID -100
 
 void changeExtension(char* filename, const char* newExt) {
     char* extPos = strstr(filename, "dmi");
@@ -38,6 +14,40 @@ void changeExtension(char* filename, const char* newExt) {
         strcpy(extPos, newExt);  // Replace with new extension.
     }
 }
+
+int validate_layout(char* string){
+    if(strcmp("grid", string) == 0 || strcmp("1", string) == 0){
+        return GRID;
+    }
+    else if(strcmp("horizontal", string) == 0 || strcmp("0", string) == 0){
+        return HORIZONTAL;
+    }
+    else
+        return INVALID;
+}
+
+void print_help() {
+    printf(
+            "-l, --layout: layout for the sprite sheet. HORIZONTAL_FLOW, VERTICAL_FLOW, GRIDLOCK_FLOW\n"
+            "-s, --size: Size of the sprite. W x H where W = width and H = height. By default, the size is automatically\n"
+            "            set to whatever the height/width is for the DMI. If the manually set size is less, the program\n"
+            "            should automatically ask for confirmation if you want to split up the frames in portions.\n"
+            "            Otherwise, if it is larger, I need to create a program to offset the canvas.\n"
+            "-r, --rows: Num of Rows in sprite sheet.\n"
+            "-c, --cols: num of cols in sprite sheet produced.\n"
+            "-p, --spacing: The amount of padding between each frame.\n"
+            "-i, --icon_state: Specify the icon_state(s) that should be extracted.\n"
+            "-n, --name: Whether the names should be specified.\n"
+            "--margin: The amount of space before the extraction of the frames may begin.\n"
+            "-b, --background: set background color for the sprite sheet. Only valid for non-RGBA sprites.\n"
+            "-o, --overwrite: Set overwrite settings. [Yes, no, ask.]\n"
+            "-f, --force: ignores all prompts, so causing overwrite will go through automatically, no prompt for changing size, etc.\n"
+            "-m, --metadata: copy to a dmt file.\n"
+            "-d, --directory <path>: Where to send output file. By default, it will be relative path.\n"
+            "-t, --transform: Flip, rotate, etc.\n"
+    );
+}
+
 
 
 int main(int argc, char **argv){
@@ -49,22 +59,14 @@ int main(int argc, char **argv){
     int bit_depth, color_type, interlace_method, pixels_per_byte;
     int overwrite_flag = 0;
     char cwd[PATH_MAX];
-    //char file_name[25];
     int c;
 
-    /*static char usage[] = "Usage: dmi2sheet [OPTIONS]. . . [INPUT_FILE] [OUTPUT_FILE]\n"
-                          "Transform a DMI into a sprite sheet.\n\n"
-                          "  -o, --overwrite \tSpecify whether the output file should be overwritten.\n"
-                          "  -f, --format <type> \tSelect the format that the produced spritesheet should\n\t\t\tbe in."
-                          " Valid Values - LINEAR (0), HORIZONTAL (1), GRIDLOCK (2)\n"
-                          "  -p, --padding \tAmount of padding between each frame in the sprite sheet.\n"
-                          "\n\n";
 
-     printf("%s", usage);
-  //  sleep(50);
-(*/
+
     static char usage[] = "Usage: dmi2sheet [OPTIONS]. . .[INPUT_FILE] [OUTPUT_FILE]\nTransforms a DMI input"
                           " file into a sprite sheet.\n\n";
+
+    int layout_mode;
 
     static char options_text[] = "  -o";
     static int verbose_flag = 0;
@@ -86,9 +88,10 @@ int main(int argc, char **argv){
                         {"delete",  required_argument, 0, 'd'},
                         {"create",  required_argument, 0, 'c'},
                         {"force",    no_argument, 0, 'f'},
-                        {"sheetformat", required_argument, 0, 200},
+                        {"layout", required_argument, 0, 200},
                         {0, 0, 0, 0}
                 };
+
         /* getopt_long stores the option index here. */
         int option_index = 0;
 
@@ -104,7 +107,6 @@ int main(int argc, char **argv){
         switch (c)
         {
             case 0:
-                /* If this option set a flag, do nothing else now. */
                 if (long_options[option_index].flag != 0)
                     break;
                 printf ("option %s", long_options[option_index].name);
@@ -112,7 +114,6 @@ int main(int argc, char **argv){
                     printf (" with arg %s", optarg);
                 printf ("\n");
                 break;
-
             case 'a':
                 puts ("option -a\n");
                 break;
@@ -127,6 +128,10 @@ int main(int argc, char **argv){
 
             case 'd':
                 printf ("option -d with value `%s'\n", optarg);
+                break;
+
+            case 'l':
+                layout_mode = validate_layout(optarg);
                 break;
 
             case 'f':
@@ -263,7 +268,7 @@ int main(int argc, char **argv){
     int dmi_length = strlen(dmi_check);
 
     //We need to continuously scan the DMI from start to finish, examining by line.
-    if(!(dmi_length > 0)){
+    if(dmi_length <= 0){
         printf("There is no text to parse in this image!\n\n");
         return 0;
     }
@@ -274,7 +279,6 @@ int main(int argc, char **argv){
         string_parser = find_newline(&dmi_check, &dmi_length, "\n");
         Print_Variable(string_parser, new_icon);
     }
-    //printf("while(dmi_length > 0) done \n");
 
     if(fflag == 0) {
         if (access(output_name, F_OK) == 0) {
@@ -408,22 +412,25 @@ int main(int argc, char **argv){
             row_pointers_new[i][j] = 0;
         }
     }
-   // printf("Starting print f!\n");
-    if(sheet_format == LINEAR_FLOW){
-        dmiToPng(new_icon, png_get_rowbytes(read_png_ptr, read_info_ptr), 144,
-                 row_pointers, row_pointers_new, write_png_ptr, write_info_ptr,
-                 pixels_per_byte, color_type, LINEAR_FLOW, LINEAR_FLOW);
-    }
-    else if(sheet_format == HORIZONTAL_FLOW){
-        dmiToPng(new_icon, png_get_rowbytes(read_png_ptr, read_info_ptr), 144,
-                 row_pointers, row_pointers_new, write_png_ptr, write_info_ptr,
-                 pixels_per_byte, color_type, HORIZONTAL_FLOW, LINEAR_FLOW);
-    }
-    else if(sheet_format == GRIDLOCK_FLOW){
-        dmiToPng(new_icon, png_get_rowbytes(read_png_ptr, read_info_ptr), 144,
-                 row_pointers, row_pointers_new, write_png_ptr, write_info_ptr,
-                 pixels_per_byte, color_type, GRIDLOCK_FLOW, LINEAR_FLOW);
-    }
+
+    dmiToPng(new_icon, png_get_rowbytes(read_png_ptr, read_info_ptr), 144,
+             row_pointers, row_pointers_new, write_png_ptr, write_info_ptr,
+             pixels_per_byte, color_type, layout_mode, LINEAR_FLOW);
+//    if(sheet_format == LINEAR_FLOW){
+//        dmiToPng(new_icon, png_get_rowbytes(read_png_ptr, read_info_ptr), 144,
+//                 row_pointers, row_pointers_new, write_png_ptr, write_info_ptr,
+//                 pixels_per_byte, color_type, LINEAR_FLOW, LINEAR_FLOW);
+//    }
+//    else if(sheet_format == HORIZONTAL_FLOW){
+//        dmiToPng(new_icon, png_get_rowbytes(read_png_ptr, read_info_ptr), 144,
+//                 row_pointers, row_pointers_new, write_png_ptr, write_info_ptr,
+//                 pixels_per_byte, color_type, HORIZONTAL_FLOW, LINEAR_FLOW);
+//    }
+//    else if(sheet_format == GRIDLOCK_FLOW){
+//        dmiToPng(new_icon, png_get_rowbytes(read_png_ptr, read_info_ptr), 144,
+//                 row_pointers, row_pointers_new, write_png_ptr, write_info_ptr,
+//                 pixels_per_byte, color_type, GRIDLOCK_FLOW, LINEAR_FLOW);
+//    }
 
 
     //printf("Dies here. .. \n");

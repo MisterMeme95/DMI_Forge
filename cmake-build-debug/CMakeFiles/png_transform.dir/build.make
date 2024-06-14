@@ -113,11 +113,59 @@ CMakeFiles/png_transform.dir/data_structure.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/png_transform.dir/data_structure.c.s"
 	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\jonat\GitHub\DMI_Forge\data_structure.c -o CMakeFiles\png_transform.dir\data_structure.c.s
 
+CMakeFiles/png_transform.dir/DMI_Struct.c.obj: CMakeFiles/png_transform.dir/flags.make
+CMakeFiles/png_transform.dir/DMI_Struct.c.obj: CMakeFiles/png_transform.dir/includes_C.rsp
+CMakeFiles/png_transform.dir/DMI_Struct.c.obj: C:/Users/jonat/GitHub/DMI_Forge/DMI_Struct.c
+CMakeFiles/png_transform.dir/DMI_Struct.c.obj: CMakeFiles/png_transform.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/png_transform.dir/DMI_Struct.c.obj"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/png_transform.dir/DMI_Struct.c.obj -MF CMakeFiles\png_transform.dir\DMI_Struct.c.obj.d -o CMakeFiles\png_transform.dir\DMI_Struct.c.obj -c C:\Users\jonat\GitHub\DMI_Forge\DMI_Struct.c
+
+CMakeFiles/png_transform.dir/DMI_Struct.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/png_transform.dir/DMI_Struct.c.i"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\jonat\GitHub\DMI_Forge\DMI_Struct.c > CMakeFiles\png_transform.dir\DMI_Struct.c.i
+
+CMakeFiles/png_transform.dir/DMI_Struct.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/png_transform.dir/DMI_Struct.c.s"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\jonat\GitHub\DMI_Forge\DMI_Struct.c -o CMakeFiles\png_transform.dir\DMI_Struct.c.s
+
+CMakeFiles/png_transform.dir/DMIParse.c.obj: CMakeFiles/png_transform.dir/flags.make
+CMakeFiles/png_transform.dir/DMIParse.c.obj: CMakeFiles/png_transform.dir/includes_C.rsp
+CMakeFiles/png_transform.dir/DMIParse.c.obj: C:/Users/jonat/GitHub/DMI_Forge/DMIParse.c
+CMakeFiles/png_transform.dir/DMIParse.c.obj: CMakeFiles/png_transform.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/png_transform.dir/DMIParse.c.obj"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/png_transform.dir/DMIParse.c.obj -MF CMakeFiles\png_transform.dir\DMIParse.c.obj.d -o CMakeFiles\png_transform.dir\DMIParse.c.obj -c C:\Users\jonat\GitHub\DMI_Forge\DMIParse.c
+
+CMakeFiles/png_transform.dir/DMIParse.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/png_transform.dir/DMIParse.c.i"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\jonat\GitHub\DMI_Forge\DMIParse.c > CMakeFiles\png_transform.dir\DMIParse.c.i
+
+CMakeFiles/png_transform.dir/DMIParse.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/png_transform.dir/DMIParse.c.s"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\jonat\GitHub\DMI_Forge\DMIParse.c -o CMakeFiles\png_transform.dir\DMIParse.c.s
+
+CMakeFiles/png_transform.dir/Icon_State.c.obj: CMakeFiles/png_transform.dir/flags.make
+CMakeFiles/png_transform.dir/Icon_State.c.obj: CMakeFiles/png_transform.dir/includes_C.rsp
+CMakeFiles/png_transform.dir/Icon_State.c.obj: C:/Users/jonat/GitHub/DMI_Forge/Icon_State.c
+CMakeFiles/png_transform.dir/Icon_State.c.obj: CMakeFiles/png_transform.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/png_transform.dir/Icon_State.c.obj"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/png_transform.dir/Icon_State.c.obj -MF CMakeFiles\png_transform.dir\Icon_State.c.obj.d -o CMakeFiles\png_transform.dir\Icon_State.c.obj -c C:\Users\jonat\GitHub\DMI_Forge\Icon_State.c
+
+CMakeFiles/png_transform.dir/Icon_State.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/png_transform.dir/Icon_State.c.i"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\jonat\GitHub\DMI_Forge\Icon_State.c > CMakeFiles\png_transform.dir\Icon_State.c.i
+
+CMakeFiles/png_transform.dir/Icon_State.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/png_transform.dir/Icon_State.c.s"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\jonat\GitHub\DMI_Forge\Icon_State.c -o CMakeFiles\png_transform.dir\Icon_State.c.s
+
 # Object files for target png_transform
 png_transform_OBJECTS = \
 "CMakeFiles/png_transform.dir/png_transform.c.obj" \
 "CMakeFiles/png_transform.dir/PixelManip.c.obj" \
-"CMakeFiles/png_transform.dir/data_structure.c.obj"
+"CMakeFiles/png_transform.dir/data_structure.c.obj" \
+"CMakeFiles/png_transform.dir/DMI_Struct.c.obj" \
+"CMakeFiles/png_transform.dir/DMIParse.c.obj" \
+"CMakeFiles/png_transform.dir/Icon_State.c.obj"
 
 # External object files for target png_transform
 png_transform_EXTERNAL_OBJECTS =
@@ -125,13 +173,16 @@ png_transform_EXTERNAL_OBJECTS =
 png_transform.exe: CMakeFiles/png_transform.dir/png_transform.c.obj
 png_transform.exe: CMakeFiles/png_transform.dir/PixelManip.c.obj
 png_transform.exe: CMakeFiles/png_transform.dir/data_structure.c.obj
+png_transform.exe: CMakeFiles/png_transform.dir/DMI_Struct.c.obj
+png_transform.exe: CMakeFiles/png_transform.dir/DMIParse.c.obj
+png_transform.exe: CMakeFiles/png_transform.dir/Icon_State.c.obj
 png_transform.exe: CMakeFiles/png_transform.dir/build.make
 png_transform.exe: C:/Users/jonat/.conan2/p/b/libpnda601e8f63f19/p/lib/libpng16d.a
 png_transform.exe: C:/Users/jonat/.conan2/p/b/zlib6f01ae82dbf0d/p/lib/libz.a
 png_transform.exe: CMakeFiles/png_transform.dir/linkLibs.rsp
 png_transform.exe: CMakeFiles/png_transform.dir/objects1.rsp
 png_transform.exe: CMakeFiles/png_transform.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking C executable png_transform.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking C executable png_transform.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\png_transform.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
