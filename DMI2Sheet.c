@@ -224,9 +224,9 @@ int main(int argc, char **argv){
         case 4:
             pixels_per_byte = 2;
             break;
-        case 8:
-            pixels_per_byte = 1;
-            break;
+ //       case 8:
+    //        pixels_per_byte = 1;
+      //      break;
         default:
             pixels_per_byte = 1;
             break;
@@ -267,7 +267,6 @@ int main(int argc, char **argv){
     }
     int dmi_length = strlen(dmi_check);
 
-    //We need to continuously scan the DMI from start to finish, examining by line.
     if(dmi_length <= 0){
         printf("There is no text to parse in this image!\n\n");
         return 0;
@@ -310,10 +309,6 @@ int main(int argc, char **argv){
                     }
                 }
 
-                // printf("new_string = %s\n", new_string);
-                //  fflush(stdout);
-                //  sleep(50);
-
                 while (!found_match) {
                     sprintf(new_string, "%s (%d).png", base_string, count);
                     if (access(new_string, F_OK) != 0) {
@@ -327,7 +322,6 @@ int main(int argc, char **argv){
             }
         }
     }
-   // printf("output name = %s\n", output_name);
     FILE *output_fp = fopen(output_name, "wb");
     if (!output_fp) {
         printf("Error opening output file\n");
@@ -371,14 +365,6 @@ int main(int argc, char **argv){
         png_get_tRNS(read_png_ptr, read_info_ptr, &trans_alpha, &num_trans, &trans_color);
         png_set_tRNS(write_png_ptr, write_info_ptr, trans_alpha, num_trans, trans_color);
     }
-    //printf("Trans_alpha = %d\nnum_trans");
-    /* IMPORTANT
-     * -------------
-     *  This is where I would have to run calculations to set different widths and height based on the format type.
-     * */
-   // int sheet_size = Get_Sheet_Size(new_icon);
-   // int sheet_width = Get_Sheet_Width(new_icon);
-
     int new_height = 0;
     int new_width = 0;
     if(sheet_format == LINEAR_FLOW){
@@ -393,12 +379,8 @@ int main(int argc, char **argv){
         Get_Gridlock_Size(new_icon, &new_height, &new_width);
     }
 
-
-
     png_bytepp row_pointers_new = (png_bytepp)malloc(sizeof(png_bytep) * new_height);
-    //printf("New height = %d, New Width = %d\n", new_height, new_width);
-   // fflush(stdout);
-    //sleep(50);
+
     png_set_IHDR(write_png_ptr, write_info_ptr, (png_uint_32)new_width, (png_uint_32)new_height,
                  bit_depth, color_type, interlace_method, PNG_COMPRESSION_TYPE_DEFAULT,
                  PNG_FILTER_TYPE_DEFAULT);
@@ -412,28 +394,10 @@ int main(int argc, char **argv){
             row_pointers_new[i][j] = 0;
         }
     }
-
     dmiToPng(new_icon, png_get_rowbytes(read_png_ptr, read_info_ptr), 144,
              row_pointers, row_pointers_new, write_png_ptr, write_info_ptr,
              pixels_per_byte, color_type, layout_mode, LINEAR_FLOW);
-//    if(sheet_format == LINEAR_FLOW){
-//        dmiToPng(new_icon, png_get_rowbytes(read_png_ptr, read_info_ptr), 144,
-//                 row_pointers, row_pointers_new, write_png_ptr, write_info_ptr,
-//                 pixels_per_byte, color_type, LINEAR_FLOW, LINEAR_FLOW);
-//    }
-//    else if(sheet_format == HORIZONTAL_FLOW){
-//        dmiToPng(new_icon, png_get_rowbytes(read_png_ptr, read_info_ptr), 144,
-//                 row_pointers, row_pointers_new, write_png_ptr, write_info_ptr,
-//                 pixels_per_byte, color_type, HORIZONTAL_FLOW, LINEAR_FLOW);
-//    }
-//    else if(sheet_format == GRIDLOCK_FLOW){
-//        dmiToPng(new_icon, png_get_rowbytes(read_png_ptr, read_info_ptr), 144,
-//                 row_pointers, row_pointers_new, write_png_ptr, write_info_ptr,
-//                 pixels_per_byte, color_type, GRIDLOCK_FLOW, LINEAR_FLOW);
-//    }
 
-
-    //printf("Dies here. .. \n");
     png_write_info(write_png_ptr, write_info_ptr);
     png_write_image(write_png_ptr, row_pointers_new);
 

@@ -54,11 +54,11 @@ int Get_Red_Channel(Pixel_Data pixel){
     }
 
     else if(pixel.color_type == PNG_COLOR_TYPE_RGBA || pixel.color_type == PNG_COLOR_TYPE_RGB){
-        printf("Activatd. . .\n");
         if(pixel.bit_depth == 8)
             return pixel.byte_data[0];
     }
 
+    return -1;
 }
 
 int Get_Green_Channel(Pixel_Data pixel){
@@ -70,6 +70,7 @@ int Get_Green_Channel(Pixel_Data pixel){
         if(pixel.bit_depth == 8)
             return pixel.byte_data[1];
     }
+    return -1;
 }
 
 int Get_Blue_Channel(Pixel_Data pixel){
@@ -81,7 +82,7 @@ int Get_Blue_Channel(Pixel_Data pixel){
         if(pixel.bit_depth == 8)
             return pixel.byte_data[2];
     }
-
+    return -1;
 }
 
 int Get_Alpha_Channel(Pixel_Data pixel){
@@ -142,8 +143,6 @@ Pixel_Data Get_Pixel(png_bytepp image, int x_coord, int y_coord, int color_type,
     pixel.bit_depth = bit_depth;
     pixel.color_type = color_type;
     pixel.byte_data = NULL;
-
-
 
     /** @Description pixel_index is a simple int variable that we'll use to get the proper x_coordinate.
      * Since it is possible for a pixel to be less than a byte at certain bit_depths.
@@ -731,24 +730,8 @@ Pixel_Data Transform_RGBA_PNG2(Pixel_Data pixel, int target_color_type, int src_
     Initialize_Pixel2(&target_pixel, target_color_type, target_bit_depth);
 
     if(target_color_type == PNG_COLOR_TYPE_RGB) {
-        /* If the bit depth for RGBA is 16, and RGB is 16.
-         *      - Then I simply copy the first 6 bytes from the RGBA byte.
-         *
-         *  If bit_depth for RGBA is 16, and RGB is 8.
-         *      - Then I have to run code to get the value of each channel.
-         *      - Then I must move the value >> 8 to the right.
-         *
-         *  if RGBA bit_depth is 8 and RGB is 16.
-         *      - Then I take the value of each channel and << to the left.
-         *
-         *  if RGBA bit_depth is 8 and RGB is 8.
-         *      - Then I just copy the first 3 bytes.
-         *
-         *  */
         int depth_difference = src_bit_depth - target_bit_depth;
         if(depth_difference == 0){
-            //check bit_depth. If both are 16, copy first 6 bytes to rgba.
-            //otherwise both are 8, and you copy first 3 bytes
             if(src_bit_depth == 16){
                 memcpy(target_pixel.byte_data, pixel.byte_data, sizeof(png_byte) * 6);
             }
@@ -776,14 +759,12 @@ Pixel_Data Transform_RGBA_PNG2(Pixel_Data pixel, int target_color_type, int src_
     }
 
     else if(target_color_type == PNG_COLOR_TYPE_GRAY_ALPHA) {
-        //double gray_value = 0.299 * pixel.byte_data[0] + 0.587 * pixel.byte_data[1] + 0.114 * pixel.byte_data[2];
         int gray_value = Get_Gray_Value(pixel);
         target_pixel.byte_data[0] = (png_byte)gray_value;
         target_pixel.byte_data[1] = pixel.byte_data[3];
     }
 
     else if(target_color_type == PNG_COLOR_TYPE_GRAY){
-        //double gray_value = 0.299 * pixel.byte_data[0] + 0.587 * pixel.byte_data[1] + 0.114 * pixel.byte_data[2];
         int gray_value = Get_Gray_Value(pixel);
         target_pixel.byte_data[0] = (png_byte)gray_value;
     }

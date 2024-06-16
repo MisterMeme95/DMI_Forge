@@ -8,25 +8,28 @@
 #include <unistd.h>
 int authenticate_transform(int color_flag, int bit_flag, int write_flag, char** debug_report){
     int is_valid = 1;
+    int index = 0;
 
     if(!color_flag){
-        debug_report[0] = (char*) malloc(sizeof(char) * 11);
-        strcpy(debug_report[0], "color_type");
-        debug_report[0][10] = '\0';
+        debug_report[index] = (char*) malloc(sizeof(char) * 11);
+        strcpy(debug_report[index], "color_type");
+        debug_report[index][10] = '\0';
         is_valid = 0;
+        index++;
     }
 
     if(!bit_flag){
-        debug_report[1] = (char*) malloc(sizeof(char) * 10);
-        strcpy(debug_report[1], "bit_depth");
-        debug_report[1][9] = '\0';
+        debug_report[index] = (char*) malloc(sizeof(char) * 10);
+        strcpy(debug_report[index], "bit_depth");
+        debug_report[index][9] = '\0';
         is_valid = 0;
+        index++;
     }
 
     if(!write_flag){
-        debug_report[2] = (char*) malloc(sizeof(char) * 11);
-        strcpy(debug_report[2], "input file");
-        debug_report[2][10] = '\0';
+        debug_report[index] = (char*) malloc(sizeof(char) * 11);
+        strcpy(debug_report[index], "input file");
+        debug_report[index][10] = '\0';
         is_valid = 0;
     }
     return is_valid;
@@ -44,7 +47,7 @@ void print_usage() {
 int main(int argc, char **argv) {
 
     /* These are flags for arguments that must be submitted in order for the program to run properly. */
-    int write_flag = 0, depth_flag = 0, color_flag = 0;
+    int write_flag = 0, depth_flag = 0, color_flag = 0, required_flags = 3;
 
     FILE *source_file;
     char *input_file = NULL;
@@ -78,7 +81,6 @@ int main(int argc, char **argv) {
     palette_hash new_pal;
 
 
-    int pixels_per_byte;
 
     int overwrite_flag = 0;
     int opt;
@@ -87,6 +89,7 @@ int main(int argc, char **argv) {
             {"output", required_argument, 0, 'o'},
             {"bit_depth", required_argument, 0, 'b'},
             {"color_type", required_argument, 0, 'c'},
+            {"force", no_argument, 0, 'f'},
             {"help", no_argument, 0, 'h'},
             {0, 0, 0, 0}
     };
@@ -96,6 +99,7 @@ int main(int argc, char **argv) {
             case 'i':
                 input_file = strdup(optarg);
                 write_flag = 1;
+                required_flags--;
                 break;
 
             case 'o':
@@ -111,6 +115,7 @@ int main(int argc, char **argv) {
                     return EXIT_FAILURE;
                 }
                 depth_flag = 1;
+                required_flags--;
                 break;
 
             case 'c':
@@ -141,10 +146,15 @@ int main(int argc, char **argv) {
                     }
                 }
                 color_flag = 1;
+                required_flags--;
                 break;
 
             case 'h':
                 print_usage();
+                break;
+
+            case 'f':
+                overwrite_flag = 1;
                 break;
 
             default:
@@ -154,11 +164,11 @@ int main(int argc, char **argv) {
         }
     }
 
-    char **debug_text = (char**)malloc(sizeof(char*) * 3);
+    char **debug_text = (char**)malloc(sizeof(char*) * required_flags);
     int validation = authenticate_transform(color_flag, depth_flag, write_flag, debug_text);
     if(!validation){
         fprintf(stderr,"Missing the following arguments: ");
-        for(int i = 0; i < 3; i++){
+        for(int i = 0; i < required_flags; i++){
             fprintf(stderr,"%s, ", debug_text[i]);
         }
         fprintf(stderr,"\n\nFor more information, please use: png_transform --help");
@@ -181,6 +191,8 @@ int main(int argc, char **argv) {
         output_file = strdup("_output.png");
 
     }
+
+
 
     destination_file = fopen(output_file, "wb");
     if(!destination_file) {
@@ -209,17 +221,20 @@ int main(int argc, char **argv) {
             Pixel_Data isolated_pixel = Get_Pixel(row_pointers, o, i, color_type,
                                                   bit_depth, source_palette, trans_alpha, &trans_num);
             Pixel_Data transformed_pixel = Pixel_Transformation(isolated_pixel, target_color_type, target_bit_depth);
-            Set_Pixel(image_data, &transformed_pixel, o, i, target_color_type,
-                      target_bit_depth, destination_palette, NULL, &dest_palette_length,
-                      &new_pal);
 
+
+            Set_Pixel(image_data, &transformed_pixel, o, i, target_color_type,
+                      target_bit_depth, destination_palette, trans_alpha, &dest_palette_length,
+                      &new_pal);
         }
     }
 
-    //printf("Num of new pal = %d\n", dest_palette_length);
     if(target_color_type == PNG_COLOR_TYPE_PALETTE){
         png_set_PLTE(write_ptr, write_info_ptr, destination_palette, dest_palette_length);
+        png_set_tRNS(write_ptr, write_info_ptr, trans_alpha, trans_num, NULL);
     }
+
+
     png_write_info(write_ptr, write_info_ptr);
     png_write_image(write_ptr, image_data);
     return EXIT_SUCCESS;
