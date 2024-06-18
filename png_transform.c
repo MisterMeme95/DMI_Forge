@@ -282,7 +282,17 @@ int main(int argc, char **argv) {
         png_set_tRNS(write_ptr, write_info_ptr, trans_alpha, trans_num, NULL);
     }
 
-    if(target_color_type == PNG_COLOR_TYPE_RGB){// || target_color_type == PNG_COLOR_TYPE_GRAY){
+    /* NOTE THIS CODE IS INCOMPLETE.
+     *
+     * TO DO: Add flag to determine if a trans_color variable ought to be ignored.
+     *          By default, it should be included.
+     *
+     *          In addition, if the default is taken and provided for a gray image.
+     *          Be sure to send out a WARNING to the command prompt that lets the user know that
+     *          including the trans_color chunk at a low enough level and can some inconsistencies
+     *          and make parts of the sprites that should be shown become invisible
+     */
+    if(target_color_type == PNG_COLOR_TYPE_RGB) {// || target_color_type == PNG_COLOR_TYPE_GRAY){
         dest_trans_color->red = 192;
         dest_trans_color->blue = 192;
         dest_trans_color->green = 192;
