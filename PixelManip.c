@@ -58,6 +58,11 @@ int Get_Red_Channel(Pixel_Data pixel){
             return pixel.byte_data[0];
     }
 
+    else if(pixel.color_type == PNG_COLOR_TYPE_GRAY || pixel.color_type == PNG_COLOR_TYPE_GRAY_ALPHA){
+        return pixel.color_data->red;
+
+    }
+
     return -1;
 }
 
@@ -323,8 +328,11 @@ Pixel_Data Get_Pixel(png_bytepp image, int x_coord, int y_coord, int color_type,
         /* Next up, if the index that we have in our pixel_data is less than the number of indexes in the
          * trans_alpha array, then we know that our selected color has an alpha value that is not 255.
          * Let's just copy that over. */
+
         if(pixel_data < (*num_trans)){
             pixel.alpha_channel = trans_alpha[pixel_data];
+//            printf("Alpha value here is %d\n", trans_alpha[pixel_data]);
+//            printf("New Alpha value here is %d\n", pixel.alpha_channel);
         }
 
             /* Otherwise, the alpha value is 255.*/
@@ -962,6 +970,7 @@ void Transform_Indexed_PNG(Pixel_Data pixel, Pixel_Data* new_pixel, int target_c
             target_pixel[1] = pixel.color_data->green;
             target_pixel[2] = pixel.color_data->blue;
             memcpy(new_pixel->byte_data, target_pixel, sizeof(png_byte) * 3);
+            Set_Channels(new_pixel);
         }
         else {
             target_pixel[0] = pixel.color_data->red;
@@ -1026,6 +1035,7 @@ void Transform_Indexed_PNG(Pixel_Data pixel, Pixel_Data* new_pixel, int target_c
         }
         new_pixel->color_type = PNG_COLOR_TYPE_GRAY;
         new_pixel->byte_data = target_pixel;
+        Set_Channels(new_pixel);
     }
     else if(target_color_type == PNG_COLOR_TYPE_PALETTE){
         memcpy(new_pixel, &pixel, sizeof(Pixel_Data));

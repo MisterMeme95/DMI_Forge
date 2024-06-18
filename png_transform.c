@@ -69,6 +69,8 @@ int main(int argc, char **argv) {
     pngInfo.trans_alpha = NULL;
     png_bytep trans_alpha = NULL;
 
+
+
     png_bytep dest_trans_alpha = (png_bytep) malloc(sizeof(png_bytep) * 256);
 
     pngInfo.trans_num = 0;
@@ -76,6 +78,7 @@ int main(int argc, char **argv) {
 
     pngInfo.trans_color = NULL;
     png_color_16p trans_color = NULL;
+    png_color_16p dest_trans_color = NULL; //= (png_color_16p) malloc(sizeof(png_color_16));
 
     png_colorp source_palette;
 
@@ -241,9 +244,33 @@ int main(int argc, char **argv) {
         for (size_t o = 0; o < width; o++) {
             Pixel_Data isolated_pixel = Get_Pixel(row_pointers, o, i, color_type,
                                                   bit_depth, source_palette, trans_alpha, &trans_num);
+
+            Set_Channels(&isolated_pixel);
+
             Pixel_Data transformed_pixel = Pixel_Transformation(isolated_pixel, target_color_type, target_bit_depth);
 
 
+
+            if(color_type == PNG_COLOR_TYPE_PALETTE && target_color_type == PNG_COLOR_TYPE_RGB){
+                if(isolated_pixel.alpha_channel == 0 && target_color_type == PNG_COLOR_TYPE_RGB){
+                    if(dest_trans_color == NULL){
+                        dest_trans_color = (png_color_16p) malloc(sizeof(png_color_16));
+                        dest_trans_color->red = Get_Red_Channel(isolated_pixel);
+                        dest_trans_color->blue = Get_Blue_Channel(isolated_pixel);
+                        dest_trans_color->green = Get_Green_Channel(isolated_pixel);
+                    }
+                }
+
+
+            }
+            else {
+                if(dest_trans_color == NULL){
+                    dest_trans_color = (png_color_16p) malloc(sizeof(png_color_16));
+                    printf("Transformed Red = %d\n", Get_Red_Channel(transformed_pixel));
+                    printf("Transformed Red #2 = %d\n", transformed_pixel.red);
+                    dest_trans_color->gray = Get_Red_Channel(transformed_pixel);
+                }
+            }
             Set_Pixel(image_data, &transformed_pixel, o, i, target_color_type,
                       target_bit_depth, destination_palette, trans_alpha, &dest_palette_length,
                       &new_pal);
@@ -255,8 +282,12 @@ int main(int argc, char **argv) {
         png_set_tRNS(write_ptr, write_info_ptr, trans_alpha, trans_num, NULL);
     }
 
-    if(target_color_type == PNG_COLOR_TYPE_RGB){
-        png_set_tRNS(write_ptr, write_info_ptr, trans_alpha, trans_num, NULL);
+    if(target_color_type == PNG_COLOR_TYPE_RGB){// || target_color_type == PNG_COLOR_TYPE_GRAY){
+        dest_trans_color->red = 192;
+        dest_trans_color->blue = 192;
+        dest_trans_color->green = 192;
+
+        png_set_tRNS(write_ptr, write_info_ptr, NULL, 0, dest_trans_color);
     }
 
 

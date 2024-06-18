@@ -306,7 +306,7 @@ void Set_Channel_Value(Pixel_Data *pixel, png_bytep channel, int channel_offset)
 void Set_Red_Channel(Pixel_Data *pixel);
 void Set_Green_Channel(Pixel_Data *pixel);
 void Set_Blue_Channel(Pixel_Data *pixel);
-
+void Set_Channels(Pixel_Data *pixel);
 int Get_Red_Channel(Pixel_Data pixel);
 int Get_Green_Channel(Pixel_Data pixel);
 int Get_Blue_Channel(Pixel_Data pixel);
