@@ -124,6 +124,7 @@ Pixel_Data Pixel_Transformation(Pixel_Data pixel, int target_color_type, int tar
 
     else if(pixel.color_type == PNG_COLOR_TYPE_RGB){
         pixel_transformed = Transform_RGB_PNG(&pixel, target_color_type,  target_bit_depth);
+
     }
 
     //Set_Channels(&pixel_transformed);
@@ -642,7 +643,7 @@ void Initialize_Pixel2(Pixel_Data* pixel, int color_type, int bit_depth){
                 (pixel->byte_data) = (png_bytep)calloc(8, sizeof(png_byte));
             }
             else {
-                printf("RGBA!\n");
+            //    printf("RGBA!\n");
                 (pixel->byte_data) = (png_bytep)calloc(4, sizeof(png_byte));
             }
             break;
@@ -916,10 +917,12 @@ Pixel_Data Transform_RGB_PNG(Pixel_Data* pixel, int target_color_type, int bit_d
     Pixel_Data target_pixel;
     Initialize_Pixel2(&target_pixel, target_color_type, bit_depth);
 
+    /* NOTE if this has a trans chunk, make sure that this pixel is not the one. If it is, set alpha level to 0. */
     if(target_color_type == PNG_COLOR_TYPE_RGBA) {
         memcpy(target_pixel.byte_data, pixel->byte_data, sizeof(png_byte) * 3);
         target_pixel.byte_data[3] = 255;
     }
+    /* NOTE if this has a trans chunk, make sure that this pixel is not the one. If it is, set alpha level to 0. */
     else if(target_color_type == PNG_COLOR_TYPE_GRAY_ALPHA) {
         double gray_value = 0.299 * pixel->byte_data[0] + 0.587 * pixel->byte_data[1] + 0.114 * pixel->byte_data[2];
         target_pixel.byte_data[0] = (png_byte)gray_value;
@@ -928,7 +931,8 @@ Pixel_Data Transform_RGB_PNG(Pixel_Data* pixel, int target_color_type, int bit_d
 
     else if(target_color_type == PNG_COLOR_TYPE_GRAY){
         double gray_value = 0.299 * pixel->byte_data[0] + 0.587 * pixel->byte_data[1] + 0.114 * pixel->byte_data[2];
-        target_pixel.byte_data[0] = (png_byte)gray_value;
+        int shift_amount = pixel->bit_depth - bit_depth;
+        target_pixel.byte_data[0] = ((png_byte)gray_value >> shift_amount);
     }
 
     else if(target_color_type == PNG_COLOR_TYPE_RGB){

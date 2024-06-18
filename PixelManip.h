@@ -196,6 +196,9 @@ typedef struct Frame_ArrayStruct{
     Frame* array;
 } Frame_Array;
 
+
+
+
 typedef struct palette_hash_table {
     const int MAX_VALUE;
     node *hash_bucket[256];
@@ -208,6 +211,14 @@ typedef struct png_channels {
     int blue;
     int alpha;
 } png_channels;
+typedef struct {
+    png_bytep trans_alpha;
+    int trans_num;
+    png_color_16p trans_color;
+    png_colorp source_palette;
+    int src_palette_length;
+    palette_hash palette_look_up;
+} PNG_INFO;
 
 /** @Description This is a function that we use to initialize a png_byte pointer. Based on the color type, and the
  * bit_depth, the amount of space that we'll need to allocate varies. As a result, the function considers these factors

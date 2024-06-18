@@ -51,8 +51,8 @@ void print_help() {
 
 
 int main(int argc, char **argv){
-    extern char *optarg;
-    extern int optind;
+    //extern char *optarg;
+    //extern int optind;
     png_structp read_png_ptr;
     png_infop read_info_ptr;
     png_uint_32 width, height;
@@ -61,10 +61,13 @@ int main(int argc, char **argv){
     char cwd[PATH_MAX];
     int c;
 
-
+    char *input_name = NULL; //= malloc(sizeof(char) * strlen(argv[optind]) + 1);
+    char *output_name = NULL; //= malloc(sizeof(char) * strlen(argv[optind]) + 1);
 
     static char usage[] = "Usage: dmi2sheet [OPTIONS]. . .[INPUT_FILE] [OUTPUT_FILE]\nTransforms a DMI input"
                           " file into a sprite sheet.\n\n";
+
+   // print_help();
 
     int layout_mode;
 
@@ -89,6 +92,7 @@ int main(int argc, char **argv){
                         {"create",  required_argument, 0, 'c'},
                         {"force",    no_argument, 0, 'f'},
                         {"layout", required_argument, 0, 200},
+                       {"margins", required_argument, 0, 'm'},
                         {0, 0, 0, 0}
                 };
 
@@ -157,11 +161,8 @@ int main(int argc, char **argv){
         }
     }
 
-    char *input_name = NULL; //= malloc(sizeof(char) * strlen(argv[optind]) + 1);
-    char *output_name = NULL; //= malloc(sizeof(char) * strlen(argv[optind]) + 1);
 
-    //printf("Printf test" "is fucking cool"
-      //     "sdedsfdf ""LOLOLOL""Ilike eggs, nigga!\n\n\n");
+
     if (optind < argc)
     {
         printf ("non-option ARGV-elements: ");

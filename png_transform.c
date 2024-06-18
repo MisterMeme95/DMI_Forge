@@ -5,7 +5,8 @@
 #include "PixelManip.h"
 #include <png.h>
 #include "dmi.h"
-#include <unistd.h>
+
+
 int authenticate_transform(int color_flag, int bit_flag, int write_flag, char** debug_report){
     int is_valid = 1;
     int index = 0;
@@ -46,12 +47,13 @@ void print_usage() {
 
 int main(int argc, char **argv) {
 
-    /* These are flags for arguments that must be submitted in order for the program to run properly. */
+    /** These are flags for arguments that must be submitted in order for the program to run properly. **/
     int write_flag = 0, depth_flag = 0, color_flag = 0, required_flags = 3;
 
     FILE *source_file;
     char *input_file = NULL;
 
+    PNG_INFO pngInfo;
     FILE *destination_file = NULL;
     char *output_file = NULL;
 
@@ -63,11 +65,24 @@ int main(int argc, char **argv) {
     int bit_depth = 0, color_type = 0, interlace_method = 0, compression = 0, filter = 0;
     png_structp read_ptr;
     png_infop read_info_ptr;
+
+    pngInfo.trans_alpha = NULL;
     png_bytep trans_alpha = NULL;
+
+    png_bytep dest_trans_alpha = (png_bytep) malloc(sizeof(png_bytep) * 256);
+
+    pngInfo.trans_num = 0;
     int trans_num = 0;
+
+    pngInfo.trans_color = NULL;
     png_color_16p trans_color = NULL;
+
     png_colorp source_palette;
+
+    pngInfo.src_palette_length = 0;
     int src_palette_length = 0;
+
+
     png_uint_32 width = 0, height = 0;
     char *endptr;
     errno = 0;
@@ -76,13 +91,18 @@ int main(int argc, char **argv) {
     png_bytepp image_data = NULL;
     png_structp write_ptr = NULL;
     png_infop write_info_ptr = NULL;
+
+    pngInfo.source_palette = (png_colorp)malloc(sizeof(png_color) * 256);
     png_colorp destination_palette = (png_colorp)malloc(sizeof(png_color) * 256);
+
+    pngInfo.src_palette_length = 0;
     int dest_palette_length = 0;
+
+
     palette_hash new_pal;
 
-
-
     int overwrite_flag = 0;
+
     int opt;
     static struct option long_options[] = {
             {"input", required_argument, 0, 'i'},
@@ -166,9 +186,9 @@ int main(int argc, char **argv) {
 
     char **debug_text = (char**)malloc(sizeof(char*) * required_flags);
     int validation = authenticate_transform(color_flag, depth_flag, write_flag, debug_text);
-    if(!validation){
+    if(!validation) {
         fprintf(stderr,"Missing the following arguments: ");
-        for(int i = 0; i < required_flags; i++){
+        for(int i = 0; i < required_flags; i++) {
             fprintf(stderr,"%s, ", debug_text[i]);
         }
         fprintf(stderr,"\n\nFor more information, please use: png_transform --help");
@@ -210,6 +230,7 @@ int main(int argc, char **argv) {
 
     for (int i = 0; i < 256; i++) {
         new_pal.hash_bucket[i] = NULL;
+        pngInfo.palette_look_up.hash_bucket[i] = NULL;
     }
     if(color_type == PNG_COLOR_TYPE_PALETTE){
         png_get_PLTE(read_ptr, read_info_ptr, &source_palette, &src_palette_length);
@@ -231,6 +252,10 @@ int main(int argc, char **argv) {
 
     if(target_color_type == PNG_COLOR_TYPE_PALETTE){
         png_set_PLTE(write_ptr, write_info_ptr, destination_palette, dest_palette_length);
+        png_set_tRNS(write_ptr, write_info_ptr, trans_alpha, trans_num, NULL);
+    }
+
+    if(target_color_type == PNG_COLOR_TYPE_RGB){
         png_set_tRNS(write_ptr, write_info_ptr, trans_alpha, trans_num, NULL);
     }
 
