@@ -3,6 +3,7 @@ C:/Users/jonat/GitHub/DMI_Forge/cmake-build-debug/CMakeFiles/dmi2sheet.dir
 C:/Users/jonat/GitHub/DMI_Forge/cmake-build-debug/CMakeFiles/png_transform.dir
 C:/Users/jonat/GitHub/DMI_Forge/cmake-build-debug/CMakeFiles/partition_test.dir
 C:/Users/jonat/GitHub/DMI_Forge/cmake-build-debug/CMakeFiles/aespritefix.dir
+C:/Users/jonat/GitHub/DMI_Forge/cmake-build-debug/CMakeFiles/tmxtest.dir
 C:/Users/jonat/GitHub/DMI_Forge/cmake-build-debug/CMakeFiles/edit_cache.dir
 C:/Users/jonat/GitHub/DMI_Forge/cmake-build-debug/CMakeFiles/rebuild_cache.dir
 C:/Users/jonat/GitHub/DMI_Forge/cmake-build-debug/Test_Cases/CMakeFiles/Test_Cases.dir

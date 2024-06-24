@@ -181,6 +181,19 @@ aespritefix/fast:
 .PHONY : aespritefix/fast
 
 #=============================================================================
+# Target rules for targets named tmxtest
+
+# Build rule for target.
+tmxtest: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 tmxtest
+.PHONY : tmxtest
+
+# fast build rule for target.
+tmxtest/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\tmxtest.dir\build.make CMakeFiles/tmxtest.dir/build
+.PHONY : tmxtest/fast
+
+#=============================================================================
 # Target rules for targets named Test_Cases
 
 # Build rule for target.
@@ -514,6 +527,30 @@ png_transform.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\png_transform.dir\build.make CMakeFiles/png_transform.dir/png_transform.c.s
 .PHONY : png_transform.c.s
 
+tmx.obj: tmx.cpp.obj
+.PHONY : tmx.obj
+
+# target to build an object file
+tmx.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\tmxtest.dir\build.make CMakeFiles/tmxtest.dir/tmx.cpp.obj
+.PHONY : tmx.cpp.obj
+
+tmx.i: tmx.cpp.i
+.PHONY : tmx.i
+
+# target to preprocess a source file
+tmx.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\tmxtest.dir\build.make CMakeFiles/tmxtest.dir/tmx.cpp.i
+.PHONY : tmx.cpp.i
+
+tmx.s: tmx.cpp.s
+.PHONY : tmx.s
+
+# target to generate assembly for a file
+tmx.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\tmxtest.dir\build.make CMakeFiles/tmxtest.dir/tmx.cpp.s
+.PHONY : tmx.cpp.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -531,6 +568,7 @@ help:
 	@echo ... json_test
 	@echo ... partition_test
 	@echo ... png_transform
+	@echo ... tmxtest
 	@echo ... Aesprite_Fixer.obj
 	@echo ... Aesprite_Fixer.i
 	@echo ... Aesprite_Fixer.s
@@ -561,6 +599,9 @@ help:
 	@echo ... png_transform.obj
 	@echo ... png_transform.i
 	@echo ... png_transform.s
+	@echo ... tmx.obj
+	@echo ... tmx.i
+	@echo ... tmx.s
 .PHONY : help
 
 

@@ -62,8 +62,8 @@ list(PREPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR})
 # Definition of CMAKE_PREFIX_PATH, CMAKE_XXXXX_PATH
 # The Conan local "generators" folder, where this toolchain is saved.
 list(PREPEND CMAKE_PREFIX_PATH ${CMAKE_CURRENT_LIST_DIR} )
-list(PREPEND CMAKE_LIBRARY_PATH "C:/Users/jonat/.conan2/p/b/libpnda601e8f63f19/p/lib" "C:/Users/jonat/.conan2/p/b/zlib6f01ae82dbf0d/p/lib")
-list(PREPEND CMAKE_INCLUDE_PATH "C:/Users/jonat/.conan2/p/b/libpnda601e8f63f19/p/include" "C:/Users/jonat/.conan2/p/b/zlib6f01ae82dbf0d/p/include")
+list(PREPEND CMAKE_LIBRARY_PATH "C:/Users/jonat/.conan2/p/b/tmxli4b63b68a2f810/p/lib" "C:/Users/jonat/.conan2/p/b/zstdb6f4fab44e769/p/lib" "C:/Users/jonat/.conan2/p/b/pugix2f8df93edd2b6/p/lib" "C:/Users/jonat/.conan2/p/b/libpnda601e8f63f19/p/lib" "C:/Users/jonat/.conan2/p/b/zlib6f01ae82dbf0d/p/lib")
+list(PREPEND CMAKE_INCLUDE_PATH "C:/Users/jonat/.conan2/p/b/tmxli4b63b68a2f810/p/include" "C:/Users/jonat/.conan2/p/b/zstdb6f4fab44e769/p/include" "C:/Users/jonat/.conan2/p/b/pugix2f8df93edd2b6/p/include" "C:/Users/jonat/.conan2/p/b/libpnda601e8f63f19/p/include" "C:/Users/jonat/.conan2/p/b/zlib6f01ae82dbf0d/p/include")
 
 
 

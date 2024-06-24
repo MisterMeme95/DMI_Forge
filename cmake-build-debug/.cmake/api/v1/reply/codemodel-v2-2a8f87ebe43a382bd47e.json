@@ -1,0 +1,160 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.21"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						2,
+						3,
+						7,
+						8,
+						9
+					]
+				},
+				{
+					"build" : "Test_Cases",
+					"jsonFile" : "directory-Test_Cases-Debug-d3b48c834af17a9a32e5.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.21"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "Test_Cases",
+					"targetIndexes" : 
+					[
+						1,
+						4,
+						5,
+						6
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1
+					],
+					"name" : "DMI_FORGE",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "DMI_Forge::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-DMI_Forge-Debug-43420376cdf8cbffb4be.json",
+					"name" : "DMI_Forge",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "Test_Cases::@90a6c9376dfca71ba4b0",
+					"jsonFile" : "target-Test_Cases-Debug-c99b7c132a17dd321147.json",
+					"name" : "Test_Cases",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "aespritefix::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-aespritefix-Debug-dbe11b60c0b5a5393243.json",
+					"name" : "aespritefix",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dmi2sheet::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dmi2sheet-Debug-ce1788812f817c0d6eb0.json",
+					"name" : "dmi2sheet",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "dmi_verify::@90a6c9376dfca71ba4b0",
+					"jsonFile" : "target-dmi_verify-Debug-b8cb80f9c8399d4cf547.json",
+					"name" : "dmi_verify",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "image_convert::@90a6c9376dfca71ba4b0",
+					"jsonFile" : "target-image_convert-Debug-b460bbfd04791e15b385.json",
+					"name" : "image_convert",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "json_test::@90a6c9376dfca71ba4b0",
+					"jsonFile" : "target-json_test-Debug-4f73a9b76e68453bfea4.json",
+					"name" : "json_test",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "partition_test::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-partition_test-Debug-c9379b0c11682901cce7.json",
+					"name" : "partition_test",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "png_transform::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-png_transform-Debug-a6ff3e5f20840e6f6cf6.json",
+					"name" : "png_transform",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "tmxtest::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-tmxtest-Debug-18148d5bb347026f026f.json",
+					"name" : "tmxtest",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/jonat/GitHub/DMI_Forge/cmake-build-debug",
+		"source" : "C:/Users/jonat/GitHub/DMI_Forge"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 5
+	}
+}

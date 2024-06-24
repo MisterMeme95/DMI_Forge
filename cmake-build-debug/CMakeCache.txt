@@ -274,6 +274,15 @@ PNG_DIR:PATH=C:/Users/jonat/GitHub/DMI_Forge/cmake-build-debug/conan/build/Debug
 //The directory containing a CMake configuration file for ZLIB.
 ZLIB_DIR:PATH=C:/Users/jonat/GitHub/DMI_Forge/cmake-build-debug/conan/build/Debug/generators
 
+//The directory containing a CMake configuration file for pugixml.
+pugixml_DIR:PATH=C:/Users/jonat/GitHub/DMI_Forge/cmake-build-debug/conan/build/Debug/generators
+
+//The directory containing a CMake configuration file for tmxlite.
+tmxlite_DIR:PATH=C:/Users/jonat/GitHub/DMI_Forge/cmake-build-debug/conan/build/Debug/generators
+
+//The directory containing a CMake configuration file for zstd.
+zstd_DIR:PATH=C:/Users/jonat/GitHub/DMI_Forge/cmake-build-debug/conan/build/Debug/generators
+
 
 ########################
 # INTERNAL cache entries
