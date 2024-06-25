@@ -43,6 +43,7 @@ void print_usage() {
     printf("  -b, --bit_depth <depth> Set bit depth (e.g., 8, 16, 32)\n");
     printf("  -c, --color_type <type> Set color type (e.g., 0=grayscale, 2=RGB, 3=indexed, etc.)\n");
     printf("  -h, --help              Show this help message\n");
+    printf("--exclude-trns            For RGB & Gray images, you can choose to have the TRNS chunk ignored.");
 }
 
 int main(int argc, char **argv) {
@@ -114,6 +115,7 @@ int main(int argc, char **argv) {
             {"color_type", required_argument, 0, 'c'},
             {"force", no_argument, 0, 'f'},
             {"help", no_argument, 0, 'h'},
+            {"exclude-trns", no_argument, 0, 200},
             {0, 0, 0, 0}
     };
 

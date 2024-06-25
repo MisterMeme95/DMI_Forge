@@ -38,27 +38,41 @@ void Resize_IconStates(DMI* dmi, int new_size){
  *  It's used to get the height of a spritesheet that is in HORIZONTAL_FLOW format.
  * */
 png_uint_32 Get_Sheet_Size(DMI* dmi){
- //   printf("Sheet #1. . \n");
     dmi->icon_states = dmi->begin_icon_state;
-   // printf("Sheet #2. . \n");
+
     png_uint_32 return_total = 0;
-  //  printf("Sheet #3. . \n");
     for(int i = 0; i < dmi->num_of_states; i++){
         return_total += dmi->icon_states->dirs;
-
-      //  printf("%s - Dir = %d\n", dmi->icon_states->state, dmi->icon_states->dirs);
-        //printf("i = %d\n", i);
         dmi->icon_states++;
     }
-    //printf("Sheet #4. . \n");
     dmi->icon_states = dmi->begin_icon_state;
-   // printf("Value = %d\n", (png_uint_32)(return_total * dmi->height));
     return (png_uint_32)(return_total * dmi->height);
 }
 
 /** This function needs to be refactored and renamed.
  *  It's used to get the width of a spritesheet that is in HORIZONTAL_FLOW format.
  * */
+
+int get_sheet_width(DMI* dmi, int state_per_row){
+    icon_state *iterator = dmi->begin_icon_state;
+    int num = dmi->num_of_states;
+    int highest_count = 0;
+
+    for(int i = 0; i < num; i+= state_per_row){
+
+        int current_count = 0;
+        for(int o = 0; o < state_per_row; o++){
+            printf("Frames for %s = %d\n", iterator->state, iterator->frames);
+            current_count += iterator->frames;
+            iterator++;
+        }
+
+        if(current_count > highest_count)
+            highest_count = current_count;
+
+    }
+    return highest_count;
+}
 png_uint_32 Get_Sheet_Width(DMI* dmi){
     png_uint_32 highest_width = 0;
     dmi->icon_states = dmi->begin_icon_state;
@@ -353,8 +367,7 @@ void Fix_Dimension(int *dest_col, int *dest_row, int *source_col, int *source_ro
     }
 
     /* Next we check the frame_tracker. If the frame_tracker is less than the # of frames in an i*/
-    //Value to check determines if we're checking frames, or if we're checking dirs.
-    //
+
     int value_to_check;
     if(input_flow == LINEAR_FLOW){
         //If the input is LINEAR_FLOW, that means we want to copy
@@ -439,7 +452,7 @@ int dmiToPng(DMI* dmi, int pngWidth, int pngHeight, png_bytepp orig_pointer, png
 
             Get_Frame(new_pointer, orig_pointer, destination_row, destination_col,
                       copy_row, copy_col, DMI_WIDTH, DMI_HEIGHT);
-            //This fixes the dimensions
+
             Fix_Dimension(&dest_col, &dest_row, &source_col, &source_row, &copy_row, &copy_col,
             start_row, start_col, &frame_tracker,input_flow_type,output_flow_type,
             DMI_WIDTH,DMI_HEIGHT, pngWidth, i, row_bytes, dmi);

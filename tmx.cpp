@@ -23,6 +23,7 @@ int main()
 
     if (map.load("untitled.tmx"))
     {
+
         std::cout << "Loaded Map version: " << map.getVersion().upper << ", " << map.getVersion().lower << std::endl;
         if (map.isInfinite())
         {
@@ -39,6 +40,7 @@ int main()
         std::cout << "Map tileset has " << map.getTilesets().size() << " tilesets" << std::endl;
         for (const auto& tileset : map.getTilesets())
         {
+            map.getTilesets();
             std::cout << "Tileset: " << tileset.getName() << std::endl;
             std::cout << "Tileset class: " << tileset.getClass() << std::endl;
         }

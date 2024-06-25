@@ -19,7 +19,7 @@ typedef struct DMI_Struct {
     icon_state *icon_states, *begin_icon_state;
 }DMI;
 
-
+int get_sheet_width(DMI* dmi, int state_per_row);
 int dmiToPng(DMI* dmi, int pngWidth, int pngHeight, png_bytepp orig_pointer, png_bytepp new_pointer,
              png_structp png_ptr, png_infop info_ptr, int ppb, int color_type, int output_flow_type,
              int input_flow_type);

@@ -255,9 +255,7 @@ int main(int argc, char **argv){
     }
     DMI *new_icon = (DMI*) malloc(sizeof(DMI));
     Init_DMI(new_icon, 32, 32);
- //   if (getcwd(cwd, sizeof(cwd)) != NULL) {
-   //     printf("Current working dir: %s\n", cwd);
-    //}
+
     char *dmi_check = text_ptr->text;
     char *string_parser;// = find_newline(dmi_check);
 
@@ -380,6 +378,11 @@ int main(int argc, char **argv){
         Get_Gridlock_Size(new_icon, &new_height, &new_width);
     }
 
+    printf("Died here. . \n");
+//    fflush(stdin);
+//    sleep(5);
+    printf("highest count = %d\n", get_sheet_width(new_icon, 3));
+//    sleep(50);
     png_bytepp row_pointers_new = (png_bytepp)malloc(sizeof(png_bytep) * new_height);
 
     png_set_IHDR(write_png_ptr, write_info_ptr, (png_uint_32)new_width, (png_uint_32)new_height,
@@ -397,7 +400,7 @@ int main(int argc, char **argv){
     }
     dmiToPng(new_icon, png_get_rowbytes(read_png_ptr, read_info_ptr), 144,
              row_pointers, row_pointers_new, write_png_ptr, write_info_ptr,
-             pixels_per_byte, color_type, layout_mode, LINEAR_FLOW);
+             pixels_per_byte, color_type, GRIDLOCK_FLOW, LINEAR_FLOW);
 
     png_write_info(write_png_ptr, write_info_ptr);
     png_write_image(write_png_ptr, row_pointers_new);
