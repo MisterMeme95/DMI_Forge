@@ -26,7 +26,7 @@ int validate_layout(char* string){
         return INVALID;
 }
 
-void print_help() {
+void print_usage() {
     printf(
             "-l, --layout: layout for the sprite sheet. HORIZONTAL_FLOW, VERTICAL_FLOW, GRIDLOCK_FLOW\n"
             "-s, --size: Size of the sprite. W x H where W = width and H = height. By default, the size is automatically\n"
@@ -51,8 +51,9 @@ void print_help() {
 
 
 int main(int argc, char **argv){
-    //extern char *optarg;
-    //extern int optind;
+    SpriteSheetData sheet_data;
+    sheet_data.FRAME_SIZE = 32;
+
     png_structp read_png_ptr;
     png_infop read_info_ptr;
     png_uint_32 width, height;
@@ -67,100 +68,56 @@ int main(int argc, char **argv){
     static char usage[] = "Usage: dmi2sheet [OPTIONS]. . .[INPUT_FILE] [OUTPUT_FILE]\nTransforms a DMI input"
                           " file into a sprite sheet.\n\n";
 
-   // print_help();
-
-    int layout_mode;
 
     static char options_text[] = "  -o";
-    static int verbose_flag = 0;
     static int fflag = 0;
     int sheet_format = 0;
-    while (1)
-    {
-        static struct option long_options[] =
-                {
-                        /* These options set a flag. */
-                       {"verbose", no_argument,       &verbose_flag, 1},
-                        {"brief",   no_argument,       &verbose_flag, 0},
-                        /* These options don’t set a flag.
-                           We distinguish them by their indices. */
-                        {"overwrite",     required_argument,       0, 'o'},
-                        {"input",     required_argument,       0, 'i'},
-                        {"add",     no_argument,       0, 'a'},
-                        {"append",  no_argument,       0, 'b'},
-                        {"delete",  required_argument, 0, 'd'},
-                        {"create",  required_argument, 0, 'c'},
-                        {"force",    no_argument, 0, 'f'},
-                        {"layout", required_argument, 0, 200},
-                       {"margins", required_argument, 0, 'm'},
-                        {0, 0, 0, 0}
-                };
 
-        /* getopt_long stores the option index here. */
+    static struct option long_options[] =
+            {
+                   {"overwrite",     required_argument,       0, 201},
+                   {"output",     required_argument,       0, 'o'},
+                   {"input",     required_argument,       0, 'i'},
+                   {"exclude",  required_argument, 0, 'e'},
+                   {"force",    no_argument, 0, 'f'},
+                   {"layout", required_argument, 0, 200},
+                   {"margins", required_argument, 0, 'm'},
+                   {"help", required_argument, 0, 'm'},
+            };
+
         int option_index = 0;
 
-
-        c = getopt_long (argc, argv, "abc:d:f:o:",
-                         long_options, &option_index);
-
-
-        /* Detect the end of the options. */
-        if (c == -1)
-            break;
-
-        switch (c)
-        {
-            case 0:
-                if (long_options[option_index].flag != 0)
+        int opt;
+        while ((opt = getopt_long(argc, argv, "i:o:b:c:h", long_options, NULL)) != -1) {
+            switch (opt) {
+                case 'i':
                     break;
-                printf ("option %s", long_options[option_index].name);
-                if (optarg)
-                    printf (" with arg %s", optarg);
-                printf ("\n");
-                break;
-            case 'a':
-                puts ("option -a\n");
-                break;
 
-            case 'b':
-                puts ("option -b\n");
-                break;
+                case 'o':
+                    break;
 
-            case 'c':
-                printf ("option -c with value `%s'\n", optarg);
-                break;
+                case 'b':
+                    break;
 
-            case 'd':
-                printf ("option -d with value `%s'\n", optarg);
-                break;
+                case 'c':
+                    break;
 
-            case 'l':
-                layout_mode = validate_layout(optarg);
-                break;
+                case 'h':
+                    break;
 
-            case 'f':
-                //printf ("option -f with value `%s'\n", optarg);
-                fflag = 1;
-                break;
+                case 'f':
+                    overwrite_flag = 1;
+                    break;
 
-            case 'o':
-                printf ("option -o with value `%s'\n", optarg);
-                overwrite_flag = 1;
-                break;
-
-            case '?':
-                /* getopt_long already printed an error message. */
-                break;
-
-            case 200:
-                sheet_format = atoi(optarg);
-                break;
-
-            default:
-                abort ();
+                case 200:
+                    sheet_data.format = validate_layout(optarg);
+                    break;
+                default:
+                    //fprintf(stderr, "Invalid option\n");
+                    //print_usage();
+                    return EXIT_FAILURE;
+            }
         }
-    }
-
 
 
     if (optind < argc)
@@ -366,6 +323,10 @@ int main(int argc, char **argv){
     }
     int new_height = 0;
     int new_width = 0;
+    calculate_grid_sheet_dimensions(new_icon, &sheet_data, 3);
+    printf("Height - %d\n"
+           "Width - %d\n", sheet_data.height, sheet_data.width);
+
     if(sheet_format == LINEAR_FLOW){
         new_height = (int)height;
         new_width = (int)width;
@@ -378,11 +339,6 @@ int main(int argc, char **argv){
         Get_Gridlock_Size(new_icon, &new_height, &new_width);
     }
 
-    printf("Died here. . \n");
-//    fflush(stdin);
-//    sleep(5);
-    printf("highest count = %d\n", get_sheet_width(new_icon, 3));
-//    sleep(50);
     png_bytepp row_pointers_new = (png_bytepp)malloc(sizeof(png_bytep) * new_height);
 
     png_set_IHDR(write_png_ptr, write_info_ptr, (png_uint_32)new_width, (png_uint_32)new_height,
@@ -414,4 +370,5 @@ int main(int argc, char **argv){
     free(row_pointers_new);
     free(row_pointers);
     return 1;
+
 }

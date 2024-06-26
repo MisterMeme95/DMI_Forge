@@ -19,7 +19,29 @@ typedef struct DMI_Struct {
     icon_state *icon_states, *begin_icon_state;
 }DMI;
 
-int get_sheet_width(DMI* dmi, int state_per_row);
+typedef struct Image_Struct{
+    png_structp png_ptr;
+    png_infop info_ptr;
+    png_uint_32 width, height;
+    int bit_depth, color_type, interlace_method, pixels_per_byte;
+
+    FILE *file_pointer;
+} Image;
+
+typedef struct SpriteSheetData{
+    int FRAME_SIZE, width, height, format;
+    int offset_x, offset_y, margin_x, margin_y, frames_per_row, frames_per_col;
+    int *list_of_row_sizes;
+} SpriteSheetData;
+
+/** @Description This function initializes SpriteSheetData with the proper dimension information for the GRID
+ * spritesheet format. It also populates frames_per_row, and frames_per_col for use in other function
+ * @members dmi: This is the struct containing all of the data needed for a DMI.
+ * @members sheet_data:  This is a pointer to our struct containing all of the sheet data.
+ * @members state_per_row: This is an input provided by the user that specifies how many icon_states
+ * a user may want to be listed per row. */
+void calculate_grid_sheet_dimensions(DMI* dmi, SpriteSheetData* sheet_data, int icon_states_per_row);
+
 int dmiToPng(DMI* dmi, int pngWidth, int pngHeight, png_bytepp orig_pointer, png_bytepp new_pointer,
              png_structp png_ptr, png_infop info_ptr, int ppb, int color_type, int output_flow_type,
              int input_flow_type);

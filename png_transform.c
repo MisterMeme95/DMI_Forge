@@ -36,14 +36,14 @@ int authenticate_transform(int color_flag, int bit_flag, int write_flag, char** 
     return is_valid;
 }
 void print_usage() {
-    printf("Usage: png_transform [OPTIONS]\n");
-    printf("Options:\n");
-    printf("  -i, --input <file>      Set input file name\n");
-    printf("  -o, --output <file>     Set output file name\n");
-    printf("  -b, --bit_depth <depth> Set bit depth (e.g., 8, 16, 32)\n");
-    printf("  -c, --color_type <type> Set color type (e.g., 0=grayscale, 2=RGB, 3=indexed, etc.)\n");
-    printf("  -h, --help              Show this help message\n");
-    printf("--exclude-trns            For RGB & Gray images, you can choose to have the TRNS chunk ignored.");
+    printf("Usage: png_transform [INPUT] [COLOR_DEPTH] +OPTIONS]\n"
+           "Options:\n"
+           "  -i, --input <file>      Set input file name\n"
+           "  -o, --output <file>     Set output file name\n"
+           "  -b, --bit_depth <depth> Set bit depth (e.g., 8, 16, 32)\n"
+           "-c, --color_type <type> Set color type (e.g., 0=grayscale, 2=RGB, 3=indexed, etc.)\n"
+           "  -h, --help              Show this help message\n"
+           "--exclude-trns            For RGB & Gray images, you can choose to have the TRNS chunk ignored.");
 }
 
 int main(int argc, char **argv) {
@@ -254,7 +254,7 @@ int main(int argc, char **argv) {
 
 
             if(color_type == PNG_COLOR_TYPE_PALETTE && target_color_type == PNG_COLOR_TYPE_RGB){
-                if(isolated_pixel.alpha_channel == 0 && target_color_type == PNG_COLOR_TYPE_RGB){
+                if(isolated_pixel.alpha_channel == 0){
                     if(dest_trans_color == NULL){
                         dest_trans_color = (png_color_16p) malloc(sizeof(png_color_16));
                         dest_trans_color->red = Get_Red_Channel(isolated_pixel);
@@ -295,10 +295,6 @@ int main(int argc, char **argv) {
      *          and make parts of the sprites that should be shown become invisible
      */
     if(target_color_type == PNG_COLOR_TYPE_RGB) {// || target_color_type == PNG_COLOR_TYPE_GRAY){
-        dest_trans_color->red = 192;
-        dest_trans_color->blue = 192;
-        dest_trans_color->green = 192;
-
         png_set_tRNS(write_ptr, write_info_ptr, NULL, 0, dest_trans_color);
     }
 

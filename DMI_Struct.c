@@ -49,29 +49,64 @@ png_uint_32 Get_Sheet_Size(DMI* dmi){
     return (png_uint_32)(return_total * dmi->height);
 }
 
-/** This function needs to be refactored and renamed.
- *  It's used to get the width of a spritesheet that is in HORIZONTAL_FLOW format.
- * */
+Image create_sprite_sheet(Image initial_image, SpriteSheetData sheet_data){
+    if(sheet_data.format == GRID){
+        calculate_grid_sheet_dimensions(NULL, NULL, 3);
+    }
+    else {
+        //run other calculations to get the sheet's dimensions.
+        sheet_data.height =
+    }
 
-int get_sheet_width(DMI* dmi, int state_per_row){
+    /* Next we create a new Image.
+     * Fill the new image with height/width/margins/offsets data from spritesheet.
+     * Next we fill it with misc data like bit_depth, color_type, interface, etc.
+     *
+     * */
+    Image new_image;
+
+    new_image.width = sheet_data.width + sheet_data.margin_x + (sheet_data.offset_x * sheet_data.frames_per_row);
+    new_image.height = sheet_data.height + sheet_data.margin_y + (sheet_data.offset_x * sheet_data.frames_per_col);
+    new_image.bit_depth = initial_image.bit_depth;
+    //next set the new image to the height/width/bit_dep
+}
+
+void calculate_horizontal_sheet_dimensions(DMI* dmi, SpriteSheetData* sheet_data, int default_width){
+
+
+}
+
+void calculate_grid_sheet_dimensions(DMI* dmi, SpriteSheetData* sheet_data, int icon_states_per_row){
     icon_state *iterator = dmi->begin_icon_state;
-    int num = dmi->num_of_states;
-    int highest_count = 0;
+    int num_of_states = dmi->num_of_states;
 
-    for(int i = 0; i < num; i+= state_per_row){
+    int row_size = (int)ceil(((double)dmi->num_of_states / (double)icon_states_per_row));
+    int rows_filled = 0;
+    sheet_data->list_of_row_sizes = (int*) malloc(sizeof(int) * row_size);
 
+    int widest_row = 0;
+    int height_total = 0;
+
+    for(int i = 0; i < num_of_states; i+= icon_states_per_row){
         int current_count = 0;
-        for(int o = 0; o < state_per_row; o++){
-            printf("Frames for %s = %d\n", iterator->state, iterator->frames);
+        int max_dir_in_row = 0;
+        for(int o = 0; o < icon_states_per_row; o++){
+            if(iterator->dirs > max_dir_in_row){
+                max_dir_in_row = iterator->dirs;
+            }
             current_count += iterator->frames;
             iterator++;
         }
+        height_total += max_dir_in_row;
+        sheet_data->list_of_row_sizes[rows_filled] = max_dir_in_row;
 
-        if(current_count > highest_count)
-            highest_count = current_count;
-
+        if(current_count > widest_row)
+            widest_row = current_count;
     }
-    return highest_count;
+    sheet_data->width = widest_row * sheet_data->FRAME_SIZE;
+    sheet_data->height = height_total * sheet_data->FRAME_SIZE;
+    sheet_data->frames_per_row = widest_row;
+    sheet_data->frames_per_col = height_total;
 }
 png_uint_32 Get_Sheet_Width(DMI* dmi){
     png_uint_32 highest_width = 0;

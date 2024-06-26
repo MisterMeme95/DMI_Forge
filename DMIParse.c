@@ -45,24 +45,10 @@ int get_string_char(char *string, char* char_search, char doo){
  * @param
  *      string The string that we will be parsing.  * */
 char *Variable_Authentication(char *string){
-    // printf("Starting Variable Auth. . . \n\n\n");
     int index = 0, token_track = 0;
     int debug_tracker = 0;
     int num_of_char = get_string_char(string, "=", 'n');
-    //   printf("num_of_char = %d\n", num_of_char);
     char *value_check = (char *) malloc(sizeof(char) * (num_of_char+1));
-   // if(num_of_char == 0){
-     //   printf("This is not a value!\n");
-       // printf("%s\n", string);
-   // }
-
-
-
-    //printf("string = %s\n", string);
-    //printf("%s\n", string);
-    //printf("Num of chars to equal sign: %d\n", num_of_char);
-    //printf("value string = %s\n", value_check);
-    //printf("Size of variable = %d\n", strlen(value_check));
     while(token_track < num_of_char){
         if(!isspace(*string) && !iscntrl(*string)){
             value_check[index] = *string++;
@@ -74,19 +60,10 @@ char *Variable_Authentication(char *string){
         }
         token_track++;
     }
-  //  printf("\n");
     if(strlen(value_check) > index){
         value_check[index]='\0';
     }
     value_check[num_of_char]='\0';
-   // printf("Variable = %s\n", value_check);
-    /*
-    printf("Variable = %s\n", value_check);
-    printf("Ending size of string: %d\n", strlen(value_check));
-    printf("Index Size = %d\n", index);
-    printf("num_of_char = %d\n", num_of_char);
-    printf("------------------------\n");
-     */
     return value_check;
 }
 
