@@ -144,7 +144,10 @@
 #define BIT1_8_OFF 0xFE
 
 #include "png.h"
-
+#ifndef dmi_h
+#define dmi_h
+#include "dmi.h"
+#endif
 /** @Description Pixel_Data is a struct that provides a unified way to dynamically reference different types of pixel
  * data in Libpng. It supports operations on both png_byte and png_color data types, allowing for a single function
  * to handle and return.
@@ -295,7 +298,7 @@ void Transform_Indexed_PNG(Pixel_Data pixel, Pixel_Data* new_pixel, int target_c
  * It supports various color types and bit depths, providing flexibility in how pixel data is processed and stored.
  * It works by using various subroutines like: [INCLUDE THEM HERE]
  *
- * @param pixel DMThe pixel data to be transformed.
+ * @param pixel DM The pixel data to be transformed.
  * @param target_color_type - The desired color type for the transformed pixel.
  * @param target_bit_depth - The desired bit depth for the transformed pixel.
  * @return A new Pixel_Data structure containing the transformed pixel data.
@@ -313,6 +316,9 @@ int Get_Blue_Channel(Pixel_Data pixel);
 int Get_Alpha_Channel(Pixel_Data pixel);
 
 Pixel_Data Combine_Pixels(Pixel_Data foreground, Pixel_Data background, int color_type);
+void Read_PNG(png_structp* read_ptr, png_infop* read_info_ptr, FILE* input_file, png_bytepp* row_pointers,
+              png_uint_32 *height, png_uint_32* width);
+
 void Read_PNG(png_structp* read_ptr, png_infop* read_info_ptr, FILE* input_file, png_bytepp* row_pointers,
               png_uint_32 *height, png_uint_32* width);
 

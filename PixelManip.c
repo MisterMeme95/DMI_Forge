@@ -1,5 +1,4 @@
 #include "data_structure.h"
-#include "dmi.h"
 #include <stdlib.h>
 #include <unistd.h>
 #include <math.h>

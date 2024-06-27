@@ -8,7 +8,10 @@
 #define GRIDLOCK_FLOW 2
 #define HORIZONTAL 0
 #define GRID 1
+#ifndef dmi_h
+#define dmi_h
 
+#endif
 #include "iconstate.h"
 #include "png.h"
 
@@ -31,6 +34,7 @@ typedef struct Image_Struct{
 typedef struct SpriteSheetData{
     int FRAME_SIZE, width, height, format;
     int offset_x, offset_y, margin_x, margin_y, frames_per_row, frames_per_col;
+    int user_input_width, user_input_height;
     int *list_of_row_sizes;
 } SpriteSheetData;
 
@@ -41,7 +45,7 @@ typedef struct SpriteSheetData{
  * @members state_per_row: This is an input provided by the user that specifies how many icon_states
  * a user may want to be listed per row. */
 void calculate_grid_sheet_dimensions(DMI* dmi, SpriteSheetData* sheet_data, int icon_states_per_row);
-
+int create_sprite_sheet(Image* initial_image, SpriteSheetData* sheet_data, DMI new_icon);
 int dmiToPng(DMI* dmi, int pngWidth, int pngHeight, png_bytepp orig_pointer, png_bytepp new_pointer,
              png_structp png_ptr, png_infop info_ptr, int ppb, int color_type, int output_flow_type,
              int input_flow_type);

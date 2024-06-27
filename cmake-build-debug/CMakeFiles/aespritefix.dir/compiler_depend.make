@@ -132,7 +132,8 @@ CMakeFiles/aespritefix.dir/DMI_Struct.c.obj: C:/Users/jonat/GitHub/DMI_Forge/DMI
   C:/Program\ Files/JetBrains/CLion\ 2023.2.2/bin/mingw/x86_64-w64-mingw32/include/sys/types.h \
   C:/Program\ Files/JetBrains/CLion\ 2023.2.2/bin/mingw/x86_64-w64-mingw32/include/getopt.h \
   C:/Program\ Files/JetBrains/CLion\ 2023.2.2/bin/mingw/x86_64-w64-mingw32/include/pthread_unistd.h \
-  C:/Program\ Files/JetBrains/CLion\ 2023.2.2/bin/mingw/x86_64-w64-mingw32/include/math.h
+  C:/Program\ Files/JetBrains/CLion\ 2023.2.2/bin/mingw/x86_64-w64-mingw32/include/math.h \
+  C:/Users/jonat/GitHub/DMI_Forge/PixelManip.h
 
 CMakeFiles/aespritefix.dir/Icon_State.c.obj: C:/Users/jonat/GitHub/DMI_Forge/Icon_State.c \
   C:/Program\ Files/JetBrains/CLion\ 2023.2.2/bin/mingw/x86_64-w64-mingw32/include/stdlib.h \
@@ -256,3 +257,5 @@ C:/Program\ Files/JetBrains/CLion\ 2023.2.2/bin/mingw/x86_64-w64-mingw32/include
 C:/Users/jonat/GitHub/DMI_Forge/DMI_Struct.c:
 
 C:/Program\ Files/JetBrains/CLion\ 2023.2.2/bin/mingw/x86_64-w64-mingw32/include/math.h:
+
+C:/Users/jonat/GitHub/DMI_Forge/PixelManip.h:

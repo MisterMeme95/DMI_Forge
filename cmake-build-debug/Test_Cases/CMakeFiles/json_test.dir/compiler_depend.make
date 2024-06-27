@@ -86,7 +86,8 @@ Test_Cases/CMakeFiles/json_test.dir/__/DMI_Struct.c.obj: C:/Users/jonat/GitHub/D
   C:/Program\ Files/JetBrains/CLion\ 2023.2.2/bin/mingw/x86_64-w64-mingw32/include/sys/types.h \
   C:/Program\ Files/JetBrains/CLion\ 2023.2.2/bin/mingw/x86_64-w64-mingw32/include/getopt.h \
   C:/Program\ Files/JetBrains/CLion\ 2023.2.2/bin/mingw/x86_64-w64-mingw32/include/pthread_unistd.h \
-  C:/Program\ Files/JetBrains/CLion\ 2023.2.2/bin/mingw/x86_64-w64-mingw32/include/math.h
+  C:/Program\ Files/JetBrains/CLion\ 2023.2.2/bin/mingw/x86_64-w64-mingw32/include/math.h \
+  C:/Users/jonat/GitHub/DMI_Forge/PixelManip.h
 
 Test_Cases/CMakeFiles/json_test.dir/__/Icon_State.c.obj: C:/Users/jonat/GitHub/DMI_Forge/Icon_State.c \
   C:/Program\ Files/JetBrains/CLion\ 2023.2.2/bin/mingw/x86_64-w64-mingw32/include/stdlib.h \
@@ -220,6 +221,9 @@ Test_Cases/CMakeFiles/json_test.dir/__/data_structure.c.obj: C:/Users/jonat/GitH
   C:/Program\ Files/JetBrains/CLion\ 2023.2.2/bin/mingw/x86_64-w64-mingw32/include/_timeval.h \
   C:/Program\ Files/JetBrains/CLion\ 2023.2.2/bin/mingw/x86_64-w64-mingw32/include/pthread_time.h \
   C:/Users/jonat/GitHub/DMI_Forge/PixelManip.h \
+  C:/Users/jonat/GitHub/DMI_Forge/dmi.h \
+  C:/Users/jonat/GitHub/DMI_Forge/iconstate.h \
+  C:/Program\ Files/JetBrains/CLion\ 2023.2.2/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/stdbool.h \
   C:/Program\ Files/JetBrains/CLion\ 2023.2.2/bin/mingw/x86_64-w64-mingw32/include/stdlib.h \
   C:/Program\ Files/JetBrains/CLion\ 2023.2.2/bin/mingw/x86_64-w64-mingw32/include/corecrt_wstdlib.h \
   C:/Program\ Files/JetBrains/CLion\ 2023.2.2/bin/mingw/x86_64-w64-mingw32/include/sec_api/stdlib_s.h \
@@ -264,6 +268,9 @@ Test_Cases/CMakeFiles/json_test.dir/json_test.c.obj: C:/Users/jonat/GitHub/DMI_F
   C:/Program\ Files/JetBrains/CLion\ 2023.2.2/bin/mingw/x86_64-w64-mingw32/include/_timeval.h \
   C:/Program\ Files/JetBrains/CLion\ 2023.2.2/bin/mingw/x86_64-w64-mingw32/include/pthread_time.h \
   C:/Users/jonat/GitHub/DMI_Forge/PixelManip.h \
+  C:/Users/jonat/GitHub/DMI_Forge/dmi.h \
+  C:/Users/jonat/GitHub/DMI_Forge/iconstate.h \
+  C:/Program\ Files/JetBrains/CLion\ 2023.2.2/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/stdbool.h \
   C:/Program\ Files/JetBrains/CLion\ 2023.2.2/bin/mingw/x86_64-w64-mingw32/include/math.h \
   C:/Program\ Files/JetBrains/CLion\ 2023.2.2/bin/mingw/x86_64-w64-mingw32/include/unistd.h \
   C:/Program\ Files/JetBrains/CLion\ 2023.2.2/bin/mingw/x86_64-w64-mingw32/include/io.h \

@@ -4,7 +4,7 @@
 #include <string.h>
 #include "PixelManip.h"
 #include <png.h>
-#include "dmi.h"
+
 
 
 int authenticate_transform(int color_flag, int bit_flag, int write_flag, char** debug_report){
@@ -134,7 +134,7 @@ int main(int argc, char **argv) {
             case 'b':
                 target_bit_depth = strtol(optarg, &endptr, 10);
                 if(target_bit_depth != 1 && target_bit_depth != 2 && target_bit_depth != 4 &&
-                   target_bit_depth != 8 && target_bit_depth != 16){
+                   target_bit_depth != 8 && target_bit_depth != 16) {
                     printf("Error: The specified bit depth '%s' is invalid. "
                            "Please choose one of the following valid values: 1, 2, 4, 8, or 16.\n", optarg);
                     return EXIT_FAILURE;

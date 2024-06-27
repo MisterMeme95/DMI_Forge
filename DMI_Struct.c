@@ -13,6 +13,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <math.h>
+#include "PixelManip.h"
 
 
 /* A basic function to initialize a DMI struct. */
@@ -49,26 +50,32 @@ png_uint_32 Get_Sheet_Size(DMI* dmi){
     return (png_uint_32)(return_total * dmi->height);
 }
 
-Image create_sprite_sheet(Image initial_image, SpriteSheetData sheet_data){
-    if(sheet_data.format == GRID){
-        calculate_grid_sheet_dimensions(NULL, NULL, 3);
+int create_sprite_sheet(Image* initial_image, SpriteSheetData* sheet_data, DMI new_icon){
+    if(sheet_data->format == GRID){
+        calculate_grid_sheet_dimensions(&new_icon, sheet_data, 3);
     }
     else {
         //run other calculations to get the sheet's dimensions.
-        sheet_data.height =
+        sheet_data->height = (int)initial_image->height;
+        sheet_data->width = (int)initial_image->width;
     }
 
-    /* Next we create a new Image.
-     * Fill the new image with height/width/margins/offsets data from spritesheet.
-     * Next we fill it with misc data like bit_depth, color_type, interface, etc.
-     *
-     * */
+    if(sheet_data->width < sheet_data->user_input_width)
+        sheet_data->width = sheet_data->user_input_width;
+
+    if(sheet_data->height < sheet_data->user_input_height)
+        sheet_data->height = sheet_data->user_input_height;
+
+
     Image new_image;
 
-    new_image.width = sheet_data.width + sheet_data.margin_x + (sheet_data.offset_x * sheet_data.frames_per_row);
-    new_image.height = sheet_data.height + sheet_data.margin_y + (sheet_data.offset_x * sheet_data.frames_per_col);
-    new_image.bit_depth = initial_image.bit_depth;
+    //new_image.width = sheet_data.width + sheet_data.margin_x + (sheet_data.offset_x * sheet_data.frames_per_row);
+   // new_image.height = sheet_data.height + sheet_data.margin_y + (sheet_data.offset_x * sheet_data.frames_per_col);
+    //new_image.bit_depth = initial_image->bit_depth;
+   // new_image.color_type = initial_image->color_type;
     //next set the new image to the height/width/bit_dep
+
+    return 1;
 }
 
 void calculate_horizontal_sheet_dimensions(DMI* dmi, SpriteSheetData* sheet_data, int default_width){
@@ -78,6 +85,7 @@ void calculate_horizontal_sheet_dimensions(DMI* dmi, SpriteSheetData* sheet_data
 
 void calculate_grid_sheet_dimensions(DMI* dmi, SpriteSheetData* sheet_data, int icon_states_per_row){
     icon_state *iterator = dmi->begin_icon_state;
+    printf("Num of states = %d\n", dmi->num_of_states);
     int num_of_states = dmi->num_of_states;
 
     int row_size = (int)ceil(((double)dmi->num_of_states / (double)icon_states_per_row));
@@ -103,8 +111,8 @@ void calculate_grid_sheet_dimensions(DMI* dmi, SpriteSheetData* sheet_data, int 
         if(current_count > widest_row)
             widest_row = current_count;
     }
-    sheet_data->width = widest_row * sheet_data->FRAME_SIZE;
-    sheet_data->height = height_total * sheet_data->FRAME_SIZE;
+    sheet_data->width = widest_row * 32;
+    sheet_data->height = height_total * 32;
     sheet_data->frames_per_row = widest_row;
     sheet_data->frames_per_col = height_total;
 }

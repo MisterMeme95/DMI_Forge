@@ -27,24 +27,41 @@ int validate_layout(char* string){
 }
 
 void print_usage() {
-    printf(
-            "-l, --layout: layout for the sprite sheet. HORIZONTAL_FLOW, VERTICAL_FLOW, GRIDLOCK_FLOW\n"
-            "-s, --size: Size of the sprite. W x H where W = width and H = height. By default, the size is automatically\n"
-            "            set to whatever the height/width is for the DMI. If the manually set size is less, the program\n"
-            "            should automatically ask for confirmation if you want to split up the frames in portions.\n"
-            "            Otherwise, if it is larger, I need to create a program to offset the canvas.\n"
-            "-r, --rows: Num of Rows in sprite sheet.\n"
-            "-c, --cols: num of cols in sprite sheet produced.\n"
-            "-p, --spacing: The amount of padding between each frame.\n"
-            "-i, --icon_state: Specify the icon_state(s) that should be extracted.\n"
-            "-n, --name: Whether the names should be specified.\n"
-            "--margin: The amount of space before the extraction of the frames may begin.\n"
-            "-b, --background: set background color for the sprite sheet. Only valid for non-RGBA sprites.\n"
-            "-o, --overwrite: Set overwrite settings. [Yes, no, ask.]\n"
-            "-f, --force: ignores all prompts, so causing overwrite will go through automatically, no prompt for changing size, etc.\n"
-            "-m, --metadata: copy to a dmt file.\n"
-            "-d, --directory <path>: Where to send output file. By default, it will be relative path.\n"
-            "-t, --transform: Flip, rotate, etc.\n"
+    printf(""
+           "-l, --layout         The format that the sprite-sheet will be represented in. So far there are only two "
+           "                     values: grid, horizontal.\n"
+
+            "-w, --width         The desired width of the resultant sprite-sheet. If the provided value is insufficient "
+            "                    the program will automatically set the width to the minimal needed to contain the pixels.\n"
+
+            "-h, --height        The desired height of the resultant sprite-sheet. If the provided value is insufficient "
+            "                    the program will automatically set the width to the minimal needed to contain the pixels.\n"
+
+            "-r, --rows          Num of Rows in sprite sheet.\n"
+
+            "-c, --cols          Num of cols in sprite sheet produced.\n"
+
+            "-p, --spacing       The amount of padding between each frame.\n"
+
+            "-i, --icon_state    Specify the icon_state(s) that should be extracted. The list uses a comma (,) as the"
+            "                    delimiter.\n"
+
+            "-n, --name          A boolean flag determining if the name of the icon_states should be listed in the"
+            "                    sprite-sheet.\n"
+
+            "-m, --margin        The amount of space before the extraction of the frames may begin.\n"
+
+            "-b, --background    Set background color for the sprite sheet. Only valid for non-RGBA sprites.\n"
+
+            "-o, --overwrite     Set overwrite settings. [Yes, no, ask.]\n"
+
+            "-f, --force         Ignores all prompts, so causing overwrite will go through automatically, no prompt "
+            "                    for changing size, etc.\n"
+
+            "-m, --metadata      Copy to a dmt file.\n"
+
+            "-d, --directory     Where to send output file. By default, it will be relative path.\n"
+
     );
 }
 
@@ -52,7 +69,6 @@ void print_usage() {
 
 int main(int argc, char **argv){
     SpriteSheetData sheet_data;
-    sheet_data.FRAME_SIZE = 32;
 
     png_structp read_png_ptr;
     png_infop read_info_ptr;
@@ -69,7 +85,7 @@ int main(int argc, char **argv){
                           " file into a sprite sheet.\n\n";
 
 
-    static char options_text[] = "  -o";
+
     static int fflag = 0;
     int sheet_format = 0;
 
@@ -83,17 +99,21 @@ int main(int argc, char **argv){
                    {"layout", required_argument, 0, 200},
                    {"margins", required_argument, 0, 'm'},
                    {"help", required_argument, 0, 'm'},
+                   {"width", required_argument, 0, 'w'},
+                   {"height", required_argument, 0, 'h'}
             };
 
         int option_index = 0;
 
         int opt;
-        while ((opt = getopt_long(argc, argv, "i:o:b:c:h", long_options, NULL)) != -1) {
+        while ((opt = getopt_long(argc, argv, "i:o:b:c:h:w", long_options, NULL)) != -1) {
             switch (opt) {
                 case 'i':
+                    input_name = strdup(optarg);
                     break;
 
                 case 'o':
+                    output_name = strdup(optarg);
                     break;
 
                 case 'b':
@@ -103,6 +123,11 @@ int main(int argc, char **argv){
                     break;
 
                 case 'h':
+                    sheet_data.user_input_height = atoi(optarg);
+                    break;
+
+                case 'w':
+                    sheet_data.user_input_width = atoi(optarg);
                     break;
 
                 case 'f':
@@ -120,26 +145,26 @@ int main(int argc, char **argv){
         }
 
 
-    if (optind < argc)
-    {
-        printf ("non-option ARGV-elements: ");
-        int start_value = optind;
-        while(optind < argc){
-            if(optind - start_value == 0){
-                input_name = malloc(sizeof(char) * strlen(argv[optind]) + 1);
-                strcpy(input_name, argv[optind++]);
-            }
-
-            else if(optind - start_value == 1){
-                output_name = malloc(sizeof(char) * strlen(argv[optind]) + 1);
-                strcpy(output_name, argv[optind++]);
-            }
-
-            else {
-                printf ("%s ", argv[optind++])     ;
-            }
-       }
-    }
+//    if (optind < argc)
+//    {
+//        printf ("non-option ARGV-elements: ");
+//        int start_value = optind;
+//        while(optind < argc){
+//            if(optind - start_value == 0){
+//                input_name = malloc(sizeof(char) * strlen(argv[optind]) + 1);
+//                strcpy(input_name, argv[optind++]);
+//            }
+//
+//            else if(optind - start_value == 1){
+//                output_name = malloc(sizeof(char) * strlen(argv[optind]) + 1);
+//                strcpy(output_name, argv[optind++]);
+//            }
+//
+//            else {
+//                printf ("%s ", argv[optind++])     ;
+//            }
+//       }
+//    }
 
     if(input_name == NULL){
         printf("The command MUST have an input file specified!\nProgram ends in failure. . .\n");
@@ -323,7 +348,10 @@ int main(int argc, char **argv){
     }
     int new_height = 0;
     int new_width = 0;
-    calculate_grid_sheet_dimensions(new_icon, &sheet_data, 3);
+    sheet_data.format = GRID;
+    create_sprite_sheet(NULL, &sheet_data, *new_icon);
+
+    //calculate_grid_sheet_dimensions(new_icon, &sheet_data, 3);
     printf("Height - %d\n"
            "Width - %d\n", sheet_data.height, sheet_data.width);
 
