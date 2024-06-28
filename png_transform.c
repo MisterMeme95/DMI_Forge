@@ -48,6 +48,11 @@ void print_usage() {
 
 int main(int argc, char **argv) {
 
+
+//    Image practice_image = Create_Image("goku.dmi");
+//    printf("Bit_Depth = %d"
+//           "\nColor_Type = %d\nHeight = %d\nWidth = %d\n", practice_image.bit_depth, practice_image.color_type, practice_image.height,
+//           practice_image.width);
     /** These are flags for arguments that must be submitted in order for the program to run properly. **/
     int write_flag = 0, depth_flag = 0, color_flag = 0, required_flags = 3;
 

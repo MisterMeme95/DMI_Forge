@@ -1,4 +1,4 @@
-#define PNG_BYTES_TO_CHECK 8
+
 
 
 #include <stdio.h>

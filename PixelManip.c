@@ -1151,7 +1151,8 @@ void Write_PNG(png_structp* write_ptr, png_infop* write_info_ptr, FILE* output_f
 
     // Set image attributes
     png_set_IHDR(*write_ptr, *write_info_ptr, width, height, bit_depth,
-                 color_type, PNG_INTERLACE_NONE, PNG_COMPRESSION_TYPE_DEFAULT, PNG_FILTER_TYPE_DEFAULT);
+                 color_type, PNG_INTERLACE_NONE, PNG_COMPRESSION_TYPE_DEFAULT,
+                 PNG_FILTER_TYPE_DEFAULT);
 
     // Write header
     png_write_info(*write_ptr, *write_info_ptr);
@@ -1169,7 +1170,77 @@ void Write_PNG(png_structp* write_ptr, png_infop* write_info_ptr, FILE* output_f
     fclose(output_file);
     // Note: Caller should free row_pointers if allocated dynamically
 }
+Image Create_Image(char* file_name){
+    Image new_image;
+    if(!check_if_png(file_name, &new_image.file_pointer)){
+        printf("The file you are attempting to read is not a valid PNG file!\n");
+        exit(1);
+    }
+    new_image.png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+    if (!(new_image.png_ptr)) {
+        printf("Error creating read struct\n");
+        fclose(new_image.file_pointer);
+        exit(1);
+    }
+    png_set_sig_bytes(new_image.png_ptr, PNG_BYTES_TO_CHECK);
+    new_image.info_ptr = png_create_info_struct(new_image.png_ptr);
+    if (!(new_image.info_ptr)) {
+        printf("Error creating read info struct\n");
+        png_destroy_read_struct(&new_image.png_ptr, NULL, NULL);
+        fclose(new_image.file_pointer);
+        exit(1);
+    }
 
+    if (setjmp(png_jmpbuf(new_image.png_ptr))) {
+        printf("Error during read\n");
+        png_destroy_read_struct(&new_image.png_ptr, &new_image.info_ptr, NULL);
+        fclose(new_image.file_pointer);
+        exit(1);
+    }
+
+    /* Initialize connection between the file and the png_ptr. Also read in the information to fill in the metadata. */
+    png_init_io(new_image.png_ptr, new_image.file_pointer);
+    png_read_info(new_image.png_ptr, new_image.info_ptr);
+    png_get_IHDR(new_image.png_ptr, new_image.info_ptr, &new_image.width, &new_image.height, &new_image.bit_depth,
+                 &new_image.color_type, &new_image.interlace_method, NULL, NULL);
+
+    /* We optionally set additional information if it's a palette. */
+    if(new_image.color_type == PNG_COLOR_TYPE_PALETTE){
+        png_get_PLTE(new_image.png_ptr, new_image.info_ptr, &new_image.palette, &new_image.palette_num);
+        png_get_tRNS(new_image.png_ptr, new_image.info_ptr, &new_image.trans_alpha,
+                     &new_image.trans_num, &new_image.trans_color);
+    }
+
+    else if(new_image.color_type == PNG_COLOR_TYPE_RGB | new_image.color_type == PNG_COLOR_TYPE_GRAY){
+        png_get_tRNS(new_image.png_ptr, new_image.info_ptr, &new_image.trans_alpha,
+                     &new_image.trans_num, &new_image.trans_color);
+    }
+
+
+    new_image.pixel_array = (png_bytepp)malloc(sizeof(png_bytep) * new_image.height);
+
+    if (new_image.pixel_array == NULL) {
+        fprintf(stderr, "Memory allocation failed for row pointers.\n");
+        exit(EXIT_FAILURE); // Or handle the error appropriately
+    }
+
+    for (png_uint_32 pix_index = 0; pix_index < new_image.height; pix_index++) {
+        new_image.pixel_array[pix_index] = (png_bytep)malloc(png_get_rowbytes(new_image.png_ptr,new_image.info_ptr));
+        if (new_image.pixel_array[pix_index] == NULL) {
+            fprintf(stderr, "Memory allocation failed for row %u.\n", pix_index);
+            // Cleanup previously allocated memory
+            while (pix_index > 0) {
+                free(new_image.pixel_array[pix_index--]);
+            }
+            free(new_image.pixel_array);
+            png_destroy_read_struct(&new_image.png_ptr, &new_image.info_ptr, NULL);
+            fclose(new_image.file_pointer);
+            exit(EXIT_FAILURE); // Consider a more graceful exit or handling strategy
+        }
+    }
+
+    return new_image;
+}
 void Initialize_Pixels(png_bytepp *pixel_array, int height, size_t bytes_per_row){
 
     *pixel_array = (png_bytepp)malloc(sizeof(png_bytep) * height);

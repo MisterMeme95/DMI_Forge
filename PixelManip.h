@@ -319,9 +319,9 @@ Pixel_Data Combine_Pixels(Pixel_Data foreground, Pixel_Data background, int colo
 void Read_PNG(png_structp* read_ptr, png_infop* read_info_ptr, FILE* input_file, png_bytepp* row_pointers,
               png_uint_32 *height, png_uint_32* width);
 
-void Read_PNG(png_structp* read_ptr, png_infop* read_info_ptr, FILE* input_file, png_bytepp* row_pointers,
+void Read_Image(png_structp* read_ptr, png_infop* read_info_ptr, FILE* input_file, png_bytepp* row_pointers,
               png_uint_32 *height, png_uint_32* width);
-
+Image Create_Image(char* file_name);
 void Write_PNG(png_structp* write_ptr, png_infop* write_info_ptr, FILE* output_file, png_bytepp row_pointers,
                png_uint_32 height, png_uint_32 width, int bit_depth, int color_type);
 void Initialize_Pixels(png_bytepp *pixel_array, int height, size_t bytes_per_row);

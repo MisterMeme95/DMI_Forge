@@ -8,6 +8,7 @@
 #define GRIDLOCK_FLOW 2
 #define HORIZONTAL 0
 #define GRID 1
+#define PNG_BYTES_TO_CHECK 8
 #ifndef dmi_h
 #define dmi_h
 
@@ -25,11 +26,19 @@ typedef struct DMI_Struct {
 typedef struct Image_Struct{
     png_structp png_ptr;
     png_infop info_ptr;
+    png_colorp palette;
+    png_bytep trans_alpha;
+    png_color_16p trans_color;
+
+    int trans_num;
+    int palette_num;
     png_uint_32 width, height;
     int bit_depth, color_type, interlace_method, pixels_per_byte;
-
+    png_bytepp pixel_array;
     FILE *file_pointer;
 } Image;
+
+
 
 typedef struct SpriteSheetData{
     int FRAME_SIZE, width, height, format;
