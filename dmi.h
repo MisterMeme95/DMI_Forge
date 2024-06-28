@@ -1,3 +1,5 @@
+
+
 #define BEGIN_DMI "# BEGIN DMI"
 #define END_DMI "# END DMI"
 #define DMI_VERSION "version"
@@ -23,8 +25,27 @@ typedef struct DMI_Struct {
     icon_state *icon_states, *begin_icon_state;
 }DMI;
 
+
+
+
+/** @brief This struct represents a basic PNG image.
+ * @param png_ptr - A pointer linking to the PNG file being processed. It handles the reading and writing operations.
+ * @param png_infop - This contains all of the relevant metadata, like height, bit_depth, etc.
+ * @param trans_color - This a png_color value that is used for RGB and Gray images to specify transparency color.
+ * @param palette - This is an array of png_color that stores valid entries for a paletted image.
+ * @param palette_num - This is the number of entries in the palette array.
+ * @param trans_alpha - Trans_alpha is a png_byte array that contains list of alpha pixel indexes for paletted images.
+ * @param trans_num - This species the number of transparent pixel entries in a palette.
+ * @param width - This represents the width.
+ * @param height - This represents the height.
+ * @param bit_depth - This represents bit_depth, which is used to specify the size of each color channel.
+ * @param color_type - This represents the type of color format for the image. [RGB, RGBA, Gray, Gray & Alpha, Indexed]
+ * @param file_pointer - This is the PNG file that is being read or written to.
+ * @param pixel_array - This contains the array of pixels that the image is made up of.
+ * @param interlace_method - ???
+ **/
 typedef struct Image_Struct{
-    png_structp png_ptr;
+    png_structp png_ptr; /*!< Detailed description after the member. */
     png_infop info_ptr;
     png_colorp palette;
     png_bytep trans_alpha;
@@ -33,7 +54,10 @@ typedef struct Image_Struct{
     int trans_num;
     int palette_num;
     png_uint_32 width, height;
-    int bit_depth, color_type, interlace_method, pixels_per_byte;
+    int bit_depth;
+    int color_type;
+    int interlace_method;
+    int pixels_per_byte;
     png_bytepp pixel_array;
     FILE *file_pointer;
 } Image;
@@ -54,7 +78,9 @@ typedef struct SpriteSheetData{
  * @members state_per_row: This is an input provided by the user that specifies how many icon_states
  * a user may want to be listed per row. */
 void calculate_grid_sheet_dimensions(DMI* dmi, SpriteSheetData* sheet_data, int icon_states_per_row);
+
 int create_sprite_sheet(Image* initial_image, SpriteSheetData* sheet_data, DMI new_icon);
+
 int dmiToPng(DMI* dmi, int pngWidth, int pngHeight, png_bytepp orig_pointer, png_bytepp new_pointer,
              png_structp png_ptr, png_infop info_ptr, int ppb, int color_type, int output_flow_type,
              int input_flow_type);
@@ -80,6 +106,7 @@ void Get_Frame(png_bytepp dest_pixels, png_bytepp src_pixels, int dest_start_row
 int initialize_image(png_structp *png_ptr, png_infop *png_info, FILE **fp);
 int check_if_png(char *file_name, FILE **fp);
 void output_pixel_values(png_structp png_ptr, png_infop info_ptr, png_bytep *row_pointers);
+void output_image_pixels(Image image);
 void Print_Variable(char *string, DMI* dmi);
 char *find_newline(char **string, int *dmi_index, char *search_for);
 int get_string_char(char *string, char* char_search, char doo);

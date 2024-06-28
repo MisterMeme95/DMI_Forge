@@ -1172,7 +1172,7 @@ void Write_PNG(png_structp* write_ptr, png_infop* write_info_ptr, FILE* output_f
 }
 Image Create_Image(char* file_name){
     Image new_image;
-    if(!check_if_png(file_name, &new_image.file_pointer)){
+    if(!check_if_png(file_name, &new_image.file_pointer)) {
         printf("The file you are attempting to read is not a valid PNG file!\n");
         exit(1);
     }
@@ -1216,12 +1216,11 @@ Image Create_Image(char* file_name){
                      &new_image.trans_num, &new_image.trans_color);
     }
 
-
     new_image.pixel_array = (png_bytepp)malloc(sizeof(png_bytep) * new_image.height);
 
     if (new_image.pixel_array == NULL) {
         fprintf(stderr, "Memory allocation failed for row pointers.\n");
-        exit(EXIT_FAILURE); // Or handle the error appropriately
+        exit(EXIT_FAILURE);
     }
 
     for (png_uint_32 pix_index = 0; pix_index < new_image.height; pix_index++) {
@@ -1238,7 +1237,6 @@ Image Create_Image(char* file_name){
             exit(EXIT_FAILURE); // Consider a more graceful exit or handling strategy
         }
     }
-
     return new_image;
 }
 void Initialize_Pixels(png_bytepp *pixel_array, int height, size_t bytes_per_row){

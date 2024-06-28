@@ -573,6 +573,60 @@ int Get_Dest_Row(icon_state* state, int DMI_HEIGHT){
     }
     return biggest_dir * DMI_HEIGHT;
 }
+
+void output_image_pixels(Image image){
+    png_uint_32 width = image.width;
+    png_uint_32 height = image.height;
+    int color_type = image.color_type;
+    int bit_depth = image.bit_depth;
+    png_colorp palette = NULL;
+    int num_palette = 0;
+    if (color_type == PNG_COLOR_TYPE_PALETTE) {
+        png_get_PLTE(image.png_ptr, image.info_ptr, &palette, &num_palette);
+    }
+    for (int y = 0; y < height; y++) {
+        png_bytep row = image.pixel_array[y];
+        for (int x = 0; x < width; x++) {
+            if (color_type == PNG_COLOR_TYPE_RGB) {
+                png_bytep px = &(row[x * 3]);
+                printf("Pixel at (%d, %d): R=%d, G=%d, B=%d\n", x, y, px[0], px[1], px[2]);
+            } else if (color_type == PNG_COLOR_TYPE_RGBA) {
+                png_bytep px = &(row[x * 4]);
+                printf("Pixel at (%d, %d): R=%d, G=%d, B=%d, A=%d\n", x, y, px[0], px[1], px[2], px[3]);
+            } else if (color_type == PNG_COLOR_TYPE_GRAY) {
+                int num_bytes = bit_depth == 8 ? 1 : 2;
+                png_bytep px = &(row[x * num_bytes]);
+                int gray_value = num_bytes == 1 ? px[0] : (px[0] << 8) + px[1];
+                printf("Pixel at (%d, %d): Gray=%d\n", x, y, gray_value);
+            } else if (color_type == PNG_COLOR_TYPE_PALETTE) {
+                int index, ppb = 8/bit_depth;    // pixels per byte
+                switch (bit_depth){
+                    default: printf("bit depth %d not implemented\n", bit_depth); exit(1);
+                    case 1:
+                    case 2:
+                    case 4:
+                    case 8: index = row[x/ppb]>>8-(x%ppb+1)*bit_depth&255>>8-bit_depth;
+                }
+                printf("Index = %d\n", index);
+
+                if (index < num_palette) {
+                    png_color palette_color = palette[index];
+                    printf(" >>> Pixel at (%d, %d): Palette Index=%d, R=%d, G=%d, B=%d\n", x, y, index,
+                           palette_color.red, palette_color.green, palette_color.blue);
+                } else {
+                    printf("Index = %d\n", index);
+                    printf("Pixel at (%d, %d): Palette index out of range\n", x, y);
+                }
+            }
+            else {
+                printf("Index = %d", row[x]);
+                printf("Pixel at (%d, %d): Color type not supported\n", x, y);
+            }
+        }
+    }
+
+
+}
 void output_pixel_values(png_structp png_ptr, png_infop info_ptr, png_bytep *row_pointers) {
     png_uint_32 width = png_get_image_width(png_ptr, info_ptr);
     png_uint_32 height = png_get_image_height(png_ptr, info_ptr);

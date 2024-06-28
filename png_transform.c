@@ -69,7 +69,9 @@ int main(int argc, char **argv) {
 
     png_bytepp row_pointers;
     int bit_depth = 0, color_type = 0, interlace_method = 0, compression = 0, filter = 0;
-    png_structp read_ptr;
+
+    png_structp read_ptr; /*!< Detailed description after the member. */
+
     png_infop read_info_ptr;
 
     pngInfo.trans_alpha = NULL;

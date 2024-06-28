@@ -321,6 +321,13 @@ void Read_PNG(png_structp* read_ptr, png_infop* read_info_ptr, FILE* input_file,
 
 void Read_Image(png_structp* read_ptr, png_infop* read_info_ptr, FILE* input_file, png_bytepp* row_pointers,
               png_uint_32 *height, png_uint_32* width);
+/**
+ *
+ * @param file_name
+ * Takes the name of a file that presumptuous exists.
+ *
+ * @return
+ */
 Image Create_Image(char* file_name);
 void Write_PNG(png_structp* write_ptr, png_infop* write_info_ptr, FILE* output_file, png_bytepp row_pointers,
                png_uint_32 height, png_uint_32 width, int bit_depth, int color_type);
