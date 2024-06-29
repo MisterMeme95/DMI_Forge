@@ -1170,7 +1170,7 @@ void Write_PNG(png_structp* write_ptr, png_infop* write_info_ptr, FILE* output_f
     fclose(output_file);
     // Note: Caller should free row_pointers if allocated dynamically
 }
-Image Create_Image(char* file_name){
+Image load_image(char* file_name){
     Image new_image;
     if(!check_if_png(file_name, &new_image.file_pointer)) {
         printf("The file you are attempting to read is not a valid PNG file!\n");

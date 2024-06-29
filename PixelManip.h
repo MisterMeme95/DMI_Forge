@@ -328,7 +328,11 @@ void Read_Image(png_structp* read_ptr, png_infop* read_info_ptr, FILE* input_fil
  *
  * @return
  */
-Image Create_Image(char* file_name);
+Image load_image(char* file_name);
+Image initialize_image2(char *file_name);
+void save_image(Image *image);
+void free_image(Image *image);
+
 void Write_PNG(png_structp* write_ptr, png_infop* write_info_ptr, FILE* output_file, png_bytepp row_pointers,
                png_uint_32 height, png_uint_32 width, int bit_depth, int color_type);
 void Initialize_Pixels(png_bytepp *pixel_array, int height, size_t bytes_per_row);
