@@ -46,7 +46,7 @@ int match_node(Pixel_Data pixel, Pixel_Data other_pixel){
     }
     if(pixel.alpha_channel != other_pixel.alpha_channel){
         return 0;
-    }
+   }
     return 1;
 }
 
@@ -62,7 +62,7 @@ int insert_key(Pixel_Data pixel, palette_hash *paletteHash, png_byte new_index) 
 
     if (paletteHash->hash_bucket[hash_index] == NULL) {
 
-        node *new_node = malloc(sizeof(node));
+        node *new_node = (node*)malloc(sizeof(node));
         if (new_node == NULL) {
             fprintf(stderr, "Failed to allocate memory for new node\n");
             return -1;
@@ -79,7 +79,7 @@ int insert_key(Pixel_Data pixel, palette_hash *paletteHash, png_byte new_index) 
 
     } else {
         // The bucket is not empty. Insert the new node at the beginning of the list
-        node *new_node = malloc(sizeof(node));
+        node *new_node = (node*) malloc(sizeof(node));
         if (new_node == NULL) {
             fprintf(stderr, "Failed to allocate memory for new node\n");
             return -1;

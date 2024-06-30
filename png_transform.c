@@ -4,8 +4,8 @@
 #include <string.h>
 #include "PixelManip.h"
 #include <png.h>
-
-
+#include <math.h>
+#include <unistd.h>
 
 int authenticate_transform(int color_flag, int bit_flag, int write_flag, char** debug_report){
     int is_valid = 1;
@@ -165,8 +165,15 @@ int main(int argc, char **argv) {
     transformed_image.bit_depth = target_bit_depth;
     transformed_image.height = original_image.height;
     transformed_image.width = original_image.width;
-    transformed_image.palette = (png_colorp)malloc(sizeof(png_color) * 256);
-
+    int palette_maximum_size = (int)pow(2.0, (double)transformed_image.bit_depth);
+    //transformed_image.palette = (png_colorp)malloc(sizeof(png_color) * palette_maximum_size);
+    //transformed_image.palette = (png_colorp)malloc(sizeof(png_color) * palette_maximum_size);
+    transformed_image.palette_num = 0;
+//    if(new_image->color_type == PNG_COLOR_TYPE_PALETTE){
+//        int palette_maximum_size = (int)pow(2.0, (double)new_image->bit_depth);
+//        printf("Max = %d\n", palette_maximum_size);
+//        new_image->palette = (png_colorp)malloc(sizeof(png_color) * palette_maximum_size);
+//    }
 
     initialize_image2(output_file, &transformed_image);
 
@@ -183,7 +190,7 @@ int main(int argc, char **argv) {
 
             Set_Channels(&isolated_pixel);
             Pixel_Data transformed_pixel = Pixel_Transformation(isolated_pixel, target_color_type, target_bit_depth);
-
+            //Set_Channels(&transformed_pixel);
             if(original_image.color_type == PNG_COLOR_TYPE_PALETTE && target_color_type == PNG_COLOR_TYPE_RGB){
                 if(isolated_pixel.alpha_channel == 0){
                     if(transformed_image.trans_color == NULL){
@@ -216,6 +223,17 @@ int main(int argc, char **argv) {
 
     if(target_color_type == PNG_COLOR_TYPE_RGB) {// || target_color_type == PNG_COLOR_TYPE_GRAY){
         png_set_tRNS(transformed_image.png_ptr, transformed_image.info_ptr, NULL, 1, transformed_image.trans_color);
+    }
+    for(int i = 0; i < transformed_image.height; i++){
+        for(int j = 0; j < transformed_image.width; j++){
+            //printf("%d ", transformed_image.pixel_array[i][j]);
+            if(transformed_image.pixel_array[i][j] != original_image.pixel_array[i][j]){
+//                printf("(%d, %d) - Origin [%d] | transformed [%d] \n", i, j, transformed_image.pixel_array[i][j],
+//                       original_image.pixel_array[i][j]);
+            }
+        }
+        //printf("\n");
+        //sleep(10);
     }
     png_write_info(transformed_image.png_ptr, transformed_image.info_ptr);
     png_write_image(transformed_image.png_ptr, transformed_image.pixel_array);
