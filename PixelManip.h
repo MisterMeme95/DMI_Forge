@@ -332,6 +332,8 @@ void Read_Image(png_structp* read_ptr, png_infop* read_info_ptr, FILE* input_fil
 
 Image load_image(char* file_name);
 void initialize_image2(char *file_name, Image *new_image);
+//void initialize_image2(char *file_name, Image* new_image, int* bit_depth, int* color_type, int* width,
+//                       int* height);
 //void save_image(Image *image);
 //void free_image(Image *image);
 

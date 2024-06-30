@@ -420,8 +420,9 @@ void Set_Pixel(png_bytepp image, Pixel_Data* new_pixel, int x_coord,int y_coord,
             else {
                 insert_index = get_index;
             }
-            break;
+
         }
+            break;
         default:
             *new_pixel->byte_data = (*new_pixel->byte_data) << pixel_bit_shift;
             bpp *= 1;
@@ -432,6 +433,7 @@ void Set_Pixel(png_bytepp image, Pixel_Data* new_pixel, int x_coord,int y_coord,
         if(color_type == PNG_COLOR_TYPE_PALETTE){
             insert_index = (insert_index << (pixel_bit_shift));
             image[y_coord][pixel_index] = (image[y_coord][pixel_index])^insert_index;
+            //sleep(3);
         }
         else {
             image[y_coord][pixel_index] = (image[y_coord][pixel_index])^(*new_pixel->byte_data);
@@ -439,6 +441,7 @@ void Set_Pixel(png_bytepp image, Pixel_Data* new_pixel, int x_coord,int y_coord,
     }
     else{
         if(color_type == PNG_COLOR_TYPE_PALETTE){
+            //printf("Index = %d\n", insert_index);
             image[y_coord][pixel_index] = (png_byte)insert_index;
         }
         else {
@@ -678,7 +681,7 @@ void Initialize_Pixel2(Pixel_Data* pixel, int color_type, int bit_depth){
             break;
 
         case PNG_COLOR_TYPE_PALETTE:
-            (pixel->color_data) = (png_colorp)calloc(1, sizeof(png_color));
+            (pixel->color_data) = (png_colorp) malloc(sizeof(png_colorp));//(png_colorp)calloc(1, sizeof(png_color));
             break;
 
         default:
@@ -1041,7 +1044,11 @@ void Transform_Indexed_PNG(Pixel_Data pixel, Pixel_Data* new_pixel, int target_c
         Set_Channels(new_pixel);
     }
     else if(target_color_type == PNG_COLOR_TYPE_PALETTE){
-        memcpy(new_pixel->color_data, pixel.color_data, sizeof(png_color));
+        new_pixel->color_data->red = pixel.color_data->red;
+        new_pixel->color_data->green = pixel.color_data->green;
+        new_pixel->color_data->blue = pixel.color_data->blue;
+        new_pixel->alpha_channel = pixel.alpha_channel;
+        //memcpy(new_pixel->color_data, pixel.color_data, sizeof(png_color));
     }
     else {
         target_pixel[0] = 0;
@@ -1194,6 +1201,11 @@ void initialize_image2(char *file_name, Image* new_image){
         exit(EXIT_FAILURE);
     }
     png_init_io(new_image->png_ptr, new_image->file_pointer);
+
+//    if(new_image->color_type == PNG_COLOR_TYPE_PALETTE){
+//
+//        new_image->palette = (png_colorp)malloc(sizeof(png_color) * 256);
+//    }
     png_set_IHDR(new_image->png_ptr, new_image->info_ptr, new_image->width, new_image->height,
                  new_image->bit_depth, new_image->color_type,PNG_INTERLACE_NONE,
                  PNG_COMPRESSION_TYPE_DEFAULT, PNG_FILTER_TYPE_DEFAULT);
@@ -1201,10 +1213,7 @@ void initialize_image2(char *file_name, Image* new_image){
 
     new_image->trans_color = NULL;
 
-
-
     new_image->pixel_array = (png_bytepp)malloc(sizeof(png_bytep) * new_image->height);
-
     if (new_image->pixel_array == NULL) {
         fprintf(stderr, "Memory allocation failed for row pointers.\n");
         exit(EXIT_FAILURE);
@@ -1214,11 +1223,15 @@ void initialize_image2(char *file_name, Image* new_image){
         new_image->pixel_array[pix_index] = (png_bytep) malloc(png_get_rowbytes(new_image->png_ptr,
                                                                                 new_image->info_ptr));
     }
-
     for (png_uint_32 pix_index = 0; pix_index < new_image->height; pix_index++){
-        for(int i = 0; i < png_get_rowbytes(new_image->png_ptr, new_image->info_ptr); i++){
+        for(int i = 0; i < new_image->width; i++){
             new_image->pixel_array[pix_index][i] = 0;
         }
+    }
+    if(new_image->color_type == PNG_COLOR_TYPE_PALETTE){
+        int palette_maximum_size = (int)pow(2.0, (double)new_image->bit_depth);
+   //     printf("Max = %d\n", palette_maximum_size);
+        new_image->palette = (png_colorp)malloc(sizeof(png_color) * palette_maximum_size);
     }
 }
 
