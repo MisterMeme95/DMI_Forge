@@ -1,3 +1,0 @@
-"C:\Program Files\JetBrains\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" -E rm -f CMakeFiles\DMI_Forge.dir/objects.a
-C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\ar.exe qc CMakeFiles\DMI_Forge.dir/objects.a @CMakeFiles\DMI_Forge.dir\objects1.rsp
-C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\gcc.exe  -Wuninitialized -g -Wl,--whole-archive CMakeFiles\DMI_Forge.dir/objects.a -Wl,--no-whole-archive -o DMI_Forge.exe -Wl,--out-implib,libDMI_Forge.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\DMI_Forge.dir\linkLibs.rsp

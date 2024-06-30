@@ -4,8 +4,6 @@
 #include <string.h>
 #include "PixelManip.h"
 #include <png.h>
-#include <math.h>
-#include <unistd.h>
 
 int authenticate_transform(int color_flag, int bit_flag, int write_flag, char** debug_report){
     int is_valid = 1;
@@ -55,7 +53,7 @@ int main(int argc, char **argv) {
     char *output_file = NULL;
     char *color_input = NULL;
 
-    char *endptr;
+    char *end_pointer;
     errno = 0;
     palette_hash new_pal;
     int overwrite_flag = 0;
@@ -85,7 +83,7 @@ int main(int argc, char **argv) {
                 break;
 
             case 'b':
-                target_bit_depth = strtol(optarg, &endptr, 10);
+                target_bit_depth = strtol(optarg, &end_pointer, 10);
                 if(target_bit_depth != 1 && target_bit_depth != 2 && target_bit_depth != 4 &&
                    target_bit_depth != 8 && target_bit_depth != 16) {
                     printf("Error: The specified bit depth '%s' is invalid. "
@@ -141,7 +139,6 @@ int main(int argc, char **argv) {
                 return EXIT_FAILURE;
         }
     }
-
     char **debug_text = (char**)malloc(sizeof(char*) * required_flags);
     int validation = authenticate_transform(color_flag, depth_flag, write_flag, debug_text);
     if(!validation) {
@@ -157,40 +154,23 @@ int main(int argc, char **argv) {
         printf("Output file is invalid. Renaming to _output.png\n");
         output_file = strdup("_output.png");
     }
-
     Image original_image = load_image(input_file);
     Image transformed_image;
-
     transformed_image.color_type = target_color_type;
     transformed_image.bit_depth = target_bit_depth;
     transformed_image.height = original_image.height;
     transformed_image.width = original_image.width;
-    int palette_maximum_size = (int)pow(2.0, (double)transformed_image.bit_depth);
-    //transformed_image.palette = (png_colorp)malloc(sizeof(png_color) * palette_maximum_size);
-    //transformed_image.palette = (png_colorp)malloc(sizeof(png_color) * palette_maximum_size);
     transformed_image.palette_num = 0;
-//    if(new_image->color_type == PNG_COLOR_TYPE_PALETTE){
-//        int palette_maximum_size = (int)pow(2.0, (double)new_image->bit_depth);
-//        printf("Max = %d\n", palette_maximum_size);
-//        new_image->palette = (png_colorp)malloc(sizeof(png_color) * palette_maximum_size);
-//    }
-
-    initialize_image2(output_file, &transformed_image);
-
+    initialize_image2(output_file, &transformed_image, NULL,
+                      NULL, NULL, NULL);
     for (int i = 0; i < 256; i++) {
         new_pal.hash_bucket[i] = NULL;
     }
-
-
     for (size_t i = 0; i < original_image.height; i++) {
         for (size_t o = 0; o < original_image.width; o++) {
-            Pixel_Data isolated_pixel = Get_Pixel(original_image.pixel_array, o, i,
-                                                  original_image.color_type,original_image.bit_depth,
-                                                  original_image.palette, original_image.trans_alpha,&original_image.trans_num);
-
+            Pixel_Data isolated_pixel = Get_Pixel(original_image, o, i);
             Set_Channels(&isolated_pixel);
             Pixel_Data transformed_pixel = Pixel_Transformation(isolated_pixel, target_color_type, target_bit_depth);
-            //Set_Channels(&transformed_pixel);
             if(original_image.color_type == PNG_COLOR_TYPE_PALETTE && target_color_type == PNG_COLOR_TYPE_RGB){
                 if(isolated_pixel.alpha_channel == 0){
                     if(transformed_image.trans_color == NULL){
@@ -214,27 +194,17 @@ int main(int argc, char **argv) {
         }
     }
 
-    if(target_color_type == PNG_COLOR_TYPE_PALETTE){
+    if(target_color_type == PNG_COLOR_TYPE_PALETTE) {
         png_set_PLTE(transformed_image.png_ptr, transformed_image.info_ptr,
-                     original_image.palette, original_image.palette_num);
+                     original_image.palette, transformed_image.palette_num);
         png_set_tRNS(transformed_image.png_ptr, transformed_image.info_ptr,
                      original_image.trans_alpha, original_image.trans_num, NULL);
     }
 
-    if(target_color_type == PNG_COLOR_TYPE_RGB) {// || target_color_type == PNG_COLOR_TYPE_GRAY){
-        png_set_tRNS(transformed_image.png_ptr, transformed_image.info_ptr, NULL, 1, transformed_image.trans_color);
+    if(target_color_type == PNG_COLOR_TYPE_RGB || target_color_type == PNG_COLOR_TYPE_GRAY){
+        //png_set_tRNS(transformed_image.png_ptr, transformed_image.info_ptr, NULL, 1, transformed_image.trans_color);
     }
-    for(int i = 0; i < transformed_image.height; i++){
-        for(int j = 0; j < transformed_image.width; j++){
-            //printf("%d ", transformed_image.pixel_array[i][j]);
-            if(transformed_image.pixel_array[i][j] != original_image.pixel_array[i][j]){
-//                printf("(%d, %d) - Origin [%d] | transformed [%d] \n", i, j, transformed_image.pixel_array[i][j],
-//                       original_image.pixel_array[i][j]);
-            }
-        }
-        //printf("\n");
-        //sleep(10);
-    }
+
     png_write_info(transformed_image.png_ptr, transformed_image.info_ptr);
     png_write_image(transformed_image.png_ptr, transformed_image.pixel_array);
     return EXIT_SUCCESS;

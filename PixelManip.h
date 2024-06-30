@@ -257,8 +257,10 @@ void Copy_Pixel(png_bytep copy_destination, png_bytepp copy_source, int x_coord,
  * @param palette - An optional pointer to a palette. Only used when using PNG_COLOR_TYPE_PALETTE.
  * @param trans_alpha - Optional value containing alpha channel for indexed images.
  * @param num_trans - Optional value to denote # of entries in trans_alpha. */
-Pixel_Data Get_Pixel(png_bytepp image, int x_coord, int y_coord, int color_type, int bit_depth, png_colorp palette,
-                     png_bytep trans_alpha, int *num_trans);
+//Pixel_Data Get_Pixel(png_bytepp image, int x_coord, int y_coord, int color_type, int bit_depth, png_colorp palette,
+//                     png_bytep trans_alpha, int *num_trans);
+
+Pixel_Data Get_Pixel(Image image, int x_coord, int y_coord);
 
 Pixel_Data Transform_RGBA_PNG2(Pixel_Data pixel, int target_color_type, int src_bit_depth, int target_bit_depth);
 
@@ -309,6 +311,7 @@ void Set_Channel_Value(Pixel_Data *pixel, png_bytep channel, int channel_offset)
 void Set_Red_Channel(Pixel_Data *pixel);
 void Set_Green_Channel(Pixel_Data *pixel);
 void Set_Blue_Channel(Pixel_Data *pixel);
+void Set_Alpha_Channel(Pixel_Data *pixel);
 void Set_Channels(Pixel_Data *pixel);
 int Get_Red_Channel(Pixel_Data pixel);
 int Get_Green_Channel(Pixel_Data pixel);
@@ -331,11 +334,8 @@ void Read_Image(png_structp* read_ptr, png_infop* read_info_ptr, FILE* input_fil
 
 
 Image load_image(char* file_name);
-void initialize_image2(char *file_name, Image *new_image);
-//void initialize_image2(char *file_name, Image* new_image, int* bit_depth, int* color_type, int* width,
-//                       int* height);
-//void save_image(Image *image);
-//void free_image(Image *image);
+void initialize_image2(char *file_name, Image* new_image, int* bit_depth, int* color_type, int* width, int* height);
+
 
 void Write_PNG(png_structp* write_ptr, png_infop* write_info_ptr, FILE* output_file, png_bytepp row_pointers,
                png_uint_32 height, png_uint_32 width, int bit_depth, int color_type);
