@@ -47,70 +47,18 @@ void print_usage() {
 }
 
 int main(int argc, char **argv) {
-
-
-
     /** These are flags for arguments that must be submitted in order for the program to run properly. **/
     int write_flag = 0, depth_flag = 0, color_flag = 0, required_flags = 3;
 
-    FILE *source_file;
+    /* These store very important values. */
     char *input_file = NULL;
-
-    PNG_INFO pngInfo;
-    FILE *destination_file = NULL;
     char *output_file = NULL;
-
-    int target_bit_depth = -1, target_color_type = -1;
     char *color_input = NULL;
 
-
-    png_bytepp row_pointers;
-    int bit_depth = 0, color_type = 0, interlace_method = 0, compression = 0, filter = 0;
-
-    png_structp read_ptr; /*!< Detailed description after the member. */
-
-    png_infop read_info_ptr;
-
-    pngInfo.trans_alpha = NULL;
-    png_bytep trans_alpha = NULL;
-
-
-
-    png_bytep dest_trans_alpha = (png_bytep) malloc(sizeof(png_bytep) * 256);
-
-    pngInfo.trans_num = 0;
-    int trans_num = 0;
-
-    pngInfo.trans_color = NULL;
-    png_color_16p trans_color = NULL;
-    png_color_16p dest_trans_color = NULL; //= (png_color_16p) malloc(sizeof(png_color_16));
-
-    png_colorp source_palette;
-
-    pngInfo.src_palette_length = 0;
-    int src_palette_length = 0;
-
-
-    png_uint_32 width = 0, height = 0;
     char *endptr;
     errno = 0;
-
-    /* These are all the variables needed for my output.*/
-    png_bytepp image_data = NULL;
-    png_structp write_ptr = NULL;
-    png_infop write_info_ptr = NULL;
-
-    pngInfo.source_palette = (png_colorp)malloc(sizeof(png_color) * 256);
-    png_colorp destination_palette = (png_colorp)malloc(sizeof(png_color) * 256);
-
-    pngInfo.src_palette_length = 0;
-    int dest_palette_length = 0;
-
-
     palette_hash new_pal;
-
     int overwrite_flag = 0;
-
     int opt;
     static struct option long_options[] = {
             {"input", required_argument, 0, 'i'},
@@ -123,6 +71,7 @@ int main(int argc, char **argv) {
             {0, 0, 0, 0}
     };
 
+    int target_color_type, target_bit_depth;
     while ((opt = getopt_long(argc, argv, "i:o:b:c:h", long_options, NULL)) != -1) {
         switch (opt) {
             case 'i':
@@ -204,109 +153,71 @@ int main(int argc, char **argv) {
         return EXIT_FAILURE;
     }
 
-    Image original_image = load_image(input_file);
-    Image transformed_image;
-    
-            source_file = fopen(input_file, "rb");
-    if(!source_file) {
-        printf("Can't open file %s for reading\n", input_file);
-        return EXIT_FAILURE;
-    }
-
-
-    Read_PNG(&read_ptr, &read_info_ptr, source_file, &row_pointers, &height, &width);
-    png_get_IHDR(read_ptr, read_info_ptr, &width, &height, &bit_depth,
-                 &color_type, &interlace_method, &compression, &filter);
-
     if(output_file == NULL) {
         printf("Output file is invalid. Renaming to _output.png\n");
         output_file = strdup("_output.png");
-
     }
 
+    Image original_image = load_image(input_file);
+    Image transformed_image;
+
+    transformed_image.color_type = target_color_type;
+    transformed_image.bit_depth = target_bit_depth;
+    transformed_image.height = original_image.height;
+    transformed_image.width = original_image.width;
+    transformed_image.palette = (png_colorp)malloc(sizeof(png_color) * 256);
 
 
-    destination_file = fopen(output_file, "wb");
-    if(!destination_file) {
-        printf("Can't open file %s for writing\n", output_file);
-        return EXIT_FAILURE;
-    }
-
-    Initialize_PNG_Writer(&write_ptr,&write_info_ptr, destination_file);
-    png_set_IHDR(write_ptr, write_info_ptr, width, height, target_bit_depth,
-                 target_color_type, png_get_interlace_type(read_ptr, read_info_ptr),
-                 png_get_compression_type(read_ptr, read_info_ptr),
-                 png_get_filter_type(read_ptr, read_info_ptr));
-
-    Initialize_Pixels(&image_data, height, png_get_rowbytes(write_ptr, write_info_ptr));
+    initialize_image2(output_file, &transformed_image);
 
     for (int i = 0; i < 256; i++) {
         new_pal.hash_bucket[i] = NULL;
-        pngInfo.palette_look_up.hash_bucket[i] = NULL;
-    }
-    if(color_type == PNG_COLOR_TYPE_PALETTE){
-        png_get_PLTE(read_ptr, read_info_ptr, &source_palette, &src_palette_length);
-        png_get_tRNS(read_ptr, read_info_ptr, &trans_alpha, &trans_num, &trans_color);
     }
 
-    for (size_t i = 0; i < height; i++) {
-        for (size_t o = 0; o < width; o++) {
-            Pixel_Data isolated_pixel = Get_Pixel(row_pointers, o, i, color_type,
-                                                  bit_depth, source_palette, trans_alpha, &trans_num);
+
+    for (size_t i = 0; i < original_image.height; i++) {
+        for (size_t o = 0; o < original_image.width; o++) {
+            Pixel_Data isolated_pixel = Get_Pixel(original_image.pixel_array, o, i,
+                                                  original_image.color_type,original_image.bit_depth,
+                                                  original_image.palette, original_image.trans_alpha,&original_image.trans_num);
 
             Set_Channels(&isolated_pixel);
-
             Pixel_Data transformed_pixel = Pixel_Transformation(isolated_pixel, target_color_type, target_bit_depth);
 
-
-
-            if(color_type == PNG_COLOR_TYPE_PALETTE && target_color_type == PNG_COLOR_TYPE_RGB){
+            if(original_image.color_type == PNG_COLOR_TYPE_PALETTE && target_color_type == PNG_COLOR_TYPE_RGB){
                 if(isolated_pixel.alpha_channel == 0){
-                    if(dest_trans_color == NULL){
-                        dest_trans_color = (png_color_16p) malloc(sizeof(png_color_16));
-                        dest_trans_color->red = Get_Red_Channel(isolated_pixel);
-                        dest_trans_color->blue = Get_Blue_Channel(isolated_pixel);
-                        dest_trans_color->green = Get_Green_Channel(isolated_pixel);
+                    if(transformed_image.trans_color == NULL){
+                        transformed_image.trans_color = (png_color_16p) malloc(sizeof(png_color_16));
+                        transformed_image.trans_color->red = Get_Red_Channel(isolated_pixel);
+                        transformed_image.trans_color->blue = Get_Blue_Channel(isolated_pixel);
+                        transformed_image.trans_color->green = Get_Green_Channel(isolated_pixel);
                     }
                 }
-
-
             }
             else {
-                if(dest_trans_color == NULL){
-                    dest_trans_color = (png_color_16p) malloc(sizeof(png_color_16));
-                    printf("Transformed Red = %d\n", Get_Red_Channel(transformed_pixel));
-                    printf("Transformed Red #2 = %d\n", transformed_pixel.red);
-                    dest_trans_color->gray = Get_Red_Channel(transformed_pixel);
+                if(transformed_image.trans_color == NULL){
+                    transformed_image.trans_color = (png_color_16p) malloc(sizeof(png_color_16));
+                    transformed_image.trans_color->gray = Get_Red_Channel(transformed_pixel);
                 }
             }
-            Set_Pixel(image_data, &transformed_pixel, o, i, target_color_type,
-                      target_bit_depth, destination_palette, trans_alpha, &dest_palette_length,
+            Set_Pixel(transformed_image.pixel_array, &transformed_pixel,
+                      o, i, transformed_image.color_type,transformed_image.bit_depth,
+                      transformed_image.palette, transformed_image.trans_alpha,&transformed_image.palette_num,
                       &new_pal);
         }
     }
 
     if(target_color_type == PNG_COLOR_TYPE_PALETTE){
-        png_set_PLTE(write_ptr, write_info_ptr, destination_palette, dest_palette_length);
-        png_set_tRNS(write_ptr, write_info_ptr, trans_alpha, trans_num, NULL);
+        png_set_PLTE(transformed_image.png_ptr, transformed_image.info_ptr,
+                     original_image.palette, original_image.palette_num);
+        png_set_tRNS(transformed_image.png_ptr, transformed_image.info_ptr,
+                     original_image.trans_alpha, original_image.trans_num, NULL);
     }
 
-    /* NOTE THIS CODE IS INCOMPLETE.
-     *
-     * TO DO: Add flag to determine if a trans_color variable ought to be ignored.
-     *          By default, it should be included.
-     *
-     *          In addition, if the default is taken and provided for a gray image.
-     *          Be sure to send out a WARNING to the command prompt that lets the user know that
-     *          including the trans_color chunk at a low enough level and can some inconsistencies
-     *          and make parts of the sprites that should be shown become invisible
-     */
     if(target_color_type == PNG_COLOR_TYPE_RGB) {// || target_color_type == PNG_COLOR_TYPE_GRAY){
-        png_set_tRNS(write_ptr, write_info_ptr, NULL, 0, dest_trans_color);
+        png_set_tRNS(transformed_image.png_ptr, transformed_image.info_ptr, NULL, 1, transformed_image.trans_color);
     }
-
-
-    png_write_info(write_ptr, write_info_ptr);
-    png_write_image(write_ptr, image_data);
+    png_write_info(transformed_image.png_ptr, transformed_image.info_ptr);
+    png_write_image(transformed_image.png_ptr, transformed_image.pixel_array);
     return EXIT_SUCCESS;
 }

@@ -116,8 +116,10 @@ Pixel_Data Pixel_Transformation(Pixel_Data pixel, int target_color_type, int tar
     Pixel_Data pixel_transformed;
     pixel_transformed.color_type = target_color_type;
     pixel_transformed.byte_data = NULL;
+    pixel_transformed.color_data = NULL;
     pixel_transformed.bit_depth = target_bit_depth;
-    Initialize_Pixel(&pixel_transformed.byte_data, target_color_type, target_bit_depth);
+    //Initialize_Pixel(&pixel_transformed.byte_data, target_color_type, target_bit_depth);
+    Initialize_Pixel2(&pixel_transformed, target_color_type, target_bit_depth);
     if(pixel.color_type == PNG_COLOR_TYPE_PALETTE){
         Transform_Indexed_PNG(pixel, &pixel_transformed, target_color_type,
                               target_bit_depth);
@@ -148,6 +150,7 @@ Pixel_Data Get_Pixel(png_bytepp image, int x_coord, int y_coord, int color_type,
     pixel.bit_depth = bit_depth;
     pixel.color_type = color_type;
     pixel.byte_data = NULL;
+    pixel.color_data = NULL;
 
     /** @Description pixel_index is a simple int variable that we'll use to get the proper x_coordinate.
      * Since it is possible for a pixel to be less than a byte at certain bit_depths.
@@ -409,6 +412,7 @@ void Set_Pixel(png_bytepp image, Pixel_Data* new_pixel, int x_coord,int y_coord,
             int get_index = find_key(*new_pixel, pal_hash);
             if(get_index == -1) {
                 insert_key(*new_pixel, pal_hash, *num_trans);
+                printf("num_trans = %d\n", *num_trans);
                 palette[*num_trans] = *(new_pixel->color_data);
                 insert_index = *num_trans;
                 *(num_trans)+=1;
@@ -1037,7 +1041,7 @@ void Transform_Indexed_PNG(Pixel_Data pixel, Pixel_Data* new_pixel, int target_c
         Set_Channels(new_pixel);
     }
     else if(target_color_type == PNG_COLOR_TYPE_PALETTE){
-        memcpy(new_pixel, &pixel, sizeof(Pixel_Data));
+        memcpy(new_pixel->color_data, pixel.color_data, sizeof(png_color));
     }
     else {
         target_pixel[0] = 0;
@@ -1170,6 +1174,54 @@ void Write_PNG(png_structp* write_ptr, png_infop* write_info_ptr, FILE* output_f
     fclose(output_file);
     // Note: Caller should free row_pointers if allocated dynamically
 }
+
+void initialize_image2(char *file_name, Image* new_image){
+
+    new_image->png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+    if (!new_image->png_ptr) {
+        fprintf(stderr, "Failed to create PNG write struct.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    new_image->info_ptr = png_create_info_struct(new_image->png_ptr);
+    if (!new_image->info_ptr) {
+        png_destroy_write_struct(&new_image->png_ptr, &new_image->info_ptr);
+        fprintf(stderr, "Failed to create PNG info struct for writing.\n");
+        exit(EXIT_FAILURE);
+    }
+    if ((new_image->file_pointer = fopen(file_name, "wb")) == NULL) {
+        printf("Error opening input file\n");
+        exit(EXIT_FAILURE);
+    }
+    png_init_io(new_image->png_ptr, new_image->file_pointer);
+    png_set_IHDR(new_image->png_ptr, new_image->info_ptr, new_image->width, new_image->height,
+                 new_image->bit_depth, new_image->color_type,PNG_INTERLACE_NONE,
+                 PNG_COMPRESSION_TYPE_DEFAULT, PNG_FILTER_TYPE_DEFAULT);
+
+
+    new_image->trans_color = NULL;
+
+
+
+    new_image->pixel_array = (png_bytepp)malloc(sizeof(png_bytep) * new_image->height);
+
+    if (new_image->pixel_array == NULL) {
+        fprintf(stderr, "Memory allocation failed for row pointers.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    for (png_uint_32 pix_index = 0; pix_index < new_image->height; pix_index++) {
+        new_image->pixel_array[pix_index] = (png_bytep) malloc(png_get_rowbytes(new_image->png_ptr,
+                                                                                new_image->info_ptr));
+    }
+
+    for (png_uint_32 pix_index = 0; pix_index < new_image->height; pix_index++){
+        for(int i = 0; i < png_get_rowbytes(new_image->png_ptr, new_image->info_ptr); i++){
+            new_image->pixel_array[pix_index][i] = 0;
+        }
+    }
+}
+
 Image load_image(char* file_name){
     Image new_image;
     if(!check_if_png(file_name, &new_image.file_pointer)) {
@@ -1219,7 +1271,7 @@ Image load_image(char* file_name){
     new_image.pixel_array = (png_bytepp)malloc(sizeof(png_bytep) * new_image.height);
 
     if (new_image.pixel_array == NULL) {
-        fprintf(stderr, "Memory allocation failed for row pointers.\n");
+        fprintf(stderr, "Memory allocation failed for pixel_array.\n");
         exit(EXIT_FAILURE);
     }
 
@@ -1237,6 +1289,7 @@ Image load_image(char* file_name){
             exit(EXIT_FAILURE); // Consider a more graceful exit or handling strategy
         }
     }
+    png_read_image(new_image.png_ptr, new_image.pixel_array);
     return new_image;
 }
 void Initialize_Pixels(png_bytepp *pixel_array, int height, size_t bytes_per_row){
