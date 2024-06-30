@@ -60,6 +60,8 @@ typedef struct Image_Struct{
     int pixels_per_byte;
     png_bytepp pixel_array;
     FILE *file_pointer;
+
+
 } Image;
 
 

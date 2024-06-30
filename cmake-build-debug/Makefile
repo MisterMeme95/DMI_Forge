@@ -232,19 +232,6 @@ json_test/fast:
 	$(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\json_test.dir\build.make Test_Cases/CMakeFiles/json_test.dir/build
 .PHONY : json_test/fast
 
-#=============================================================================
-# Target rules for targets named image_convert
-
-# Build rule for target.
-image_convert: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 image_convert
-.PHONY : image_convert
-
-# fast build rule for target.
-image_convert/fast:
-	$(MAKE) $(MAKESILENT) -f Test_Cases\CMakeFiles\image_convert.dir\build.make Test_Cases/CMakeFiles/image_convert.dir/build
-.PHONY : image_convert/fast
-
 Aesprite_Fixer.obj: Aesprite_Fixer.c.obj
 .PHONY : Aesprite_Fixer.obj
 
@@ -564,7 +551,6 @@ help:
 	@echo ... aespritefix
 	@echo ... dmi2sheet
 	@echo ... dmi_verify
-	@echo ... image_convert
 	@echo ... json_test
 	@echo ... partition_test
 	@echo ... png_transform

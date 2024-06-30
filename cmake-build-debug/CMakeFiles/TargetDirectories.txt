@@ -9,6 +9,5 @@ C:/Users/jonat/GitHub/DMI_Forge/cmake-build-debug/CMakeFiles/rebuild_cache.dir
 C:/Users/jonat/GitHub/DMI_Forge/cmake-build-debug/Test_Cases/CMakeFiles/Test_Cases.dir
 C:/Users/jonat/GitHub/DMI_Forge/cmake-build-debug/Test_Cases/CMakeFiles/dmi_verify.dir
 C:/Users/jonat/GitHub/DMI_Forge/cmake-build-debug/Test_Cases/CMakeFiles/json_test.dir
-C:/Users/jonat/GitHub/DMI_Forge/cmake-build-debug/Test_Cases/CMakeFiles/image_convert.dir
 C:/Users/jonat/GitHub/DMI_Forge/cmake-build-debug/Test_Cases/CMakeFiles/edit_cache.dir
 C:/Users/jonat/GitHub/DMI_Forge/cmake-build-debug/Test_Cases/CMakeFiles/rebuild_cache.dir
