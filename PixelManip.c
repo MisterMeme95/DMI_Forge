@@ -624,7 +624,6 @@ void Set_Pixel(png_bytepp image, Pixel_Data* new_pixel, int x_coord,int y_coord,
             int get_index = find_key(*new_pixel, pal_hash);
             if(get_index == -1) {
                 insert_key(*new_pixel, pal_hash, *num_trans);
-               // printf("num_trans = %d\n", *num_trans);
                 palette[*num_trans] = *(new_pixel->color_data);
                 insert_index = *num_trans;
                 *(num_trans)+=1;
@@ -632,7 +631,6 @@ void Set_Pixel(png_bytepp image, Pixel_Data* new_pixel, int x_coord,int y_coord,
             else {
                 insert_index = get_index;
             }
-
         }
             break;
         default:
@@ -651,8 +649,6 @@ void Set_Pixel(png_bytepp image, Pixel_Data* new_pixel, int x_coord,int y_coord,
         if(color_type == PNG_COLOR_TYPE_PALETTE){
             insert_index = (insert_index << (pixel_bit_shift));
             image[y_coord][pixel_index] = (image[y_coord][pixel_index])^insert_index;
-
-            //sleep(3);
         }
         else {
             image[y_coord][pixel_index] = (image[y_coord][pixel_index])^(*new_pixel->byte_data);
@@ -692,31 +688,24 @@ void Set_Pixel(png_bytepp image, Pixel_Data* new_pixel, int x_coord,int y_coord,
         else if(pixel_in_byte == 1){
             image[y_coord][pixel_index] = (image[y_coord][pixel_index])&BIT1_2_OFF;
         }
-
         else if(pixel_in_byte == 2){
             image[y_coord][pixel_index] = (image[y_coord][pixel_index])&BIT1_3_OFF;
         }
-
         else if(pixel_in_byte == 3){
             image[y_coord][pixel_index] = (image[y_coord][pixel_index])&BIT1_4_OFF;
         }
-
         else if(pixel_in_byte == 4){
             image[y_coord][pixel_index] = (image[y_coord][pixel_index])&BIT1_5_OFF;
         }
-
         else if(pixel_in_byte == 5){
             image[y_coord][pixel_index] = (image[y_coord][pixel_index])&BIT1_6_OFF;
         }
-
         else if(pixel_in_byte == 6){
             image[y_coord][pixel_index] = (image[y_coord][pixel_index])&BIT1_7_OFF;
         }
-
         else if(pixel_in_byte == 7){
             image[y_coord][pixel_index] = (image[y_coord][pixel_index])&BIT1_8_OFF;
         }
-
         if(color_type == PNG_COLOR_TYPE_PALETTE){
             insert_index = (insert_index << (pixel_bit_shift));
             image[y_coord][pixel_index] = (image[y_coord][pixel_index])^insert_index;
@@ -728,7 +717,6 @@ void Set_Pixel(png_bytepp image, Pixel_Data* new_pixel, int x_coord,int y_coord,
 
     else{
         if(color_type == PNG_COLOR_TYPE_PALETTE){
-            //printf("Index = %d\n", insert_index);
             image[y_coord][pixel_index] = (png_byte)insert_index;
         }
         else {
