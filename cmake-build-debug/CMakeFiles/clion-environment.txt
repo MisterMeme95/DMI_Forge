@@ -1,4 +1,0 @@
-ToolSet: w64 11.0 (local)@C:\Program Files\JetBrains\CLion 2023.2.2\bin\mingw
-Options: 
-
-Options:-DCMAKE_PROJECT_TOP_LEVEL_INCLUDES=conan_provider.cmake
