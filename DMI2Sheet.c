@@ -9,7 +9,8 @@
 #define INVALID -100
 
 void changeExtension(char* filename, const char* newExt) {
-    char* extPos = strstr(filename, "dmi");
+    char* extPos = strstr(filename, ".dmi");
+
     if (extPos) {
         strcpy(extPos, newExt);  // Replace with new extension.
     }
@@ -38,6 +39,7 @@ void print_usage() {
             "                    the program will automatically set the width to the minimal needed to contain the pixels.\n"
 
             "-r, --rows          Num of Rows in sprite sheet.\n"
+            "-g, --gridsize      This specifies the number of icon_states that are printed out per row."
 
             "-c, --cols          Num of cols in sprite sheet produced.\n"
 
@@ -57,30 +59,23 @@ void print_usage() {
 
             "-f, --force         Ignores all prompts, so causing overwrite will go through automatically, no prompt "
             "                    for changing size, etc.\n"
-
             "-m, --metadata      Copy to a dmt file.\n"
-
             "-d, --directory     Where to send output file. By default, it will be relative path.\n"
-
     );
 }
 
 
-
 int main(int argc, char **argv){
     SpriteSheetData sheet_data;
-
+    initialize_sheet_data(&sheet_data);
     char *input_name = NULL;
     char *output_name = NULL;
 
     static char usage[] = "Usage: dmi2sheet [OPTIONS]. . .[INPUT_FILE] [OUTPUT_FILE]\nTransforms a DMI input"
                           " file into a sprite sheet.\n\n";
 
-
-
     static int fflag = 0;
     int sheet_format = 0;
-
     static struct option long_options[] =
             {
                    {"overwrite",     required_argument,       0, 201},
@@ -98,7 +93,7 @@ int main(int argc, char **argv){
         int option_index = 0;
 
         int opt;
-        while ((opt = getopt_long(argc, argv, "i:o:b:c:h:w", long_options, NULL)) != -1) {
+        while ((opt = getopt_long(argc, argv, "i:o:b:c:h:w:g:", long_options, NULL)) != -1) {
             switch (opt) {
                 case 'i':
                     input_name = strdup(optarg);
@@ -124,6 +119,8 @@ int main(int argc, char **argv){
 
                 case 'f':
                     break;
+                case 'g':
+                    sheet_data.grid_size = atoi(optarg);
 
                 case 200:
                     sheet_data.format = validate_layout(optarg);
@@ -143,7 +140,7 @@ int main(int argc, char **argv){
     if(output_name == NULL){
         output_name = malloc(sizeof(char) * strlen(input_name) + 8);
         sprintf(output_name, "output_%s", input_name);
-        changeExtension(output_name, "png");
+        changeExtension(output_name, ".png");
     }
 
     Image image = load_image(input_name);
@@ -240,16 +237,8 @@ int main(int argc, char **argv){
             }
         }
     }
-
     sheet_data.format = GRID;
     Image sprite_sheet = create_sprite_sheet(&image, &sheet_data, *new_icon, output_name);
-
-    //calculate_grid_sheet_dimensions(new_icon, &sheet_data, 3);
-    printf("Height - %d\n"
-           "Width - %d\n", sprite_sheet.height, sprite_sheet.width);
-    printf("Frames_Per_Row = %d\nFrames_Per_Col = %d\n", sheet_data.frames_per_row, sheet_data.frames_per_col);
-    fflush(stdout);
-
     for(int i = 0; i < sprite_sheet.height; i++){
         for(int j = 0; j < png_get_rowbytes(sprite_sheet.png_ptr, sprite_sheet.info_ptr); j++){
             sprite_sheet.pixel_array[i][j] = 0;
@@ -268,7 +257,5 @@ int main(int argc, char **argv){
     png_write_end(sprite_sheet.png_ptr, NULL);
     //png_destroy_write_struct(&write_png_ptr, &write_info_ptr);
     //png_destroy_read_struct(&read_png_ptr, &read_info_ptr);
-
     return 1;
-
 }

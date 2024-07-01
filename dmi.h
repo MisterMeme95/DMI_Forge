@@ -92,6 +92,7 @@ typedef struct SpriteSheetData{
     int user_input_width, user_input_height;
     int *list_of_row_sizes;
     int row_count;
+    int grid_size;
 
 } SpriteSheetData;
 
@@ -102,7 +103,7 @@ typedef struct SpriteSheetData{
  * @members state_per_row: This is an input provided by the user that specifies how many icon_states
  * a user may want to be listed per row. */
 void calculate_grid_sheet_dimensions(DMI* dmi, SpriteSheetData* sheet_data, int icon_states_per_row);
-
+void initialize_sheet_data(SpriteSheetData* sheet_data);
 Image create_sprite_sheet(Image* initial_image, SpriteSheetData* sheet_data, DMI new_icon, char* file_name);
 
 int dmiToPng(DMI* dmi, int pngWidth, int pngHeight, png_bytepp orig_pointer, png_bytepp new_pointer,
