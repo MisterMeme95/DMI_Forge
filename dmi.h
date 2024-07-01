@@ -59,18 +59,40 @@ typedef struct Image_Struct{
     int interlace_method;
     int pixels_per_byte;
     png_bytepp pixel_array;
+
+    png_textp text_ptr;
+    int ppb;
+
     FILE *file_pointer;
 
 
 } Image;
 
+typedef struct FrameExtractHandler{
+    png_uint_32 starting_column;
+    png_uint_32 starting_row;
 
+    png_uint_32 current_column;
+    png_uint_32 current_row;
+
+    png_uint_32 column_offset;
+    png_uint_32 row_offset;
+
+    png_uint_32 loop_row_start;
+    png_uint_32 loop_col_start;
+
+    png_uint_32 column_tracker;
+    png_uint_32 row_tracker;
+
+} FrameExtractor;
 
 typedef struct SpriteSheetData{
     int FRAME_SIZE, width, height, format;
     int offset_x, offset_y, margin_x, margin_y, frames_per_row, frames_per_col;
     int user_input_width, user_input_height;
     int *list_of_row_sizes;
+    int row_count;
+
 } SpriteSheetData;
 
 /** @Description This function initializes SpriteSheetData with the proper dimension information for the GRID
@@ -81,12 +103,12 @@ typedef struct SpriteSheetData{
  * a user may want to be listed per row. */
 void calculate_grid_sheet_dimensions(DMI* dmi, SpriteSheetData* sheet_data, int icon_states_per_row);
 
-int create_sprite_sheet(Image* initial_image, SpriteSheetData* sheet_data, DMI new_icon);
+Image create_sprite_sheet(Image* initial_image, SpriteSheetData* sheet_data, DMI new_icon, char* file_name);
 
 int dmiToPng(DMI* dmi, int pngWidth, int pngHeight, png_bytepp orig_pointer, png_bytepp new_pointer,
              png_structp png_ptr, png_infop info_ptr, int ppb, int color_type, int output_flow_type,
              int input_flow_type);
-
+int dmi2sheet(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData sheetData);
 void Get_Gridlock_Size(DMI *dmi, int *height, int *width);
 void Resize_IconStates(DMI* dmi, int new_size);
 int PNG_To_DMI();

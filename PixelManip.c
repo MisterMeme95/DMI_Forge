@@ -1494,11 +1494,11 @@ void initialize_image2(char *file_name, Image* new_image, int* bit_depth, int* c
         new_image->pixel_array[pix_index] = (png_bytep) malloc(png_get_rowbytes(new_image->png_ptr, new_image->info_ptr));
     }
 
-//    for(int i = 0; i < new_image->height; i++){
-//        for(int j = 0; j < png_get_rowbytes(new_image->png_ptr, new_image->info_ptr); j++){
-//            new_image->pixel_array[i][j] = 0;
-//        }
-//    }
+    for(int i = 0; i < new_image->height; i++){
+        for(int j = 0; j < png_get_rowbytes(new_image->png_ptr, new_image->info_ptr); j++){
+            new_image->pixel_array[i][j] = 0;
+        }
+    }
 
     if(new_image->color_type == PNG_COLOR_TYPE_PALETTE){
         int palette_maximum_size = (int)pow(2.0, (double)new_image->bit_depth);

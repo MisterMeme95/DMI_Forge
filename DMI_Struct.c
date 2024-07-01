@@ -50,7 +50,7 @@ png_uint_32 Get_Sheet_Size(DMI* dmi){
     return (png_uint_32)(return_total * dmi->height);
 }
 
-int create_sprite_sheet(Image* initial_image, SpriteSheetData* sheet_data, DMI new_icon){
+Image create_sprite_sheet(Image* initial_image, SpriteSheetData* sheet_data, DMI new_icon, char* file_name){
     if(sheet_data->format == GRID){
         calculate_grid_sheet_dimensions(&new_icon, sheet_data, 3);
     }
@@ -68,6 +68,13 @@ int create_sprite_sheet(Image* initial_image, SpriteSheetData* sheet_data, DMI n
 
 
     Image new_image;
+    new_image.width = sheet_data->width;
+    new_image.height = sheet_data->height;
+    new_image.bit_depth = initial_image->bit_depth;
+    new_image.color_type = initial_image->color_type;
+    initialize_image2(file_name, &new_image, NULL, NULL, NULL, NULL);
+
+
 
     //new_image.width = sheet_data.width + sheet_data.margin_x + (sheet_data.offset_x * sheet_data.frames_per_row);
    // new_image.height = sheet_data.height + sheet_data.margin_y + (sheet_data.offset_x * sheet_data.frames_per_col);
@@ -75,7 +82,7 @@ int create_sprite_sheet(Image* initial_image, SpriteSheetData* sheet_data, DMI n
    // new_image.color_type = initial_image->color_type;
     //next set the new image to the height/width/bit_dep
 
-    return 1;
+    return new_image;
 }
 
 void calculate_horizontal_sheet_dimensions(DMI* dmi, SpriteSheetData* sheet_data, int default_width){
@@ -85,7 +92,7 @@ void calculate_horizontal_sheet_dimensions(DMI* dmi, SpriteSheetData* sheet_data
 
 void calculate_grid_sheet_dimensions(DMI* dmi, SpriteSheetData* sheet_data, int icon_states_per_row){
     icon_state *iterator = dmi->begin_icon_state;
-    printf("Num of states = %d\n", dmi->num_of_states);
+    //printf("Num of states = %d\n", dmi->num_of_states);
     int num_of_states = dmi->num_of_states;
 
     int row_size = (int)ceil(((double)dmi->num_of_states / (double)icon_states_per_row));
@@ -98,7 +105,14 @@ void calculate_grid_sheet_dimensions(DMI* dmi, SpriteSheetData* sheet_data, int 
     for(int i = 0; i < num_of_states; i+= icon_states_per_row){
         int current_count = 0;
         int max_dir_in_row = 0;
-        for(int o = 0; o < icon_states_per_row; o++){
+        int iterate_to;
+        if(i + icon_states_per_row >= dmi->num_of_states){
+            iterate_to = num_of_states - i;
+        }
+        else {
+            iterate_to = icon_states_per_row;
+        }
+        for(int o = 0; o < iterate_to; o++){
             if(iterator->dirs > max_dir_in_row){
                 max_dir_in_row = iterator->dirs;
             }
@@ -107,14 +121,17 @@ void calculate_grid_sheet_dimensions(DMI* dmi, SpriteSheetData* sheet_data, int 
         }
         height_total += max_dir_in_row;
         sheet_data->list_of_row_sizes[rows_filled] = max_dir_in_row;
-
+        rows_filled++;
         if(current_count > widest_row)
             widest_row = current_count;
     }
+    printf("Widest Row = %d\n", widest_row * 32);
+    fflush(stdout);
     sheet_data->width = widest_row * 32;
     sheet_data->height = height_total * 32;
     sheet_data->frames_per_row = widest_row;
     sheet_data->frames_per_col = height_total;
+    sheet_data->row_count = 0;
 }
 png_uint_32 Get_Sheet_Width(DMI* dmi){
     png_uint_32 highest_width = 0;
@@ -353,33 +370,6 @@ int PNG_To_DMI(){
     return 1;
 
 }
-void Set_DMI_Size(int *dmiWidth, int *dmiHeight){
-    /*
-     * *dmiWidth = ceil(sqrt(totalFrame)) * WIDTH OF DMI FRAME;
-     * *dmiHeight = totalFrame/
-     * */
-    //int write_width = ceil(sqrt(totalFrame)) * dmiWidth;
-    //int write_height = ceil(totalFrame / ceil(sqrt(totalFrame))) * dmiHeight;
-}
-
-void Set_Sheet_Size(){
-    /* HORIZONTAL_FLOW
-     *      - Height    =  totality of dirs for all icon_states) * DMI_HEIGHT.
-     *      - Width     = (DMI_WIDTH * frames) for the icon_state with the largest frame.
-     *
-     * LINEAR_FLOW
-     *      - Height    = Height will be calculated by the [# of frames in the DMI]/ FRAMES_PER_ROW
-     *      - Width     = By default, it will be DMI_WIDTH * 15.
-     *
-     * GRIDLOCK_FLOW
-     *      - Height    = For every 3 icon_states, get the # of dirs of thye largest icon_state. Then
-     *                    add that larger to the counter. Keep doing that until we reach end of the icon_file.
-     *      - Width     = Find the largest width for any set of 3 icon_states. The width is determined by
-     *                    the # of frames from the 3 icon_states.
-     * */
-
-}
-
 
 void Get_Frame(png_bytepp dest_pixels, png_bytepp src_pixels, int dest_start_row,int dest_start_col,
                int src_start_row, int src_start_col, int bytes_per_frame, int cols_to_copy) {
@@ -390,136 +380,107 @@ void Get_Frame(png_bytepp dest_pixels, png_bytepp src_pixels, int dest_start_row
     }
 
 }
-void Fix_Dimension(int *dest_col, int *dest_row, int *source_col, int *source_row, int *copy_row, int *copy_col,
-                   int start_row, int start_col, int *frame_tracker,int input_flow,
-                   int output_flow, int DMI_WIDTH, int DMI_HEIGHT, int pngWidth, int total_frame, int outwidth, DMI *dmi){
-    *dest_col += DMI_WIDTH;
 
-    /* If the input_flow image is designated as LINEAR_FLOW format,
-     * then we simply move source_column by N amount, where N is equal to the DMI_WIDTH * num_of_dir in a particular
-     * icon_state. */
+void initialize_extractor(FrameExtractor *extractor) {
+    extractor->starting_column = 0;
+    extractor->starting_row = 0;
+    extractor->current_column = 0;
+    extractor->current_row = 0;
+    extractor->column_offset = 0;
+    extractor->row_offset = 0;
+    extractor->loop_col_start = 0;
+    extractor->loop_row_start = 0;
+    extractor->column_tracker = 0;
+    extractor->row_tracker = 0;
+}
 
-    if(input_flow == LINEAR_FLOW){
-        *source_col += DMI_WIDTH * dmi->begin_icon_state->dirs; //Add multiplication by direction
-    }
-    /* Otherwise, then the input_image has to be either in GRIDLOCK_FLOW or HORIZONTAL. In that case, we instead
-     * move the ROW down a single motion by the designated DMI_HEIGHT. */
-
-    else if(input_flow == HORIZONTAL_FLOW || input_flow == GRIDLOCK_FLOW){
-        *source_row += DMI_HEIGHT;
-    }
-
-    /* Next we check the frame_tracker. If the frame_tracker is less than the # of frames in an i*/
-
-    int value_to_check;
-    if(input_flow == LINEAR_FLOW){
-        //If the input is LINEAR_FLOW, that means we want to copy
-        //each frame of any specific direction before moving onto the next.
-        value_to_check = dmi->begin_icon_state->frames;
-    }
-    else{
-        //Otherwise, the input is GRID/HORIZONTAL. So we go down horizontally based on the # of directions.
-        value_to_check = dmi->begin_icon_state->dirs;
-    }
-
-
-    if(*frame_tracker >= value_to_check){
-        (*frame_tracker) = 1;
-        //Since source_row is just the increment from the starting row. . .
-        //We know that once we reach a certain threshold (be it the dir, or the frames) then. . .
-        //We need to go back to the start_col. Then we simply adjust the column we're starting with.
-        *source_row = 0;
-        *source_col = (DMI_WIDTH * ((total_frame+1)/dmi->begin_icon_state->frames));
-        if(output_flow == HORIZONTAL_FLOW || output_flow == GRIDLOCK_FLOW){
-            *dest_row += DMI_HEIGHT;
-            *dest_col = 0;
-        }
-    }
-
-    else {
-        (*frame_tracker)++;
-    }
-    /* If the output file is set to be LINEAR_FLOW, then we only need to go down a row when we
-     * are at the end of a row for the png. */
-    if(output_flow == LINEAR_FLOW){
-        if(*dest_col >= outwidth){
-            *dest_col = 0;
-            *dest_row += DMI_HEIGHT;
-        }
-    }
-    *copy_col = start_col + *source_col;// + col_offset;
-    *copy_row = start_row + *source_row;;// + row_offset;
-
-    if(*copy_col >= pngWidth){
-        *copy_row += (*copy_col/pngWidth) * DMI_HEIGHT;
-        *copy_col = *copy_col % pngWidth;
-    }
-
+void update_current_position(FrameExtractor *extractor){
+    extractor->current_column = extractor->starting_column + extractor->column_offset;
+    extractor->current_row = extractor->starting_row + extractor->row_offset;
+}
+void printFrameExtractor(const FrameExtractor* extractor) {
+    printf("Starting column: %u\n", extractor->starting_column);
+    printf("Starting row: %u\n", extractor->starting_row);
+    printf("Current column: %u\n", extractor->current_column);
+    printf("Current row: %u\n", extractor->current_row);
+    printf("Column offset: %u\n", extractor->column_offset);
+    printf("Row offset: %u\n", extractor->row_offset);
 }
 
 
+int dmi2sheet(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData sheetData){
 
-int dmiToPng(DMI* dmi, int pngWidth, int pngHeight, png_bytepp orig_pointer, png_bytepp new_pointer,
-             png_structp png_ptr, png_infop info_ptr, int ppb, int color_type, int output_flow_type,
-             int input_flow_type){
-
-    int DMI_HEIGHT = dmi->height, DMI_WIDTH = (dmi->width) / ppb;
-    int row_bytes = (int)png_get_rowbytes(png_ptr, info_ptr);
-
-    /* GRAY ALPHA is only 2 per byte. Fix this later.*/
-    if(color_type == PNG_COLOR_TYPE_RGB_ALPHA || color_type == PNG_COLOR_TYPE_GRAY_ALPHA){
-        DMI_WIDTH *= 4;
-    }
-
-    if(color_type == PNG_COLOR_TYPE_RGB){
-        DMI_WIDTH *= 3;
-    }
-
+    int DMI_HEIGHT = dmi->height, DMI_WIDTH = (dmi->width) / source_image.pixels_per_byte;
+    int icon_state_index = 0;
+    int numOfStates = dmi->num_of_states;
     int total_frames = 0;
-    int state_tracker = 0;
-    int frames_in_state, frame_tracker = 1;
-    int dest_row = 0, dest_col = 0, source_row = 0, source_col = 0;
-    int start_dest_row = 0, start_dest_col = 0;
-    int start_col = 0, start_row = 0;
-    int copy_col;
-    int copy_row;
+    FrameExtractor source;
+    FrameExtractor destination;
+    initialize_extractor(&source);
+    initialize_extractor(&destination);
 
-    while(state_tracker < (dmi->num_of_states)) {
-        frames_in_state = dmi->begin_icon_state->dirs * dmi->begin_icon_state->frames;
-        copy_col = start_col + source_col;
-        copy_row = start_row + source_row;
+    while(icon_state_index < numOfStates){
+        printf("Died here#3\n");
+        fflush(stdout);
+        int num_of_dirs = dmi->begin_icon_state->dirs;
+        int num_of_frames = dmi->begin_icon_state->frames;
 
-        for(int i = 0; i < frames_in_state; i++){
-            int destination_row = start_dest_row + dest_row;
-            int destination_col = start_dest_col + dest_col;
+        source.loop_row_start = source.row_tracker;
+        source.loop_col_start = source.column_tracker;
+        for(int i = 0; i < num_of_dirs; i++){
+            printf("Died here#4\n");
+            fflush(stdout);
+            source.starting_column = source.loop_col_start;
+            source.starting_row = source.loop_row_start;
+            for(int j = 0; j < num_of_frames; j++) {
+                update_current_position(&source);
+                update_current_position(&destination);
+                if(source.current_column >= (source_image.width/source_image.pixels_per_byte)) {
+                    source.row_offset += (source.current_column / (source_image.width/ source_image.pixels_per_byte)) * DMI_HEIGHT;;
+                    source.starting_column = source.current_column % (source_image.width/source_image.pixels_per_byte);
+                    source.column_offset = 0;
+                    update_current_position(&source);
+                }
 
-            Get_Frame(new_pointer, orig_pointer, destination_row, destination_col,
-                      copy_row, copy_col, DMI_WIDTH, DMI_HEIGHT);
+                printFrameExtractor(&source);
+                Get_Frame(sheet_image.pixel_array, source_image.pixel_array,destination.current_row,
+                          destination.current_column,source.current_row,source.current_column,
+                          DMI_WIDTH,DMI_HEIGHT);
 
-            Fix_Dimension(&dest_col, &dest_row, &source_col, &source_row, &copy_row, &copy_col,
-            start_row, start_col, &frame_tracker,input_flow_type,output_flow_type,
-            DMI_WIDTH,DMI_HEIGHT, pngWidth, i, row_bytes, dmi);
-        }
-        total_frames += frames_in_state;
-        state_tracker++;
-        source_col = 0;
-        source_row = 0;
-
-        start_col = (total_frames * DMI_WIDTH) % pngWidth;
-        start_row = ((total_frames * DMI_WIDTH) / pngWidth) * DMI_HEIGHT;
-
-        if(output_flow_type == GRIDLOCK_FLOW){
-            start_dest_col += Get_Dest_Col(dmi->begin_icon_state, DMI_WIDTH, state_tracker);
-            if(state_tracker % 3 == 0){
-                start_dest_row += Get_Dest_Row(dmi->begin_icon_state, DMI_HEIGHT);
-                start_dest_col = 0;
+                source.column_offset += (DMI_WIDTH * num_of_dirs);
+                destination.column_offset += DMI_WIDTH;
+                update_current_position(&destination);
             }
-            dest_row = 0;
-        }
+
+            destination.column_offset = 0;
+            destination.row_offset += DMI_HEIGHT;
+            source.column_offset = 0;
+            source.row_offset = 0;
+
+            source.loop_col_start += DMI_WIDTH;
+            if(source.loop_col_start >= source_image.width){
+                source.loop_row_start  += (source.starting_column / source_image.width) * DMI_HEIGHT;
+                source.loop_col_start %= source_image.width;
+            }
+        }/*!< End of the outer loop.*/
+
+        total_frames += dmi->begin_icon_state->frames *dmi->begin_icon_state->dirs;
+        destination.column_offset = 0;
+        destination.row_offset = 0;
+        destination.starting_column += dmi->begin_icon_state->frames * DMI_WIDTH;
+
+        source.column_tracker = (total_frames * DMI_WIDTH) % (source_image.width / source_image.pixels_per_byte);
+        source.row_tracker = ((total_frames * DMI_WIDTH) / (source_image.width / source_image.pixels_per_byte)) * DMI_HEIGHT;
         dmi->begin_icon_state++;
 
-    }
-    return 1;
+        icon_state_index++;
+
+        if(icon_state_index % 3 == 0){
+            destination.starting_row += sheetData.list_of_row_sizes[sheetData.row_count] * DMI_HEIGHT;
+            destination.starting_column = 0;
+        }
+    } /*!< End Point of the while loop.*/
+    return EXIT_SUCCESS;
 }
 
 void Get_Gridlock_Size(DMI *dmi, int *height, int *width){
