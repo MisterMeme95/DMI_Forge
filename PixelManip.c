@@ -1560,8 +1560,9 @@ Image load_image(char* file_name){
         exit(EXIT_FAILURE);
     }
 
+    new_image.row_bytes = png_get_rowbytes(new_image.png_ptr,new_image.info_ptr);
     for (png_uint_32 pix_index = 0; pix_index < new_image.height; pix_index++) {
-        new_image.pixel_array[pix_index] = (png_bytep)malloc(png_get_rowbytes(new_image.png_ptr,new_image.info_ptr));
+        new_image.pixel_array[pix_index] = (png_bytep)malloc(new_image.row_bytes );
         if (new_image.pixel_array[pix_index] == NULL) {
             fprintf(stderr, "Memory allocation failed for row %u.\n", pix_index);
             // Cleanup previously allocated memory

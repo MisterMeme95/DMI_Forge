@@ -1,6 +1,3 @@
-
-
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -203,33 +200,6 @@ char *find_newline(char **string, int *dmi_index, char *search_for){
     return  new_string;
 }
 
-int initialize_image(png_structp *png_ptr, png_infop *png_info, FILE **fp){
-    *png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
-    if (!(*png_ptr)) {
-        printf("Error creating read struct\n");
-        fclose(*fp);
-        return 1;
-    }
-    png_set_sig_bytes(*png_ptr, PNG_BYTES_TO_CHECK);
-    *png_info = png_create_info_struct(*png_ptr);
-    if (!(*png_info)) {
-        printf("Error creating read info struct\n");
-        png_destroy_read_struct(png_ptr, NULL, NULL);
-        fclose(*fp);
-        return 1;
-    }
-
-    if (setjmp(png_jmpbuf(*png_ptr))) {
-        printf("Error during read\n");
-        png_destroy_read_struct(png_ptr, png_info, NULL);
-        fclose(*fp);
-        return 1;
-    }
-    png_init_io(*png_ptr, *fp);
-    png_read_info(*png_ptr, *png_info);
-
-    return 0;
-}
 
 int check_if_png(char *file_name, FILE **fp) {
     char buf[PNG_BYTES_TO_CHECK];

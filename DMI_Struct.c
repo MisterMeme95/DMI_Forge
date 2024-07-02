@@ -49,9 +49,13 @@ void initialize_sheet_data(SpriteSheetData* sheet_data){
     sheet_data->grid_size = 1;
     sheet_data->offset_x = 0;
     sheet_data->offset_y = 0;
+    sheet_data->frame_height = 0;
+    sheet_data->frame_width = 0;
 }
 
 Image create_sprite_sheet(Image* initial_image, SpriteSheetData* sheet_data, DMI new_icon, char* file_name){
+    sheet_data->frame_width = new_icon.width;
+    sheet_data->frame_height = new_icon.height;
     if(sheet_data->format == GRID){
 
         calculate_grid_sheet_dimensions(&new_icon, sheet_data, sheet_data->grid_size);
@@ -68,9 +72,13 @@ Image create_sprite_sheet(Image* initial_image, SpriteSheetData* sheet_data, DMI
     if(sheet_data->height < sheet_data->user_input_height)
         sheet_data->height = sheet_data->user_input_height;
 
+    printf("Frames per row = %d", sheet_data->frames_per_row);
     Image new_image;
-    new_image.width = sheet_data->width;
-    new_image.height = sheet_data->height;
+    new_image.width = sheet_data->width + (sheet_data->margin_x * (sheet_data->grid_size - 1));
+
+    int num_of_rows = ceil((double)new_icon.num_of_states / sheet_data->grid_size);
+
+    new_image.height = sheet_data->height + (sheet_data->margin_y * num_of_rows);
     new_image.bit_depth = initial_image->bit_depth;
     new_image.color_type = initial_image->color_type;
     initialize_image2(file_name, &new_image, NULL, NULL, NULL, NULL);
@@ -115,14 +123,14 @@ void calculate_grid_sheet_dimensions(DMI* dmi, SpriteSheetData* sheet_data, int 
     printf("height_total = %d\n", height_total * 32);
 
     fflush(stdout);
-    sheet_data->width = widest_row * 32;
-    sheet_data->height = height_total * 32;
+    sheet_data->width = widest_row * sheet_data->frame_width;
+    sheet_data->height = height_total * sheet_data->frame_height;
     sheet_data->frames_per_row = widest_row;
     sheet_data->frames_per_col = height_total;
     sheet_data->row_count = 0;
 }
 
-void Get_Frame(png_bytepp dest_pixels, png_bytepp src_pixels, int dest_start_row,int dest_start_col,
+void Get_Frame(png_bytepp dest_pixels, png_bytepp src_pixels, png_uint_32 dest_start_row, png_uint_32 dest_start_col,
                int src_start_row, int src_start_col, int bytes_per_frame, int cols_to_copy) {
 
     for (int i = 0; i < cols_to_copy; i++) {
@@ -163,6 +171,10 @@ int dmi2sheet(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData s
     int icon_state_index = 0;
     int numOfStates = dmi->num_of_states;
     int total_frames = 0;
+
+    if(source_image.color_type == PNG_COLOR_TYPE_RGBA){
+        DMI_WIDTH *= 4;
+    }
     FrameExtractor source;
     FrameExtractor destination;
     initialize_extractor(&source);
@@ -182,9 +194,9 @@ int dmi2sheet(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData s
             for(int j = 0; j < num_of_frames; j++) {
                 update_current_position(&source);
                 update_current_position(&destination);
-                if(source.current_column >= (source_image.width/source_image.pixels_per_byte)) {
-                    source.row_offset += (source.current_column / (source_image.width/ source_image.pixels_per_byte)) * DMI_HEIGHT;;
-                    source.starting_column = source.current_column % (source_image.width/source_image.pixels_per_byte);
+                if(source.current_column >= (source_image.row_bytes/source_image.pixels_per_byte)) {
+                    source.row_offset += (source.current_column / (source_image.row_bytes/ source_image.pixels_per_byte)) * DMI_HEIGHT;;
+                    source.starting_column = source.current_column % (source_image.row_bytes/source_image.pixels_per_byte);
                     source.column_offset = 0;
                     update_current_position(&source);
                 }
@@ -203,25 +215,25 @@ int dmi2sheet(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData s
             source.row_offset = 0;
 
             source.loop_col_start += DMI_WIDTH;
-            if(source.loop_col_start >= source_image.width){
-                source.loop_row_start  += (source.starting_column / source_image.width) * DMI_HEIGHT;
-                source.loop_col_start %= source_image.width;
+            if(source.loop_col_start >= source_image.row_bytes){
+                source.loop_row_start  += (source.loop_col_start  / source_image.row_bytes) * DMI_HEIGHT;
+                source.loop_col_start %= source_image.row_bytes;
             }
         }/*!< End of the outer loop.*/
 
         total_frames += dmi->begin_icon_state->frames *dmi->begin_icon_state->dirs;
         destination.column_offset = 0;
         destination.row_offset = 0;
-        destination.starting_column += dmi->begin_icon_state->frames * DMI_WIDTH;
+        destination.starting_column += dmi->begin_icon_state->frames * DMI_WIDTH + sheetData.margin_x;
 
-        source.column_tracker = (total_frames * DMI_WIDTH) % (source_image.width / source_image.pixels_per_byte);
-        source.row_tracker = ((total_frames * DMI_WIDTH) / (source_image.width / source_image.pixels_per_byte)) * DMI_HEIGHT;
+        source.column_tracker = (total_frames * DMI_WIDTH) % (source_image.row_bytes / source_image.pixels_per_byte);
+        source.row_tracker = ((total_frames * DMI_WIDTH) / (source_image.row_bytes / source_image.pixels_per_byte)) * DMI_HEIGHT;
         dmi->begin_icon_state++;
 
         icon_state_index++;
 
         if(icon_state_index % sheetData.grid_size == 0){
-            destination.starting_row += sheetData.list_of_row_sizes[sheetData.row_count] * DMI_HEIGHT;
+            destination.starting_row += sheetData.list_of_row_sizes[sheetData.row_count] * DMI_HEIGHT + sheetData.margin_y;
             destination.starting_column = 0;
             sheetData.row_count++;
         }
