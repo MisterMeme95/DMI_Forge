@@ -20,7 +20,10 @@ int validate_layout(char* string){
     if(strcmp("grid", string) == 0 || strcmp("1", string) == 0){
         return GRID;
     }
-    else if(strcmp("horizontal", string) == 0 || strcmp("0", string) == 0){
+    else if(strcmp("horizontal", string) == 0 || strcmp("2", string) == 0) {
+        return HORIZONTAL;
+    }
+    else if(strcmp("linear", string) == 0 || strcmp("0", string) == 0){
         return HORIZONTAL;
     }
     else
@@ -75,7 +78,6 @@ int main(int argc, char **argv){
                           " file into a sprite sheet.\n\n";
 
     static int fflag = 0;
-    int sheet_format = 0;
     static struct option long_options[] =
             {
                    {"overwrite",     required_argument,       0, 201},
@@ -90,7 +92,6 @@ int main(int argc, char **argv){
                    {"height", required_argument, 0, 'h'}
             };
 
-        int option_index = 0;
 
         int opt;
         while ((opt = getopt_long(argc, argv, "i:o:b:c:h:w:g:", long_options, NULL)) != -1) {
@@ -121,8 +122,9 @@ int main(int argc, char **argv){
                     break;
                 case 'g':
                     sheet_data.grid_size = atoi(optarg);
-
+                    break;
                 case 200:
+                    printf("Called 200..\n");
                     sheet_data.format = validate_layout(optarg);
                     break;
                 default:
@@ -237,7 +239,8 @@ int main(int argc, char **argv){
             }
         }
     }
-    sheet_data.format = GRID;
+
+   // sheet_data.format = GRID;
     sheet_data.margin_x = 32;
     sheet_data.margin_y = 32;
 

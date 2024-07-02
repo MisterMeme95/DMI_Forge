@@ -51,6 +51,7 @@ void initialize_sheet_data(SpriteSheetData* sheet_data){
     sheet_data->offset_y = 0;
     sheet_data->frame_height = 0;
     sheet_data->frame_width = 0;
+    sheet_data->format = 1;
 }
 
 Image create_sprite_sheet(Image* initial_image, SpriteSheetData* sheet_data, DMI new_icon, char* file_name){
@@ -164,6 +165,7 @@ void printFrameExtractor(const FrameExtractor* extractor) {
     printf("Current row: %u\n", extractor->current_row);
     printf("Column offset: %u\n", extractor->column_offset);
     printf("Row offset: %u\n", extractor->row_offset);
+    fflush((stdout));
 }
 
 int dmi2sheet(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData sheetData){
@@ -175,20 +177,19 @@ int dmi2sheet(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData s
     if(source_image.color_type == PNG_COLOR_TYPE_RGBA){
         DMI_WIDTH *= 4;
     }
+
+    sheet_image.pixels_per_byte = source_image.pixels_per_byte;
     FrameExtractor source;
     FrameExtractor destination;
     initialize_extractor(&source);
     initialize_extractor(&destination);
 
     while(icon_state_index < numOfStates){
-        fflush(stdout);
         int num_of_dirs = dmi->begin_icon_state->dirs;
         int num_of_frames = dmi->begin_icon_state->frames;
-
         source.loop_row_start = source.row_tracker;
         source.loop_col_start = source.column_tracker;
         for(int i = 0; i < num_of_dirs; i++){
-            fflush(stdout);
             source.starting_column = source.loop_col_start;
             source.starting_row = source.loop_row_start;
             for(int j = 0; j < num_of_frames; j++) {
@@ -207,13 +208,34 @@ int dmi2sheet(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData s
                 source.column_offset += (DMI_WIDTH * num_of_dirs);
                 destination.column_offset += DMI_WIDTH;
                 update_current_position(&destination);
+                if(destination.current_column >= (sheet_image.row_bytes/sheet_image.pixels_per_byte)){
+                    destination.column_offset = 0;
+                    destination.row_offset += 1;//(destination.current_column / (sheet_image.row_bytes/ sheet_image.pixels_per_byte)) * DMI_HEIGHT;
+
+                }
+
             }
 
-            destination.column_offset = 0;
-            destination.row_offset += DMI_HEIGHT;
+            if(sheetData.format == GRID){
+                destination.column_offset = 0;
+                destination.row_offset += DMI_HEIGHT;
+            }
+            else {
+                printf("lol...\n");
+                fflush(stdout);
+                printFrameExtractor(&destination);
+                if(destination.current_column >= (sheet_image.row_bytes/sheet_image.pixels_per_byte)){
+                    destination.column_offset = 0;
+                    destination.row_offset += (destination.current_column / (sheet_image.row_bytes/ sheet_image.pixels_per_byte)) * DMI_HEIGHT;
+
+                }
+                printf("Died here #12\n");
+                fflush(stdout);
+            }
+            printf("Died here #1\n");
+            fflush((stdout));
             source.column_offset = 0;
             source.row_offset = 0;
-
             source.loop_col_start += DMI_WIDTH;
             if(source.loop_col_start >= source_image.row_bytes){
                 source.loop_row_start  += (source.loop_col_start  / source_image.row_bytes) * DMI_HEIGHT;
@@ -222,9 +244,14 @@ int dmi2sheet(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData s
         }/*!< End of the outer loop.*/
 
         total_frames += dmi->begin_icon_state->frames *dmi->begin_icon_state->dirs;
-        destination.column_offset = 0;
-        destination.row_offset = 0;
-        destination.starting_column += dmi->begin_icon_state->frames * DMI_WIDTH + sheetData.margin_x;
+
+        /** If in GRID format, we want to have a new starting_column that corresponds to where we'd be after parsing
+         * the previous icon_state. We set our row and column offset back to 0. */
+        if(sheetData.format == GRID){
+            destination.column_offset = 0;
+            destination.row_offset = 0;
+            destination.starting_column += dmi->begin_icon_state->frames * DMI_WIDTH + sheetData.margin_x;
+        }
 
         source.column_tracker = (total_frames * DMI_WIDTH) % (source_image.row_bytes / source_image.pixels_per_byte);
         source.row_tracker = ((total_frames * DMI_WIDTH) / (source_image.row_bytes / source_image.pixels_per_byte)) * DMI_HEIGHT;
@@ -232,7 +259,10 @@ int dmi2sheet(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData s
 
         icon_state_index++;
 
-        if(icon_state_index % sheetData.grid_size == 0){
+        /** Likewise, we wan to set our starting column back to 0 once we've parsed all of the icon_states for a
+         * our designated # of states per row. Only if in GRID format.*/
+        if(icon_state_index % sheetData.grid_size == 0 && sheetData.format == GRID){
+            printf("If Branch reached\n");
             destination.starting_row += sheetData.list_of_row_sizes[sheetData.row_count] * DMI_HEIGHT + sheetData.margin_y;
             destination.starting_column = 0;
             sheetData.row_count++;
