@@ -46,7 +46,7 @@ void initialize_sheet_data(SpriteSheetData* sheet_data){
     sheet_data->user_input_width = 0;
     sheet_data->margin_y = 0;
     sheet_data->margin_x = 0;
-    sheet_data->grid_size = 1;
+    sheet_data->grid_size = 0;
     sheet_data->offset_x = 0;
     sheet_data->offset_y = 0;
     sheet_data->frame_height = 0;
@@ -63,8 +63,10 @@ Image create_sprite_sheet(Image* initial_image, SpriteSheetData* sheet_data, DMI
     }
     else {
         //run other calculations to get the sheet's dimensions.
+        printf("Height/Width = %d/%d\n\n\n\n\n", initial_image->height, initial_image->width);
         sheet_data->height = (int)initial_image->height;
         sheet_data->width = (int)initial_image->width;
+        printf("Hrm. . .\n");
     }
 
     if(sheet_data->width < sheet_data->user_input_width)
@@ -75,11 +77,18 @@ Image create_sprite_sheet(Image* initial_image, SpriteSheetData* sheet_data, DMI
 
     printf("Frames per row = %d", sheet_data->frames_per_row);
     Image new_image;
-    new_image.width = sheet_data->width + (sheet_data->margin_x * (sheet_data->grid_size - 1));
+    if(sheet_data->grid_size != 0){
+        new_image.width = sheet_data->width + (sheet_data->margin_x * (sheet_data->grid_size - 1));
+        int num_of_rows = ceil((double)new_icon.num_of_states / sheet_data->grid_size);
+        new_image.height = sheet_data->height + (sheet_data->margin_y * num_of_rows);
+    }
 
-    int num_of_rows = ceil((double)new_icon.num_of_states / sheet_data->grid_size);
+    else {
+        new_image.width = sheet_data->width;// + (sheet_data->margin_x * (sheet_data->grid_size - 1));
+        new_image.height = sheet_data->height;// + (sheet_data->margin_y * num_of_rows);
+    }
 
-    new_image.height = sheet_data->height + (sheet_data->margin_y * num_of_rows);
+
     new_image.bit_depth = initial_image->bit_depth;
     new_image.color_type = initial_image->color_type;
     initialize_image2(file_name, &new_image, NULL, NULL, NULL, NULL);
@@ -210,9 +219,12 @@ int dmi2sheet(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData s
                 update_current_position(&destination);
                 if(destination.current_column >= (sheet_image.row_bytes/sheet_image.pixels_per_byte)){
                     destination.column_offset = 0;
-                    destination.row_offset += 1;//(destination.current_column / (sheet_image.row_bytes/ sheet_image.pixels_per_byte)) * DMI_HEIGHT;
-
+                    destination.row_offset += 32;//(destination.current_column / (sheet_image.row_bytes/ sheet_image.pixels_per_byte)) * DMI_HEIGHT;
+                    update_current_position(&destination);
                 }
+                printFrameExtractor(&destination);
+                printf("\n\n\n");
+
 
             }
 
@@ -221,9 +233,7 @@ int dmi2sheet(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData s
                 destination.row_offset += DMI_HEIGHT;
             }
             else {
-                printf("lol...\n");
                 fflush(stdout);
-                printFrameExtractor(&destination);
                 if(destination.current_column >= (sheet_image.row_bytes/sheet_image.pixels_per_byte)){
                     destination.column_offset = 0;
                     destination.row_offset += (destination.current_column / (sheet_image.row_bytes/ sheet_image.pixels_per_byte)) * DMI_HEIGHT;
@@ -261,12 +271,15 @@ int dmi2sheet(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData s
 
         /** Likewise, we wan to set our starting column back to 0 once we've parsed all of the icon_states for a
          * our designated # of states per row. Only if in GRID format.*/
-        if(icon_state_index % sheetData.grid_size == 0 && sheetData.format == GRID){
-            printf("If Branch reached\n");
-            destination.starting_row += sheetData.list_of_row_sizes[sheetData.row_count] * DMI_HEIGHT + sheetData.margin_y;
-            destination.starting_column = 0;
-            sheetData.row_count++;
+        if(sheetData.grid_size != 0) {
+            if(icon_state_index % sheetData.grid_size == 0 && sheetData.format == GRID){
+                printf("If Branch reached\n");
+                destination.starting_row += sheetData.list_of_row_sizes[sheetData.row_count] * DMI_HEIGHT + sheetData.margin_y;
+                destination.starting_column = 0;
+                sheetData.row_count++;
+            }
         }
+
     } /*!< End Point of the while loop.*/
     return EXIT_SUCCESS;
 }

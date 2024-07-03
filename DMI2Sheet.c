@@ -124,8 +124,10 @@ int main(int argc, char **argv){
                     sheet_data.grid_size = atoi(optarg);
                     break;
                 case 200:
-                    printf("Called 200..\n");
                     sheet_data.format = validate_layout(optarg);
+                    if(sheet_data.format != GRID){
+                        sheet_data.grid_size = 0;
+                    }
                     break;
                 default:
                     //fprintf(stderr, "Invalid option\n");
@@ -263,5 +265,5 @@ int main(int argc, char **argv){
     png_write_end(sprite_sheet.png_ptr, NULL);
     //png_destroy_write_struct(&write_png_ptr, &write_info_ptr);
     //png_destroy_read_struct(&read_png_ptr, &read_info_ptr);
-    return 1;
+    return EXIT_SUCCESS;
 }
