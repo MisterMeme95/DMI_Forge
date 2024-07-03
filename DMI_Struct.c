@@ -75,7 +75,6 @@ Image create_sprite_sheet(Image* initial_image, SpriteSheetData* sheet_data, DMI
     if(sheet_data->height < sheet_data->user_input_height)
         sheet_data->height = sheet_data->user_input_height;
 
-    printf("Frames per row = %d", sheet_data->frames_per_row);
     Image new_image;
     if(sheet_data->grid_size != 0){
         new_image.width = sheet_data->width + (sheet_data->margin_x * (sheet_data->grid_size - 1));
@@ -129,8 +128,6 @@ void calculate_grid_sheet_dimensions(DMI* dmi, SpriteSheetData* sheet_data, int 
         if(current_count > widest_row)
             widest_row = current_count;
     }
-    printf("Widest Row = %d\n", widest_row * 32);
-    printf("height_total = %d\n", height_total * 32);
 
     fflush(stdout);
     sheet_data->width = widest_row * sheet_data->frame_width;
@@ -176,6 +173,11 @@ void printFrameExtractor(const FrameExtractor* extractor) {
     printf("Row offset: %u\n", extractor->row_offset);
     fflush((stdout));
 }
+int sheet2dmi(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData sheetData){
+
+
+    return 0;
+}
 
 int dmi2sheet(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData sheetData){
     int DMI_HEIGHT = dmi->height, DMI_WIDTH = (dmi->width) / source_image.pixels_per_byte;
@@ -217,13 +219,14 @@ int dmi2sheet(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData s
                 source.column_offset += (DMI_WIDTH * num_of_dirs);
                 destination.column_offset += DMI_WIDTH;
                 update_current_position(&destination);
-                if(destination.current_column >= (sheet_image.row_bytes/sheet_image.pixels_per_byte)){
-                    destination.column_offset = 0;
-                    destination.row_offset += 32;//(destination.current_column / (sheet_image.row_bytes/ sheet_image.pixels_per_byte)) * DMI_HEIGHT;
-                    update_current_position(&destination);
+                if(sheetData.format != GRID){
+                    if(destination.current_column >= (sheet_image.row_bytes/sheet_image.pixels_per_byte)){
+                        destination.column_offset = 0;
+                        destination.row_offset += DMI_HEIGHT;//(destination.current_column / (sheet_image.row_bytes/ sheet_image.pixels_per_byte)) * DMI_HEIGHT;
+                        update_current_position(&destination);
+                    }
                 }
-                printFrameExtractor(&destination);
-                printf("\n\n\n");
+
 
 
             }
@@ -239,10 +242,8 @@ int dmi2sheet(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData s
                     destination.row_offset += (destination.current_column / (sheet_image.row_bytes/ sheet_image.pixels_per_byte)) * DMI_HEIGHT;
 
                 }
-                printf("Died here #12\n");
                 fflush(stdout);
             }
-            printf("Died here #1\n");
             fflush((stdout));
             source.column_offset = 0;
             source.row_offset = 0;
@@ -273,7 +274,6 @@ int dmi2sheet(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData s
          * our designated # of states per row. Only if in GRID format.*/
         if(sheetData.grid_size != 0) {
             if(icon_state_index % sheetData.grid_size == 0 && sheetData.format == GRID){
-                printf("If Branch reached\n");
                 destination.starting_row += sheetData.list_of_row_sizes[sheetData.row_count] * DMI_HEIGHT + sheetData.margin_y;
                 destination.starting_column = 0;
                 sheetData.row_count++;

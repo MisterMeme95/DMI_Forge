@@ -121,7 +121,16 @@ int main(int argc, char **argv){
                 case 'f':
                     break;
                 case 'g':
-                    sheet_data.grid_size = atoi(optarg);
+                    if(sheet_data.format == GRID){
+                        sheet_data.grid_size = atoi(optarg);
+                    }
+
+                    else
+                        sheet_data.grid_size = 0;
+                    /** TO DO:
+                     * make this send a warning to the client if their format is not in GRID.
+                     * This way they know of any potential error.
+                     * */
                     break;
                 case 200:
                     sheet_data.format = validate_layout(optarg);

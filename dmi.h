@@ -81,10 +81,17 @@ typedef struct FrameExtractHandler{
 } FrameExtractor;
 
 typedef struct SpriteSheetData{
-    int FRAME_SIZE, width, height, format;
-    int offset_x, offset_y;
+    int FRAME_SIZE, width, height;
 
-    int margin_x, margin_y, frames_per_row, frames_per_col;
+    int format;
+
+    int offset_x, offset_y; /*!< These variables are used to denote the x/y offset from the top of image.*/
+
+    int padding_x, padding_y; /*!< These variables represent the space between each individual frame within an icon_state.*/
+
+    int margin_x, margin_y; /*!< These variables represent the space between icon_states. */
+
+    int frames_per_row, frames_per_col;
     int user_input_width, user_input_height;
     int *list_of_row_sizes;
     int row_count;
