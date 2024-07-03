@@ -3,13 +3,14 @@
 #include "png.h"
 #include "dmi.h"
 #include <getopt.h>
-
+#include "PixelManip.h"
 
 #define STDERR stdout
 #define INVALID -100
 
 void changeExtension(char* filename, const char* newExt) {
-    char* extPos = strstr(filename, "dmi");
+    char* extPos = strstr(filename, ".dmi");
+
     if (extPos) {
         strcpy(extPos, newExt);  // Replace with new extension.
     }
@@ -19,7 +20,10 @@ int validate_layout(char* string){
     if(strcmp("grid", string) == 0 || strcmp("1", string) == 0){
         return GRID;
     }
-    else if(strcmp("horizontal", string) == 0 || strcmp("0", string) == 0){
+    else if(strcmp("horizontal", string) == 0 || strcmp("2", string) == 0) {
+        return HORIZONTAL;
+    }
+    else if(strcmp("linear", string) == 0 || strcmp("0", string) == 0){
         return HORIZONTAL;
     }
     else
@@ -38,6 +42,7 @@ void print_usage() {
             "                    the program will automatically set the width to the minimal needed to contain the pixels.\n"
 
             "-r, --rows          Num of Rows in sprite sheet.\n"
+            "-g, --gridsize      This specifies the number of icon_states that are printed out per row."
 
             "-c, --cols          Num of cols in sprite sheet produced.\n"
 
@@ -57,38 +62,22 @@ void print_usage() {
 
             "-f, --force         Ignores all prompts, so causing overwrite will go through automatically, no prompt "
             "                    for changing size, etc.\n"
-
             "-m, --metadata      Copy to a dmt file.\n"
-
             "-d, --directory     Where to send output file. By default, it will be relative path.\n"
-
     );
 }
 
 
-
 int main(int argc, char **argv){
     SpriteSheetData sheet_data;
-
-    png_structp read_png_ptr;
-    png_infop read_info_ptr;
-    png_uint_32 width, height;
-    int bit_depth, color_type, interlace_method, pixels_per_byte;
-    int overwrite_flag = 0;
-    char cwd[PATH_MAX];
-    int c;
-
-    char *input_name = NULL; //= malloc(sizeof(char) * strlen(argv[optind]) + 1);
-    char *output_name = NULL; //= malloc(sizeof(char) * strlen(argv[optind]) + 1);
+    initialize_sheet_data(&sheet_data);
+    char *input_name = NULL;
+    char *output_name = NULL;
 
     static char usage[] = "Usage: dmi2sheet [OPTIONS]. . .[INPUT_FILE] [OUTPUT_FILE]\nTransforms a DMI input"
                           " file into a sprite sheet.\n\n";
 
-
-
     static int fflag = 0;
-    int sheet_format = 0;
-
     static struct option long_options[] =
             {
                    {"overwrite",     required_argument,       0, 201},
@@ -103,10 +92,9 @@ int main(int argc, char **argv){
                    {"height", required_argument, 0, 'h'}
             };
 
-        int option_index = 0;
 
         int opt;
-        while ((opt = getopt_long(argc, argv, "i:o:b:c:h:w", long_options, NULL)) != -1) {
+        while ((opt = getopt_long(argc, argv, "i:o:b:c:h:w:g:", long_options, NULL)) != -1) {
             switch (opt) {
                 case 'i':
                     input_name = strdup(optarg);
@@ -131,11 +119,15 @@ int main(int argc, char **argv){
                     break;
 
                 case 'f':
-                    overwrite_flag = 1;
                     break;
-
+                case 'g':
+                    sheet_data.grid_size = atoi(optarg);
+                    break;
                 case 200:
                     sheet_data.format = validate_layout(optarg);
+                    if(sheet_data.format != GRID){
+                        sheet_data.grid_size = 0;
+                    }
                     break;
                 default:
                     //fprintf(stderr, "Invalid option\n");
@@ -143,28 +135,6 @@ int main(int argc, char **argv){
                     return EXIT_FAILURE;
             }
         }
-
-
-//    if (optind < argc)
-//    {
-//        printf ("non-option ARGV-elements: ");
-//        int start_value = optind;
-//        while(optind < argc){
-//            if(optind - start_value == 0){
-//                input_name = malloc(sizeof(char) * strlen(argv[optind]) + 1);
-//                strcpy(input_name, argv[optind++]);
-//            }
-//
-//            else if(optind - start_value == 1){
-//                output_name = malloc(sizeof(char) * strlen(argv[optind]) + 1);
-//                strcpy(output_name, argv[optind++]);
-//            }
-//
-//            else {
-//                printf ("%s ", argv[optind++])     ;
-//            }
-//       }
-//    }
 
     if(input_name == NULL){
         printf("The command MUST have an input file specified!\nProgram ends in failure. . .\n");
@@ -174,60 +144,29 @@ int main(int argc, char **argv){
     if(output_name == NULL){
         output_name = malloc(sizeof(char) * strlen(input_name) + 8);
         sprintf(output_name, "output_%s", input_name);
-        changeExtension(output_name, "png");
-    }
-    printf("\ninput name = %s\noutput_name = %s\n", input_name, output_name);
-
-    /* Check to make sure that the output_name does not already exist. I*/
-
-    FILE *input_fp;
-
-    if(!check_if_png(input_name,&input_fp)){
-        printf("The file you are attempting to read is not a valid PNG file!\n");
-        return 0;
+        changeExtension(output_name, ".png");
     }
 
-    if(initialize_image(&read_png_ptr, &read_info_ptr, &input_fp)) {
-        printf("Initializing the image failed!\n");
-        return 0;
-    }
-
-    png_get_IHDR(read_png_ptr, read_info_ptr, &width, &height, &bit_depth,
-                 &color_type, &interlace_method, NULL, NULL);
-
-    png_uint_32 num_rows = height;
-
-    switch (bit_depth) {
+    Image image = load_image(input_name);
+    switch (image.bit_depth) {
         case 1:
-            pixels_per_byte = 8;
+            image.pixels_per_byte = 8;
             break;
         case 2:
-            pixels_per_byte = 4;
+            image.pixels_per_byte = 4;
             break;
         case 4:
-            pixels_per_byte = 2;
+            image.pixels_per_byte = 2;
             break;
- //       case 8:
-    //        pixels_per_byte = 1;
-      //      break;
+
         default:
-            pixels_per_byte = 1;
+            image.pixels_per_byte = 1;
             break;
     }
-
-    //  png_get_x_offset_pixels()
-    png_bytepp row_pointers = (png_bytepp)malloc(sizeof(png_bytep) * num_rows);
-    //printf("Row Bytes = %d\nHeight = %d\n", png_get_rowbytes(read_png_ptr, read_info_ptr), height);
-    for (png_uint_32 i = 0; i < height; i++) {
-        row_pointers[i] = (png_bytep)malloc(png_get_rowbytes(read_png_ptr, read_info_ptr));
-    }
-
-    png_read_image(read_png_ptr, row_pointers);
-
 
     png_textp text_ptr;
     int num_text;
-    if (png_get_text(read_png_ptr, read_info_ptr, &text_ptr, &num_text) > 0) {
+    if (png_get_text(image.png_ptr, image.info_ptr, &text_ptr, &num_text) > 0) {
         png_uint_32 i;
         fprintf(STDERR,"\n");
         for (i=0; i<num_text; i++){
@@ -252,7 +191,6 @@ int main(int argc, char **argv){
         printf("There is no text to parse in this image!\n\n");
         return 0;
     }
-
 
     while(dmi_length > 0){
         /* - First I need to skip all zTxt and go to the part where it BEGIN_DMI token is found. */
@@ -303,100 +241,29 @@ int main(int argc, char **argv){
             }
         }
     }
-    FILE *output_fp = fopen(output_name, "wb");
-    if (!output_fp) {
-        printf("Error opening output file\n");
-        return 1;
-    }
 
-    png_structp write_png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
-    if (!write_png_ptr) {
-        printf("Error creating write struct\n");
-        fclose(output_fp);
-        return 1;
-    }
+   // sheet_data.format = GRID;
+    sheet_data.margin_x = 32;
+    sheet_data.margin_y = 32;
 
-    png_infop write_info_ptr = png_create_info_struct(write_png_ptr);
-    if (!write_info_ptr) {
-        printf("Error creating write info struct\n");
-        png_destroy_write_struct(&write_png_ptr, NULL);
-        fclose(output_fp);
-        return 1;
-    }
-
-    if (setjmp(png_jmpbuf(write_png_ptr))) {
-        printf("Error during write\n");
-        png_destroy_write_struct(&write_png_ptr, &write_info_ptr);
-        fclose(output_fp);
-        return 1;
-    }
-
-    png_colorp palette;
-    int num_palette;
-    if (color_type == PNG_COLOR_TYPE_PALETTE) {
-        png_get_PLTE(read_png_ptr, read_info_ptr, &palette, &num_palette);
-        png_set_PLTE(write_png_ptr, write_info_ptr, palette, num_palette);
-    }
-
-    png_init_io(write_png_ptr, output_fp);
-    png_color_16p trans_color;
-    png_bytep trans_alpha;
-    int num_trans;
-    if (color_type == PNG_COLOR_TYPE_PALETTE) {
-        png_get_tRNS(read_png_ptr, read_info_ptr, &trans_alpha, &num_trans, &trans_color);
-        png_set_tRNS(write_png_ptr, write_info_ptr, trans_alpha, num_trans, trans_color);
-    }
-    int new_height = 0;
-    int new_width = 0;
-    sheet_data.format = GRID;
-    create_sprite_sheet(NULL, &sheet_data, *new_icon);
-
-    //calculate_grid_sheet_dimensions(new_icon, &sheet_data, 3);
-    printf("Height - %d\n"
-           "Width - %d\n", sheet_data.height, sheet_data.width);
-
-    if(sheet_format == LINEAR_FLOW){
-        new_height = (int)height;
-        new_width = (int)width;
-    }
-    else if(sheet_format == HORIZONTAL_FLOW){
-        new_height = (int)Get_Sheet_Size(new_icon);
-        new_width = (int)Get_Sheet_Width(new_icon);
-    }
-    else if(sheet_format == GRIDLOCK_FLOW){
-        Get_Gridlock_Size(new_icon, &new_height, &new_width);
-    }
-
-    png_bytepp row_pointers_new = (png_bytepp)malloc(sizeof(png_bytep) * new_height);
-
-    png_set_IHDR(write_png_ptr, write_info_ptr, (png_uint_32)new_width, (png_uint_32)new_height,
-                 bit_depth, color_type, interlace_method, PNG_COMPRESSION_TYPE_DEFAULT,
-                 PNG_FILTER_TYPE_DEFAULT);
-
-    for (png_uint_32 i = 0; i < new_height; i++) {
-        row_pointers_new[i] = (png_bytep)malloc(png_get_rowbytes(write_png_ptr, write_info_ptr));
-    }
-
-    for(png_uint_32 i = 0; i < new_height; i++) {
-        for (png_uint_32 j = 0; j < png_get_rowbytes(write_png_ptr, write_info_ptr); j++) {
-            row_pointers_new[i][j] = 0;
+    Image sprite_sheet = create_sprite_sheet(&image, &sheet_data, *new_icon, output_name);
+    for(int i = 0; i < sprite_sheet.height; i++){
+        for(int j = 0; j < png_get_rowbytes(sprite_sheet.png_ptr, sprite_sheet.info_ptr); j++){
+            sprite_sheet.pixel_array[i][j] = 0;
         }
     }
-    dmiToPng(new_icon, png_get_rowbytes(read_png_ptr, read_info_ptr), 144,
-             row_pointers, row_pointers_new, write_png_ptr, write_info_ptr,
-             pixels_per_byte, color_type, GRIDLOCK_FLOW, LINEAR_FLOW);
 
-    png_write_info(write_png_ptr, write_info_ptr);
-    png_write_image(write_png_ptr, row_pointers_new);
+    dmi2sheet(new_icon, image, sprite_sheet, sheet_data);
 
-    png_write_end(write_png_ptr, NULL);
-    png_destroy_write_struct(&write_png_ptr, &write_info_ptr);
+    if (image.color_type == PNG_COLOR_TYPE_PALETTE) {
+        png_get_PLTE(image.png_ptr, image.info_ptr, &image.palette, &image.palette_num);
+        png_set_PLTE(sprite_sheet.png_ptr, sprite_sheet.info_ptr, image.palette, image.palette_num);
+    }
+    png_write_info(sprite_sheet.png_ptr, sprite_sheet.info_ptr);
+    png_write_image(sprite_sheet.png_ptr, sprite_sheet.pixel_array);
+
+    png_write_end(sprite_sheet.png_ptr, NULL);
+    //png_destroy_write_struct(&write_png_ptr, &write_info_ptr);
     //png_destroy_read_struct(&read_png_ptr, &read_info_ptr);
-    fclose(output_fp);
-    fclose(input_fp);
-
-    free(row_pointers_new);
-    free(row_pointers);
-    return 1;
-
+    return EXIT_SUCCESS;
 }

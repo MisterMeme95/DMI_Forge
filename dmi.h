@@ -1,13 +1,7 @@
-
-
 #define BEGIN_DMI "# BEGIN DMI"
 #define END_DMI "# END DMI"
 #define DMI_VERSION "version"
 #define ICON_STATE "state"
-#define DMI_WIDT "width"
-#define HORIZONTAL_FLOW 0
-#define LINEAR_FLOW 1
-#define GRIDLOCK_FLOW 2
 #define HORIZONTAL 0
 #define GRID 1
 #define PNG_BYTES_TO_CHECK 8
@@ -58,19 +52,46 @@ typedef struct Image_Struct{
     int color_type;
     int interlace_method;
     int pixels_per_byte;
+    size_t row_bytes;
     png_bytepp pixel_array;
+
+    png_textp text_ptr;
+
     FILE *file_pointer;
 
 
 } Image;
 
+typedef struct FrameExtractHandler{
+    png_uint_32 starting_column;
+    png_uint_32 starting_row;
 
+    png_uint_32 current_column;
+    png_uint_32 current_row;
+
+    png_uint_32 column_offset;
+    png_uint_32 row_offset;
+
+    png_uint_32 loop_row_start;
+    png_uint_32 loop_col_start;
+
+    png_uint_32 column_tracker;
+    png_uint_32 row_tracker;
+
+} FrameExtractor;
 
 typedef struct SpriteSheetData{
     int FRAME_SIZE, width, height, format;
-    int offset_x, offset_y, margin_x, margin_y, frames_per_row, frames_per_col;
+    int offset_x, offset_y;
+
+    int margin_x, margin_y, frames_per_row, frames_per_col;
     int user_input_width, user_input_height;
     int *list_of_row_sizes;
+    int row_count;
+    int grid_size;
+    int frame_width;
+    int frame_height;
+
 } SpriteSheetData;
 
 /** @Description This function initializes SpriteSheetData with the proper dimension information for the GRID
@@ -81,34 +102,32 @@ typedef struct SpriteSheetData{
  * a user may want to be listed per row. */
 void calculate_grid_sheet_dimensions(DMI* dmi, SpriteSheetData* sheet_data, int icon_states_per_row);
 
-int create_sprite_sheet(Image* initial_image, SpriteSheetData* sheet_data, DMI new_icon);
+/** @Description A simple initialization function for SpriteSheetData. It basically sets all relevant values to 0 just in case
+ * users don't specify a value for important variables. */
+void initialize_sheet_data(SpriteSheetData* sheet_data);
 
-int dmiToPng(DMI* dmi, int pngWidth, int pngHeight, png_bytepp orig_pointer, png_bytepp new_pointer,
-             png_structp png_ptr, png_infop info_ptr, int ppb, int color_type, int output_flow_type,
-             int input_flow_type);
+Image create_sprite_sheet(Image* initial_image, SpriteSheetData* sheet_data, DMI new_icon, char* file_name);
 
-void Get_Gridlock_Size(DMI *dmi, int *height, int *width);
+/** @Description This function handles conversion from a DMI image into a spritesheet. All sprite-sheet specifications,
+ * like the format, margins, padding -- are stored in the sheetData argument.
+ * */
+int dmi2sheet(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData sheetData);
+
 void Resize_IconStates(DMI* dmi, int new_size);
 int PNG_To_DMI();
 
-int Get_Dest_Col(icon_state *state, int DMI_WIDTH, int iteration);
-int Get_Dest_Row(icon_state* state, int DMI_HEIGHT);
-void Fix_Dimension(int *dest_col, int *dest_row, int *source_col, int *source_row, int *copy_row, int *copy_col,
-                   int start_row, int start_col, int *frame_tracker,int input_flow,int output_flow, int DMI_WIDTH,
-                   int DMI_HEIGHT, int pngWidth, int total_frame,int outwidth, DMI *dmi);
 void Init_DMI(DMI* dmi, int width, int height);
 
-png_uint_32 Get_Sheet_Size(DMI* dmi);
-png_uint_32 Get_Sheet_Width(DMI* dmi);
 char *Variable_Authentication(char *string);
 char *State_Authentication(char *string);
 char *Value_Authentication(char *string);
-void Get_Frame(png_bytepp dest_pixels, png_bytepp src_pixels, int dest_start_row,int dest_start_col,
+void Get_Frame(png_bytepp dest_pixels, png_bytepp src_pixels, png_uint_32 dest_start_row, png_uint_32 dest_start_col,
                int src_start_row, int src_start_col, int bytes_per_frame, int cols_to_copy);
-int initialize_image(png_structp *png_ptr, png_infop *png_info, FILE **fp);
+
 int check_if_png(char *file_name, FILE **fp);
-void output_pixel_values(png_structp png_ptr, png_infop info_ptr, png_bytep *row_pointers);
+
 void output_image_pixels(Image image);
+
 void Print_Variable(char *string, DMI* dmi);
 char *find_newline(char **string, int *dmi_index, char *search_for);
 int get_string_char(char *string, char* char_search, char doo);
