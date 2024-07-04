@@ -4,9 +4,7 @@
  * - version:       The version of BYOND it should use. Either 4.0 (most current DMI format) or 3.5.
  * - width:         The width for each frame.
  * - height:        The height for each frame.
- * - icon_states:   This should be a vector containing a list of all icon_states.
- *
- * */
+ * - icon_states:   This should be a vector containing a list of all icon_states. */
 #include "png.h"
 #include "dmi.h"
 #include <stdlib.h>
@@ -36,8 +34,7 @@ void Resize_IconStates(DMI* dmi, int new_size){
 }
 
 /** This function needs to be refactored and renamed.
- *  It's used to get the height of a spritesheet that is in HORIZONTAL_FLOW format.
- * */
+ *  It's used to get the height of a spritesheet that is in HORIZONTAL_FLOW format. */
 
 void initialize_sheet_data(SpriteSheetData* sheet_data){
     sheet_data->height = 0;
@@ -46,6 +43,8 @@ void initialize_sheet_data(SpriteSheetData* sheet_data){
     sheet_data->user_input_width = 0;
     sheet_data->margin_y = 0;
     sheet_data->margin_x = 0;
+    sheet_data->padding_x = 0;
+    sheet_data->padding_y = 0;
     sheet_data->grid_size = 0;
     sheet_data->offset_x = 0;
     sheet_data->offset_y = 0;
@@ -77,9 +76,14 @@ Image create_sprite_sheet(Image* initial_image, SpriteSheetData* sheet_data, DMI
 
     Image new_image;
     if(sheet_data->grid_size != 0){
-        new_image.width = sheet_data->width + (sheet_data->margin_x * (sheet_data->grid_size - 1));
+        new_image.width = sheet_data->width + (sheet_data->margin_x * (sheet_data->grid_size - 1)) +
+                (sheet_data->padding_x * sheet_data->frames_per_row);
+
         int num_of_rows = ceil((double)new_icon.num_of_states / sheet_data->grid_size);
-        new_image.height = sheet_data->height + (sheet_data->margin_y * num_of_rows);
+
+
+        new_image.height = sheet_data->height + (sheet_data->margin_y * num_of_rows) +
+                (sheet_data->padding_y * sheet_data->frames_per_col);
     }
 
     else {
@@ -87,7 +91,7 @@ Image create_sprite_sheet(Image* initial_image, SpriteSheetData* sheet_data, DMI
         new_image.height = sheet_data->height;// + (sheet_data->margin_y * num_of_rows);
     }
 
-
+    printf("Width/Height = %d/%d\n", new_image.width, new_image.height);
     new_image.bit_depth = initial_image->bit_depth;
     new_image.color_type = initial_image->color_type;
     initialize_image2(file_name, &new_image, NULL, NULL, NULL, NULL);
@@ -217,12 +221,15 @@ int dmi2sheet(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData s
                           destination.current_column,source.current_row,source.current_column,
                           DMI_WIDTH,DMI_HEIGHT);
                 source.column_offset += (DMI_WIDTH * num_of_dirs);
-                destination.column_offset += DMI_WIDTH;
+
+                destination.column_offset += DMI_WIDTH + sheetData.padding_x;
+                //printf("WIDth = %d\n Width + Pad_X = %d\n", DMI_WIDTH + sheetData.padding_x);
                 update_current_position(&destination);
+               // printFrameExtractor(&destination);
                 if(sheetData.format != GRID){
                     if(destination.current_column >= (sheet_image.row_bytes/sheet_image.pixels_per_byte)){
                         destination.column_offset = 0;
-                        destination.row_offset += DMI_HEIGHT;//(destination.current_column / (sheet_image.row_bytes/ sheet_image.pixels_per_byte)) * DMI_HEIGHT;
+                        destination.row_offset += DMI_HEIGHT;
                         update_current_position(&destination);
                     }
                 }
@@ -233,7 +240,7 @@ int dmi2sheet(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData s
 
             if(sheetData.format == GRID){
                 destination.column_offset = 0;
-                destination.row_offset += DMI_HEIGHT;
+                destination.row_offset += DMI_HEIGHT + sheetData.padding_y;
             }
             else {
                 fflush(stdout);
@@ -247,12 +254,14 @@ int dmi2sheet(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData s
             fflush((stdout));
             source.column_offset = 0;
             source.row_offset = 0;
-            source.loop_col_start += DMI_WIDTH;
+            source.loop_col_start += DMI_WIDTH;// + sheetData.padding_x;
             if(source.loop_col_start >= source_image.row_bytes){
-                source.loop_row_start  += (source.loop_col_start  / source_image.row_bytes) * DMI_HEIGHT;
+                source.loop_row_start  += (source.loop_col_start  / source_image.row_bytes) * DMI_HEIGHT
+                        + sheetData.padding_y;
                 source.loop_col_start %= source_image.row_bytes;
             }
         }/*!< End of the outer loop.*/
+       // return EXIT_SUCCESS;
 
         total_frames += dmi->begin_icon_state->frames *dmi->begin_icon_state->dirs;
 
@@ -261,7 +270,8 @@ int dmi2sheet(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData s
         if(sheetData.format == GRID){
             destination.column_offset = 0;
             destination.row_offset = 0;
-            destination.starting_column += dmi->begin_icon_state->frames * DMI_WIDTH + sheetData.margin_x;
+            destination.starting_column += dmi->begin_icon_state->frames * DMI_WIDTH +
+                    (sheetData.padding_x * dmi->begin_icon_state->frames);
         }
 
         source.column_tracker = (total_frames * DMI_WIDTH) % (source_image.row_bytes / source_image.pixels_per_byte);
@@ -274,7 +284,8 @@ int dmi2sheet(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData s
          * our designated # of states per row. Only if in GRID format.*/
         if(sheetData.grid_size != 0) {
             if(icon_state_index % sheetData.grid_size == 0 && sheetData.format == GRID){
-                destination.starting_row += sheetData.list_of_row_sizes[sheetData.row_count] * DMI_HEIGHT + sheetData.margin_y;
+                destination.starting_row += sheetData.list_of_row_sizes[sheetData.row_count] * DMI_HEIGHT +
+                        (sheetData.padding_y * sheetData.list_of_row_sizes[sheetData.row_count]);
                 destination.starting_column = 0;
                 sheetData.row_count++;
             }

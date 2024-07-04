@@ -252,8 +252,10 @@ int main(int argc, char **argv){
     }
 
    // sheet_data.format = GRID;
-    sheet_data.margin_x = 32;
-    sheet_data.margin_y = 32;
+    sheet_data.margin_x = 0;
+    sheet_data.margin_y = 0;
+    sheet_data.padding_y = 10;
+    sheet_data.padding_x = 10;
 
     Image sprite_sheet = create_sprite_sheet(&image, &sheet_data, *new_icon, output_name);
     for(int i = 0; i < sprite_sheet.height; i++){
