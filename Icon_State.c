@@ -12,7 +12,7 @@ void Add_Loop(icon_state* thisNode, int loop) {
 }
 
 void Add_Frames(icon_state* thisNode, int frames) {
-    thisNode->frames = frames;
+    thisNode->number_of_frames = frames;
 }
 
 void Add_Rewind(icon_state* thisNode) {
@@ -34,7 +34,7 @@ void Initialize_IconState(icon_state* thisNode, char* name) {
     thisNode->state = name;
    // printf("Icon State is set to %s\n", thisNode->state);
     thisNode->dirs = 1;
-    thisNode->frames = 1;
+    thisNode->number_of_frames = 1;
     thisNode->loop = 1;
     thisNode->movement = false;
 }
@@ -43,7 +43,7 @@ void IconState_Create(icon_state* thisNode, char * state_name, int directions, i
     thisNode->state = (char*)malloc(sizeof(strlen(state_name)));
     strcpy(thisNode->state, state_name);
     thisNode->dirs = directions;
-    thisNode->frames = frames;
+    thisNode->number_of_frames = frames;
 
     //thisNode->prev = prevLoc;
 }

@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <math.h>
+
 //Pixel_Data
 void Set_Channels(Pixel_Data *pixel) {
     if(pixel->color_type != PNG_COLOR_TYPE_PALETTE) {
@@ -349,223 +350,6 @@ Pixel_Data Get_Pixel(Image image, int x_coord, int y_coord){
     Set_Channels(&pixel);
     return pixel;
 }
-
-//Pixel_Data Get_Pixel(png_bytepp image, int x_coord, int y_coord, int color_type, int bit_depth, png_colorp palette,
-//                     png_bytep trans_alpha, int *num_trans){
-//
-//    /** @Description A data structure that serves as a neat encapsulation of the various data-types that libpng
-//     * stores pixel information in.
-//     *
-//     * It is of the "Pixel_Data" struct. */
-//    Pixel_Data pixel;
-//
-//    //Let's make sure to initialize it.
-//    pixel.bit_depth = bit_depth;
-//    pixel.color_type = color_type;
-//    pixel.byte_data = NULL;
-//    pixel.color_data = NULL;
-//
-//    /** @Description pixel_index is a simple int variable that we'll use to get the proper x_coordinate.
-//     * Since it is possible for a pixel to be less than a byte at certain bit_depths.
-//     *
-//     * Default value is x_coord. */
-//    int pixel_index = x_coord;
-//
-//    /** @Description This value represents the number of pixels packed into a single byte.
-//     * This is only relevant whenever a pixel's bit_depth is less than 8. */
-//    int pixels_per_byte;
-//
-//    /**@Description Pixel Data is the data we extract from the image (the pixel array). After pixel_index is calculated,
-//     * we save the information in pixel_data, and can modify it depending on the size of the bit_depth to get
-//     * the useful information.
-//     *
-//     * ONLY for indexed/gray images. [Since a pixel can be less than a byte in size]
-//     * */
-//    int pixel_data = image[y_coord][pixel_index];
-//
-//    /** @Description This represents the amount of bits to shift a byte by to unpack the pixel value.
-//     * By default, it is 0.
-//     *
-//     * Once more, only useful for Index/Gray images.*/
-//    int pixel_bit_shift = 0;
-//
-//    /** @Description pixel_value is a pointer that we set to represent the various values in the various channels for a
-//     * png_byte. The size of the pixel_value depends on the color_type and bit_depth. It is set using Initialize_Pixel(). */
-//    //png_bytep pixel_value = NULL;
-//
-//    if(pixel.color_type == PNG_COLOR_TYPE_PALETTE) {
-//        pixel.color_data = (png_colorp)malloc(sizeof(png_color));
-//    }
-//
-//    else{
-//        Initialize_Pixel(&pixel.byte_data, color_type, bit_depth);
-//    }
-//
-//    if(bit_depth == 16) {
-//        if(color_type == PNG_COLOR_TYPE_RGBA){
-//            pixel_index *= 8;
-//        }
-//
-//        else if(color_type == PNG_COLOR_TYPE_RGB){
-//            pixel_index *= 6;
-//        }
-//
-//        else if(color_type == PNG_COLOR_TYPE_GRAY_ALPHA) {
-//            pixel_index *= 4;
-//        }
-//
-//        /** We run a check here for Gray-scaled images because with 16 bit depth,
-//         * each pixel will be 2 bytes long. We don't need to check this for 8-bits because
-//         * each pixel there is 1-byte long. */
-//        else if(color_type == PNG_COLOR_TYPE_GRAY) {
-//            pixel_index *= 2;
-//        }
-//    }
-//
-//    if(bit_depth == 8) {
-//        if(color_type == PNG_COLOR_TYPE_RGBA){
-//            pixel_index *= 4;
-//        }
-//
-//        else if(color_type == PNG_COLOR_TYPE_RGB){
-//            pixel_index *= 3;
-//        }
-//
-//        else if(color_type == PNG_COLOR_TYPE_GRAY_ALPHA) {
-//            pixel_index *= 2;
-//        }
-//    }
-//
-//    /* If bit_depth is 4, then we know that there are 2 pixels per byte. So we simply have and floor the value. */
-//    if(bit_depth == 4) {
-//        pixels_per_byte = 2;
-//        int pixel_in_byte = x_coord % pixels_per_byte;
-//        pixel_bit_shift = (bit_depth) * ((pixels_per_byte - 1) -pixel_in_byte);
-//        pixel_index = (int)floor(x_coord / pixels_per_byte);
-//        pixel_data = image[y_coord][pixel_index];
-//
-//        if(pixel_in_byte == 0) {
-//            pixel_data = pixel_data & BIT4_L_ON;
-//            pixel_data = (pixel_data >> pixel_bit_shift);
-//        }
-//
-//        else {
-//            pixel_data = pixel_data & BIT4_R_ON;
-//        }
-//
-//    }
-//
-//    /** There are 4 pixels per byte, so we floor after dividing by 4. **/
-//    else if(bit_depth == 2){
-//        pixels_per_byte = 4;
-//        int pixel_in_byte = x_coord % pixels_per_byte;
-//
-//        pixel_bit_shift = (bit_depth) * ((pixels_per_byte - 1) -pixel_in_byte);
-//        pixel_index = (int)floor(x_coord/pixels_per_byte);
-//        pixel_data = image[y_coord][pixel_index];
-//
-//        if(pixel_in_byte == 0){
-//            pixel_data = pixel_data & BIT2_1_ON;
-//            pixel_data = (pixel_data >> pixel_bit_shift);
-//        }
-//
-//        else if(pixel_in_byte == 1){
-//            pixel_data = pixel_data & BIT2_2_ON;
-//            pixel_data = (pixel_data >> pixel_bit_shift);
-//        }
-//
-//        else if(pixel_in_byte == 2){
-//            pixel_data = pixel_data & BIT2_3_ON;
-//            pixel_data = (pixel_data >> pixel_bit_shift);
-//        }
-//        else {
-//            pixel_data = pixel_data & BIT2_4_ON;
-//        }
-//    }
-//
-//        /* At a bit_depth of 1 we have 8 pixels per byte. */
-//    else if(bit_depth == 1){
-//        pixels_per_byte = 8;
-//        int pixel_in_byte = x_coord % pixels_per_byte;
-//
-//        pixel_bit_shift = (bit_depth) * ((pixels_per_byte - 1) -pixel_in_byte);
-//        pixel_index = (int)floor(x_coord / pixels_per_byte);
-//        pixel_data = image[y_coord][pixel_index];
-//
-//        if(pixel_in_byte == 0){
-//            pixel_data = pixel_data & BIT1_1_ON;
-//            pixel_data = (pixel_data >> pixel_bit_shift);
-//        }
-//
-//        else if(pixel_in_byte == 1){
-//            pixel_data = pixel_data & BIT1_2_ON;
-//            pixel_data = (pixel_data >> pixel_bit_shift);
-//        }
-//
-//        else if(pixel_in_byte == 2){
-//            pixel_data = pixel_data & BIT1_3_ON;
-//            pixel_data = (pixel_data >> pixel_bit_shift);
-//        }
-//
-//        else if(pixel_in_byte == 3){
-//            pixel_data = pixel_data & BIT1_4_ON;
-//            pixel_data = (pixel_data >> pixel_bit_shift);
-//        }
-//
-//        else if(pixel_in_byte == 4){
-//            pixel_data = pixel_data & BIT1_5_ON;
-//            pixel_data = (pixel_data >> pixel_bit_shift);
-//        }
-//
-//        else if(pixel_in_byte == 5){
-//            pixel_data = pixel_data & BIT1_6_ON;
-//            pixel_data = (pixel_data >> pixel_bit_shift);
-//        }
-//        else if(pixel_in_byte == 6){
-//            pixel_data = pixel_data & BIT1_7_ON;
-//            pixel_data = (pixel_data >> pixel_bit_shift);
-//        }
-//        else {
-//            pixel_data = pixel_data & BIT1_7_ON;
-//        }
-//    }
-//    if(color_type == PNG_COLOR_TYPE_PALETTE){
-//        //printf("Num_Trans - %d\nPixel_Date = %d\n", *num_trans, pixel_data);
-//
-//        /** @Description By using the pixel_data that we processed earlier, we now have the palette's index.
-//         * This allows us to store the data in selected_color.*/
-//        png_color selected_color = palette[pixel_data];
-//
-//        pixel.color_data->red = selected_color.red;//100;
-//        pixel.color_data->green = selected_color.green;
-//        pixel.color_data->blue = selected_color.blue;
-//
-//        /* Next up, if the index that we have in our pixel_data is less than the number of indexes in the
-//         * trans_alpha array, then we know that our selected color has an alpha value that is not 255.
-//         * Let's just copy that over. */
-//
-//        if(pixel_data < (*num_trans)){
-//            pixel.alpha_channel = trans_alpha[pixel_data];
-//
-//        }
-//
-//            /* Otherwise, the alpha value is 255.*/
-//        else
-//            pixel.alpha_channel = 255;
-//
-//    }
-//
-//        /* If it is not an indexed image, then we can simply copy the pixel directly.*/
-//    else {
-//        Copy_Pixel(pixel.byte_data, image, pixel_index, y_coord, color_type, bit_depth);
-//
-//    }
-//
-//
-//    /* Set up the channels before sending the pixel off. */
-//    Set_Channels(&pixel);
-//    return pixel;
-//}
 
 
 void Set_Pixel(png_bytepp image, Pixel_Data* new_pixel, int x_coord,int y_coord, int color_type,int bit_depth,
@@ -1491,7 +1275,11 @@ void initialize_image2(char *file_name, Image* new_image, int* bit_depth, int* c
         fprintf(stderr, "Memory allocation failed for row pointers.\n");
         exit(EXIT_FAILURE);
     }
+    png_bytep fake_array = (png_bytep) malloc(sizeof(png_byte) * new_image->height * new_image->row_bytes);
 
+//    for (png_uint_32 pix_index = 0; pix_index < new_image->height; pix_index++) {
+//        new_image->pixel_array[pix_index] = (fake_array+(new_image->row_bytes * pix_index));
+//    }
     for (png_uint_32 pix_index = 0; pix_index < new_image->height; pix_index++) {
         new_image->pixel_array[pix_index] = (png_bytep) malloc(new_image->row_bytes);
     }
@@ -1562,9 +1350,12 @@ Image load_image(char* file_name){
         exit(EXIT_FAILURE);
     }
 
+
     new_image.row_bytes = png_get_rowbytes(new_image.png_ptr,new_image.info_ptr);
+    png_bytep contiguous_rows = (png_bytep) malloc(sizeof(png_byte) * new_image.height * new_image.row_bytes);
     for (png_uint_32 pix_index = 0; pix_index < new_image.height; pix_index++) {
-        new_image.pixel_array[pix_index] = (png_bytep)malloc(new_image.row_bytes );
+       // new_image.pixel_array[pix_index] = (png_bytep)malloc(new_image.row_bytes );
+        new_image.pixel_array[pix_index] = contiguous_rows + (pix_index * new_image.row_bytes);///(png_bytep)malloc(new_image.row_bytes );
         if (new_image.pixel_array[pix_index] == NULL) {
             fprintf(stderr, "Memory allocation failed for row %u.\n", pix_index);
             // Cleanup previously allocated memory

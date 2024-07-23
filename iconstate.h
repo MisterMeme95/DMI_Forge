@@ -1,5 +1,5 @@
 #include <stdbool.h>
-
+#include "png.h"
 
 /** @Description icon_state is a data structure that we use to record all of the relevant information for a unique
  * animation state in BYOND.
@@ -12,11 +12,22 @@
  * @rewind If the animation should rewind.
  * @loop If the animation should loop.
  **/
+
+/**
+ * TO DO: Make a doubly linked_list structure to represent the frames.
+ * prev/next does what you expect.
+ *
+ * the data will be a png_bytepp* that points to the beginning of a frame for each direction.
+ * png_bytepp = (png_bytepp*)malloc(sizeof(png_bytepp) * frames);
+ * for(int i = 0; i < dirs; i ++)
+ *  frames = frames.next
+ * **/
 typedef struct IconState_Struct {
     char *state;
-    int dirs, frames;
+    int dirs, number_of_frames;
     int *delays;
     bool movement, rewind, loop;
+    png_bytepp frames;
 } icon_state;
 
 void Add_Delay(icon_state* thisNode, int *delay);

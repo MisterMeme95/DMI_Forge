@@ -91,7 +91,7 @@ Image create_sprite_sheet(Image* initial_image, SpriteSheetData* sheet_data, DMI
         new_image.height = sheet_data->height;// + (sheet_data->margin_y * num_of_rows);
     }
 
-    printf("Width/Height = %d/%d\n", new_image.width, new_image.height);
+    //printf("Width/Height = %d/%d\n", new_image.width, new_image.height);
     new_image.bit_depth = initial_image->bit_depth;
     new_image.color_type = initial_image->color_type;
     initialize_image2(file_name, &new_image, NULL, NULL, NULL, NULL);
@@ -123,7 +123,7 @@ void calculate_grid_sheet_dimensions(DMI* dmi, SpriteSheetData* sheet_data, int 
             if(iterator->dirs > max_dir_in_row){
                 max_dir_in_row = iterator->dirs;
             }
-            current_count += iterator->frames;
+            current_count += iterator->number_of_frames;
             iterator++;
         }
         height_total += max_dir_in_row;
@@ -143,6 +143,16 @@ void calculate_grid_sheet_dimensions(DMI* dmi, SpriteSheetData* sheet_data, int 
 
 void Get_Frame(png_bytepp dest_pixels, png_bytepp src_pixels, png_uint_32 dest_start_row, png_uint_32 dest_start_col,
                int src_start_row, int src_start_col, int bytes_per_frame, int cols_to_copy) {
+
+    for (int i = 0; i < cols_to_copy; i++) {
+        memcpy(&dest_pixels[dest_start_row + i][dest_start_col],&src_pixels[src_start_row + i][src_start_col],
+               bytes_per_frame);
+    }
+
+}
+
+void Get_Frame2(png_bytepp dest_pixels, png_bytepp src_pixels, png_uint_32 dest_start_row, png_uint_32 dest_start_col,
+               int src_start_row, int src_start_col, int bytes_per_frame, int cols_to_copy, int row_bytes) {
 
     for (int i = 0; i < cols_to_copy; i++) {
         memcpy(&dest_pixels[dest_start_row + i][dest_start_col],&src_pixels[src_start_row + i][src_start_col],
@@ -183,6 +193,108 @@ int sheet2dmi(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData s
     return 0;
 }
 
+int dmi2sheet2(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData sheetData){
+    int DMI_HEIGHT = dmi->height, DMI_WIDTH = (dmi->width) / source_image.pixels_per_byte;
+    int icon_state_index = 0;
+    int numOfStates = dmi->num_of_states;
+    int total_frames = 0;
+
+    if(source_image.color_type == PNG_COLOR_TYPE_RGBA){
+        DMI_WIDTH *= 4;
+    }
+
+    sheet_image.pixels_per_byte = source_image.pixels_per_byte;
+    FrameExtractor source;
+    FrameExtractor destination;
+    initialize_extractor(&source);
+    initialize_extractor(&destination);
+
+    while(icon_state_index < numOfStates){
+        int num_of_dirs = dmi->begin_icon_state->dirs;
+        int num_of_frames = dmi->begin_icon_state->number_of_frames;
+        source.loop_row_start = source.row_tracker;
+        source.loop_col_start = source.column_tracker;
+        for(int i = 0; i < num_of_dirs; i++){
+            source.starting_column = source.loop_col_start;
+            source.starting_row = source.loop_row_start;
+            for(int j = 0; j < num_of_frames; j++) {
+                update_current_position(&source);
+                update_current_position(&destination);
+
+
+                Get_Frame(sheet_image.pixel_array, source_image.pixel_array,destination.current_row,
+                          destination.current_column,source.current_row,source.current_column,
+                          DMI_WIDTH,DMI_HEIGHT);
+
+                source.column_offset += (DMI_WIDTH * num_of_dirs);
+
+                destination.column_offset += DMI_WIDTH + sheetData.padding_x;
+                update_current_position(&destination);
+                if(sheetData.format != GRID){
+                    if(destination.current_column >= (sheet_image.row_bytes/sheet_image.pixels_per_byte)){
+                        destination.column_offset = 0;
+                        destination.row_offset += DMI_HEIGHT;
+                        update_current_position(&destination);
+                    }
+                }
+            }
+            if(sheetData.format == GRID){
+                destination.column_offset = 0;
+                destination.row_offset += DMI_HEIGHT + sheetData.padding_y;
+            }
+            else {
+                fflush(stdout);
+                if(destination.current_column >= (sheet_image.row_bytes/sheet_image.pixels_per_byte)){
+                    destination.column_offset = 0;
+                    destination.row_offset += (destination.current_column / (sheet_image.row_bytes/ sheet_image.pixels_per_byte)) * DMI_HEIGHT;
+
+                }
+                fflush(stdout);
+            }
+            fflush((stdout));
+            source.column_offset = 0;
+            source.row_offset = 0;
+            source.loop_col_start += DMI_WIDTH;// + sheetData.padding_x;
+//            if(source.loop_col_start >= source_image.row_bytes){
+//                source.loop_row_start  += (source.loop_col_start  / source_image.row_bytes) * DMI_HEIGHT
+//                                          + sheetData.padding_y;
+//                source.loop_col_start %= source_image.row_bytes;
+//            }
+        }/*!< End of the outer loop.*/
+        // return EXIT_SUCCESS;
+
+        total_frames += dmi->begin_icon_state->number_of_frames * dmi->begin_icon_state->dirs;
+
+        /** If in GRID format, we want to have a new starting_column that corresponds to where we'd be after parsing
+         * the previous icon_state. We set our row and column offset back to 0. */
+        if(sheetData.format == GRID){
+            destination.column_offset = 0;
+            destination.row_offset = 0;
+            destination.starting_column += dmi->begin_icon_state->number_of_frames * DMI_WIDTH +
+                                           (sheetData.padding_x * dmi->begin_icon_state->number_of_frames);
+        }
+
+        source.column_tracker = (total_frames * DMI_WIDTH) % (source_image.row_bytes / source_image.pixels_per_byte);
+        source.row_tracker = ((total_frames * DMI_WIDTH) / (source_image.row_bytes / source_image.pixels_per_byte)) * DMI_HEIGHT;
+        dmi->begin_icon_state++;
+
+        icon_state_index++;
+
+        /** Likewise, we wan to set our starting column back to 0 once we've parsed all of the icon_states for a
+         * our designated # of states per row. Only if in GRID format.*/
+        if(sheetData.grid_size != 0) {
+            if(icon_state_index % sheetData.grid_size == 0 && sheetData.format == GRID){
+                destination.starting_row += sheetData.list_of_row_sizes[sheetData.row_count] * DMI_HEIGHT +
+                                            (sheetData.padding_y * sheetData.list_of_row_sizes[sheetData.row_count]);
+                destination.starting_column = 0;
+                sheetData.row_count++;
+            }
+        }
+    } /*!< End Point of the while loop.*/
+    return EXIT_SUCCESS;
+}
+
+
 int dmi2sheet(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData sheetData){
     int DMI_HEIGHT = dmi->height, DMI_WIDTH = (dmi->width) / source_image.pixels_per_byte;
     int icon_state_index = 0;
@@ -201,7 +313,7 @@ int dmi2sheet(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData s
 
     while(icon_state_index < numOfStates){
         int num_of_dirs = dmi->begin_icon_state->dirs;
-        int num_of_frames = dmi->begin_icon_state->frames;
+        int num_of_frames = dmi->begin_icon_state->number_of_frames;
         source.loop_row_start = source.row_tracker;
         source.loop_col_start = source.column_tracker;
         for(int i = 0; i < num_of_dirs; i++){
@@ -233,11 +345,7 @@ int dmi2sheet(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData s
                         update_current_position(&destination);
                     }
                 }
-
-
-
             }
-
             if(sheetData.format == GRID){
                 destination.column_offset = 0;
                 destination.row_offset += DMI_HEIGHT + sheetData.padding_y;
@@ -263,15 +371,17 @@ int dmi2sheet(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData s
         }/*!< End of the outer loop.*/
        // return EXIT_SUCCESS;
 
-        total_frames += dmi->begin_icon_state->frames *dmi->begin_icon_state->dirs;
+        total_frames += dmi->begin_icon_state->number_of_frames * dmi->begin_icon_state->dirs;
 
         /** If in GRID format, we want to have a new starting_column that corresponds to where we'd be after parsing
          * the previous icon_state. We set our row and column offset back to 0. */
         if(sheetData.format == GRID){
             destination.column_offset = 0;
             destination.row_offset = 0;
-            destination.starting_column += dmi->begin_icon_state->frames * DMI_WIDTH +
-                    (sheetData.padding_x * dmi->begin_icon_state->frames);
+            destination.starting_column += dmi->begin_icon_state->number_of_frames * DMI_WIDTH +
+                                           (sheetData.padding_x * dmi->begin_icon_state->number_of_frames) + sheetData.margin_x;
+
+
         }
 
         source.column_tracker = (total_frames * DMI_WIDTH) % (source_image.row_bytes / source_image.pixels_per_byte);
@@ -285,15 +395,15 @@ int dmi2sheet(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData s
         if(sheetData.grid_size != 0) {
             if(icon_state_index % sheetData.grid_size == 0 && sheetData.format == GRID){
                 destination.starting_row += sheetData.list_of_row_sizes[sheetData.row_count] * DMI_HEIGHT +
-                        (sheetData.padding_y * sheetData.list_of_row_sizes[sheetData.row_count]);
+                        (sheetData.padding_y * sheetData.list_of_row_sizes[sheetData.row_count]) + sheetData.margin_y;
                 destination.starting_column = 0;
                 sheetData.row_count++;
             }
         }
-
     } /*!< End Point of the while loop.*/
     return EXIT_SUCCESS;
 }
+
 
 void output_image_pixels(Image image){
     png_uint_32 width = image.width;

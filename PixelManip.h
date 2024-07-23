@@ -144,6 +144,11 @@
 #define BIT1_8_OFF 0xFE
 
 #include "png.h"
+
+#ifndef pixel_manip_h
+#define pixel_manip_h
+#endif
+
 #ifndef dmi_h
 #define dmi_h
 #include "dmi.h"
@@ -243,6 +248,7 @@ png_color Byte_To_Color(const png_byte* pixel, int color_type, png_bytep trans_b
 void Copy_Pixel(png_bytep copy_destination, png_bytepp copy_source, int x_coord,
                 int y_coord, int color_type, int bit_depth);
 
+int dmi2sheet2(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData sheetData);
 
 /** @Description This function is designed any specific pixel that is in PNG file.
  *  Get_Pixel contains the necessarily functionality to unpack pixels that are less than a single byte. At the end

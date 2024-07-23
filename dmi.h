@@ -9,15 +9,17 @@
 #define dmi_h
 
 #endif
-#include "iconstate.h"
-#include "png.h"
 
-typedef struct DMI_Struct {
-    bool has_icons;
-    double version;
-    int width, height, num_of_states, max_state;
-    icon_state *icon_states, *begin_icon_state;
-}DMI;
+
+#ifndef ICONSTATE_H
+#define ICONSTATE_H
+
+#include "iconstate.h"
+#endif // ICONSTATE_H
+
+
+
+#include "png.h"
 
 
 
@@ -61,6 +63,16 @@ typedef struct Image_Struct{
 
 
 } Image;
+
+
+typedef struct DMI_Struct {
+    bool has_icons;
+    double version;
+    int width, height, num_of_states, max_state;
+    icon_state *icon_states, *begin_icon_state;
+    Image *image_data;
+}DMI;
+
 
 typedef struct FrameExtractHandler{
     png_uint_32 starting_column;

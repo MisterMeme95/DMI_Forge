@@ -4,9 +4,11 @@
 #include "dmi.h"
 #include <getopt.h>
 #include "PixelManip.h"
+#include <omp.h>
 
 #define STDERR stdout
 #define INVALID -100
+#include <time.h>
 
 void changeExtension(char* filename, const char* newExt) {
     char* extPos = strstr(filename, ".dmi");
@@ -177,10 +179,10 @@ int main(int argc, char **argv){
     int num_text;
     if (png_get_text(image.png_ptr, image.info_ptr, &text_ptr, &num_text) > 0) {
         png_uint_32 i;
-        fprintf(STDERR,"\n");
+       // fprintf(STDERR,"\n");
         for (i=0; i<num_text; i++){
-            fprintf(STDERR,"Text compression[%d]=%d\n",
-                    i, text_ptr[i].compression);
+          //  fprintf(STDERR,"Text compression[%d]=%d\n",
+                 //   i, text_ptr[i].compression);
         }
     }
     DMI *new_icon = (DMI*) malloc(sizeof(DMI));
@@ -207,55 +209,55 @@ int main(int argc, char **argv){
         Print_Variable(string_parser, new_icon);
     }
 
-    if(fflag == 0) {
-        if (access(output_name, F_OK) == 0) {
-            char overwrite;
-            printf("Warning: %s already exists!\nDo you wish to overwrite it? (Y/N): ", output_name);
-            fflush(stdout);
-            do {
-                scanf(" %c", &overwrite); // space before %c consumes any whitespace characters, including 'enter'
-                while (getchar() != '\n'); // clean the buffer
-
-                if (overwrite == 'Y' || overwrite == 'y' || overwrite == 'N' || overwrite == 'n') {
-                    break; // Exit the loop if a valid input is given
-                } else {
-                    printf("Invalid input. Please enter 'Y' or 'N': ");
-                    fflush(stdout);
-                }
-            } while (1); // Keep looping until a valid input is provided
-
-            if (overwrite != 'Y' && overwrite != 'y') {
-                int count = 1;
-                char new_string[256];
-                char base_string[256];
-                bool found_match = false;
-                for (int i = strlen(output_name) - 1; i >= 0; i--) {
-                    if (output_name[i] == '.') {
-                        strncpy(base_string, output_name, i);
-                        base_string[i] = '\0';
-                        break;
-                    }
-                }
-
-                while (!found_match) {
-                    sprintf(new_string, "%s (%d).png", base_string, count);
-                    if (access(new_string, F_OK) != 0) {
-                        output_name = realloc(output_name, strlen(new_string) + 1);
-                        sprintf(output_name, "%s", new_string);
-                        found_match = true;
-                    }
-                    count++;
-                }
-                printf("File will be saved as: %s\n", new_string);
-            }
-        }
-    }
+//    if(fflag == 0) {
+//        if (access(output_name, F_OK) == 0) {
+//            char overwrite;
+//            printf("Warning: %s already exists!\nDo you wish to overwrite it? (Y/N): ", output_name);
+//            fflush(stdout);
+//            do {
+//                scanf(" %c", &overwrite); // space before %c consumes any whitespace characters, including 'enter'
+//                while (getchar() != '\n'); // clean the buffer
+//
+//                if (overwrite == 'Y' || overwrite == 'y' || overwrite == 'N' || overwrite == 'n') {
+//                    break; // Exit the loop if a valid input is given
+//                } else {
+//                    printf("Invalid input. Please enter 'Y' or 'N': ");
+//                    fflush(stdout);
+//                }
+//            } while (1); // Keep looping until a valid input is provided
+//
+//            if (overwrite != 'Y' && overwrite != 'y') {
+//                int count = 1;
+//                char new_string[256];
+//                char base_string[256];
+//                bool found_match = false;
+//                for (int i = strlen(output_name) - 1; i >= 0; i--) {
+//                    if (output_name[i] == '.') {
+//                        strncpy(base_string, output_name, i);
+//                        base_string[i] = '\0';
+//                        break;
+//                    }
+//                }
+//
+//                while (!found_match) {
+//                    sprintf(new_string, "%s (%d).png", base_string, count);
+//                    if (access(new_string, F_OK) != 0) {
+//                        output_name = realloc(output_name, strlen(new_string) + 1);
+//                        sprintf(output_name, "%s", new_string);
+//                        found_match = true;
+//                    }
+//                    count++;
+//                }
+//                printf("File will be saved as: %s\n", new_string);
+//            }
+//        }
+//    }
 
    // sheet_data.format = GRID;
-    sheet_data.margin_x = 0;
-    sheet_data.margin_y = 0;
-    sheet_data.padding_y = 10;
-    sheet_data.padding_x = 10;
+    sheet_data.margin_x = 32;
+    sheet_data.margin_y = 32;
+    sheet_data.padding_y = 0;
+    sheet_data.padding_x = 0;
 
     Image sprite_sheet = create_sprite_sheet(&image, &sheet_data, *new_icon, output_name);
     for(int i = 0; i < sprite_sheet.height; i++){
@@ -265,6 +267,7 @@ int main(int argc, char **argv){
     }
 
     dmi2sheet(new_icon, image, sprite_sheet, sheet_data);
+   // dmi2sheet2(new_icon, image, sprite_sheet, sheet_data);
 
     if (image.color_type == PNG_COLOR_TYPE_PALETTE) {
         png_get_PLTE(image.png_ptr, image.info_ptr, &image.palette, &image.palette_num);
