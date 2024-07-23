@@ -226,7 +226,7 @@ int main(int argc, char **argv){
 //                }
 //            } while (1); // Keep looping until a valid input is provided
 //
-//            if (overwrite != 'Y' && overwrite != 'y') {
+//            if (overwrite != 'Y' && oveQQrwrite != 'y') {
 //                int count = 1;
 //                char new_string[256];
 //                char base_string[256];
