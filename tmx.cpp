@@ -10,6 +10,7 @@
 #include "PixelManip.h"
 #include <stdio.h>
 #include <cmath>
+#include <vector>
 #define PAUSE_AT_END 1
 int check_if_png(char *file_name, FILE **fp) {
     char buf[PNG_BYTES_TO_CHECK];
@@ -115,7 +116,7 @@ namespace
             };
 }
 
-int find_local_gid(std::vector<std::uint32_t> &gid_vectors, uint32_t global_tid);
+int find_nearest_gid(std::vector<uint32_t> &gid_vectors, uint32_t global_tid);
 int main()
 {
     tmx::Map map;
@@ -174,12 +175,10 @@ int main()
 
             counter++;
         }
-        int find_val = 30203;
-        printf("Testing to see what tileset has %d\n", find_val);
-
-        int index = find_local_gid(gid_vectors, find_val);
-        printf("This is found at index %d, which contains %d", index, gid_vectors[index]);
-        sleep(100);
+//        int find_val = 30203;
+//        printf("Testing to see what tileset has %d\n", find_val);
+//
+//        int index = find_nearest_gid(gid_vectors, find_val);
         std::cout << "Map has " << mapProperties.size() << " properties" << std::endl;
         for (const auto& prop : mapProperties)
         {
@@ -190,6 +189,8 @@ int main()
         std::cout << std::endl;
 
         const auto& layers = map.getLayers();
+        std::vector<tmx::Layer> tile_layers;
+        std::vector<std::unique_ptr<tmx::Layer>> unique_layer_test;
         std::cout << "Map has " << layers.size() << " layers" <<  std::endl;
         for (const auto& layer : layers)
         {
@@ -250,29 +251,30 @@ int main()
             /** START HERE **/
             if (layer->getType() == tmx::Layer::Type::Tile)
             {
-                //layer->getLayerAs<tmx::TileLayer>().getTiles();
-                const auto& tiles = layer->getLayerAs<tmx::TileLayer>().getTiles();
-                if (tiles.empty())
-                {
-                    const auto& chunks = layer->getLayerAs<tmx::TileLayer>().getChunks();
-                    if (chunks.empty())
-                    {
-                        std::cout << "Layer has missing tile data\n";
-                    }
-                    else
-                    {
-                        std::cout << "Layer has " << chunks.size() << " tile chunks.\n";
-                    }
-                }
-                else
-                {
-
-                    auto dater = tiles.data();
-                    for(int i = 0; i < tiles.size(); i++){
-
-                    }
-
-                }
+                tile_layers.push_back(layer);
+//                //layer->getLayerAs<tmx::TileLayer>().getTiles();
+//                const auto& tiles = layer->getLayerAs<tmx::TileLayer>().getTiles();
+//                if (tiles.empty())
+//                {
+//                    const auto& chunks = layer->getLayerAs<tmx::TileLayer>().getChunks();
+//                    if (chunks.empty())
+//                    {
+//                        std::cout << "Layer has missing tile data\n";
+//                    }
+//                    else
+//                    {
+//                        std::cout << "Layer has " << chunks.size() << " tile chunks.\n";
+//                    }
+//                }
+//                else
+//                {
+//
+//                    auto dater = tiles.data();
+//                    for(int i = 0; i < tiles.size(); i++){
+//
+//                    }
+//
+//                }
             }
 
             const auto& properties = layer->getProperties();
@@ -298,9 +300,9 @@ int main()
 }
 
 
-int find_local_gid(std::vector<uint32_t> &gid_vectors, uint32_t global_tid) {
+int find_nearest_gid(std::vector<uint32_t> &gid_vectors, uint32_t global_tid) {
     int low = 0;
-    int high = gid_vectors.size() - 1;
+    int high = (int)gid_vectors.size() - 1;
     int result = -1;
 
     while (low <= high) {
