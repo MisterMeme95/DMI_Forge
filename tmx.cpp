@@ -9,6 +9,7 @@
 #include <cstring>
 #include "PixelManip.h"
 #include <stdio.h>
+#include <cmath>
 #define PAUSE_AT_END 1
 int check_if_png(char *file_name, FILE **fp) {
     char buf[PNG_BYTES_TO_CHECK];
@@ -114,6 +115,7 @@ namespace
             };
 }
 
+int find_local_gid(std::vector<std::uint32_t> &gid_vectors, uint32_t global_tid);
 int main()
 {
     tmx::Map map;
@@ -172,7 +174,12 @@ int main()
 
             counter++;
         }
+        int find_val = 30203;
+        printf("Testing to see what tileset has %d\n", find_val);
 
+        int index = find_local_gid(gid_vectors, find_val);
+        printf("This is found at index %d, which contains %d", index, gid_vectors[index]);
+        sleep(100);
         std::cout << "Map has " << mapProperties.size() << " properties" << std::endl;
         for (const auto& prop : mapProperties)
         {
@@ -192,7 +199,6 @@ int main()
             << std::endl;
             std::cout << "Layer Dimensions: " << layer->getSize() << std::endl;
 
-          //  layer.
             if (layer->getType() == tmx::Layer::Type::Group)
             {
                 std::cout << "Checking sublayers" << std::endl;
@@ -237,6 +243,11 @@ int main()
                 }
             }
 
+
+
+
+
+            /** START HERE **/
             if (layer->getType() == tmx::Layer::Type::Tile)
             {
                 //layer->getLayerAs<tmx::TileLayer>().getTiles();
@@ -255,9 +266,13 @@ int main()
                 }
                 else
                 {
-                    std::cout << "Layer has " << tiles.size() << " tiles.\n";
+
                     auto dater = tiles.data();
-                                    }
+                    for(int i = 0; i < tiles.size(); i++){
+
+                    }
+
+                }
             }
 
             const auto& properties = layer->getProperties();
@@ -280,4 +295,26 @@ int main()
 #endif
 
     return 0;
+}
+
+
+int find_local_gid(std::vector<uint32_t> &gid_vectors, uint32_t global_tid) {
+    int low = 0;
+    int high = gid_vectors.size() - 1;
+    int result = -1;
+
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if(gid_vectors[mid] == global_tid){
+            return mid;
+        }
+        if (gid_vectors[mid] < global_tid) {
+            result = mid;
+            low = mid + 1;
+        } else {
+            high = mid - 1;
+        }
+    }
+
+    return result;
 }

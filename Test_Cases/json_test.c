@@ -285,6 +285,7 @@ void Free_DM(DMNode* node) {
     }
 }
 
+//increment dmm_map_id
 void incrementMapId(char *id) {
     int length = strlen(id);
     for (int i = length - 1; i >= 0; i--) {
