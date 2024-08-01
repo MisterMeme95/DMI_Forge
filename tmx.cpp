@@ -128,7 +128,7 @@ int main()
          *
          *
          */
-        tmx::Rectangle<float> dimensions;
+
         auto stuff = map.getBounds();
         if (map.isInfinite())
         {
@@ -136,12 +136,13 @@ int main()
         }
         else
         {
-            dimensions = map.getBounds();
-            //std::cout << "Map Dimensions: " << map.getBounds() << std::endl;
+
+            std::cout << "Map Dimensions: " << map.getBounds() << std::endl;
         }
 
         auto sizer = map.getTileSize();
         printf("Height - %f\nWidth -%f\nTile Size - %d, %d\n", stuff.height, stuff.width, sizer.x, sizer.y);
+
 
         //sleep(50);
 
@@ -175,10 +176,7 @@ int main()
 
             counter++;
         }
-//        int find_val = 30203;
-//        printf("Testing to see what tileset has %d\n", find_val);
-//
-//        int index = find_nearest_gid(gid_vectors, find_val);
+
         std::cout << "Map has " << mapProperties.size() << " properties" << std::endl;
         for (const auto& prop : mapProperties)
         {
@@ -189,102 +187,33 @@ int main()
         std::cout << std::endl;
 
         const auto& layers = map.getLayers();
-        std::vector<tmx::Layer> tile_layers;
-        std::vector<std::unique_ptr<tmx::Layer>> unique_layer_test;
+
         std::cout << "Map has " << layers.size() << " layers" <<  std::endl;
+        std::vector<tmx::TileLayer> tileLayers;
+
+
         for (const auto& layer : layers)
         {
-            auto proper = layer->getProperties();
-            std::cout << "Found Layer: " << layer->getName() << std::endl;
-            std::cout << "Layer Type: " << LayerStrings[static_cast<std::int32_t>(layer->getType())] << std::endl
-            << std::endl;
-            std::cout << "Layer Dimensions: " << layer->getSize() << std::endl;
 
-            if (layer->getType() == tmx::Layer::Type::Group)
-            {
-                std::cout << "Checking sublayers" << std::endl;
-                const auto& sublayers = layer->getLayerAs<tmx::LayerGroup>().getLayers();
-                std::cout << "LayerGroup has " << sublayers.size() << " layers" << std::endl;
-                for (const auto& sublayer : sublayers)
-                {
-                    std::cout << "Found Layer: " << sublayer->getName() << std::endl;
-                    std::cout << "Sub-layer Type: " << LayerStrings[static_cast<std::int32_t>(sublayer->getType())] << std::endl;
-                    std::cout << "Sub-layer Dimensions: " << sublayer->getSize() << std::endl;
-
-                    if (sublayer->getType() == tmx::Layer::Type::Object)
-                    {
-                        std::cout << sublayer->getName() << " has " << sublayer->getLayerAs<tmx::ObjectGroup>().getObjects().size() << " objects" << std::endl;
-                    }
-                    else if (sublayer->getType() == tmx::Layer::Type::Tile)
-                    {
-                        std::cout << sublayer->getName() << " has " << sublayer->getLayerAs<tmx::TileLayer>().getTiles().size() << " tiles" << std::endl;
-                    }
-                }
+            if (layer->getType() == tmx::Layer::Type::Tile) {
+                tileLayers.push_back(layer->getLayerAs<tmx::TileLayer>());
             }
 
-            if(layer->getType() == tmx::Layer::Type::Object)
-            {
-                const auto& objects = layer->getLayerAs<tmx::ObjectGroup>().getObjects();
-                std::cout << "Found " << objects.size() << " objects in layer" << std::endl;
-                for(const auto& object : objects)
-                {
-                    std::cout << "Object " << object.getUID() << ", " << object.getName() <<  std::endl;
-                    const auto& properties = object.getProperties();
-                    std::cout << "Object has " << properties.size() << " properties" << std::endl;
-                    for(const auto& prop : properties)
-                    {
-                        std::cout << "Found property: " << prop.getName() << std::endl;
-                        std::cout << "Type: " << int(prop.getType()) << std::endl;
-                    }
-
-                    if (!object.getTilesetName().empty())
-                    {
-                        std::cout << "Object uses template tile set " << object.getTilesetName() << "\n";
-                    }
-                }
-            }
-
-
-
-
-
-            /** START HERE **/
-            if (layer->getType() == tmx::Layer::Type::Tile)
-            {
-                tile_layers.push_back(layer);
-//                //layer->getLayerAs<tmx::TileLayer>().getTiles();
-//                const auto& tiles = layer->getLayerAs<tmx::TileLayer>().getTiles();
-//                if (tiles.empty())
-//                {
-//                    const auto& chunks = layer->getLayerAs<tmx::TileLayer>().getChunks();
-//                    if (chunks.empty())
-//                    {
-//                        std::cout << "Layer has missing tile data\n";
-//                    }
-//                    else
-//                    {
-//                        std::cout << "Layer has " << chunks.size() << " tile chunks.\n";
-//                    }
-//                }
-//                else
-//                {
-//
-//                    auto dater = tiles.data();
-//                    for(int i = 0; i < tiles.size(); i++){
-//
-//                    }
-//
-//                }
-            }
-
-            const auto& properties = layer->getProperties();
-            std::cout << properties.size() << " Layer Properties:" << std::endl;
-            for (const auto& prop : properties)
-            {
-                std::cout << "Found property: " << prop.getName() << std::endl;
-                std::cout << "Type: " << int(prop.getType()) << std::endl;
-            }
         }
+
+        int num_of_tiles = tileLayers[0].getTiles().size();
+        int num_of_tile_layers = tileLayers.size();
+        for(int i = 0; i < num_of_tiles; i++) {
+            for(int j = num_of_tile_layers-1; j >= 0; j--){
+                auto tile_data = tileLayers[j].getTiles();
+                tile_data[i].
+
+            }
+
+        }
+
+
+
     }
     else
     {
