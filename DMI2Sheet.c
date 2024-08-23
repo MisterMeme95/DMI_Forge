@@ -3,7 +3,6 @@
 #include "png.h"
 #include "dmi.h"
 #include <getopt.h>
-#include "PixelManip.h"
 #include <omp.h>
 
 #define STDERR stdout

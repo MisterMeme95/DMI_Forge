@@ -201,21 +201,3 @@ char *find_newline(char **string, int *dmi_index, char *search_for){
 }
 
 
-int check_if_png(char *file_name, FILE **fp) {
-    char buf[PNG_BYTES_TO_CHECK];
-    /* Open the prospective PNG file. */
-    if ((*fp = fopen(file_name, "rb")) == NULL) {
-        printf("Error opening input file\n");
-        return 0;
-    }
-
-    /* Read in some of the signature bytes. */
-    if (fread(buf, 1, PNG_BYTES_TO_CHECK, *fp) != PNG_BYTES_TO_CHECK){
-        printf("Not enough bytes read!\n");
-        return 0;
-    }
-
-    /* Compare the first PNG_BYTES_TO_CHECK bytes of the signature.
-     * Return nonzero (true) if they match. */
-    return(!png_sig_cmp(buf, 0, PNG_BYTES_TO_CHECK));
-}

@@ -1,3 +1,8 @@
+#ifndef DMI_STRUCT_C_DATA_STRUCTURE_H
+#define DMI_STRUCT_C_DATA_STRUCTURE_H
+
+#endif //DMI_STRUCT_C_DATA_STRUCTURE_H
+
 #include <stdbool.h>
 #include "png.h"
 
@@ -41,3 +46,5 @@ void Add_Dir(icon_state* thisNode, int dirs);
 void Initialize_IconState(icon_state* thisNode, char* name);
 
 void IconState_Create(icon_state* thisNode, char * state_name, int directions, int frames, int loop);
+
+void add_image_data(icon_state* thisNode, png_bytepp image_data);
