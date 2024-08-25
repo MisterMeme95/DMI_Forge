@@ -31,8 +31,8 @@ struct pop_node{
 };
 
 void incrementMapId(char *id) {
-    size_t length = strlen(id);
-    for (size_t i = length - 1; i >= 0; i--) {
+    int length = strlen(id);
+    for (int i = length - 1; i >= 0; i--) {
         if (id[i] < 'z') {
             id[i]++;
             break;
@@ -171,13 +171,15 @@ int main()
             }
 
         }
+
         std::vector<pop_node*> vector_of_nodes;
         std::unordered_map<std::string, pop_node*> check_nodes;
         int count = 0;
-        size_t num_of_tiles = tileLayers[0].getTiles().size();
+        int num_of_tiles = tileLayers[0].getTiles().size();
         std::vector<char**> map_array;//(60000);
         int map_index = 0;
-        size_t num_of_tile_layers = tileLayers.size();
+        int num_of_tile_layers = tileLayers.size();
+
         auto start = std::chrono::high_resolution_clock::now();
         for(int i = 0; i < num_of_tiles; i++) {
             auto *map_node = static_cast<pop_node *>(calloc(1, sizeof(pop_node)));
@@ -185,13 +187,12 @@ int main()
                 const auto &tile_data = tileLayers[j].getTiles();
 
                 auto tile = tile_data[i];
+
                 if(tile.ID != 0){
                     auto tile_index = find_nearest_gid(gid_vectors, tile.ID);
                     auto local_id = tile.ID - gid_vectors[tile_index];
                     auto &tile_sheet = images[tile_index];
                     char* new_string = change_extension(tile_sheet.image_name);
-
-
                     if(find_dmi(new_string, &dmi_lookup.hash_table, nullptr) == nullptr){
                         insert_dmi(new_string,  &dmi_lookup.hash_table);
                         dmi_lookup.array[dmi_lookup.currently_filled] = find_dmi(new_string, &dmi_lookup.hash_table, nullptr);
@@ -219,8 +220,11 @@ int main()
                             iconState->state);
                     strcat(map_node->pop_components, temp);
                }
+
             }
+
             strcat(map_node->pop_components, "/area");
+
 
             std::string key(map_node->pop_components); // Convert char array to std::string
             if (check_nodes.find(key) == check_nodes.end()) {
@@ -241,7 +245,8 @@ int main()
 
         }
 
-        for(int i = 0; i < 32; i++){
+
+        for(int i = 0; i < dmi_lookup.currently_filled; i++){
             create_dmi(dmi_lookup.array[i]);
         }
 
@@ -250,14 +255,14 @@ int main()
         for(int i = 0; i < char_num - 1; i++){
             start_val[i] = 'a';
         }
-        start_val[char_num] = '\0';
-//        printf("Number of characters = %d\n", );
+        start_val[char_num - 1] = '\0';
         for(int i = 0; i < vector_of_nodes.size(); i++){
             vector_of_nodes[i]->id = (char*)malloc(sizeof(char) * char_num);
 
             for(int k = 0; k < char_num - 1; k++){
                 vector_of_nodes[i]->id[k] = start_val[k];
             }
+            vector_of_nodes[i]->id[char_num - 1] = '\0';
             incrementMapId(start_val);
         }
 

@@ -31,7 +31,7 @@ int insert_dmi(const char *name,  dmi_hash *state_lookup) {
 
         new_node->next = NULL;
         new_node->prev = NULL;
-        new_node->icon.name = (char *) malloc(sizeof(char) * strlen(name));
+        new_node->icon.name = (char *) malloc(sizeof(char) * strlen(name) + 1);
 
         Init_DMI(&new_node->icon, 32, 32);
         strcpy(new_node->icon.name, name);
@@ -48,7 +48,7 @@ int insert_dmi(const char *name,  dmi_hash *state_lookup) {
 
         new_node->next = NULL;
         new_node->prev = NULL;
-        new_node->icon.name = (char *) malloc(sizeof(char) * strlen(name));
+        new_node->icon.name = (char *) malloc(sizeof(char) * strlen(name) + 1);
         Init_DMI(&new_node->icon, 32, 32);
         strcpy(new_node->icon.name, name);
 

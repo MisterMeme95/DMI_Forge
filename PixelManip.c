@@ -1192,7 +1192,7 @@ Image load_image(char *file_name) {
         printf("The file you are attempting to read is not a valid PNG file!\n");
         exit(1);
     }
-    new_image.image_name = (char *) malloc(sizeof(char) * strlen(file_name));
+    new_image.image_name = (char *) malloc(sizeof(char) * (strlen(file_name) + 1));
     strcpy(new_image.image_name, file_name);
     new_image.png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
     if (!(new_image.png_ptr)) {
