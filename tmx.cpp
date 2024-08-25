@@ -53,6 +53,39 @@ int calculateMaxCharacters(int size) {
 
     return length;
 }
+
+char* change_extension_and_remove_path(const char *filename) {
+    // Find the last occurrence of '/' or '\'
+    const char *last_slash = strrchr(filename, '/');
+    if (!last_slash) {
+        last_slash = strrchr(filename, '\\');
+    }
+
+    // Start after the last slash, or at the beginning if no slash was found
+    const char *basename = (last_slash) ? last_slash + 1 : filename;
+
+    // Find the last occurrence of ".png" in the basename
+    const char *extension = strrchr(basename, '.');
+
+    // Check if the extension is ".png"
+    if (extension && strcmp(extension, ".png") == 0) {
+        // Allocate memory for the new string
+        size_t new_length = strlen(basename) - 4 + 4 + 1; // length without ".png" + ".dmi" + null terminator
+        char *new_filename = (char *)malloc(new_length);
+
+        // Copy the basename up to the ".png"
+        strncpy(new_filename, basename, extension - basename);
+
+        // Add the new extension
+        strcpy(new_filename + (extension - basename), ".dmi");
+
+        return new_filename;
+    } else {
+        // Return a copy of the basename if it doesn't end with ".png"
+        return strdup(basename);
+    }
+}
+
 char* change_extension(const char *filename) {
     // Find the last occurrence of ".png" in the string
     const char *extension = strrchr(filename, '.');
@@ -192,7 +225,7 @@ int main()
                     auto tile_index = find_nearest_gid(gid_vectors, tile.ID);
                     auto local_id = tile.ID - gid_vectors[tile_index];
                     auto &tile_sheet = images[tile_index];
-                    char* new_string = change_extension(tile_sheet.image_name);
+                    char* new_string = change_extension_and_remove_path(tile_sheet.image_name);
                     if(find_dmi(new_string, &dmi_lookup.hash_table, nullptr) == nullptr){
                         insert_dmi(new_string,  &dmi_lookup.hash_table);
                         dmi_lookup.array[dmi_lookup.currently_filled] = find_dmi(new_string, &dmi_lookup.hash_table, nullptr);
