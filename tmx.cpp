@@ -1,109 +1,19 @@
 #include <tmxlite/Map.hpp>
-#include <tmxlite/ObjectGroup.hpp>
 #include <tmxlite/LayerGroup.hpp>
 #include <tmxlite/TileLayer.hpp>
 #include <iostream>
 #include <array>
 #include <string>
-#include <unistd.h>
 #include <cstring>
-#include "PixelManip.h"
-#include <stdio.h>
+
+#include "data_structure.h"
+#include <cstdio>
+#include <vector>
+//#define PAUSE_AT_END 1
+#include <unistd.h>
 #include <cmath>
-#define PAUSE_AT_END 1
-int check_if_png(char *file_name, FILE **fp) {
-    char buf[PNG_BYTES_TO_CHECK];
-    /* Open the prospective PNG file. */
-    if ((*fp = fopen(file_name, "rb")) == NULL) {
-        printf("Error opening input file\n");
-        return 0;
-    }
+#include <chrono>
 
-    /* Read in some of the signature bytes. */
-    if (fread(buf, 1, PNG_BYTES_TO_CHECK, *fp) != PNG_BYTES_TO_CHECK){
-        printf("Not enough bytes read!\n");
-        return 0;
-    }
-
-    /* Compare the first PNG_BYTES_TO_CHECK bytes of the signature.
-     * Return nonzero (true) if they match. */
-    return(!png_sig_cmp((png_const_bytep)buf, 0, PNG_BYTES_TO_CHECK));
-}
-
-Image load_image(char* file_name){
-    Image new_image;
-    if(!check_if_png(file_name, &new_image.file_pointer)) {
-        printf("The file you are attempting to read is not a valid PNG file!\n");
-        exit(1);
-    }
-    new_image.png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
-    if (!(new_image.png_ptr)) {
-        printf("Error creating read struct\n");
-        fclose(new_image.file_pointer);
-        exit(1);
-    }
-    png_set_sig_bytes(new_image.png_ptr, PNG_BYTES_TO_CHECK);
-    new_image.info_ptr = png_create_info_struct(new_image.png_ptr);
-    if (!(new_image.info_ptr)) {
-        printf("Error creating read info struct\n");
-        png_destroy_read_struct(&new_image.png_ptr, NULL, NULL);
-        fclose(new_image.file_pointer);
-        exit(1);
-    }
-
-    if (setjmp(png_jmpbuf(new_image.png_ptr))) {
-        printf("Error during read\n");
-        png_destroy_read_struct(&new_image.png_ptr, &new_image.info_ptr, NULL);
-        fclose(new_image.file_pointer);
-        exit(1);
-    }
-
-    /* Initialize connection between the file and the png_ptr. Also read in the information to fill in the metadata. */
-    png_init_io(new_image.png_ptr, new_image.file_pointer);
-    png_read_info(new_image.png_ptr, new_image.info_ptr);
-    png_get_IHDR(new_image.png_ptr, new_image.info_ptr, &new_image.width, &new_image.height, &new_image.bit_depth,
-                 &new_image.color_type, &new_image.interlace_method, NULL, NULL);
-
-    /* We optionally set additional information if it's a palette. */
-    if(new_image.color_type == PNG_COLOR_TYPE_PALETTE){
-        png_get_PLTE(new_image.png_ptr, new_image.info_ptr, &new_image.palette, &new_image.palette_num);
-        png_get_tRNS(new_image.png_ptr, new_image.info_ptr, &new_image.trans_alpha,
-                     &new_image.trans_num, &new_image.trans_color);
-    }
-
-    else if(new_image.color_type == PNG_COLOR_TYPE_RGB | new_image.color_type == PNG_COLOR_TYPE_GRAY){
-        png_get_tRNS(new_image.png_ptr, new_image.info_ptr, &new_image.trans_alpha,
-                     &new_image.trans_num, &new_image.trans_color);
-    }
-
-    new_image.pixel_array = (png_bytepp)malloc(sizeof(png_bytep) * new_image.height);
-
-    if (new_image.pixel_array == NULL) {
-        fprintf(stderr, "Memory allocation failed for pixel_array.\n");
-        exit(EXIT_FAILURE);
-    }
-
-
-    new_image.row_bytes = png_get_rowbytes(new_image.png_ptr,new_image.info_ptr);
-    png_bytep contiguous_rows = (png_bytep) malloc(sizeof(png_byte) * new_image.height * new_image.row_bytes);
-    for (png_uint_32 pix_index = 0; pix_index < new_image.height; pix_index++) {
-        // new_image.pixel_array[pix_index] = (png_bytep)malloc(new_image.row_bytes );
-        new_image.pixel_array[pix_index] = contiguous_rows + (pix_index * new_image.row_bytes);///(png_bytep)malloc(new_image.row_bytes );
-        if (new_image.pixel_array[pix_index] == NULL) {
-            fprintf(stderr, "Memory allocation failed for row %u.\n", pix_index);
-            // Cleanup previously allocated memory
-            while (pix_index > 0) {
-                free(new_image.pixel_array[pix_index--]);
-            }
-            free(new_image.pixel_array);
-            png_destroy_read_struct(&new_image.png_ptr, &new_image.info_ptr, NULL);
-            fclose(new_image.file_pointer);
-            exit(EXIT_FAILURE); // Consider a more graceful exit or handling strategy
-        }
-    }
-    png_read_image(new_image.png_ptr, new_image.pixel_array);
-    return new_image;
-}
 namespace
 {
     const std::array<std::string, 4u> LayerStrings =
@@ -115,7 +25,104 @@ namespace
             };
 }
 
-int find_local_gid(std::vector<std::uint32_t> &gid_vectors, uint32_t global_tid);
+struct pop_node{
+    char *id;
+    char pop_components[10000] = {0};
+};
+
+void incrementMapId(char *id) {
+    int length = strlen(id);
+    for (int i = length - 1; i >= 0; i--) {
+        if (id[i] < 'z') {
+            id[i]++;
+            break;
+        } else {
+            id[i] = 'a';
+        }
+    }
+}
+
+int calculateMaxCharacters(int size) {
+    int base = 26; // Base for 'a' to 'z'
+    int length = 1;
+
+    // Calculate the number of characters required
+    while (std::pow(base, length) < size) {
+        length++;
+    }
+
+    return length;
+}
+
+char* change_extension_and_remove_path(const char *filename) {
+    // Find the last occurrence of '/' or '\'
+    const char *last_slash = strrchr(filename, '/');
+    if (!last_slash) {
+        last_slash = strrchr(filename, '\\');
+    }
+
+    // Start after the last slash, or at the beginning if no slash was found
+    const char *basename = (last_slash) ? last_slash + 1 : filename;
+
+    // Find the last occurrence of ".png" in the basename
+    const char *extension = strrchr(basename, '.');
+
+    // Check if the extension is ".png"
+    if (extension && strcmp(extension, ".png") == 0) {
+        // Allocate memory for the new string
+        size_t new_length = strlen(basename) - 4 + 4 + 1; // length without ".png" + ".dmi" + null terminator
+        char *new_filename = (char *)malloc(new_length);
+
+        // Copy the basename up to the ".png"
+        strncpy(new_filename, basename, extension - basename);
+
+        // Add the new extension
+        strcpy(new_filename + (extension - basename), ".dmi");
+
+        return new_filename;
+    } else {
+        // Return a copy of the basename if it doesn't end with ".png"
+        return strdup(basename);
+    }
+}
+
+char* change_extension(const char *filename) {
+    // Find the last occurrence of ".png" in the string
+    const char *extension = strrchr(filename, '.');
+
+    // Check if the extension is ".png"
+    if (extension && strcmp(extension, ".png") == 0) {
+        // Allocate memory for the new string
+        size_t new_length = strlen(filename) - 4 + 4 + 1; // length without ".png" + ".dmi" + null terminator
+        char *new_filename = (char *)malloc(new_length);
+
+        // Copy the original filename up to the ".png"
+        strncpy(new_filename, filename, extension - filename);
+
+        // Add the new extension
+        strcpy(new_filename + (extension - filename), ".dmi");
+
+        return new_filename;
+    } else {
+        // Return a copy of the original filename if it doesn't end with ".png"
+        return strdup(filename);
+    }
+}
+
+char* remove_path(const char *filename) {
+    // Find the last occurrence of '/' or '\'
+    const char *last_slash = strrchr(filename, '/');
+    if (!last_slash) {
+        last_slash = strrchr(filename, '\\');
+    }
+
+    // Start after the last slash, or at the beginning if no slash was found
+    const char *basename = (last_slash) ? last_slash + 1 : filename;
+
+    // Return a copy of the basename
+    return strdup(basename);
+}
+int find_nearest_gid(std::vector<uint32_t> &gid_vectors, uint32_t global_tid);
 int main()
 {
     tmx::Map map;
@@ -127,7 +134,7 @@ int main()
          *
          *
          */
-        tmx::Rectangle<float> dimensions;
+
         auto stuff = map.getBounds();
         if (map.isInfinite())
         {
@@ -135,14 +142,18 @@ int main()
         }
         else
         {
-            dimensions = map.getBounds();
-            //std::cout << "Map Dimensions: " << map.getBounds() << std::endl;
+
+            std::cout << "Map Dimensions: " << map.getBounds() << std::endl;
         }
 
         auto sizer = map.getTileSize();
         printf("Height - %f\nWidth -%f\nTile Size - %d, %d\n", stuff.height, stuff.width, sizer.x, sizer.y);
 
-        //sleep(50);
+        int map_width = stuff.width / sizer.x;
+        int map_height = stuff.height / sizer.y;
+
+        printf("Map Width (In Tiles) - %d\n", map_width);
+        printf("Map Height (In Tiles) - %d\n", map_height);
 
         const auto& mapProperties = map.getProperties();
         std::cout << "Map class: " << map.getClass() << std::endl;
@@ -150,6 +161,8 @@ int main()
         std::vector<std::uint32_t> gid_vectors(tile_set_size);
         std::vector<Image> images(tile_set_size);
         int counter = 0;
+        dmi_list dmi_lookup;
+        initialize_dmi_vector(&dmi_lookup);
         for (const auto& tileset : map.getTilesets())
         {
 
@@ -158,28 +171,16 @@ int main()
             char* c_string = new char[tileset.getImagePath().size() + 1];
 
             std::strcpy(c_string, tileset.getImagePath().c_str());
-            if(strcmp(c_string, "") == 0){
-                std::cout << tileset.getName() << std::endl;
-                auto llol  = tileset.getTiles();
-                for(const auto& t : llol){
-                    std::cout << "ID - " << t.ID << std::endl;
-                }
-            }
-            else {
-                std::cout << tileset.getName() << std::endl;
+            if(strcmp(c_string, "") != 0){
                 Image new_image = load_image(c_string);
                 images[counter] = new_image;
             }
 
 
+
             counter++;
         }
-        int find_val = 30203;
-        printf("Testing to see what tileset has %d\n", find_val);
 
-        int index = find_local_gid(gid_vectors, find_val);
-        printf("This is found at index %d, which contains %d", index, gid_vectors[index]);
-        sleep(100);
         std::cout << "Map has " << mapProperties.size() << " properties" << std::endl;
         for (const auto& prop : mapProperties)
         {
@@ -190,104 +191,146 @@ int main()
         std::cout << std::endl;
 
         const auto& layers = map.getLayers();
+
         std::cout << "Map has " << layers.size() << " layers" <<  std::endl;
+        std::vector<tmx::TileLayer> tileLayers;
+
+
         for (const auto& layer : layers)
         {
-            auto proper = layer->getProperties();
-            std::cout << "Found Layer: " << layer->getName() << std::endl;
-            std::cout << "Layer Type: " << LayerStrings[static_cast<std::int32_t>(layer->getType())] << std::endl
-            << std::endl;
-            std::cout << "Layer Dimensions: " << layer->getSize() << std::endl;
 
-            if (layer->getType() == tmx::Layer::Type::Group)
-            {
-                std::cout << "Checking sublayers" << std::endl;
-                const auto& sublayers = layer->getLayerAs<tmx::LayerGroup>().getLayers();
-                std::cout << "LayerGroup has " << sublayers.size() << " layers" << std::endl;
-                for (const auto& sublayer : sublayers)
-                {
-                    std::cout << "Found Layer: " << sublayer->getName() << std::endl;
-                    std::cout << "Sub-layer Type: " << LayerStrings[static_cast<std::int32_t>(sublayer->getType())] << std::endl;
-                    std::cout << "Sub-layer Dimensions: " << sublayer->getSize() << std::endl;
-
-                    if (sublayer->getType() == tmx::Layer::Type::Object)
-                    {
-                        std::cout << sublayer->getName() << " has " << sublayer->getLayerAs<tmx::ObjectGroup>().getObjects().size() << " objects" << std::endl;
-                    }
-                    else if (sublayer->getType() == tmx::Layer::Type::Tile)
-                    {
-                        std::cout << sublayer->getName() << " has " << sublayer->getLayerAs<tmx::TileLayer>().getTiles().size() << " tiles" << std::endl;
-                    }
-                }
+            if (layer->getType() == tmx::Layer::Type::Tile) {
+                tileLayers.push_back(layer->getLayerAs<tmx::TileLayer>());
             }
 
-            if(layer->getType() == tmx::Layer::Type::Object)
-            {
-                const auto& objects = layer->getLayerAs<tmx::ObjectGroup>().getObjects();
-                std::cout << "Found " << objects.size() << " objects in layer" << std::endl;
-                for(const auto& object : objects)
-                {
-                    std::cout << "Object " << object.getUID() << ", " << object.getName() <<  std::endl;
-                    const auto& properties = object.getProperties();
-                    std::cout << "Object has " << properties.size() << " properties" << std::endl;
-                    for(const auto& prop : properties)
-                    {
-                        std::cout << "Found property: " << prop.getName() << std::endl;
-                        std::cout << "Type: " << int(prop.getType()) << std::endl;
-                    }
-
-                    if (!object.getTilesetName().empty())
-                    {
-                        std::cout << "Object uses template tile set " << object.getTilesetName() << "\n";
-                    }
-                }
-            }
-
-
-
-
-
-            /** START HERE **/
-            if (layer->getType() == tmx::Layer::Type::Tile)
-            {
-                //layer->getLayerAs<tmx::TileLayer>().getTiles();
-                const auto& tiles = layer->getLayerAs<tmx::TileLayer>().getTiles();
-                if (tiles.empty())
-                {
-                    const auto& chunks = layer->getLayerAs<tmx::TileLayer>().getChunks();
-                    if (chunks.empty())
-                    {
-                        std::cout << "Layer has missing tile data\n";
-                    }
-                    else
-                    {
-                        std::cout << "Layer has " << chunks.size() << " tile chunks.\n";
-                    }
-                }
-                else
-                {
-
-                    auto dater = tiles.data();
-                    for(int i = 0; i < tiles.size(); i++){
-
-                    }
-
-                }
-            }
-
-            const auto& properties = layer->getProperties();
-            std::cout << properties.size() << " Layer Properties:" << std::endl;
-            for (const auto& prop : properties)
-            {
-                std::cout << "Found property: " << prop.getName() << std::endl;
-                std::cout << "Type: " << int(prop.getType()) << std::endl;
-            }
         }
+
+        std::vector<pop_node*> vector_of_nodes;
+        std::unordered_map<std::string, pop_node*> check_nodes;
+        int count = 0;
+        int num_of_tiles = tileLayers[0].getTiles().size();
+        std::vector<char**> map_array;//(60000);
+        int map_index = 0;
+        int num_of_tile_layers = tileLayers.size();
+
+        auto start = std::chrono::high_resolution_clock::now();
+        for(int i = 0; i < num_of_tiles; i++) {
+            auto *map_node = static_cast<pop_node *>(calloc(1, sizeof(pop_node)));
+            for(int j = 0; j < num_of_tile_layers; j++){
+                const auto &tile_data = tileLayers[j].getTiles();
+
+                auto tile = tile_data[i];
+
+                if(tile.ID != 0){
+                    auto tile_index = find_nearest_gid(gid_vectors, tile.ID);
+                    auto local_id = tile.ID - gid_vectors[tile_index];
+                    auto &tile_sheet = images[tile_index];
+                    char* new_string = change_extension_and_remove_path(tile_sheet.image_name);
+                    if(find_dmi(new_string, &dmi_lookup.hash_table, nullptr) == nullptr){
+                        insert_dmi(new_string,  &dmi_lookup.hash_table);
+                        dmi_lookup.array[dmi_lookup.currently_filled] = find_dmi(new_string, &dmi_lookup.hash_table, nullptr);
+                        dmi_lookup.currently_filled++;
+                    }
+                    auto* iconState = (icon_state*) malloc(sizeof(icon_state));
+                    iconState->number_of_frames = 1;
+                    iconState->dirs = 1;
+                    int length = snprintf(NULL, 0, "%d", local_id) + 1;
+                    iconState->state = (char*)malloc(sizeof(char) *length);
+                    snprintf(iconState->state, length, "%d", local_id);
+
+
+
+                    png_bytepp new_image_data = get_image_data(&tile_sheet,local_id);
+                    auto dmi_file = find_dmi(new_string, &dmi_lookup.hash_table, nullptr);
+
+                    dmi_file->bit_depth = tile_sheet.bit_depth;
+                    dmi_file->color_type = tile_sheet.color_type;
+                    dmi_file->bytes_per_pixel = 4;
+
+                    add_iconstate(dmi_file, iconState,new_image_data);
+                    char temp[1000] = {0};   // Temporary buffer for the formatted string
+                    sprintf(temp, "/turf{icon = '%s'; icon_state = \"%s\"}, ", dmi_file->name,
+                            iconState->state);
+                    strcat(map_node->pop_components, temp);
+               }
+
+            }
+
+            strcat(map_node->pop_components, "/area");
+
+
+            std::string key(map_node->pop_components); // Convert char array to std::string
+            if (check_nodes.find(key) == check_nodes.end()) {
+                check_nodes[key] = map_node;
+
+                vector_of_nodes.push_back(map_node);
+                map_array.push_back(&map_node->id);
+//                map_array[map_index] = &map_node->id;
+//                map_index++;
+
+            }
+            else {
+                auto item = check_nodes[key];
+                map_array.push_back(&item->id);
+//                map_array[map_index] = &item->id;
+//                map_index++;
+            }
+
+        }
+
+
+        for(int i = 0; i < dmi_lookup.currently_filled; i++){
+            create_dmi(dmi_lookup.array[i]);
+        }
+
+        auto char_num = calculateMaxCharacters(vector_of_nodes.size()) + 1;
+        char *start_val = (char*)malloc(sizeof(char) * char_num);
+        for(int i = 0; i < char_num - 1; i++){
+            start_val[i] = 'a';
+        }
+        start_val[char_num - 1] = '\0';
+        for(int i = 0; i < vector_of_nodes.size(); i++){
+            vector_of_nodes[i]->id = (char*)malloc(sizeof(char) * char_num);
+
+            for(int k = 0; k < char_num - 1; k++){
+                vector_of_nodes[i]->id[k] = start_val[k];
+            }
+            vector_of_nodes[i]->id[char_num - 1] = '\0';
+            incrementMapId(start_val);
+        }
+
+
+        FILE *file = fopen("output.dmm", "w+");
+        for(auto & vector_of_node : vector_of_nodes){
+            fprintf(file, "\"%s\" = (%s)\n", vector_of_node->id, vector_of_node->pop_components);
+        }
+        fprintf(file, "(1,1,1) = {\"\n");
+
+
+        /* This will be where we output the map array.*/
+        int array_counter = 0;
+        for(int i = 0; i < map_height; i++){
+            for(int j = 0; j < map_width; j++){
+                fprintf(file, "%s", *(map_array[array_counter]));
+                array_counter++;
+            }
+            fprintf(file, "\n");
+        }
+
+        fprintf(file, "\"}");
+        auto end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> duration = end - start;
+
+        // Print the duration in seconds
+        std::cout << "Function took " << duration.count() << " seconds to execute." << std::endl;
+
+    exit(EXIT_SUCCESS);
     }
     else
     {
         std::cout << "Failed loading map" << std::endl;
     }
+
 
 #if defined(PAUSE_AT_END)
     std::cout << std::endl << "Press return to quit..." <<std::endl;
@@ -298,9 +341,9 @@ int main()
 }
 
 
-int find_local_gid(std::vector<uint32_t> &gid_vectors, uint32_t global_tid) {
+int find_nearest_gid(std::vector<uint32_t> &gid_vectors, uint32_t global_tid) {
     int low = 0;
-    int high = gid_vectors.size() - 1;
+    int high = (int)gid_vectors.size() - 1;
     int result = -1;
 
     while (low <= high) {

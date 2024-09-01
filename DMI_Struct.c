@@ -11,7 +11,128 @@
 #include <string.h>
 #include <unistd.h>
 #include <math.h>
-#include "PixelManip.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
+unsigned long hash_string2(const char *str) {
+    unsigned long hash = 5381;
+    int c;
+
+    while ((c = (int)*str++)) {
+        hash = ((hash << 5) + hash) + c; // hash * 33 + c
+    }
+
+    return hash;
+}
+
+int insert_state2(icon_state *iconState,  iconstate_hash *state_lookup, png_bytepp* image_data) {
+
+    unsigned long hash_index = hash_string2(iconState->state) % 256;  // Ensure hash_pixel is defined correctly
+
+    if (state_lookup->hash_bucket[hash_index] == NULL) {
+
+        //create a new icon_state
+        iconStateNode *new_node = (iconStateNode *) malloc(sizeof(iconStateNode));
+        if (new_node == NULL) {
+            fprintf(stderr, "Failed to allocate memory for new node\n");
+            return -1;
+        }
+
+        // Initialize the new icon_state:
+
+        new_node->next = NULL;
+        new_node->prev = NULL;
+        new_node->icon_state = iconState;//(icon_state*) malloc(sizeof(icon_state));
+        new_node->icon_state->frames = (png_bytepp) malloc(sizeof(png_bytep) * 32);
+        for (int i = 0; i < 32; i++) {
+            // Assuming each image_data[i] is pointing to an array of png_bytep
+            new_node->icon_state->frames[i] = (png_bytep) malloc(sizeof(png_byte) * 128); // Adjust size based on actual frame size
+            memcpy(new_node->icon_state->frames[i], (*image_data)[i], sizeof(png_byte) * 128); // Copying the actual byte data
+        }
+
+//        printf("Checking insert! Icon data = %d\n", new_node->icon_state->frames[0][0]);
+//        sleep(10);
+       // new_node->icon_state->state = (char *) malloc(sizeof(char) * strlen(iconState->state));
+       // strcpy(new_node->icon_state->state, iconState->state);
+        new_node->icon_state->number_of_frames = 1;
+        new_node->icon_state->dirs = 1;
+        new_node->icon_state->delays = (int *) malloc(sizeof(int));
+        *new_node->icon_state->delays = 1;
+        state_lookup->hash_bucket[hash_index] = new_node;
+    }
+    else {
+        iconStateNode *new_node = (iconStateNode*) malloc(sizeof(iconStateNode));
+        if (new_node == NULL) {
+            fprintf(stderr, "Failed to allocate memory for new node\n");
+            return -1;
+        }
+
+        new_node->next = state_lookup->hash_bucket[hash_index];
+        new_node->prev = NULL;
+        //new_node->icon_state = (icon_state*) malloc(sizeof(icon_state));
+        new_node->icon_state = iconState;//(icon_state*) malloc(sizeof(icon_state));
+        new_node->icon_state->frames = (png_bytepp) malloc(sizeof(png_bytep) * 32);
+        new_node->icon_state->frames = *image_data;
+       // new_node->icon_state->state = (char *) malloc(sizeof(char) * strlen(iconState->state));
+        //strcpy(new_node->icon_state->state, iconState->state);
+        new_node->icon_state->number_of_frames = 1;
+        new_node->icon_state->dirs = 1;
+        new_node->icon_state->delays = (int *) malloc(sizeof(int));
+        *new_node->icon_state->delays = 1;
+
+        // Update the previous first node
+        if (state_lookup->hash_bucket[hash_index] != NULL) {
+            state_lookup->hash_bucket[hash_index]->prev = new_node;
+        }
+
+        // Set the new node as the first node in the bucket
+        state_lookup->hash_bucket[hash_index] = new_node;
+    }
+    return 0;
+}
+
+
+int match_state2(icon_state *name, icon_state *other_name){
+
+//    printf("%s  %s\n", name->state, other_name->state);
+//    sleep(10);
+    if(strcmp(name->state, other_name->state) != 0){
+        return 0;
+    }
+
+    if(name->dirs != other_name->dirs){
+        return 0;
+    }
+
+    if(name->number_of_frames != other_name->number_of_frames){
+        return 0;
+    }
+
+    return 1;
+}
+
+icon_state* find_state2(const char *name, iconstate_hash *state_lookup, icon_state find_state) {
+
+    // Assuming hash_pixel function correctly calculates a hash based on Pixel_Data
+    unsigned long hash_index = hash_string2(name) % 256;  // Ensure hash_pixel is defined correctly
+
+    iconStateNode *key_to_find = state_lookup->hash_bucket[hash_index];
+
+    while (key_to_find != NULL) {
+//        Pixel_Data other_pixel = key_to_find->pixel_info;
+
+        if (match_state2(key_to_find->icon_state, &find_state)) {
+
+            return key_to_find->icon_state; // Return the index of the matching node
+        }
+
+        key_to_find = key_to_find->next; // Move to next node in the list
+    }
+
+    return NULL; // Return -1 if no match is found after checking all nodes in the bucket
+}
+
+
 
 
 /* A basic function to initialize a DMI struct. */
@@ -24,15 +145,105 @@ void Init_DMI(DMI* dmi, int width, int height){
     dmi->height = height;
     dmi->icon_states = (icon_state*) malloc(sizeof(icon_state) * dmi->max_state);
     dmi->begin_icon_state = dmi->icon_states;
+    for(int i = 0; i < 256; i++){
+        dmi->iconstateHash.hash_bucket[i] = NULL;
+    }
 }
 
+void add_iconstate(DMI* dmi, icon_state *iconState, png_bytepp image_data){
+//    printf("State Name - %s\n", iconState->state);
+
+    if(find_state2(iconState->state, &dmi->iconstateHash, *iconState) != NULL){
+//        printf("Failed!\n");
+        return;
+    }
+//    printf("Checking insert. . .!\n\n\n");
+    insert_state2(iconState, &dmi->iconstateHash, &image_data);
+//    printf("Checking insert #2. . .!\n\n\n");
+    if(!dmi->has_icons){
+        dmi->has_icons = true;
+    }
+
+    if(dmi->num_of_states >= dmi->max_state){
+//        printf("Checking insert #3. . .!\n\n\n");
+        dmi->max_state *= 2;
+        icon_state *temp_pointer = realloc(dmi->icon_states, sizeof(icon_state) * dmi->max_state);
+        dmi->icon_states = temp_pointer;
+//        printf("Checking insert #4. . .!\n\n\n");
+        dmi->icon_states[dmi->num_of_states] = *iconState;///*find_state2(iconState->state, &dmi->iconstateHash, *iconState);//*iconState;
+        dmi->num_of_states++;
+    }
+
+    else{
+
+//        printf("Died before insert. . \n");
+        dmi->icon_states[dmi->num_of_states] = *iconState;
+//        printf("Died after insert. . \n");
+
+        dmi->num_of_states++;
+    }
+
+}
 void Resize_IconStates(DMI* dmi, int new_size){
     icon_state *newStates = realloc(dmi->begin_icon_state, new_size * sizeof(icon_state));
     dmi->begin_icon_state = newStates;
     dmi->icon_states = dmi->begin_icon_state + dmi->num_of_states-1;
 
 }
+void get_dmi_dimensions(int *width, int* height, int icon_size, int num_of_frames){
+    int W = (int)sqrt(num_of_frames);
+    int H = (int)ceil((double)num_of_frames/W);
 
+    *width = W * 32;
+    *height = H * 32;
+
+}
+void create_dmi(DMI* dmi){
+    Image new_image;
+    int width = 32;
+    int height = 32;
+    int start_row = 0;
+    int start_col = 0;
+    get_dmi_dimensions(&width, &height, 32, dmi->num_of_states);
+    initialize_image2(dmi->name, &new_image, &dmi->bit_depth, &dmi->color_type, &width, &height);
+
+    for(int i = 0; i < height; i++){
+        for(int j = 0; j < new_image.row_bytes ; j++){
+            new_image.pixel_array[i][j] = 0;
+        }
+    }
+    char zTxt[100000] = "#BEGIN DMI\nversion = 4.0\n\twidth = 32\n\theight = 32\n";
+
+    for(int i = 0; i < dmi->num_of_states; i++){
+        for(int j = 0; j < 32; j++){
+            memcpy(&new_image.pixel_array[start_row+j][start_col*4], dmi->icon_states[i].frames[j], sizeof(png_byte) * 128);
+        }
+        start_col += 32;
+        if(start_col >= width){
+            start_col = 0;
+            start_row += 32;
+        }
+        char additional_info[256];
+        sprintf(additional_info, "state = \"%s\"\n\tdirs = 1\n\tframes = 1\n\tdelay = 1\n",
+                dmi->icon_states[i].state);
+        strcat(zTxt, additional_info);  // Append new state info to zTxt
+
+    }
+
+
+
+    png_text text_chunk;
+    text_chunk.compression = PNG_TEXT_COMPRESSION_zTXt;
+    text_chunk.key = "Description";
+    text_chunk.text = zTxt;
+    text_chunk.text_length = strlen(zTxt);
+
+    png_set_text(new_image.png_ptr, new_image.info_ptr, &text_chunk, 1);  // Correctly apply the single text_chunk
+
+    png_write_info(new_image.png_ptr, new_image.info_ptr);
+    png_write_image(new_image.png_ptr, new_image.pixel_array);
+    png_write_end(new_image.png_ptr, NULL);
+}
 /** This function needs to be refactored and renamed.
  *  It's used to get the height of a spritesheet that is in HORIZONTAL_FLOW format. */
 
@@ -407,55 +618,6 @@ int dmi2sheet(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData s
     return EXIT_SUCCESS;
 }
 
-
-void output_image_pixels(Image image){
-    png_uint_32 width = image.width;
-    png_uint_32 height = image.height;
-    int color_type = image.color_type;
-    int bit_depth = image.bit_depth;
-    png_colorp palette = NULL;
-    int num_palette = 0;
-    if (color_type == PNG_COLOR_TYPE_PALETTE) {
-        png_get_PLTE(image.png_ptr, image.info_ptr, &palette, &num_palette);
-    }
-    for (int y = 0; y < height; y++) {
-        png_bytep row = image.pixel_array[y];
-        for (int x = 0; x < width; x++) {
-            if (color_type == PNG_COLOR_TYPE_RGB) {
-                png_bytep px = &(row[x * 3]);
-                printf("Pixel at (%d, %d): R=%d, G=%d, B=%d\n", x, y, px[0], px[1], px[2]);
-            } else if (color_type == PNG_COLOR_TYPE_RGBA) {
-                png_bytep px = &(row[x * 4]);
-                printf("Pixel at (%d, %d): R=%d, G=%d, B=%d, A=%d\n", x, y, px[0], px[1], px[2], px[3]);
-            } else if (color_type == PNG_COLOR_TYPE_GRAY) {
-                int num_bytes = bit_depth == 8 ? 1 : 2;
-                png_bytep px = &(row[x * num_bytes]);
-                int gray_value = num_bytes == 1 ? px[0] : (px[0] << 8) + px[1];
-                printf("Pixel at (%d, %d): Gray=%d\n", x, y, gray_value);
-            } else if (color_type == PNG_COLOR_TYPE_PALETTE) {
-                int index, ppb = 8/bit_depth;    // pixels per byte
-                switch (bit_depth){
-                    default: printf("bit depth %d not implemented\n", bit_depth); exit(1);
-                    case 1:
-                    case 2:
-                    case 4:
-                    case 8: index = row[x/ppb]>>8-(x%ppb+1)*bit_depth&255>>8-bit_depth;
-                }
-                printf("Index = %d\n", index);
-
-                if (index < num_palette) {
-                    png_color palette_color = palette[index];
-                    printf(" >>> Pixel at (%d, %d): Palette Index=%d, R=%d, G=%d, B=%d\n", x, y, index,
-                           palette_color.red, palette_color.green, palette_color.blue);
-                } else {
-                    printf("Index = %d\n", index);
-                    printf("Pixel at (%d, %d): Palette index out of range\n", x, y);
-                }
-            }
-            else {
-                printf("Index = %d", row[x]);
-                printf("Pixel at (%d, %d): Color type not supported\n", x, y);
-            }
-        }
-    }
+#ifdef __cplusplus
 }
+#endif

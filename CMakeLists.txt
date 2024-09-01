@@ -10,7 +10,7 @@ add_executable(dmi2sheet DMI2Sheet.c  DMIParse.c Icon_State.c DMI_Struct.c Pixel
 add_executable(png_transform png_transform.c PixelManip.c data_structure.c DMI_Struct.c DMIParse.c Icon_State.c)
 add_executable(partition_test partition_test.c PixelManip.c data_structure.c DMI_Struct.c DMIParse.c Icon_State.c)
 #add_executable(aespritefix Aesprite_Fixer.c DMIParse.c Icon_State.c DMI_Struct.c)
-add_executable(tmxtest tmx.cpp PixelManip.c data_structure.c DMI_Struct.c DMIParse.c Icon_State.c )
+add_executable(tmxtest PixelManip.c data_structure.c DMI_Struct.c DMIParse.c Icon_State.c tmx.cpp data_structure.c)
 
 #llol
 add_subdirectory(Test_Cases)

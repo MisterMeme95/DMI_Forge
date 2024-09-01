@@ -1,3 +1,15 @@
+#include "png.h"
+
+#ifndef pixel_manip_h
+#define pixel_manip_h
+#endif
+
+#ifndef dmi_h
+#define dmi_h
+#endif
+
+#define PNG_BYTES_TO_CHECK 8
+
 /* ************************
  *
  * Bit Depth 4 Masks ******
@@ -143,16 +155,7 @@
  * This flag represents 254 in decimal, and 11111110 in binary. */
 #define BIT1_8_OFF 0xFE
 
-#include "png.h"
 
-#ifndef pixel_manip_h
-#define pixel_manip_h
-#endif
-
-#ifndef dmi_h
-#define dmi_h
-#include "dmi.h"
-#endif
 /** @Description Pixel_Data is a struct that provides a unified way to dynamically reference different types of pixel
  * data in Libpng. It supports operations on both png_byte and png_color data types, allowing for a single function
  * to handle and return.
@@ -162,6 +165,10 @@
  * @members color_type:  Specifies the color type. If this is equal to PNG_COLOR_TYPE_PALETTE, then this struct contains
  * png_color.
  **/
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 typedef struct {
     union {
         struct{
@@ -205,7 +212,32 @@ typedef struct Frame_ArrayStruct{
 } Frame_Array;
 
 
+typedef struct Image_Struct{
+    char *image_name;
+    png_structp png_ptr; /*!< Detailed description after the member. */
+    png_infop info_ptr;
+    png_colorp palette;
+    png_bytep trans_alpha;
+    png_color_16p trans_color;
 
+    int trans_num;
+    int palette_num;
+    png_uint_32 width, height;
+    int bit_depth;
+    int color_type;
+    int interlace_method;
+    int pixels_per_byte;
+    size_t row_bytes;
+    png_bytepp pixel_array;
+
+    png_textp text_ptr;
+
+    FILE *file_pointer;
+
+
+} Image;
+
+png_bytepp get_image_data(Image* image, int frame_number);
 
 typedef struct palette_hash_table {
     const int MAX_VALUE;
@@ -245,10 +277,21 @@ void Initialize_Pixel(png_bytepp pixel, int color_type, int bit_depth);
 */
 png_color Byte_To_Color(const png_byte* pixel, int color_type, png_bytep trans_byte);
 
+int check_if_png(char *file_name, FILE **fp);
+
+
+
+Image load_image(char* file_name);
+
+png_bytepp get_image_data2(Image *image, int frame_number);
+
 void Copy_Pixel(png_bytep copy_destination, png_bytepp copy_source, int x_coord,
                 int y_coord, int color_type, int bit_depth);
+void output_image_pixels(Image image);
 
-int dmi2sheet2(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData sheetData);
+void Get_Frame(png_bytepp dest_pixels, png_bytepp src_pixels, png_uint_32 dest_start_row, png_uint_32 dest_start_col,
+               int src_start_row, int src_start_col, int bytes_per_frame, int cols_to_copy);
+
 
 /** @Description This function is designed any specific pixel that is in PNG file.
  *  Get_Pixel contains the necessarily functionality to unpack pixels that are less than a single byte. At the end
@@ -263,8 +306,6 @@ int dmi2sheet2(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData 
  * @param palette - An optional pointer to a palette. Only used when using PNG_COLOR_TYPE_PALETTE.
  * @param trans_alpha - Optional value containing alpha channel for indexed images.
  * @param num_trans - Optional value to denote # of entries in trans_alpha. */
-//Pixel_Data Get_Pixel(png_bytepp image, int x_coord, int y_coord, int color_type, int bit_depth, png_colorp palette,
-//                     png_bytep trans_alpha, int *num_trans);
 
 Pixel_Data Get_Pixel(Image image, int x_coord, int y_coord);
 
@@ -339,13 +380,11 @@ void Read_Image(png_structp* read_ptr, png_infop* read_info_ptr, FILE* input_fil
  */
 
 
-Image load_image(char* file_name);
-void initialize_image2(char *file_name, Image* new_image, int* bit_depth, int* color_type, int* width, int* height);
+void initialize_image2(char *file_name, Image* new_image, int* bit_depth, const int* color_type, int* width, int* height);
 
 
 void Write_PNG(png_structp* write_ptr, png_infop* write_info_ptr, FILE* output_file, png_bytepp row_pointers,
                png_uint_32 height, png_uint_32 width, int bit_depth, int color_type);
-void Initialize_Pixels(png_bytepp *pixel_array, int height, size_t bytes_per_row);
 void Initialize_Pixel2(Pixel_Data* pixel, int color_type, int bit_depth);
 void Initialize_PNG(png_structp* read_ptr, png_infop* read_info_ptr, FILE* input_file);
 void Initialize_PNG_Writer(png_structp* write_ptr, png_infop* write_info_ptr, FILE* output_file);
@@ -354,3 +393,7 @@ Frame_Array Frame_Partition(png_bytepp image, int bit_depth, int png_width, int 
                             int frame_height, int color_type);
 int Get_Pixel_Size(int bit_depth, int color_type);
 int calculate_frame_count(int frame_width, int frame_height, int png_width, int png_height);
+
+#ifdef __cplusplus
+}
+#endif

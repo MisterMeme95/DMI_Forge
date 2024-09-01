@@ -1,13 +1,14 @@
+#include <stdio.h>
+#include <stdlib.h>
 #define BEGIN_DMI "# BEGIN DMI"
 #define END_DMI "# END DMI"
 #define DMI_VERSION "version"
 #define ICON_STATE "state"
 #define HORIZONTAL 0
 #define GRID 1
-#define PNG_BYTES_TO_CHECK 8
+
 #ifndef dmi_h
 #define dmi_h
-
 #endif
 
 
@@ -20,10 +21,11 @@
 
 
 #include "png.h"
+#include "PixelManip.h"
 
-
-
-
+#ifdef __cplusplus
+extern "C" {
+#endif
 /** @brief This struct represents a basic PNG image.
  * @param png_ptr - A pointer linking to the PNG file being processed. It handles the reading and writing operations.
  * @param png_infop - This contains all of the relevant metadata, like height, bit_depth, etc.
@@ -40,41 +42,37 @@
  * @param pixel_array - This contains the array of pixels that the image is made up of.
  * @param interlace_method - ???
  **/
-typedef struct Image_Struct{
-    png_structp png_ptr; /*!< Detailed description after the member. */
-    png_infop info_ptr;
-    png_colorp palette;
-    png_bytep trans_alpha;
-    png_color_16p trans_color;
-
-    int trans_num;
-    int palette_num;
-    png_uint_32 width, height;
-    int bit_depth;
-    int color_type;
-    int interlace_method;
-    int pixels_per_byte;
-    size_t row_bytes;
-    png_bytepp pixel_array;
-
-    png_textp text_ptr;
-
-    FILE *file_pointer;
+typedef struct iconstate_node {
+    int index;
+    icon_state *icon_state;
+    struct iconstate_node *next;
+    struct iconstate_node *prev;
+} iconStateNode;
 
 
-} Image;
-
+typedef struct iconstate_lookup_table {
+    int MAX_VALUE;
+    iconStateNode *hash_bucket[256];
+} iconstate_hash;
 
 typedef struct DMI_Struct {
+
+    int bit_depth;
+    int color_type;
+    double bytes_per_pixel;
+
+    char *name;
     bool has_icons;
     double version;
     int width, height, num_of_states, max_state;
     icon_state *icon_states, *begin_icon_state;
-    Image *image_data;
-}DMI;
+
+    /* Hash Table of icon_states*/
+    iconstate_hash iconstateHash;
+} DMI;
 
 
-typedef struct FrameExtractHandler{
+typedef struct FrameExtractHandler {
     png_uint_32 starting_column;
     png_uint_32 starting_row;
 
@@ -92,7 +90,35 @@ typedef struct FrameExtractHandler{
 
 } FrameExtractor;
 
-typedef struct SpriteSheetData{
+void add_iconstate(DMI* dmi, icon_state *iconState, png_bytepp image_data);
+void Resize_IconStates(DMI *dmi, int new_size);
+void create_dmi(DMI* dmi);
+int PNG_To_DMI();
+
+void Init_DMI(DMI *dmi, int width, int height);
+
+char *Variable_Authentication(char *string);
+
+char *State_Authentication(char *string);
+
+char *Value_Authentication(char *string);
+
+void Print_Variable(char *string, DMI *dmi);
+
+char *find_newline(char **string, int *dmi_index, char *search_for);
+
+int get_string_char(char *string, char *char_search, char doo);
+
+
+unsigned long hash_string2(const char *str);
+
+int insert_state2(icon_state *iconState,  iconstate_hash *state_lookup, png_bytepp* image_data);
+
+int match_state2(icon_state *name, icon_state *other_name);
+
+icon_state *find_state2(const char *name, iconstate_hash *state_lookup, icon_state find_state);
+
+typedef struct SpriteSheetData {
     int FRAME_SIZE, width, height;
 
     int format;
@@ -119,34 +145,21 @@ typedef struct SpriteSheetData{
  * @members sheet_data:  This is a pointer to our struct containing all of the sheet data.
  * @members state_per_row: This is an input provided by the user that specifies how many icon_states
  * a user may want to be listed per row. */
-void calculate_grid_sheet_dimensions(DMI* dmi, SpriteSheetData* sheet_data, int icon_states_per_row);
+void calculate_grid_sheet_dimensions(DMI *dmi, SpriteSheetData *sheet_data, int icon_states_per_row);
 
 /** @Description A simple initialization function for SpriteSheetData. It basically sets all relevant values to 0 just in case
  * users don't specify a value for important variables. */
-void initialize_sheet_data(SpriteSheetData* sheet_data);
+void initialize_sheet_data(SpriteSheetData *sheet_data);
 
-Image create_sprite_sheet(Image* initial_image, SpriteSheetData* sheet_data, DMI new_icon, char* file_name);
+Image create_sprite_sheet(Image *initial_image, SpriteSheetData *sheet_data, DMI new_icon, char *file_name);
 
 /** @Description This function handles conversion from a DMI image into a spritesheet. All sprite-sheet specifications,
  * like the format, margins, padding -- are stored in the sheetData argument.
  * */
-int dmi2sheet(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData sheetData);
+int dmi2sheet(DMI *dmi, Image source_image, Image sheet_image, SpriteSheetData sheetData);
 
-void Resize_IconStates(DMI* dmi, int new_size);
-int PNG_To_DMI();
+int dmi2sheet2(DMI *dmi, Image source_image, Image sheet_image, SpriteSheetData sheetData);
 
-void Init_DMI(DMI* dmi, int width, int height);
-
-char *Variable_Authentication(char *string);
-char *State_Authentication(char *string);
-char *Value_Authentication(char *string);
-void Get_Frame(png_bytepp dest_pixels, png_bytepp src_pixels, png_uint_32 dest_start_row, png_uint_32 dest_start_col,
-               int src_start_row, int src_start_col, int bytes_per_frame, int cols_to_copy);
-
-int check_if_png(char *file_name, FILE **fp);
-
-void output_image_pixels(Image image);
-
-void Print_Variable(char *string, DMI* dmi);
-char *find_newline(char **string, int *dmi_index, char *search_for);
-int get_string_char(char *string, char* char_search, char doo);
+#ifdef __cplusplus
+}
+#endif

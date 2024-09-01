@@ -39,6 +39,11 @@ void Initialize_IconState(icon_state* thisNode, char* name) {
     thisNode->movement = false;
 }
 
+void add_image_data(icon_state* thisNode, png_bytepp image_data){
+    thisNode->frames = image_data;
+
+}
+
 void IconState_Create(icon_state* thisNode, char * state_name, int directions, int frames, int loop) {
     thisNode->state = (char*)malloc(sizeof(strlen(state_name)));
     strcpy(thisNode->state, state_name);
