@@ -10,6 +10,14 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+typedef struct HASH_TABLE{
+    void* type;
+    int MAX_VALUE;
+    void* hash_bucket[256];
+}hash_table;
+
+
+int init_hash_table(hash_table *table, int buckets);
 
 
 typedef struct dmi_node {
