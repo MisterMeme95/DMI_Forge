@@ -254,8 +254,8 @@ int main(int argc, char **argv){
 //    }
 
    // sheet_data.format = GRID;
-    sheet_data.margin_x = 32;
-    sheet_data.margin_y = 32;
+    sheet_data.margin_x = 0;
+    sheet_data.margin_y = 0;
     sheet_data.padding_y = 0;
     sheet_data.padding_x = 0;
 
@@ -266,12 +266,24 @@ int main(int argc, char **argv){
         }
     }
 
+    printf("Died here. . \n");
     dmi2sheet(new_icon, image, sprite_sheet, sheet_data);
    // dmi2sheet2(new_icon, image, sprite_sheet, sheet_data);
 
     if (image.color_type == PNG_COLOR_TYPE_PALETTE) {
+        // Get the palette and set it on the sprite sheet
         png_get_PLTE(image.png_ptr, image.info_ptr, &image.palette, &image.palette_num);
         png_set_PLTE(sprite_sheet.png_ptr, sprite_sheet.info_ptr, image.palette, image.palette_num);
+
+        // Check if the tRNS chunk is present and set it on the sprite sheet
+        png_bytep trans_alpha = NULL;
+        int num_trans = 0;
+        png_color_16p trans_color = NULL;
+
+        if (png_get_valid(image.png_ptr, image.info_ptr, PNG_INFO_tRNS)) {
+            png_get_tRNS(image.png_ptr, image.info_ptr, &trans_alpha, &num_trans, &trans_color);
+            png_set_tRNS(sprite_sheet.png_ptr, sprite_sheet.info_ptr, trans_alpha, num_trans, trans_color);
+        }
     }
     png_write_info(sprite_sheet.png_ptr, sprite_sheet.info_ptr);
     png_write_image(sprite_sheet.png_ptr, sprite_sheet.pixel_array);
