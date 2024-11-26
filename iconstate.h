@@ -42,9 +42,6 @@ typedef struct IconState_Struct {
     bool movement, rewind, loop;
     png_bytepp frames;
     Vector *frame_vector;
-
-    list framess;
-
 } icon_state;
 
 

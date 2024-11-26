@@ -1276,6 +1276,81 @@ Image load_image(char *file_name) {
     return new_image;
 }
 
+
+void load_image2(Image *image, char *file_name) {
+    if (!check_if_png(file_name, &image->file_pointer)) {
+        printf("The file you are attempting to read is not a valid PNG file!\n");
+        exit(1);
+    }
+    image->image_name = (char *) malloc(sizeof(char) * (strlen(file_name) + 1));
+    strcpy(image->image_name, file_name);
+    image->png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+    if (!(image->png_ptr)) {
+        printf("Error creating read struct\n");
+        fclose(image->file_pointer);
+        exit(1);
+    }
+    png_set_sig_bytes(image->png_ptr, PNG_BYTES_TO_CHECK);
+    image->info_ptr = png_create_info_struct(image->png_ptr);
+    if (!(image->info_ptr)) {
+        printf("Error creating read info struct\n");
+        png_destroy_read_struct(&image->png_ptr, NULL, NULL);
+        fclose(image->file_pointer);
+        exit(1);
+    }
+
+    if (setjmp(png_jmpbuf(image->png_ptr))) {
+        printf("Error during read\n");
+        png_destroy_read_struct(&image->png_ptr, &image->info_ptr, NULL);
+        fclose(image->file_pointer);
+        exit(1);
+    }
+
+    /* Initialize connection between the file and the png_ptr. Also read in the information to fill in the metadata. */
+    png_init_io(image->png_ptr, image->file_pointer);
+    png_read_info(image->png_ptr, image->info_ptr);
+    png_get_IHDR(image->png_ptr, image->info_ptr, &image->width, &image->height, &image->bit_depth,
+                 &image->color_type, &image->interlace_method, NULL, NULL);
+
+    /* We optionally set additional information if it's a palette. */
+    if (image->color_type == PNG_COLOR_TYPE_PALETTE) {
+        png_get_PLTE(image->png_ptr, image->info_ptr, &image->palette, &image->palette_num);
+        png_get_tRNS(image->png_ptr, image->info_ptr, &image->trans_alpha,
+                     &image->trans_num, &image->trans_color);
+    } else if (image->color_type == PNG_COLOR_TYPE_RGB | image->color_type == PNG_COLOR_TYPE_GRAY) {
+        png_get_tRNS(image->png_ptr, image->info_ptr, &image->trans_alpha,
+                     &image->trans_num, &image->trans_color);
+    }
+
+    image->pixel_array = (png_bytepp) malloc(sizeof(png_bytep) * image->height);
+
+    if (image->pixel_array == NULL) {
+        fprintf(stderr, "Memory allocation failed for pixel_array.\n");
+        exit(EXIT_FAILURE);
+    }
+
+
+    image->row_bytes = png_get_rowbytes(image->png_ptr, image->info_ptr);
+    png_bytep contiguous_rows = (png_bytep) malloc(sizeof(png_byte) * image->height * image->row_bytes);
+    for (png_uint_32 pix_index = 0; pix_index < image->height; pix_index++) {
+        // new_image.pixel_array[pix_index] = (png_bytep)malloc(new_image.row_bytes );
+        image->pixel_array[pix_index] =
+                contiguous_rows + (pix_index * image->row_bytes);///(png_bytep)malloc(new_image.row_bytes );
+        if (image->pixel_array[pix_index] == NULL) {
+            fprintf(stderr, "Memory allocation failed for row %u.\n", pix_index);
+            // Cleanup previously allocated memory
+            while (pix_index > 0) {
+                free(image->pixel_array[pix_index--]);
+            }
+            free(image->pixel_array);
+            png_destroy_read_struct(&image->png_ptr, &image->info_ptr, NULL);
+            fclose(image->file_pointer);
+            exit(EXIT_FAILURE); // Consider a more graceful exit or handling strategy
+        }
+    }
+    png_read_image(image->png_ptr, image->pixel_array);
+}
+
 int check_if_png(char *file_name, FILE **fp) {
     char buf[PNG_BYTES_TO_CHECK];
     /* Open the prospective PNG file. */

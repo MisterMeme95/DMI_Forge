@@ -309,29 +309,32 @@ int main(int argc, char **argv){
         }
     }
     DMI *new_icon = (DMI*) malloc(sizeof(DMI));
-    new_icon->image = &image;
-    Init_DMI(new_icon, 32, 32);
+    //new_icon->image = &image;
+    printf("Died here. . \n");
 
-    char *dmi_check = text_ptr->text;
-    char *string_parser;// = find_newline(dmi_check);
-
-    if(!(dmi_check = strstr(dmi_check, BEGIN_DMI))){
-        printf("There is no starting DMI token!\n");
-
-        return 0;
-    }
-    int dmi_length = (int)strlen(dmi_check);
-
-    if(dmi_length <= 0){
-        printf("There is no text to parse in this image!\n\n");
-        return 0;
-    }
-
-    while(dmi_length > 0){
-        /* - First I need to skip all zTxt and go to the part where it BEGIN_DMI token is found. */
-        string_parser = find_newline(&dmi_check, &dmi_length, "\n");
-        Print_Variable(string_parser, new_icon);
-    }
+    initialize_dmi_struct(new_icon, input_name);
+    //Init_DMI(new_icon, 32, 32);
+//
+//    char *dmi_check = text_ptr->text;
+//    char *string_parser;// = find_newline(dmi_check);
+//
+//    if(!(dmi_check = strstr(dmi_check, BEGIN_DMI))){
+//        printf("There is no starting DMI token!\n");
+//
+//        return 0;
+//    }
+//    int dmi_length = (int)strlen(dmi_check);
+//
+//    if(dmi_length <= 0){
+//        printf("There is no text to parse in this image!\n\n");
+//        return 0;
+//    }
+//
+//    while(dmi_length > 0){
+//        /* - First I need to skip all zTxt and go to the part where it BEGIN_DMI token is found. */
+//        string_parser = find_newline(&dmi_check, &dmi_length, "\n");
+//        Print_Variable(string_parser, new_icon);
+//    }
 
 
     if(fflag == 0) {
@@ -377,7 +380,7 @@ int main(int argc, char **argv){
             }
         }
     }
-    create_png_from_icon_state(new_icon, "testicon.png");
+   // create_png_from_icon_state(new_icon, "testicon.png");
 
 
    // sheet_data.format = GRID;
@@ -423,14 +426,14 @@ int main(int argc, char **argv){
 
     printf("Testing linked list. . \n");
     node* lol = new_icon->iconStates.head;
-//    while(lol != NULL){
-//        icon_state* fake_icon = (icon_state*)lol->data;
-//        printf("Icon_state = %s\n", fake_icon->state);
-//        printf("Num Of Dirs = %d\n", fake_icon->dirs);
-//        printf("Num of Frames = %d\n\n", fake_icon->number_of_frames);
-//
-//        lol = lol->next;
-//
-//    }
+    while(lol != NULL){
+        icon_state* fake_icon = (icon_state*)lol->data;
+        printf("Icon_state = %s\n", fake_icon->state);
+        printf("Num Of Dirs = %d\n", fake_icon->dirs);
+        printf("Num of Frames = %d\n\n", fake_icon->number_of_frames);
+
+        lol = lol->next;
+
+    }
     return EXIT_SUCCESS;
 }

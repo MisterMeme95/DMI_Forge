@@ -256,6 +256,7 @@ int check_if_png(char *file_name, FILE **fp);
 
 
 Image load_image(char* file_name);
+void load_image2(Image *image, char *file_name);
 
 png_bytepp get_image_data2(Image *image, int frame_number);
 

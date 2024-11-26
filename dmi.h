@@ -170,22 +170,16 @@ int PNG_To_DMI();
 DMI* find_dmi(const char *name, dmi_hash *state_lookup, DMI* find_state);
 
 void Init_DMI(DMI *dmi, int width, int height);
-
+void initialize_dmi_struct(DMI* icon, char* image_name);
+void populate_dmi(DMI* dmi, Image* image);
 char *Variable_Authentication(char *string);
-
 char *State_Authentication(char *string);
-
 char *Value_Authentication(char *string);
-
 void Print_Variable(char *string, DMI *dmi);
-
 char *find_newline(char **string, int *dmi_index, char *search_for);
-
 int get_string_char(char *string, char *char_search, char doo);
 
-
 unsigned long hash_string2(const char *str);
-
 int insert_state2(icon_state *iconState,  iconstate_hash *state_lookup, png_bytepp* image_data);
 
 int match_state2(icon_state *name, icon_state *other_name);

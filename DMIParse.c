@@ -210,6 +210,9 @@ void Print_Variable(char *string, DMI* dmi) {
         //Add_Dir(dmi->icon_states, integer_value);
         //Add_Dir(dmi->iconStates.tail->data, integer_value);
         dmi->icon_width = integer_value;
+        dmi->icon_row_bytes = (dmi->image->row_bytes / dmi->icon_width == 0)
+                              ? dmi->image->row_bytes
+                              : dmi->image->row_bytes / dmi->icon_width;
     }
 
     if(strcmp(check_string, "height") == 0){

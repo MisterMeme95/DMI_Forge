@@ -248,14 +248,44 @@ void Init_DMI(DMI* dmi, int width, int height){
     }
 }
 
-void populate_dmi(DMI dmi, Image image){
+
+void initialize_dmi_struct(DMI* icon, char* image_name){
+
+    icon->image = (Image*) malloc(sizeof(Image));
+    load_image2(icon->image, image_name);
+
+    icon->num_of_states = 0;
+    icon->max_state = 500;
+    icon->has_icons = false;
+    icon->version = 4.0;
+    icon->frame_count = 0;
+    icon->color_type = PNG_COLOR_TYPE_PALETTE;
+
+
+
+    icon->icon_states = (icon_state*) malloc(sizeof(icon_state) * icon->max_state);
+    icon->begin_icon_state = icon->icon_states;
+    initialize_list(&icon->iconStates, NULL, NULL, list_ins_next);
+
+    icon->icon_width = 32;
+    icon->icon_height = 32;
+    populate_dmi(icon, icon->image);
+
+    init_hash_table(&icon->iconstate_lockup, 0, hash_string, NULL, NULL);
+    for(int i = 0; i < 256; i++){
+        icon->iconstateHash.hash_bucket[i] = NULL;
+    }
+
+
+}
+void populate_dmi(DMI* dmi, Image* image){
     /*
      * First we take the image data and check to see if there's a text chunk.
      * If there is
      * */
     png_textp text_ptr;
     int num_text;
-    if (png_get_text(image.png_ptr, image.info_ptr, &text_ptr, &num_text) < 0) {
+    if (png_get_text(image->png_ptr, image->info_ptr, &text_ptr, &num_text) < 0) {
         fprintf(stdout, "No text data located!\n");
         exit(1);
     }
@@ -277,14 +307,13 @@ void populate_dmi(DMI dmi, Image image){
     while(dmi_length > 0){
         /* - First I need to skip all zTxt and go to the part where it BEGIN_DMI token is found. */
         string_parser = find_newline(&dmi_check, &dmi_length, "\n");
-        Print_Variable(string_parser, &dmi);
+        Print_Variable(string_parser, dmi);
     }
 
 }
 DMI Init_DMI2(Image image){
     DMI new_dmi;
     new_dmi.color_type = image.color_type;
-    new_dmi.bit_depth = image.bit_depth;
     new_dmi.info_ptr = image.info_ptr;
     new_dmi.png_ptr = image.png_ptr;
     new_dmi.bytes_per_pixel = image.pixels_per_byte;
@@ -305,7 +334,7 @@ DMI Init_DMI2(Image image){
         new_dmi.iconstateHash.hash_bucket[i] = NULL;
     }
 
-    populate_dmi(new_dmi, image);
+    populate_dmi(&new_dmi, &image);
     return new_dmi;
 }
 
@@ -373,7 +402,7 @@ void create_dmi(DMI* dmi){
     int start_row = 0;
     int start_col = 0;
     get_dmi_dimensions(&width, &height, 32, dmi->num_of_states);
-    initialize_image2(dmi->name, &new_image, &dmi->bit_depth, &dmi->color_type, &width, &height);
+    initialize_image2(dmi->name, &new_image, &dmi->image->bit_depth, &dmi->color_type, &width, &height);
 
     for(int i = 0; i < height; i++){
         for(int j = 0; j < new_image.row_bytes ; j++){
