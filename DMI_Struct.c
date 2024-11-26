@@ -311,32 +311,7 @@ void populate_dmi(DMI* dmi, Image* image){
     }
 
 }
-DMI Init_DMI2(Image image){
-    DMI new_dmi;
-    new_dmi.color_type = image.color_type;
-    new_dmi.info_ptr = image.info_ptr;
-    new_dmi.png_ptr = image.png_ptr;
-    new_dmi.bytes_per_pixel = image.pixels_per_byte;
 
-    /* Continue to make it copy all of the Image data*/
-    new_dmi.png_width = (int)image.width;
-    new_dmi.png_height = (int)image.height;
-
-
-    new_dmi.num_of_states = 0;
-    new_dmi.max_state = 15;
-    new_dmi.has_icons = false;
-    new_dmi.version = 4.0;
-
-
-    init_hash_table(&new_dmi.iconstate_lockup, 0, hash_string, NULL, NULL);
-    for(int i = 0; i < 256; i++){
-        new_dmi.iconstateHash.hash_bucket[i] = NULL;
-    }
-
-    populate_dmi(&new_dmi, &image);
-    return new_dmi;
-}
 
 void vector_push_back_iconstate(Vector* vec, void* object){
     if (vec->current_capacity == vec->max_capacity) {

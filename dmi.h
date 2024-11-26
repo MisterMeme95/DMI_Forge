@@ -82,11 +82,6 @@ typedef struct iconstate_lookup_table {
 //oko
 typedef struct DMI_Struct {
     Image* image;
-    png_structp png_ptr;
-    png_infop info_ptr;
-    png_colorp palette;
-    png_bytep trans_alpha;
-    png_color_16p trans_color;
     int bit_depth;
     int color_type;
     int bytes_per_pixel;
