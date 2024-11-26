@@ -67,7 +67,7 @@ to be well designed code.
 
 The convention of assertion parameters generally follows this order:
 
-    TEST_ASSERT_X( {modifiers}, {expected}, actual, {size/count} )
+    TEST_ASSERT_X( {modifiers}, {expected}, actual, {current_capacity/count} )
 
 The very simplest assertion possible uses only a single "actual" parameter (e.g.
 a simple null check).
@@ -98,11 +98,11 @@ the reference list below and add a string as the final parameter.
 
 _Example:_
 
-    TEST_ASSERT_X( {modifiers}, {expected}, actual, {size/count} )
+    TEST_ASSERT_X( {modifiers}, {expected}, actual, {current_capacity/count} )
 
 becomes messageified like thus...
 
-    TEST_ASSERT_X_MESSAGE( {modifiers}, {expected}, actual, {size/count}, message )
+    TEST_ASSERT_X_MESSAGE( {modifiers}, {expected}, actual, {current_capacity/count}, message )
 
 
 #### TEST_ASSERT_X_ARRAY Variants
@@ -113,7 +113,7 @@ with the `_MESSAGE`variants of Unity's Asserts in that for pretty much any Unity
 type assertion you can tack on `_ARRAY` and run assertions on an entire block of
 memory.
 
-    TEST_ASSERT_EQUAL_TYPEX_ARRAY( expected, actual, {size/count} )
+    TEST_ASSERT_EQUAL_TYPEX_ARRAY( expected, actual, {current_capacity/count} )
 
 "Expected" is an array itself.
 "Size/count" is one or two parameters necessary to establish the number of array
@@ -135,7 +135,7 @@ the Each Equal section below. these are almost on par with the `_MESSAGE`
 variants of Unity's Asserts in that for pretty much any Unity type assertion you
 can inject _EACH_EQUAL and run assertions on an entire block of memory.
 
-    TEST_ASSERT_EACH_EQUAL_TYPEX( expected, actual, {size/count} )
+    TEST_ASSERT_EACH_EQUAL_TYPEX( expected, actual, {current_capacity/count} )
 
 "Expected" is a single value to compare to.
 "Actual" is an array where each element will be compared to the expected value.
@@ -163,7 +163,7 @@ platforms). See Unity documentation for specifics.
 
 Not all targets support 64 bit wide types or even 32 bit wide types. Define the
 appropriate preprocessor symbols and Unity will omit all operations from
-compilation that exceed the maximum width of your target. See Unity
+compilation that exceed the maximum png_width of your target. See Unity
 documentation for specifics.
 
 
@@ -401,7 +401,7 @@ equivalent.
 ##### `TEST_ASSERT_EQUAL_MEMORY (expected, actual, len)`
 
 Asserts that the contents of the memory specified by the `expected` and `actual`
-pointers is identical. The size of the memory blocks in bytes is specified by
+pointers is identical. The current_capacity of the memory blocks in bytes is specified by
 the `len` parameter.
 
 
@@ -712,7 +712,7 @@ documentation for more.
 
 It's "fun" that C is a standard where something as fundamental as an integer
 varies by target. According to the C standard, an `int` is to be the target's
-natural register size, and it should be at least 16-bits and a multiple of a
+natural register current_capacity, and it should be at least 16-bits and a multiple of a
 byte. It also guarantees an order of sizes:
 
 ```C
@@ -724,10 +724,10 @@ Most often, `int` is 32-bits. In many cases in the embedded world, `int` is
 and this remains perfectly standard C.
 
 To make things even more interesting, there are compilers and targets out there
-that have a hard choice to make. What if their natural register size is 10-bits
+that have a hard choice to make. What if their natural register current_capacity is 10-bits
 or 12-bits? Clearly they can't fulfill _both_ the requirement to be at least
-16-bits AND the requirement to match the natural register size. In these
-situations, they often choose the natural register size, leaving us with
+16-bits AND the requirement to match the natural register current_capacity. In these
+situations, they often choose the natural register current_capacity, leaving us with
 something like this:
 
 ```C
@@ -737,7 +737,7 @@ char (8 bit) <= short (12 bit) <= int (12 bit) <= long (16 bit)
 Um... yikes. It's obviously breaking a rule or two... but they had to break SOME
 rules, so they made a choice.
 
-When the C99 standard rolled around, it introduced alternate standard-size types.
+When the C99 standard rolled around, it introduced alternate standard-current_capacity types.
 It also introduced macros for pulling in MIN/MAX values for your integer types.
 It's glorious! Unfortunately, many embedded compilers can't be relied upon to
 use the C99 types (Sometimes because they have weird register sizes as described
@@ -754,7 +754,7 @@ special attention to the macros for automatically detecting types
 on both of these in Unity's documentation.
 
 What about the times where you suddenly need to deal with something odd, like a
-24-bit `int`? The simplest solution is to use the next size up. If you have a
+24-bit `int`? The simplest solution is to use the next current_capacity up. If you have a
 24-bit `int`, configure Unity to use 32-bit integers. If you have a 12-bit
 `int`, configure Unity to use 16 bits. There are two ways this is going to
 affect you:

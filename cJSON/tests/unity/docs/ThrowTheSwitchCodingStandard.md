@@ -29,7 +29,7 @@ Our philosophy is "support every compiler we can". Most often, this means that
 we aim for writing C code that is standards compliant (often C89... that seems
 to be a sweet spot that is almost always compatible). But it also means these
 tools are tolerant of things that aren't common. Some that aren't even
-compliant. There are configuration options to override the size of standard
+compliant. There are configuration options to override the current_capacity of standard
 types. There are configuration options to force Unity to not use certain
 standard library functions. A lot of Unity is configurable and we have worked
 hard to make it not TOO ugly in the process.

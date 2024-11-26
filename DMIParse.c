@@ -57,7 +57,7 @@ char *Variable_Authentication(char *string){
         }
         token_track++;
     }
-    if(strlen(value_check) > index){
+    if(num_of_char > index){
         value_check[index]='\0';
     }
     value_check[num_of_char]='\0';
@@ -124,14 +124,57 @@ void Print_Variable(char *string, DMI* dmi) {
         if(strcmp(check_string, ICON_STATE) == 0){
             variable_value = State_Authentication(found);
             if(dmi->has_icons){
+
+                icon_state *tail_iconstate = dmi->iconStates.tail->data;
+                tail_iconstate->frame_vector = (Vector*)malloc(sizeof(Vector) * tail_iconstate->dirs);
+                for(int i = 0; i < tail_iconstate->dirs; i++){
+                    vector_init(&tail_iconstate->frame_vector[i], sizeof(png_bytepp),
+                                tail_iconstate->number_of_frames, NULL, NULL);
+                }
+                png_uint_32 start_col = (dmi->frame_count * dmi->icon_row_bytes) % dmi->image->row_bytes;
+                png_uint_32 start_row = (dmi->frame_count * dmi->icon_row_bytes) / dmi->image->row_bytes;
+                for(int i = 0; i < tail_iconstate->dirs; i++){
+//                    start_row +=  dmi->icon_row_bytes;
+//                    start_col += start_row / dmi->image->row_bytes;
+//                    start_col += dmi->icon_row_bytes;//(start_row / dmi->image->row_bytes);
+                    png_uint_32 new_col = start_col + (dmi->icon_row_bytes * i);
+
+                    png_uint_32 new_row = new_col / dmi->image->row_bytes;
+
+                    for(int o = 0; o < tail_iconstate->number_of_frames; o++){
+                        png_uint_32 incre_amount = o * tail_iconstate->dirs * dmi->icon_row_bytes;
+                        int test_val = incre_amount % dmi->image->row_bytes;
+                        png_uint_32 extract_col = new_col + (incre_amount % dmi->image->row_bytes);
+                        png_uint_32 extract_row = (new_row + (new_col + incre_amount) / dmi->image->row_bytes) * dmi->icon_height;
+
+                        png_bytepp* image_data = (png_bytepp*)tail_iconstate->frame_vector[i].data;
+                        image_data[o] = (png_bytepp)malloc(sizeof(png_bytep) * dmi->icon_height);
+
+                        for (int k = 0; k < dmi->icon_height; k++) {
+                            image_data[o][k] = dmi->image->pixel_array[extract_row + k] + extract_col;
+                        }
+
+                    }
+                }
+                dmi->frame_count += tail_iconstate->dirs * tail_iconstate->number_of_frames;
+
+
                 dmi->icon_states++;
                 dmi->num_of_states++;
+                icon_state *new_icon_state = (icon_state*)malloc(sizeof(icon_state));
                 Initialize_IconState(dmi->icon_states, variable_value);
+                Initialize_IconState(new_icon_state, variable_value);
+
+                dmi->iconStates.insert(&dmi->iconStates, dmi->iconStates.tail, new_icon_state);
             }
             else{
                 Initialize_IconState(dmi->icon_states, variable_value);
+                icon_state *new_icon_state = (icon_state*)malloc(sizeof(icon_state));
+                Initialize_IconState(new_icon_state, variable_value);
                 dmi->has_icons=true;
                 dmi->num_of_states++;
+                dmi->iconStates.insert(&dmi->iconStates, NULL, new_icon_state);
+              //  dmi->iconStates.tail = NULL;
             }
             if(dmi->num_of_states == (dmi->max_state)-1){
                 dmi->max_state += 30;
@@ -148,30 +191,55 @@ void Print_Variable(char *string, DMI* dmi) {
         }
     }
     if(strcmp(check_string, "width") == 0){
-        dmi->width = integer_value;
+        dmi->png_width = integer_value;
     }
     if(strcmp(check_string, "height") == 0){
-        dmi->height = integer_value;
+        dmi->png_height = integer_value;
     }
     if(strcmp(check_string, "dirs") == 0){
 
      //   printf("For %s the dir = %d\n", dmi->icon_states->state, integer_value);
         Add_Dir(dmi->icon_states, integer_value);
+        Add_Dir(dmi->iconStates.tail->data, integer_value);
+
+    }
+
+    if(strcmp(check_string, "width") == 0){
+
+        //   printf("For %s the dir = %d\n", dmi->icon_states->state, integer_value);
+        //Add_Dir(dmi->icon_states, integer_value);
+        //Add_Dir(dmi->iconStates.tail->data, integer_value);
+        dmi->icon_width = integer_value;
+    }
+
+    if(strcmp(check_string, "height") == 0){
+
+        //   printf("For %s the dir = %d\n", dmi->icon_states->state, integer_value);
+        //Add_Dir(dmi->icon_states, integer_value);
+        //Add_Dir(dmi->iconStates.tail->data, integer_value);
+        dmi->icon_height = integer_value;
     }
     if(strcmp(check_string, "frames") == 0){
         Add_Frames(dmi->icon_states, integer_value);
+        Add_Frames(dmi->iconStates.tail->data, integer_value);
     }
     if(strcmp(check_string, "movement") == 0){
         if(integer_value >= 1){
             Add_Movement(dmi->icon_states);
+            Add_Movement(dmi->iconStates.tail->data);
+
         }
     }
     if(strcmp(check_string, "loop") == 0){
         Add_Loop(dmi->icon_states, integer_value);
+        Add_Loop(dmi->iconStates.tail->data, integer_value);
+
     }
     if(strcmp(check_string, "rewind") == 0){
         if(integer_value >= 1){
             Add_Rewind(dmi->icon_states);
+            Add_Rewind(dmi->iconStates.tail->data);
+
         }
     }
 }

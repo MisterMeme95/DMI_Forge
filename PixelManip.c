@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <math.h>
+#include "PixelManip.h"
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -1128,7 +1129,6 @@ void Write_PNG(png_structp *write_ptr, png_infop *write_info_ptr, FILE *output_f
 
 
 void initialize_image2(char *file_name, Image *new_image, int *bit_depth, const int *color_type, int *width, int *height) {
-
     new_image->png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
     if (!new_image->png_ptr) {
         fprintf(stderr, "Failed to create PNG write struct.\n");
@@ -1148,10 +1148,24 @@ void initialize_image2(char *file_name, Image *new_image, int *bit_depth, const 
         exit(EXIT_FAILURE);
     }
     png_init_io(new_image->png_ptr, new_image->file_pointer);
-    new_image->width = *width;
-    new_image->height = *height;
-    png_set_IHDR(new_image->png_ptr, new_image->info_ptr, *width, *height,
-                 *bit_depth, *color_type, PNG_INTERLACE_NONE,
+    if(width != NULL){
+        new_image->width = *width;
+    }
+    //new_image->width = *width;
+    if(height != NULL){
+        new_image->height = *height;
+    }
+
+    if(bit_depth != NULL){
+        new_image->bit_depth = *bit_depth;
+    }
+
+    if(color_type != NULL){
+        new_image->color_type = *color_type;
+    }
+  //  new_image->height = *height;
+    png_set_IHDR(new_image->png_ptr, new_image->info_ptr, new_image->width, new_image->height,
+                 new_image->bit_depth, new_image->color_type, PNG_INTERLACE_NONE,
                  PNG_COMPRESSION_TYPE_DEFAULT, PNG_FILTER_TYPE_DEFAULT);
 
 
@@ -1178,7 +1192,7 @@ void initialize_image2(char *file_name, Image *new_image, int *bit_depth, const 
 //        }
 //    }
 
-    if (*color_type == PNG_COLOR_TYPE_PALETTE) {
+    if (new_image->color_type == PNG_COLOR_TYPE_PALETTE) {
         int palette_maximum_size = (int) pow(2.0, (double) new_image->bit_depth);
         new_image->palette = (png_colorp) malloc(sizeof(png_color) * palette_maximum_size);
         new_image->palette_num = 0;
@@ -1374,6 +1388,114 @@ void output_image_pixels(Image image){
             }
         }
     }
+}
+
+
+
+
+
+
+
+int remove_hash(Pixel_Data pixel){
+
+    return 0;
+}
+
+unsigned int hash_pixel(Pixel_Data pixel) {
+    const unsigned int prime = 31;
+    unsigned int hash = 1;
+    hash = prime * hash + Get_Red_Channel(pixel);
+    hash = prime * hash + Get_Green_Channel(pixel);
+    hash = prime * hash + Get_Blue_Channel(pixel);
+    hash = prime * hash + Get_Alpha_Channel(pixel);
+    return hash;
+}
+
+int find_key(Pixel_Data pixel, palette_hash *paletteHash) {
+
+    // Assuming hash_pixel function correctly calculates a hash based on Pixel_Data
+    int hash_index = (int)hash_pixel(pixel) % 256;
+
+    png_node *key_to_find = paletteHash->hash_bucket[hash_index];
+
+    while (key_to_find != NULL) {
+        Pixel_Data other_pixel = key_to_find->pixel_info;
+
+        if (match_node(pixel, other_pixel)) {
+
+            return key_to_find->index; // Return the index of the matching node
+        }
+
+        key_to_find = key_to_find->next; // Move to next node in the list
+    }
+
+    return -1; // Return -1 if no match is found after checking all nodes in the bucket
+}
+
+
+int match_node(Pixel_Data pixel, Pixel_Data other_pixel){
+    if (Get_Red_Channel(pixel) != Get_Red_Channel(other_pixel)) {
+        return 0;
+    }
+    if (Get_Green_Channel(pixel) != Get_Green_Channel(other_pixel)) {
+        return 0;
+    }
+    if (Get_Blue_Channel(pixel) != Get_Blue_Channel(other_pixel)) {
+        return 0;
+    }
+    if(pixel.alpha_channel != other_pixel.alpha_channel){
+        return 0;
+    }
+    return 1;
+}
+
+
+
+int insert_key(Pixel_Data pixel, palette_hash *paletteHash, png_byte new_index) {
+
+    int hash_index = hash_pixel(pixel) % 256;  // Ensure hash_pixel is defined correctly
+
+    if (paletteHash->hash_bucket[hash_index] == NULL) {
+
+        png_node *new_node = (png_node*)malloc(sizeof(png_node));
+        if (new_node == NULL) {
+            fprintf(stderr, "Failed to allocate memory for new node\n");
+            return -1;
+        }
+
+        // Initialize the new node
+        new_node->pixel_info = pixel;
+        new_node->index = new_index;
+        new_node->next = NULL;
+        new_node->prev = NULL;
+
+        // Link the new node to the hash bucket
+        paletteHash->hash_bucket[hash_index] = new_node;
+
+    } else {
+        // The bucket is not empty. Insert the new node at the beginning of the list
+        png_node *new_node = (png_node*) malloc(sizeof(png_node));
+        if (new_node == NULL) {
+            fprintf(stderr, "Failed to allocate memory for new node\n");
+            return -1;
+        }
+
+        // Initialize the new node
+        new_node->pixel_info = pixel;
+        new_node->index = new_index;
+        new_node->next = paletteHash->hash_bucket[hash_index];
+        new_node->prev = NULL;
+
+        // Update the previous first node
+        if (paletteHash->hash_bucket[hash_index] != NULL) {
+            paletteHash->hash_bucket[hash_index]->prev = new_node;
+        }
+
+        // Set the new node as the first node in the bucket
+        paletteHash->hash_bucket[hash_index] = new_node;
+    }
+
+    return 0;
 }
 
 png_bytepp get_image_data2(Image *image, int frame_number) {

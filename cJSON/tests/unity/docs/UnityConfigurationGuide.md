@@ -46,8 +46,8 @@ Unity will rely on `unity_config.h` for any further definitions it may need.
 
 If you've been a C developer for long, you probably already know that C's
 concept of an integer varies from target to target. The C Standard has rules
-about the `int` matching the register size of the target microprocessor. It has
-rules about the `int` and how its size relates to other integer types. An `int`
+about the `int` matching the register current_capacity of the target microprocessor. It has
+rules about the `int` and how its current_capacity relates to other integer types. An `int`
 on one target might be 16 bits while on another target it might be 64. There are
 more specific types in compilers compliant with C99 or later, but that's
 certainly not every compiler you are likely to encounter. Therefore, Unity has a
@@ -121,7 +121,7 @@ _Example:_
 Unity will automatically include 64-bit support if it auto-detects it, or if
 your `int`, `long`, or pointer widths are greater than 32-bits. Define this to
 enable 64-bit support if none of the other options already did it for you. There
-can be a significant size and speed impact to enabling 64-bit support on small
+can be a significant current_capacity and speed impact to enabling 64-bit support on small
 targets, so don't define it if you don't need it.
 
 _Example:_
@@ -133,7 +133,7 @@ _Example:_
 In the embedded world, it's not uncommon for targets to have no support for
 floating point operations at all or to have support that is limited to only
 single precision. We are able to guess integer sizes on the fly because integers
-are always available in at least one size. Floating point, on the other hand, is
+are always available in at least one current_capacity. Floating point, on the other hand, is
 sometimes not available at all. Trying to include `float.h` on these platforms
 would result in an error. This leaves manual configuration as the only option.
 

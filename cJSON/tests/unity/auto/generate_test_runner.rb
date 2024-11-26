@@ -117,7 +117,7 @@ class UnityTestRunnerGenerator
     # determine line numbers and create tests to run
     source_lines = source.split("\n")
     source_index = 0
-    tests_and_line_numbers.size.times do |i|
+    tests_and_line_numbers.current_capacity.times do |i|
       source_lines[source_index..-1].each_with_index do |line, index|
         next unless line =~ /\s+#{tests_and_line_numbers[i][:test]}(?:\s|\()/
         source_index += index

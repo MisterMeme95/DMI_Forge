@@ -38,7 +38,7 @@ Fixes:
 ======
 Fixes:
 ------
-* optimize the way to find tail node, see [#503](https://github.com/DaveGamble/cJSON/pull/503)
+* optimize the way to find tail png_node, see [#503](https://github.com/DaveGamble/cJSON/pull/503)
 * Fix WError error on macosx because NAN is a float. Thanks @sappo, see [#484](https://github.com/DaveGamble/cJSON/pull/484)
 * Fix some bugs in detach and replace. Thanks @miaoerduo, see [#456](https://github.com/DaveGamble/cJSON/pull/456)
 
@@ -311,7 +311,7 @@ Fixes:
 * Double check the offset of the print buffer in `ensure`, see [1934059](https://github.com/DaveGamble/cJSON/commit/1934059554b9a0971e00f79e96900f422cfdd114)
 
 Improvements:
-* Add a note in the header about required buffer size when using `cJSON_PrintPreallocated`, see [4bfb8800](https://github.com/DaveGamble/cJSON/commit/4bfb88009342fb568295a7f6dc4b7fee74fbf022)
+* Add a note in the header about required buffer current_capacity when using `cJSON_PrintPreallocated`, see [4bfb8800](https://github.com/DaveGamble/cJSON/commit/4bfb88009342fb568295a7f6dc4b7fee74fbf022)
 
 1.4.3 (Mar 19, 2017)
 =====

@@ -161,8 +161,8 @@ int main(int argc, char **argv) {
     transformed_image.height = original_image.height;
     transformed_image.width = original_image.width;
     transformed_image.palette_num = 0;
-    initialize_image2(output_file, &transformed_image, NULL,
-                      NULL, NULL, NULL);
+    initialize_image2(output_file, &transformed_image, &transformed_image.bit_depth,
+                      &transformed_image.color_type, &transformed_image.width , &transformed_image.height);
     for (int i = 0; i < 256; i++) {
         new_pal.hash_bucket[i] = NULL;
     }

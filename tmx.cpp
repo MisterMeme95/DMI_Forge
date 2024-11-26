@@ -6,7 +6,7 @@
 #include <string>
 #include <cstring>
 
-#include "data_structure.h"
+#include "dmi.h"
 #include <cstdio>
 #include <vector>
 //#define PAUSE_AT_END 1
@@ -31,6 +31,7 @@ struct pop_node{
 };
 
 void incrementMapId(char *id) {
+
     int length = strlen(id);
     for (int i = length - 1; i >= 0; i--) {
         if (id[i] < 'z') {

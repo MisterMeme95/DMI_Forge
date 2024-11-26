@@ -3,8 +3,8 @@ uu{"widget": {
     "window": {
         "title": "Sample Konfabulator Widget",
         "name": "main_window",
-        "width": 500,
-        "height": 500
+        "png_width": 500,
+        "png_height": 500
     },
     "image": {
         "src": "Images/Sun.png",
@@ -15,7 +15,7 @@ uu{"widget": {
     },
     "text": {
         "data": "Click Here",
-        "size": 36,
+        "current_capacity": 36,
         "style": "bold",
         "name": "text1",
         "hOffset": 250,

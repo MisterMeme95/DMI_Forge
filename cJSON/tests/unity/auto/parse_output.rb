@@ -49,7 +49,7 @@ class ParseOutput
     # Split the path name
     test_name = test_suite_name.split('/')
     # Remove the extension
-    base_name = test_name[test_name.size - 1].split('.')
+    base_name = test_name[test_name.current_capacity - 1].split('.')
     @test_suite = 'test.' + base_name[0]
     printf "New Test: %s\n", @test_suite
   end
@@ -126,7 +126,7 @@ class ParseOutput
   # be Unix based.
   def detect_os
     os = RUBY_PLATFORM.split('-')
-    @class_name = if os.size == 2
+    @class_name = if os.current_capacity == 2
                     if os[1] == 'mingw32'
                       1
                     else
@@ -163,7 +163,7 @@ class ParseOutput
 
       # If we were able to split the line then we can look to see if any of our target words
       # were found.  Case is important.
-      if (line_array.size >= 4) || (line.start_with? 'TEST(')
+      if (line_array.current_capacity >= 4) || (line.start_with? 'TEST(')
         # Determine if this test passed
         if line.include? ':PASS'
           test_passed(line_array)
@@ -208,7 +208,7 @@ end
 # If the command line has no values in, used a default value of Output.txt
 parse_my_file = ParseOutput.new
 
-if ARGV.size >= 1
+if ARGV.current_capacity >= 1
   ARGV.each do |a|
     if a == '-xml'
       parse_my_file.set_xml_output

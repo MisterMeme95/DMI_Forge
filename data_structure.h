@@ -1,54 +1,40 @@
 #ifndef DMI_STRUCT_C_DATA_STRUCTURE_H
 #define DMI_STRUCT_C_DATA_STRUCTURE_H
-
 #endif //DMI_STRUCT_C_DATA_STRUCTURE_H
-#include "png.h"
 
-#include "dmi.h"
+#ifndef DMI_STRUCT_C_LIST_H
+#include "list.h"
+#endif
 
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+
+
 typedef struct HASH_TABLE{
-    void* type;
-    int MAX_VALUE;
-    void* hash_bucket[256];
+    unsigned long buckets;
+    unsigned long (*hash_function)(const void *key);
+    int (*match)(const void *key1, const void *key2);
+    void (*destroy)(void *data);
+    int size;
+    list* table;
 }hash_table;
 
 
-int init_hash_table(hash_table *table, int buckets);
 
 
-typedef struct dmi_node {
-    int index;
-    DMI icon;
-    struct dmi_node *next;
-    struct dmi_node *prev;
-} dmi_node;
 
+int init_hash_table(hash_table *table, int buckets, unsigned long (*hash_function)(const void *key),
+                    int (*match)(const void *key1, const void *key2), void (*destroy)(void *data));
 
-typedef struct DMI_HASH{
-    int MAX_VALUE;
-    dmi_node *hash_bucket[256];
-}dmi_hash;
-
-typedef struct dmilist {
-    DMI **array;
-    int max_capacity;
-    int currently_filled;
-    dmi_hash hash_table;
-} dmi_list;
-
-void initialize_dmi_vector(dmi_list *look_up);
-
-unsigned int hash_pixel(Pixel_Data pixel);
-
-int insert_key(Pixel_Data pixel, palette_hash *paletteHash, png_byte new_index);
-int find_key(Pixel_Data pixel, palette_hash* paletteHash);
-int match_node(Pixel_Data pixel, Pixel_Data other_pixel);
-DMI* find_dmi(const char *name, dmi_hash *state_lookup, DMI* find_state);
-int insert_dmi(const char *name,  dmi_hash *state_lookup);
+void destroy_hash_table(hash_table *table);
+int chtbl_insert(hash_table *hash_table, const void *data);
+unsigned long hash_string(const void *str);
+int chtbl_remove(hash_table *htbl, void **data);
+int chtbl_lookup(const hash_table *htbl, void **data);
+#define chtbl_size(htbl) ((htbl)->size)
 #ifdef __cplusplus
 }
 #endif

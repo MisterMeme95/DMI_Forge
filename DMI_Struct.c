@@ -6,28 +6,115 @@
  * - height:        The height for each frame.
  * - icon_states:   This should be a vector containing a list of all icon_states. */
 #include "png.h"
-#include "dmi.h"
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 #include <math.h>
+#include "dmi.h"
 #ifdef __cplusplus
 extern "C" {
 #endif
-unsigned long hash_string2(const char *str) {
-    unsigned long hash = 5381;
-    int c;
 
-    while ((c = (int)*str++)) {
-        hash = ((hash << 5) + hash) + c; // hash * 33 + c
+
+
+int insert_dmi(const char *name,  dmi_hash *state_lookup) {
+
+    unsigned long hash_index = hash_string(name) % 256;  // Ensure hash_pixel is defined correctly
+    // printf("Hash value = %lu\n", hash_index);
+    if (state_lookup->hash_bucket[hash_index] == NULL) {
+        //   printf("Running if statement. . \n");
+        //create a new icon_state
+        dmi_node *new_node = (dmi_node*) malloc(sizeof(dmi_node));
+
+        if (new_node == NULL) {
+            fprintf(stderr, "Failed to allocate memory for new node\n");
+            return -1;
+        }
+
+        // Initialize the new icon_state:
+
+        new_node->next = NULL;
+        new_node->prev = NULL;
+        new_node->icon.name = (char *) malloc(sizeof(char) * strlen(name) + 1);
+
+        Init_DMI(&new_node->icon, 32, 32);
+        strcpy(new_node->icon.name, name);
+        state_lookup->hash_bucket[hash_index] = new_node;
+        //    printf("Inserted. . .\n");
     }
 
-    return hash;
+    else {
+        dmi_node *new_node = (dmi_node*) malloc(sizeof(dmi_node));
+        if (new_node == NULL) {
+            fprintf(stderr, "Failed to allocate memory for new node\n");
+            return -1;
+        }
+
+        new_node->next = NULL;
+        new_node->prev = NULL;
+        new_node->icon.name = (char *) malloc(sizeof(char) * strlen(name) + 1);
+        Init_DMI(&new_node->icon, 32, 32);
+        strcpy(new_node->icon.name, name);
+
+        // Update the previous first node
+        if (state_lookup->hash_bucket[hash_index] != NULL) {
+            state_lookup->hash_bucket[hash_index]->prev = new_node;
+        }
+
+        // Set the new node as the first node in the bucket
+        state_lookup->hash_bucket[hash_index] = new_node;
+    }
+
+    //  sleep(5);
+    return 0;
 }
+
+
+int match_dmi(DMI *name, const char *name1){
+
+    if(strcmp(name->name, name1) != 0){
+        return 0;
+    }
+    return 1;
+}
+
+DMI* find_dmi(const char *name, dmi_hash *state_lookup, DMI* find_state) {
+
+    unsigned long hash_index = hash_string(name) % 256;  // Ensure hash_pixel is defined correctly
+    dmi_node *key_to_find = state_lookup->hash_bucket[hash_index];
+    //   printf("Hash = %lu\n\n", hash_index);
+    while (key_to_find != NULL) {
+
+
+        if (match_dmi(&key_to_find->icon, name)) {
+
+            return &key_to_find->icon;
+        }
+        key_to_find = key_to_find->next; // Move to next node in the list
+
+    }
+
+    return NULL; // Return -1 if no match is found after checking all nodes in the bucket
+}
+
+
+void initialize_dmi_vector(dmi_list *look_up){
+    look_up->max_capacity = 100;
+    look_up->currently_filled = 0;
+
+    look_up->array = (DMI**)malloc(sizeof(DMI*) * 100);
+
+    //look_up->array = (DMI*)malloc(sizeof(DMI) * 20);
+    for(int i = 0; i < 256; i++){
+        look_up->hash_table.hash_bucket[i] = NULL;
+    }
+}
+
+
 
 int insert_state2(icon_state *iconState,  iconstate_hash *state_lookup, png_bytepp* image_data) {
 
-    unsigned long hash_index = hash_string2(iconState->state) % 256;  // Ensure hash_pixel is defined correctly
+    unsigned long hash_index = hash_string(iconState->state) % 256;  // Ensure hash_pixel is defined correctly
 
     if (state_lookup->hash_bucket[hash_index] == NULL) {
 
@@ -114,7 +201,7 @@ int match_state2(icon_state *name, icon_state *other_name){
 icon_state* find_state2(const char *name, iconstate_hash *state_lookup, icon_state find_state) {
 
     // Assuming hash_pixel function correctly calculates a hash based on Pixel_Data
-    unsigned long hash_index = hash_string2(name) % 256;  // Ensure hash_pixel is defined correctly
+    unsigned long hash_index = hash_string(name) % 256;  // Ensure hash_pixel is defined correctly
 
     iconStateNode *key_to_find = state_lookup->hash_bucket[hash_index];
 
@@ -138,16 +225,97 @@ icon_state* find_state2(const char *name, iconstate_hash *state_lookup, icon_sta
 /* A basic function to initialize a DMI struct. */
 void Init_DMI(DMI* dmi, int width, int height){
     dmi->num_of_states = 0;
-    dmi->max_state = 15;
+    dmi->max_state = 500;
     dmi->has_icons = false;
     dmi->version = 4.0;
-    dmi->width = width;
-    dmi->height = height;
+    dmi->icon_width = width;
+    dmi->icon_height = height;
+    dmi->frame_count = 0;
+
+    initialize_list(&dmi->iconStates, NULL, NULL, list_ins_next);
+
+
     dmi->icon_states = (icon_state*) malloc(sizeof(icon_state) * dmi->max_state);
     dmi->begin_icon_state = dmi->icon_states;
+    init_hash_table(&dmi->iconstate_lockup, 0, hash_string, NULL, NULL);
     for(int i = 0; i < 256; i++){
         dmi->iconstateHash.hash_bucket[i] = NULL;
     }
+
+    if(dmi->image != NULL){
+        png_uint_32 ratio = dmi->image->width / dmi->icon_width;
+        dmi->icon_row_bytes = dmi->image->row_bytes / ratio;
+    }
+}
+
+void populate_dmi(DMI dmi, Image image){
+    /*
+     * First we take the image data and check to see if there's a text chunk.
+     * If there is
+     * */
+    png_textp text_ptr;
+    int num_text;
+    if (png_get_text(image.png_ptr, image.info_ptr, &text_ptr, &num_text) < 0) {
+        fprintf(stdout, "No text data located!\n");
+        exit(1);
+    }
+
+    char *dmi_check = text_ptr->text;
+    char *string_parser;// = find_newline(dmi_check);
+
+    if(!(dmi_check = strstr(dmi_check, BEGIN_DMI))){
+        printf("There is no starting DMI token!\n");
+        exit(1);
+    }
+    int dmi_length = strlen(dmi_check);
+
+    if(dmi_length <= 0){
+        printf("There is no text to parse in this image!\n\n");
+        exit(1);
+    }
+
+    while(dmi_length > 0){
+        /* - First I need to skip all zTxt and go to the part where it BEGIN_DMI token is found. */
+        string_parser = find_newline(&dmi_check, &dmi_length, "\n");
+        Print_Variable(string_parser, &dmi);
+    }
+
+}
+DMI Init_DMI2(Image image){
+    DMI new_dmi;
+    new_dmi.color_type = image.color_type;
+    new_dmi.bit_depth = image.bit_depth;
+    new_dmi.info_ptr = image.info_ptr;
+    new_dmi.png_ptr = image.png_ptr;
+    new_dmi.bytes_per_pixel = image.pixels_per_byte;
+
+    /* Continue to make it copy all of the Image data*/
+    new_dmi.png_width = (int)image.width;
+    new_dmi.png_height = (int)image.height;
+
+
+    new_dmi.num_of_states = 0;
+    new_dmi.max_state = 15;
+    new_dmi.has_icons = false;
+    new_dmi.version = 4.0;
+
+
+    init_hash_table(&new_dmi.iconstate_lockup, 0, hash_string, NULL, NULL);
+    for(int i = 0; i < 256; i++){
+        new_dmi.iconstateHash.hash_bucket[i] = NULL;
+    }
+
+    populate_dmi(new_dmi, image);
+    return new_dmi;
+}
+
+void vector_push_back_iconstate(Vector* vec, void* object){
+    if (vec->current_capacity == vec->max_capacity) {
+        vector_resize(vec);
+    }
+    icon_state* target = (icon_state *)((char*)vec->data + vec->current_capacity * vec->byte_size);
+    *target = *(icon_state *)object;  // Assuming 'object' is a pointer to int
+    vec->current_capacity++;
 }
 
 void add_iconstate(DMI* dmi, icon_state *iconState, png_bytepp image_data){
@@ -244,6 +412,85 @@ void create_dmi(DMI* dmi){
     png_write_image(new_image.png_ptr, new_image.pixel_array);
     png_write_end(new_image.png_ptr, NULL);
 }
+
+
+void dmi2image(DMI* dmi){
+    Image new_image;
+
+    /** - First we want to make sure we can specify the dimensions for the new PNG. These dimensions depend on:
+     *      # the icon_width and icon_height for the DMI.
+     *      # Number of total frames.
+     *
+     *      # It can vary depending on if we are converting the dmi struct vto an DMI, or to a PNG (Spritesheet)
+     *          # In the event of a DMI, the final dimensions will following calculation below:
+     *              # ???
+     *
+     *          # In the event it is a PNG, we assume for now that is a spritesheet. So we'll need to run a separate
+     *              routine that I have already designed elsewhere to get the dimensions for the spritesheet.
+     *
+     *  - Next, we'd want to initialize an Image struct with the above dimensions, but also the dmi's color_type, bit_depth,
+     *          palette_chunk, etc.
+     *
+     *   - Luckily, the initialization of the Image struct handles building out the necessary space needed to store all of the
+     *    pixel data
+     *
+     *   - I then simply loop through each icon_state, and fill in the pixel data according:
+     *          - In the event that this is a DMI, I sequentially just copy over one frame per direction.
+     *          - In the event that I am making it into a sprite sheet, then I simply copy all of the frames in a direction
+     *            per loop and move to the next row or what have you.
+     *
+     *    - In the case of DMI being written too, I would simply fill in the textual data next.
+     *      - NOTE: Probably need to keep track the number of characters a icon currently has.
+     *    - Once done, I write the image to file.
+     * **/
+
+    /** **/
+//    int width = 32;
+//    int height = 32;
+//    int start_row = 0;
+//    int start_col = 0;
+//    get_dmi_dimensions(&width, &height, 32, dmi->num_of_states);
+//    initialize_image2(dmi->name, &new_image, &dmi->bit_depth, &dmi->color_type, &width, &height);
+//
+//    for(int i = 0; i < height; i++){
+//        for(int j = 0; j < new_image.row_bytes ; j++){
+//            new_image.pixel_array[i][j] = 0;
+//        }
+//    }
+//    char zTxt[100000] = "#BEGIN DMI\nversion = 4.0\n\twidth = 32\n\theight = 32\n";
+//
+//    for(int i = 0; i < dmi->num_of_states; i++){
+//        for(int j = 0; j < 32; j++){
+//            memcpy(&new_image.pixel_array[start_row+j][start_col*4], dmi->icon_states[i].frames[j], sizeof(png_byte) * 128);
+//        }
+//        start_col += 32;
+//        if(start_col >= width){
+//            start_col = 0;
+//            start_row += 32;
+//        }
+//        char additional_info[256];
+//        sprintf(additional_info, "state = \"%s\"\n\tdirs = 1\n\tframes = 1\n\tdelay = 1\n",
+//                dmi->icon_states[i].state);
+//        strcat(zTxt, additional_info);  // Append new state info to zTxt
+//
+//    }
+//
+//
+//
+//    png_text text_chunk;
+//    text_chunk.compression = PNG_TEXT_COMPRESSION_zTXt;
+//    text_chunk.key = "Description";
+//    text_chunk.text = zTxt;
+//    text_chunk.text_length = strlen(zTxt);
+//
+//    png_set_text(new_image.png_ptr, new_image.info_ptr, &text_chunk, 1);  // Correctly apply the single text_chunk
+//
+//    png_write_info(new_image.png_ptr, new_image.info_ptr);
+//    png_write_image(new_image.png_ptr, new_image.pixel_array);
+//    png_write_end(new_image.png_ptr, NULL);
+}
+
+
 /** This function needs to be refactored and renamed.
  *  It's used to get the height of a spritesheet that is in HORIZONTAL_FLOW format. */
 
@@ -265,8 +512,8 @@ void initialize_sheet_data(SpriteSheetData* sheet_data){
 }
 
 Image create_sprite_sheet(Image* initial_image, SpriteSheetData* sheet_data, DMI new_icon, char* file_name){
-    sheet_data->frame_width = new_icon.width;
-    sheet_data->frame_height = new_icon.height;
+    sheet_data->frame_width = new_icon.png_width;
+    sheet_data->frame_height = new_icon.png_height;
     if(sheet_data->format == GRID){
 
         calculate_grid_sheet_dimensions(&new_icon, sheet_data, sheet_data->grid_size);
@@ -405,7 +652,7 @@ int sheet2dmi(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData s
 }
 
 int dmi2sheet2(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData sheetData){
-    int DMI_HEIGHT = dmi->height, DMI_WIDTH = (dmi->width) / source_image.pixels_per_byte;
+    int DMI_HEIGHT = dmi->png_height, DMI_WIDTH = (dmi->png_width) / source_image.pixels_per_byte;
     int icon_state_index = 0;
     int numOfStates = dmi->num_of_states;
     int total_frames = 0;
@@ -507,7 +754,7 @@ int dmi2sheet2(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData 
 
 
 int dmi2sheet(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData sheetData){
-    int DMI_HEIGHT = dmi->height, DMI_WIDTH = (dmi->width) / source_image.pixels_per_byte;
+    int DMI_HEIGHT = dmi->png_height, DMI_WIDTH = (dmi->png_width) / source_image.pixels_per_byte;
     printf("pixels_per_byte = %d\n", source_image.pixels_per_byte);
     //sleep(10);
     int icon_state_index = 0;

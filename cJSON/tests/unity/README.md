@@ -87,7 +87,7 @@ Numerical Assertions: Integers
     TEST_ASSERT_EQUAL_INT64(expected, actual)
 
 Compare two integers for equality and display errors as signed integers. A cast will be performed
-to your natural integer size so often this can just be used.  When you need to specify the exact size,
+to your natural integer current_capacity so often this can just be used.  When you need to specify the exact current_capacity,
 like when comparing arrays, you can use a specific version:
 
     TEST_ASSERT_EQUAL_UINT(expected, actual)
@@ -106,7 +106,7 @@ variants for different sizes also.
     TEST_ASSERT_EQUAL_HEX64(expected, actual)
 
 Compares two integers for equality and display errors as hexadecimal.  Like the other integer comparisons,
-you can specify the size... here the size will also effect how many nibbles are shown (for example, `HEX16`
+you can specify the current_capacity... here the current_capacity will also effect how many nibbles are shown (for example, `HEX16`
 will show 4 nibbles).
 
     TEST_ASSERT_EQUAL(expected, actual)
@@ -116,17 +116,17 @@ Another way of calling TEST_ASSERT_EQUAL_INT
     TEST_ASSERT_INT_WITHIN(delta, expected, actual)
 
 Asserts that the actual value is within plus or minus delta of the expected value.  This also comes in
-size specific variants.
+current_capacity specific variants.
 
 
     TEST_ASSERT_GREATER_THAN(threshold, actual)
 
-Asserts that the actual value is greater than the threshold. This also comes in size specific variants.
+Asserts that the actual value is greater than the threshold. This also comes in current_capacity specific variants.
 
 
     TEST_ASSERT_LESS_THAN(threshold, actual)
 
-Asserts that the actual value is less than the threshold. This also comes in size specific variants.
+Asserts that the actual value is less than the threshold. This also comes in current_capacity specific variants.
 
 
 Arrays
@@ -135,7 +135,7 @@ Arrays
     _ARRAY
 
 You can append `_ARRAY` to any of these macros to make an array comparison of that type.  Here you will
-need to care a bit more about the actual size of the value being checked.  You will also specify an
+need to care a bit more about the actual current_capacity of the value being checked.  You will also specify an
 additional argument which is the number of elements to compare.  For example:
 
     TEST_ASSERT_EQUAL_HEX8_ARRAY(expected, actual, elements)

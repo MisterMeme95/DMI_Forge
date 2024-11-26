@@ -254,7 +254,7 @@ Deleting items is done with `cJSON_DeleteItemFromArray`. It works like `cJSON_De
 
 You can also replace an item in an array in place. Either with `cJSON_ReplaceItemInArray` using an index or with `cJSON_ReplaceItemViaPointer` given a pointer to an element. `cJSON_ReplaceItemViaPointer` will return `0` if it fails. What this does internally is to detach the old item, delete it and insert the new item in its place.
 
-To get the size of an array, use `cJSON_GetArraySize`. Use `cJSON_GetArrayItem` to get an element at a given index.
+To get the current_capacity of an array, use `cJSON_GetArraySize`. Use `cJSON_GetArrayItem` to get an element at a given index.
 
 Because an array is stored as a linked list, iterating it via index is inefficient (`O(n²)`), so you can iterate over an array using the `cJSON_ArrayForEach` macro in `O(n)` time complexity.
 
@@ -271,7 +271,7 @@ Deleting items is done with `cJSON_DeleteItemFromObjectCaseSensitive`. It works 
 
 You can also replace an item in an object in place. Either with `cJSON_ReplaceItemInObjectCaseSensitive` using a key or with `cJSON_ReplaceItemViaPointer` given a pointer to an element. `cJSON_ReplaceItemViaPointer` will return `0` if it fails. What this does internally is to detach the old item, delete it and insert the new item in its place.
 
-To get the size of an object, you can use `cJSON_GetArraySize`, this works because internally objects are stored as arrays.
+To get the current_capacity of an object, you can use `cJSON_GetArraySize`, this works because internally objects are stored as arrays.
 
 If you want to access an item in an object, use `cJSON_GetObjectItemCaseSensitive`.
 
@@ -317,7 +317,7 @@ It will allocate a string and print a JSON representation of the tree into it. O
 
 `cJSON_Print` will print with whitespace for formatting. If you want to print without formatting, use `cJSON_PrintUnformatted`.
 
-If you have a rough idea of how big your resulting string will be, you can use `cJSON_PrintBuffered(const cJSON *item, int prebuffer, cJSON_bool fmt)`. `fmt` is a boolean to turn formatting with whitespace on and off. `prebuffer` specifies the first buffer size to use for printing. `cJSON_Print` currently uses 256 bytes for its first buffer size. Once printing runs out of space, a new buffer is allocated and the old gets copied over before printing is continued.
+If you have a rough idea of how big your resulting string will be, you can use `cJSON_PrintBuffered(const cJSON *item, int prebuffer, cJSON_bool fmt)`. `fmt` is a boolean to turn formatting with whitespace on and off. `prebuffer` specifies the first buffer current_capacity to use for printing. `cJSON_Print` currently uses 256 bytes for its first buffer current_capacity. Once printing runs out of space, a new buffer is allocated and the old gets copied over before printing is continued.
 
 These dynamic buffer allocations can be completely avoided by using `cJSON_PrintPreallocated(cJSON *item, char *buffer, const int length, const cJSON_bool format)`. It takes a buffer to a pointer to print to and its length. If the length is reached, printing will fail and it returns `0`. In case of success, `1` is returned. Note that you should provide 5 bytes more than is actually needed, because cJSON is not 100% accurate in estimating if the provided memory is enough.
 
@@ -330,16 +330,16 @@ In this example we want to build and parse the following JSON:
     "name": "Awesome 4K",
     "resolutions": [
         {
-            "width": 1280,
-            "height": 720
+            "png_width": 1280,
+            "png_height": 720
         },
         {
-            "width": 1920,
-            "height": 1080
+            "png_width": 1920,
+            "png_height": 1080
         },
         {
-            "width": 3840,
-            "height": 2160
+            "png_width": 3840,
+            "png_height": 2160
         }
     ]
 }
@@ -363,8 +363,8 @@ char *create_monitor(void)
     cJSON *name = NULL;
     cJSON *resolutions = NULL;
     cJSON *resolution = NULL;
-    cJSON *width = NULL;
-    cJSON *height = NULL;
+    cJSON *png_width = NULL;
+    cJSON *png_height = NULL;
     size_t index = 0;
 
     cJSON *monitor = cJSON_CreateObject();
@@ -398,19 +398,19 @@ char *create_monitor(void)
         }
         cJSON_AddItemToArray(resolutions, resolution);
 
-        width = cJSON_CreateNumber(resolution_numbers[index][0]);
-        if (width == NULL)
+        png_width = cJSON_CreateNumber(resolution_numbers[index][0]);
+        if (png_width == NULL)
         {
             goto end;
         }
-        cJSON_AddItemToObject(resolution, "width", width);
+        cJSON_AddItemToObject(resolution, "png_width", png_width);
 
-        height = cJSON_CreateNumber(resolution_numbers[index][1]);
-        if (height == NULL)
+        png_height = cJSON_CreateNumber(resolution_numbers[index][1]);
+        if (png_height == NULL)
         {
             goto end;
         }
-        cJSON_AddItemToObject(resolution, "height", height);
+        cJSON_AddItemToObject(resolution, "png_height", png_height);
     }
 
     string = cJSON_Print(monitor);
@@ -457,12 +457,12 @@ char *create_monitor_with_helpers(void)
     {
         cJSON *resolution = cJSON_CreateObject();
 
-        if (cJSON_AddNumberToObject(resolution, "width", resolution_numbers[index][0]) == NULL)
+        if (cJSON_AddNumberToObject(resolution, "png_width", resolution_numbers[index][0]) == NULL)
         {
             goto end;
         }
 
-        if (cJSON_AddNumberToObject(resolution, "height", resolution_numbers[index][1]) == NULL)
+        if (cJSON_AddNumberToObject(resolution, "png_height", resolution_numbers[index][1]) == NULL)
         {
             goto end;
         }
@@ -515,16 +515,16 @@ int supports_full_hd(const char * const monitor)
     resolutions = cJSON_GetObjectItemCaseSensitive(monitor_json, "resolutions");
     cJSON_ArrayForEach(resolution, resolutions)
     {
-        cJSON *width = cJSON_GetObjectItemCaseSensitive(resolution, "width");
-        cJSON *height = cJSON_GetObjectItemCaseSensitive(resolution, "height");
+        cJSON *png_width = cJSON_GetObjectItemCaseSensitive(resolution, "png_width");
+        cJSON *png_height = cJSON_GetObjectItemCaseSensitive(resolution, "png_height");
 
-        if (!cJSON_IsNumber(width) || !cJSON_IsNumber(height))
+        if (!cJSON_IsNumber(png_width) || !cJSON_IsNumber(png_height))
         {
             status = 0;
             goto end;
         }
 
-        if ((width->valuedouble == 1920) && (height->valuedouble == 1080))
+        if ((png_width->valuedouble == 1920) && (png_height->valuedouble == 1080))
         {
             status = 1;
             goto end;

@@ -68,6 +68,130 @@ void print_usage() {
     );
 }
 
+// Function to get the head of the linked list
+icon_state* get_head_of_iconStates(list* iconStates) {
+    if (!iconStates || !iconStates->head) {
+        fprintf(stderr, "Error: iconStates is empty.\n");
+        return NULL;
+    }
+
+    return (icon_state*)iconStates->head->data; // Assuming head points to the first icon_state
+}
+
+void create_png_from_icon_state(DMI* new_icon, const char* output_file) {
+    // Open the output file
+    FILE* fp = fopen(output_file, "wb");
+    if (!fp) {
+        perror("Failed to open output file");
+        return;
+    }
+
+    // Initialize write structs
+    png_structp png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+    if (!png_ptr) {
+        fclose(fp);
+        perror("Failed to create png_struct");
+        return;
+    }
+
+    png_infop info_ptr = png_create_info_struct(png_ptr);
+    if (!info_ptr) {
+        png_destroy_write_struct(&png_ptr, NULL);
+        fclose(fp);
+        perror("Failed to create info_ptr");
+        return;
+    }
+
+    if (setjmp(png_jmpbuf(png_ptr))) {
+        png_destroy_write_struct(&png_ptr, &info_ptr);
+        fclose(fp);
+        perror("Error during PNG creation");
+        return;
+    }
+
+    png_set_compression_level(png_ptr, PNG_COMPRESSION_TYPE_DEFAULT);
+
+    png_init_io(png_ptr, fp);
+
+    // Get the head of the iconStates linked list
+    icon_state* first_state = get_head_of_iconStates(&new_icon->iconStates);
+    if (!first_state) {
+        png_destroy_write_struct(&png_ptr, &info_ptr);
+        fclose(fp);
+        fprintf(stderr, "Error: No icon states available.\n");
+        return;
+    }
+
+    // Set IHDR (image header) based on new_icon->image
+    png_set_IHDR(
+            png_ptr, info_ptr,
+            new_icon->icon_width * first_state->number_of_frames,  // Image width
+            new_icon->icon_height * first_state->dirs,            // Image height
+            new_icon->image->bit_depth,                           // Bit depth
+            new_icon->image->color_type,                          // Color type
+            PNG_INTERLACE_NONE,                                   // Interlace method
+            PNG_COMPRESSION_TYPE_DEFAULT,                         // Compression method
+            PNG_FILTER_TYPE_DEFAULT                               // Filter method
+    );
+
+    // Set palette if needed
+    if (new_icon->image->color_type == PNG_COLOR_TYPE_PALETTE) {
+        png_set_PLTE(png_ptr, info_ptr, new_icon->image->palette, new_icon->image->palette_num);
+    }
+
+    // Write IHDR
+    png_write_info(png_ptr, info_ptr);
+
+    // Allocate new pixel array
+    int total_height = first_state->dirs * new_icon->icon_height;
+    int total_width = first_state->number_of_frames * new_icon->icon_width;
+
+    png_bytepp new_pixel_array = (png_bytepp)malloc(total_height * sizeof(png_bytep));
+    for (int row = 0; row < total_height; row++) {
+        new_pixel_array[row] = (png_bytep)malloc(total_width * new_icon->icon_row_bytes);
+
+        // Initialize the row with all zeros
+        memset(new_pixel_array[row], 0, total_width * new_icon->icon_row_bytes);
+    }
+
+    // Populate new pixel array
+    for (int row = 0; row < first_state->dirs; row++) {
+        // Cast the void* to a png_bytepp*
+        png_bytepp* pixel_data_list = (png_bytepp*)first_state->frame_vector[row].data;
+
+        for (int frame = 0; frame < first_state->number_of_frames; frame++) {
+            png_bytepp pixel_data = pixel_data_list[frame];
+
+            for (int pixel_row = 0; pixel_row < new_icon->icon_height; pixel_row++) {
+                int target_row = row * new_icon->icon_height + pixel_row;
+                int target_col = frame * new_icon->icon_row_bytes;
+
+                // Copy the pixel data row into the appropriate position in the new pixel array
+                memcpy(new_pixel_array[target_row] + target_col,pixel_data[pixel_row],new_icon->icon_row_bytes);
+
+            }
+
+        }
+
+    }
+
+    // Write the new pixel array using png_write_image
+    png_write_image(png_ptr, new_pixel_array);
+
+    // End writing
+    png_write_end(png_ptr, NULL);
+
+    // Free the new pixel array
+    for (int row = 0; row < total_height; row++) {
+        free(new_pixel_array[row]);
+    }
+    free(new_pixel_array);
+
+    // Clean up
+    png_destroy_write_struct(&png_ptr, &info_ptr);
+    fclose(fp);
+    printf("PNG file '%s' created successfully.\n", output_file);
+}
 
 int main(int argc, char **argv){
     SpriteSheetData sheet_data;
@@ -185,6 +309,7 @@ int main(int argc, char **argv){
         }
     }
     DMI *new_icon = (DMI*) malloc(sizeof(DMI));
+    new_icon->image = &image;
     Init_DMI(new_icon, 32, 32);
 
     char *dmi_check = text_ptr->text;
@@ -195,7 +320,7 @@ int main(int argc, char **argv){
 
         return 0;
     }
-    int dmi_length = strlen(dmi_check);
+    int dmi_length = (int)strlen(dmi_check);
 
     if(dmi_length <= 0){
         printf("There is no text to parse in this image!\n\n");
@@ -207,6 +332,7 @@ int main(int argc, char **argv){
         string_parser = find_newline(&dmi_check, &dmi_length, "\n");
         Print_Variable(string_parser, new_icon);
     }
+
 
     if(fflag == 0) {
         if (access(output_name, F_OK) == 0) {
@@ -251,6 +377,8 @@ int main(int argc, char **argv){
             }
         }
     }
+    create_png_from_icon_state(new_icon, "testicon.png");
+
 
    // sheet_data.format = GRID;
     sheet_data.margin_x = 0;
@@ -292,5 +420,17 @@ int main(int argc, char **argv){
     png_write_end(sprite_sheet.png_ptr, NULL);
     //png_destroy_write_struct(&write_png_ptr, &write_info_ptr);
     //png_destroy_read_struct(&read_png_ptr, &read_info_ptr);
+
+    printf("Testing linked list. . \n");
+    node* lol = new_icon->iconStates.head;
+//    while(lol != NULL){
+//        icon_state* fake_icon = (icon_state*)lol->data;
+//        printf("Icon_state = %s\n", fake_icon->state);
+//        printf("Num Of Dirs = %d\n", fake_icon->dirs);
+//        printf("Num of Frames = %d\n\n", fake_icon->number_of_frames);
+//
+//        lol = lol->next;
+//
+//    }
     return EXIT_SUCCESS;
 }

@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "vector.h"
+
 #define BEGIN_DMI "# BEGIN DMI"
 #define END_DMI "# END DMI"
 #define DMI_VERSION "version"
@@ -22,7 +24,7 @@
 
 #include "png.h"
 #include "PixelManip.h"
-
+#include "data_structure.h"
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -55,22 +57,62 @@ typedef struct iconstate_lookup_table {
     iconStateNode *hash_bucket[256];
 } iconstate_hash;
 
-typedef struct DMI_Struct {
 
+/** @brief This is a struct that is used to represent all of the data encompassed within a DMI (Dream Maker Icon).
+ * Since a DMI is just a PNG with special metadata, this data structure contains all of the necessary members provided by
+ * the libpng specification.
+ *
+ * @param png_ptr - A pointer linking to the png data.
+ * @param info_ptr - This contains all of the relevant metadata, like height, bit_depth, etc.
+ * @param trans_color - This a png_color value that is used for RGB and Gray images to specify transparency color.
+ * @param palette - This is an array of png_color that stores valid entries for a paletted image.
+ * @param palette_num - This is the number of entries in the palette array.
+ * @param trans_alpha - Trans_alpha is a png_byte array that contains list of alpha pixel indexes for paletted images.
+ *
+ *
+ * @param png_width - This represents the width.
+ * @param png_height - This represents the height.
+ * @param icon_width - icon_width represents the width for each frame in the DMI.
+ * @param icon_height - icon_height represents the height for each frame in the DMI.
+ *
+ * @param bit_depth - This represents bit_depth, which is used to specify the size of each color channel.
+ * @param color_type - This represents the type of color format for the image. [RGB, RGBA, Gray, Gray & Alpha, Indexed]
+ **/
+
+//oko
+typedef struct DMI_Struct {
+    Image* image;
+    png_structp png_ptr;
+    png_infop info_ptr;
+    png_colorp palette;
+    png_bytep trans_alpha;
+    png_color_16p trans_color;
     int bit_depth;
     int color_type;
-    double bytes_per_pixel;
+    int bytes_per_pixel;
+
 
     char *name;
+
     bool has_icons;
     double version;
-    int width, height, num_of_states, max_state;
+
+    int png_width, png_height, num_of_states, max_state;
+    int icon_width, icon_height;
+    int frame_count;
+    png_uint_32 icon_row_bytes;
+
     icon_state *icon_states, *begin_icon_state;
 
+    /* asdesd */
+    list iconStates;
+
     /* Hash Table of icon_states*/
+    hash_table iconstate_lockup;
     iconstate_hash iconstateHash;
 } DMI;
 
+void vector_push_back_iconstate(Vector* vec, void* object);
 
 typedef struct FrameExtractHandler {
     png_uint_32 starting_column;
@@ -89,11 +131,43 @@ typedef struct FrameExtractHandler {
     png_uint_32 row_tracker;
 
 } FrameExtractor;
+typedef struct dmi_node {
+    int index;
+    DMI icon;
+    struct dmi_node *next;
+    struct dmi_node *prev;
+} dmi_node;
+
+
+
+typedef struct DMI_HASH{
+    int MAX_VALUE;
+    dmi_node *hash_bucket[256];
+}dmi_hash;
+
+/* We will make this into a vector_map. In this data structure, an object is */
+typedef struct dmilist {
+    DMI **array;
+    int max_capacity;
+    int currently_filled;
+    hash_table lookup_table;
+    dmi_hash hash_table;
+} dmi_list;
+
+typedef struct arraySet {
+    Vector dmi_vector;
+    hash_table lol;
+} array_set;
+
+void initialize_dmi_vector(dmi_list *look_up);
+
+int insert_dmi(const char *name,  dmi_hash *state_lookup);
 
 void add_iconstate(DMI* dmi, icon_state *iconState, png_bytepp image_data);
 void Resize_IconStates(DMI *dmi, int new_size);
 void create_dmi(DMI* dmi);
 int PNG_To_DMI();
+DMI* find_dmi(const char *name, dmi_hash *state_lookup, DMI* find_state);
 
 void Init_DMI(DMI *dmi, int width, int height);
 
