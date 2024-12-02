@@ -1349,6 +1349,23 @@ void load_image2(Image *image, char *file_name) {
         }
     }
     png_read_image(image->png_ptr, image->pixel_array);
+    switch (image->bit_depth) {
+        case 1:
+            image->pixels_per_byte = 8;
+            break;
+        case 2:
+            image->pixels_per_byte = 4;
+            break;
+        case 4:
+            image->pixels_per_byte = 2;
+            break;
+
+        default:
+            image->pixels_per_byte = 1;
+            break;
+    }
+
+
 }
 
 int check_if_png(char *file_name, FILE **fp) {

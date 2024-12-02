@@ -258,22 +258,6 @@ int main(int argc, char **argv){
         changeExtension(output_name, ".png");
     }
 
-    Image image = load_image(input_name);
-    switch (image.bit_depth) {
-        case 1:
-            image.pixels_per_byte = 8;
-            break;
-        case 2:
-            image.pixels_per_byte = 4;
-            break;
-        case 4:
-            image.pixels_per_byte = 2;
-            break;
-
-        default:
-            image.pixels_per_byte = 1;
-            break;
-    }
 
 
     DMI *new_icon = (DMI*) malloc(sizeof(DMI));
@@ -340,18 +324,19 @@ int main(int argc, char **argv){
         }
     }
 
-    dmi2sheet(new_icon, image, sprite_sheet, sheet_data);
+    dmi2sheet(new_icon, sprite_sheet, sheet_data);
 
-    if (image.color_type == PNG_COLOR_TYPE_PALETTE) {
-        png_get_PLTE(image.png_ptr, image.info_ptr, &image.palette, &image.palette_num);
-        png_set_PLTE(sprite_sheet.png_ptr, sprite_sheet.info_ptr, image.palette, image.palette_num);
+    if (new_icon->image->color_type == PNG_COLOR_TYPE_PALETTE) {
+        png_get_PLTE(new_icon->image->png_ptr, new_icon->image->info_ptr, &new_icon->image->palette,
+                     &new_icon->image->palette_num);
+        png_set_PLTE(sprite_sheet.png_ptr, sprite_sheet.info_ptr, new_icon->image->palette, new_icon->image->palette_num);
 
         png_bytep trans_alpha = NULL;
         int num_trans = 0;
         png_color_16p trans_color = NULL;
 
-        if (png_get_valid(image.png_ptr, image.info_ptr, PNG_INFO_tRNS)) {
-            png_get_tRNS(image.png_ptr, image.info_ptr, &trans_alpha, &num_trans, &trans_color);
+        if (png_get_valid(new_icon->image->png_ptr, new_icon->image->info_ptr, PNG_INFO_tRNS)) {
+            png_get_tRNS(new_icon->image->png_ptr, new_icon->image->info_ptr, &trans_alpha, &num_trans, &trans_color);
             png_set_tRNS(sprite_sheet.png_ptr, sprite_sheet.info_ptr, trans_alpha, num_trans, trans_color);
         }
     }

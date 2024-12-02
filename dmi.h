@@ -209,7 +209,7 @@ Image create_sprite_sheet(SpriteSheetData *sheet_data, DMI new_icon, char *file_
 /** @Description This function handles conversion from a DMI image into a spritesheet. All sprite-sheet specifications,
  * like the format, margins, padding -- are stored in the sheetData argument.
  * */
-int dmi2sheet(DMI *dmi, Image source_image, Image sheet_image, SpriteSheetData sheetData);
+int dmi2sheet(DMI *dmi, Image sheet_image, SpriteSheetData sheetData);
 
 int dmi2sheet2(DMI *dmi, Image source_image, Image sheet_image, SpriteSheetData sheetData);
 
