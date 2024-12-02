@@ -3,11 +3,8 @@
 #include "png.h"
 #include "dmi.h"
 #include <getopt.h>
-#include <omp.h>
 
-#define STDERR stdout
 #define INVALID -100
-#include <time.h>
 
 void changeExtension(char* filename, const char* newExt) {
     char* extPos = strstr(filename, ".dmi");
@@ -86,7 +83,6 @@ void create_png_from_icon_state(DMI* new_icon, const char* output_file) {
         return;
     }
 
-    // Initialize write structs
     png_structp png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
     if (!png_ptr) {
         fclose(fp);
@@ -122,7 +118,6 @@ void create_png_from_icon_state(DMI* new_icon, const char* output_file) {
         return;
     }
 
-    // Set IHDR (image header) based on new_icon->image
     png_set_IHDR(
             png_ptr, info_ptr,
             new_icon->icon_width * first_state->number_of_frames,  // Image width
@@ -134,60 +129,42 @@ void create_png_from_icon_state(DMI* new_icon, const char* output_file) {
             PNG_FILTER_TYPE_DEFAULT                               // Filter method
     );
 
-    // Set palette if needed
     if (new_icon->image->color_type == PNG_COLOR_TYPE_PALETTE) {
         png_set_PLTE(png_ptr, info_ptr, new_icon->image->palette, new_icon->image->palette_num);
     }
 
-    // Write IHDR
     png_write_info(png_ptr, info_ptr);
 
-    // Allocate new pixel array
     int total_height = first_state->dirs * new_icon->icon_height;
     int total_width = first_state->number_of_frames * new_icon->icon_width;
 
     png_bytepp new_pixel_array = (png_bytepp)malloc(total_height * sizeof(png_bytep));
     for (int row = 0; row < total_height; row++) {
-        new_pixel_array[row] = (png_bytep)malloc(total_width * new_icon->icon_row_bytes);
 
-        // Initialize the row with all zeros
+        new_pixel_array[row] = (png_bytep)malloc(total_width * new_icon->icon_row_bytes);
         memset(new_pixel_array[row], 0, total_width * new_icon->icon_row_bytes);
     }
 
-    // Populate new pixel array
     for (int row = 0; row < first_state->dirs; row++) {
-        // Cast the void* to a png_bytepp*
         png_bytepp* pixel_data_list = (png_bytepp*)first_state->frame_vector[row].data;
-
         for (int frame = 0; frame < first_state->number_of_frames; frame++) {
             png_bytepp pixel_data = pixel_data_list[frame];
 
             for (int pixel_row = 0; pixel_row < new_icon->icon_height; pixel_row++) {
                 int target_row = row * new_icon->icon_height + pixel_row;
                 int target_col = frame * new_icon->icon_row_bytes;
-
-                // Copy the pixel data row into the appropriate position in the new pixel array
                 memcpy(new_pixel_array[target_row] + target_col,pixel_data[pixel_row],new_icon->icon_row_bytes);
-
             }
-
         }
-
     }
 
-    // Write the new pixel array using png_write_image
     png_write_image(png_ptr, new_pixel_array);
-
-    // End writing
     png_write_end(png_ptr, NULL);
-
-    // Free the new pixel array
     for (int row = 0; row < total_height; row++) {
         free(new_pixel_array[row]);
     }
     free(new_pixel_array);
 
-    // Clean up
     png_destroy_write_struct(&png_ptr, &info_ptr);
     fclose(fp);
     printf("PNG file '%s' created successfully.\n", output_file);
@@ -217,7 +194,6 @@ int main(int argc, char **argv){
                    {"height", required_argument, 0, 'h'}
             };
 
-
         int opt;
         while ((opt = getopt_long(argc, argv, "i:o:b:c:h:w:g:", long_options, NULL)) != -1) {
             switch (opt) {
@@ -245,6 +221,7 @@ int main(int argc, char **argv){
 
                 case 'f':
                     break;
+
                 case 'g':
                     if(sheet_data.format == GRID){
                         sheet_data.grid_size = atoi(optarg);
@@ -298,43 +275,9 @@ int main(int argc, char **argv){
             break;
     }
 
-    png_textp text_ptr;
-    int num_text;
-    if (png_get_text(image.png_ptr, image.info_ptr, &text_ptr, &num_text) > 0) {
-        png_uint_32 i;
-       // fprintf(STDERR,"\n");
-        for (i=0; i<num_text; i++){
-          //  fprintf(STDERR,"Text compression[%d]=%d\n",
-                 //   i, text_ptr[i].compression);
-        }
-    }
-    DMI *new_icon = (DMI*) malloc(sizeof(DMI));
-    //new_icon->image = &image;
-    printf("Died here. . \n");
 
+    DMI *new_icon = (DMI*) malloc(sizeof(DMI));
     initialize_dmi_struct(new_icon, input_name);
-    //Init_DMI(new_icon, 32, 32);
-//
-//    char *dmi_check = text_ptr->text;
-//    char *string_parser;// = find_newline(dmi_check);
-//
-//    if(!(dmi_check = strstr(dmi_check, BEGIN_DMI))){
-//        printf("There is no starting DMI token!\n");
-//
-//        return 0;
-//    }
-//    int dmi_length = (int)strlen(dmi_check);
-//
-//    if(dmi_length <= 0){
-//        printf("There is no text to parse in this image!\n\n");
-//        return 0;
-//    }
-//
-//    while(dmi_length > 0){
-//        /* - First I need to skip all zTxt and go to the part where it BEGIN_DMI token is found. */
-//        string_parser = find_newline(&dmi_check, &dmi_length, "\n");
-//        Print_Variable(string_parser, new_icon);
-//    }
 
 
     if(fflag == 0) {
@@ -343,16 +286,16 @@ int main(int argc, char **argv){
             printf("Warning: %s already exists!\nDo you wish to overwrite it? (Y/N): ", output_name);
             fflush(stdout);
             do {
-                scanf(" %c", &overwrite); // space before %c consumes any whitespace characters, including 'enter'
-                while (getchar() != '\n'); // clean the buffer
+                scanf(" %c", &overwrite);
+                while (getchar() != '\n');
 
                 if (overwrite == 'Y' || overwrite == 'y' || overwrite == 'N' || overwrite == 'n') {
-                    break; // Exit the loop if a valid input is given
+                    break;
                 } else {
                     printf("Invalid input. Please enter 'Y' or 'N': ");
                     fflush(stdout);
                 }
-            } while (1); // Keep looping until a valid input is provided
+            } while (1);
 
             if (overwrite != 'Y' && overwrite != 'y') {
                 int count = 1;
@@ -380,34 +323,29 @@ int main(int argc, char **argv){
             }
         }
     }
-   // create_png_from_icon_state(new_icon, "testicon.png");
+    create_png_from_icon_state(new_icon, "testicon.png");
+    adjust_icon_state(new_icon, GET_TAIL_ICONSTATE(new_icon));
 
 
-   // sheet_data.format = GRID;
     sheet_data.margin_x = 0;
     sheet_data.margin_y = 0;
     sheet_data.padding_y = 0;
     sheet_data.padding_x = 0;
 
-    printf("Died here. .\n");
 
-    Image sprite_sheet = create_sprite_sheet(&image, &sheet_data, *new_icon, output_name);
+    Image sprite_sheet = create_sprite_sheet(&sheet_data, *new_icon, output_name);
     for(int i = 0; i < sprite_sheet.height; i++){
         for(int j = 0; j < png_get_rowbytes(sprite_sheet.png_ptr, sprite_sheet.info_ptr); j++){
             sprite_sheet.pixel_array[i][j] = 0;
         }
     }
 
-    printf("Died here. . \n");
     dmi2sheet(new_icon, image, sprite_sheet, sheet_data);
-   // dmi2sheet2(new_icon, image, sprite_sheet, sheet_data);
 
     if (image.color_type == PNG_COLOR_TYPE_PALETTE) {
-        // Get the palette and set it on the sprite sheet
         png_get_PLTE(image.png_ptr, image.info_ptr, &image.palette, &image.palette_num);
         png_set_PLTE(sprite_sheet.png_ptr, sprite_sheet.info_ptr, image.palette, image.palette_num);
 
-        // Check if the tRNS chunk is present and set it on the sprite sheet
         png_bytep trans_alpha = NULL;
         int num_trans = 0;
         png_color_16p trans_color = NULL;
@@ -421,19 +359,8 @@ int main(int argc, char **argv){
     png_write_image(sprite_sheet.png_ptr, sprite_sheet.pixel_array);
 
     png_write_end(sprite_sheet.png_ptr, NULL);
-    //png_destroy_write_struct(&write_png_ptr, &write_info_ptr);
-    //png_destroy_read_struct(&read_png_ptr, &read_info_ptr);
+    png_destroy_write_struct(&sprite_sheet.png_ptr, &sprite_sheet.info_ptr);
+  //  png_destroy_read_struct(&read_png_ptr, &read_info_ptr);
 
-    printf("Testing linked list. . \n");
-    node* lol = new_icon->iconStates.head;
-    while(lol != NULL){
-        icon_state* fake_icon = (icon_state*)lol->data;
-        printf("Icon_state = %s\n", fake_icon->state);
-        printf("Num Of Dirs = %d\n", fake_icon->dirs);
-        printf("Num of Frames = %d\n\n", fake_icon->number_of_frames);
-
-        lol = lol->next;
-
-    }
     return EXIT_SUCCESS;
 }

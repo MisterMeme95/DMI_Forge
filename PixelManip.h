@@ -186,6 +186,22 @@ typedef struct Frame_ArrayStruct{
 } Frame_Array;
 
 
+/** @brief This struct represents a basic PNG image.
+ * @param png_ptr - A pointer linking to the PNG file being processed. It handles the reading and writing operations.
+ * @param png_infop - This contains all of the relevant metadata, like height, bit_depth, etc.
+ * @param trans_color - This a png_color value that is used for RGB and Gray images to specify transparency color.
+ * @param palette - This is an array of png_color that stores valid entries for a paletted image.
+ * @param palette_num - This is the number of entries in the palette array.
+ * @param trans_alpha - Trans_alpha is a png_byte array that contains list of alpha pixel indexes for paletted images.
+ * @param trans_num - This species the number of transparent pixel entries in a palette.
+ * @param width - This represents the width.
+ * @param height - This represents the height.
+ * @param bit_depth - This represents bit_depth, which is used to specify the size of each color channel.
+ * @param color_type - This represents the type of color format for the image. [RGB, RGBA, Gray, Gray & Alpha, Indexed]
+ * @param file_pointer - This is the PNG file that is being read or written to.
+ * @param pixel_array - This contains the array of pixels that the image is made up of.
+ * @param interlace_method - ???
+ **/
 typedef struct Image_Struct{
     char *image_name;
     png_structp png_ptr; /*!< Detailed description after the member. */
@@ -193,7 +209,6 @@ typedef struct Image_Struct{
     png_colorp palette;
     png_bytep trans_alpha;
     png_color_16p trans_color;
-
     int trans_num;
     int palette_num;
     png_uint_32 width, height;
@@ -203,12 +218,8 @@ typedef struct Image_Struct{
     int pixels_per_byte;
     size_t row_bytes;
     png_bytepp pixel_array;
-
     png_textp text_ptr;
-
     FILE *file_pointer;
-
-
 } Image;
 
 
@@ -364,8 +375,10 @@ void Initialize_Pixel2(Pixel_Data* pixel, int color_type, int bit_depth);
 void Initialize_PNG(png_structp* read_ptr, png_infop* read_info_ptr, FILE* input_file);
 void Initialize_PNG_Writer(png_structp* write_ptr, png_infop* write_info_ptr, FILE* output_file);
 void Initialize_PNG_Reader(png_structp* read_ptr, png_infop* read_info_ptr, FILE* input_file);
+
 Frame_Array Frame_Partition(png_bytepp image, int bit_depth, int png_width, int png_height, int frame_width,
                             int frame_height, int color_type);
+
 int Get_Pixel_Size(int bit_depth, int color_type);
 int calculate_frame_count(int frame_width, int frame_height, int png_width, int png_height);
 unsigned int hash_pixel(Pixel_Data pixel);

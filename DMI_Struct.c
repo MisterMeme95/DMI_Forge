@@ -1,10 +1,3 @@
-/* The DMI structure will be used to contain all relevant information associated with a DMI.
- * The variables will be:
- *
- * - version:       The version of BYOND it should use. Either 4.0 (most current DMI format) or 3.5.
- * - width:         The width for each frame.
- * - height:        The height for each frame.
- * - icon_states:   This should be a vector containing a list of all icon_states. */
 #include "png.h"
 #include <stdlib.h>
 #include <string.h>
@@ -16,22 +9,15 @@ extern "C" {
 #endif
 
 
-
 int insert_dmi(const char *name,  dmi_hash *state_lookup) {
-
-    unsigned long hash_index = hash_string(name) % 256;  // Ensure hash_pixel is defined correctly
-    // printf("Hash value = %lu\n", hash_index);
+    unsigned long hash_index = hash_string(name) % 256;
     if (state_lookup->hash_bucket[hash_index] == NULL) {
-        //   printf("Running if statement. . \n");
-        //create a new icon_state
         dmi_node *new_node = (dmi_node*) malloc(sizeof(dmi_node));
 
         if (new_node == NULL) {
             fprintf(stderr, "Failed to allocate memory for new node\n");
             return -1;
         }
-
-        // Initialize the new icon_state:
 
         new_node->next = NULL;
         new_node->prev = NULL;
@@ -40,7 +26,6 @@ int insert_dmi(const char *name,  dmi_hash *state_lookup) {
         Init_DMI(&new_node->icon, 32, 32);
         strcpy(new_node->icon.name, name);
         state_lookup->hash_bucket[hash_index] = new_node;
-        //    printf("Inserted. . .\n");
     }
 
     else {
@@ -56,16 +41,13 @@ int insert_dmi(const char *name,  dmi_hash *state_lookup) {
         Init_DMI(&new_node->icon, 32, 32);
         strcpy(new_node->icon.name, name);
 
-        // Update the previous first node
         if (state_lookup->hash_bucket[hash_index] != NULL) {
             state_lookup->hash_bucket[hash_index]->prev = new_node;
         }
 
-        // Set the new node as the first node in the bucket
         state_lookup->hash_bucket[hash_index] = new_node;
     }
 
-    //  sleep(5);
     return 0;
 }
 
@@ -248,6 +230,35 @@ void Init_DMI(DMI* dmi, int width, int height){
     }
 }
 
+void adjust_icon_state(DMI *icon, icon_state* iconState){
+
+    iconState->frame_vector = (Vector*)malloc(sizeof(Vector) * iconState->dirs);
+    for(int i = 0; i < iconState->dirs; i++){
+        vector_init(&iconState->frame_vector[i], sizeof(png_bytepp),
+                    iconState->number_of_frames, NULL, NULL);
+    }
+    png_uint_32 start_col = (icon->frame_count * icon->icon_row_bytes) % icon->image->row_bytes;
+    png_uint_32 start_row = (icon->frame_count * icon->icon_row_bytes) / icon->image->row_bytes;
+    for(int i = 0; i < iconState->dirs; i++){
+        png_uint_32 new_col = start_col + (icon->icon_row_bytes * i);
+        png_uint_32 new_row = new_col / icon->image->row_bytes;
+        for(int o = 0; o < iconState->number_of_frames; o++){
+            png_uint_32 incre_amount = o * iconState->dirs * icon->icon_row_bytes;
+            png_uint_32 extract_col = new_col + (incre_amount % icon->image->row_bytes);
+            png_uint_32 extract_row = (new_row + (new_col + incre_amount) / icon->image->row_bytes) * icon->icon_height;
+
+            png_bytepp* image_data = (png_bytepp*)iconState->frame_vector[i].data;
+            image_data[o] = (png_bytepp)malloc(sizeof(png_bytep) * icon->icon_height);
+
+            for (int k = 0; k < icon->icon_height; k++) {
+                image_data[o][k] = icon->image->pixel_array[extract_row + k] + extract_col;
+            }
+        }
+    }
+    icon->frame_count += iconState->dirs * iconState->number_of_frames;
+
+
+}
 
 void initialize_dmi_struct(DMI* icon, char* image_name){
 
@@ -259,7 +270,6 @@ void initialize_dmi_struct(DMI* icon, char* image_name){
     icon->has_icons = false;
     icon->version = 4.0;
     icon->frame_count = 0;
-    icon->color_type = PNG_COLOR_TYPE_PALETTE;
 
 
 
@@ -267,8 +277,6 @@ void initialize_dmi_struct(DMI* icon, char* image_name){
     icon->begin_icon_state = icon->icon_states;
     initialize_list(&icon->iconStates, NULL, NULL, list_ins_next);
 
-    icon->icon_width = 32;
-    icon->icon_height = 32;
     populate_dmi(icon, icon->image);
 
     init_hash_table(&icon->iconstate_lockup, 0, hash_string, NULL, NULL);
@@ -348,10 +356,7 @@ void add_iconstate(DMI* dmi, icon_state *iconState, png_bytepp image_data){
 
     else{
 
-//        printf("Died before insert. . \n");
         dmi->icon_states[dmi->num_of_states] = *iconState;
-//        printf("Died after insert. . \n");
-
         dmi->num_of_states++;
     }
 
@@ -515,20 +520,22 @@ void initialize_sheet_data(SpriteSheetData* sheet_data){
     sheet_data->format = 1;
 }
 
-Image create_sprite_sheet(Image* initial_image, SpriteSheetData* sheet_data, DMI new_icon, char* file_name){
+Image create_sprite_sheet(SpriteSheetData* sheet_data, DMI new_icon, char* file_name){
     sheet_data->frame_width = new_icon.png_width;
     sheet_data->frame_height = new_icon.png_height;
     if(sheet_data->format == GRID){
 
         calculate_grid_sheet_dimensions(&new_icon, sheet_data, sheet_data->grid_size);
     }
+
+    //If it's not in grid format, which is for spritesheets, then we assume it is in the same format as
+    // a DMI. Meaning it would just be filled horizontally.
     else {
-        //run other calculations to get the sheet's dimensions.
-        printf("Height/Width = %d/%d\n\n\n\n\n", initial_image->height, initial_image->width);
-        sheet_data->height = (int)initial_image->height;
-        sheet_data->width = (int)initial_image->width;
-        printf("Hrm. . .\n");
+        sheet_data->height = (int)new_icon.image->height;
+        sheet_data->width = (int)new_icon.image->width;
     }
+
+
 
     if(sheet_data->width < sheet_data->user_input_width)
         sheet_data->width = sheet_data->user_input_width;
@@ -539,13 +546,13 @@ Image create_sprite_sheet(Image* initial_image, SpriteSheetData* sheet_data, DMI
     Image new_image;
     if(sheet_data->grid_size != 0){
         new_image.width = sheet_data->width + (sheet_data->margin_x * (sheet_data->grid_size - 1)) +
-                (sheet_data->padding_x * sheet_data->frames_per_row);
+                          (sheet_data->padding_x * sheet_data->frames_per_row);
 
         int num_of_rows = ceil((double)new_icon.num_of_states / sheet_data->grid_size);
 
 
         new_image.height = sheet_data->height + (sheet_data->margin_y * num_of_rows) +
-                (sheet_data->padding_y * sheet_data->frames_per_col);
+                           (sheet_data->padding_y * sheet_data->frames_per_col);
     }
 
     else {
@@ -554,8 +561,8 @@ Image create_sprite_sheet(Image* initial_image, SpriteSheetData* sheet_data, DMI
     }
 
     //printf("Width/Height = %d/%d\n", new_image.width, new_image.height);
-    new_image.bit_depth = initial_image->bit_depth;
-    new_image.color_type = initial_image->color_type;
+    new_image.bit_depth = new_icon.image->bit_depth;
+    new_image.color_type = new_icon.image->color_type;
     initialize_image2(file_name, &new_image, NULL, NULL, NULL, NULL);
     return new_image;
 }
@@ -759,13 +766,10 @@ int dmi2sheet2(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData 
 
 int dmi2sheet(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData sheetData){
     int DMI_HEIGHT = dmi->png_height, DMI_WIDTH = (dmi->png_width) / source_image.pixels_per_byte;
-    printf("pixels_per_byte = %d\n", source_image.pixels_per_byte);
-    //sleep(10);
     int icon_state_index = 0;
     int numOfStates = dmi->num_of_states;
     int total_frames = 0;
 
-    printf("Died here. . \n");
     if(source_image.color_type == PNG_COLOR_TYPE_RGBA){
         DMI_WIDTH *= 4;
     }

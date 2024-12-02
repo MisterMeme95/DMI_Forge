@@ -41,14 +41,19 @@ void vector_push_back(Vector* vec, void* object) {
     vec->current_capacity++;
 }
 
-// Function to pop an element (remove the last element)
 void vector_pop(Vector* vec) {
     if (vec->current_capacity > 0) {
         vec->current_capacity--;  // Decrease the size
-        // Optionally, clear the popped element's memory (depends on use case)
+
+        // If the vector stores dynamically allocated objects, clean up the last one
+        if (vec->destructor != NULL) {
+            void* last_element = (char*)vec->data + (vec->current_capacity * vec->byte_size);
+            vec->destructor(last_element);  // Call the custom destructor for cleanup
+        }
+    } else {
+        printf("Vector is already empty.\n");
     }
 }
-
 
 // Function to initialize the vector, passing function pointers as arguments
 void vector_init(Vector* vec, size_t byte_size, size_t max_capacity,

@@ -6,6 +6,9 @@
 #define END_DMI "# END DMI"
 #define DMI_VERSION "version"
 #define ICON_STATE "state"
+
+
+#define GET_TAIL_ICONSTATE(dmi) ((icon_state *)((dmi)->iconStates.tail->data))
 #define HORIZONTAL 0
 #define GRID 1
 
@@ -28,22 +31,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-/** @brief This struct represents a basic PNG image.
- * @param png_ptr - A pointer linking to the PNG file being processed. It handles the reading and writing operations.
- * @param png_infop - This contains all of the relevant metadata, like height, bit_depth, etc.
- * @param trans_color - This a png_color value that is used for RGB and Gray images to specify transparency color.
- * @param palette - This is an array of png_color that stores valid entries for a paletted image.
- * @param palette_num - This is the number of entries in the palette array.
- * @param trans_alpha - Trans_alpha is a png_byte array that contains list of alpha pixel indexes for paletted images.
- * @param trans_num - This species the number of transparent pixel entries in a palette.
- * @param width - This represents the width.
- * @param height - This represents the height.
- * @param bit_depth - This represents bit_depth, which is used to specify the size of each color channel.
- * @param color_type - This represents the type of color format for the image. [RGB, RGBA, Gray, Gray & Alpha, Indexed]
- * @param file_pointer - This is the PNG file that is being read or written to.
- * @param pixel_array - This contains the array of pixels that the image is made up of.
- * @param interlace_method - ???
- **/
+
 typedef struct iconstate_node {
     int index;
     icon_state *icon_state;
@@ -99,7 +87,6 @@ typedef struct DMI_Struct {
 
     icon_state *icon_states, *begin_icon_state;
 
-    /* asdesd */
     list iconStates;
 
     /* Hash Table of icon_states*/
@@ -165,8 +152,12 @@ int PNG_To_DMI();
 DMI* find_dmi(const char *name, dmi_hash *state_lookup, DMI* find_state);
 
 void Init_DMI(DMI *dmi, int width, int height);
+
 void initialize_dmi_struct(DMI* icon, char* image_name);
 void populate_dmi(DMI* dmi, Image* image);
+void adjust_icon_state(DMI *icon, icon_state* iconState);
+
+
 char *Variable_Authentication(char *string);
 char *State_Authentication(char *string);
 char *Value_Authentication(char *string);
@@ -214,8 +205,7 @@ void calculate_grid_sheet_dimensions(DMI *dmi, SpriteSheetData *sheet_data, int 
  * users don't specify a value for important variables. */
 void initialize_sheet_data(SpriteSheetData *sheet_data);
 
-Image create_sprite_sheet(Image *initial_image, SpriteSheetData *sheet_data, DMI new_icon, char *file_name);
-
+Image create_sprite_sheet(SpriteSheetData *sheet_data, DMI new_icon, char *file_name);
 /** @Description This function handles conversion from a DMI image into a spritesheet. All sprite-sheet specifications,
  * like the format, margins, padding -- are stored in the sheetData argument.
  * */

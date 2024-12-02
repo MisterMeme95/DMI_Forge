@@ -36,6 +36,7 @@ typedef struct Vector {
 
     void (*push_back)(struct Vector*, void*);
     void (*pop)(struct Vector*);
+    void (*destructor)(void*);
 } Vector;
 
 /** A function to resize a vector. Basically, whenever size == capacity, then it resizes the vector to be twice as long.
