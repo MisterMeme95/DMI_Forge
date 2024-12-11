@@ -22,11 +22,10 @@ void vector_push_back_int(Vector* vec, void* object) {
         vector_resize(vec);
     }
     int* target = (int*)((char*)vec->data + vec->current_capacity * vec->byte_size);
-    *target = *(int*)object;  // Assuming 'object' is a pointer to int
+    *target = *(int*)object;
     vec->current_capacity++;
 }
 
-// Function to push back a new element
 void vector_push_back(Vector* vec, void* object) {
     // Check if resizing is needed
     if (vec->current_capacity == vec->max_capacity) {

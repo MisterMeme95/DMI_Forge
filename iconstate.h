@@ -26,7 +26,6 @@ typedef struct IconState_Struct {
     Vector *frame_vector;
 } icon_state;
 
-
 void Add_Delay(icon_state* thisNode, int *delay);
 void Add_Loop(icon_state* thisNode, int loop);
 void Add_Frames(icon_state* thisNode, int frames);
@@ -40,3 +39,5 @@ void Initialize_IconState(icon_state* thisNode, char* name  );
 void IconState_Create(icon_state* thisNode, char * state_name, int directions, int frames, int loop);
 
 void add_image_data(icon_state* thisNode, png_bytepp image_data);
+int match_icon_state(const void *key1, const void *key2);
+unsigned long hash_icon_state(const icon_state *key);

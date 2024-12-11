@@ -278,10 +278,12 @@ void initialize_dmi_struct(DMI* icon, char* image_name){
     icon->icon_states = (icon_state*) malloc(sizeof(icon_state) * icon->max_state);
     icon->begin_icon_state = icon->icon_states;
     initialize_list(&icon->iconStates, NULL, NULL, list_ins_next);
+    init_hash_table(&icon->iconstate_lockup, 500, (unsigned long (*)(const void *)) hash_icon_state,
+                    match_icon_state, NULL);
 
     populate_dmi(icon, icon->image);
 
-    init_hash_table(&icon->iconstate_lockup, 0, hash_string, NULL, NULL);
+
     for(int i = 0; i < 256; i++){
         icon->iconstateHash.hash_bucket[i] = NULL;
     }
@@ -766,6 +768,27 @@ int dmi2sheet2(DMI* dmi, Image source_image, Image sheet_image, SpriteSheetData 
 }
 
 
+/* This is meant to be a function that takes a DMI as an argument and creates a new spritesheet*/
+void export_as_sheet(DMI* dmi, char** list_of_icon_states){
+    if(list_of_icon_states != NULL){
+        //for state in list_of_icon_states
+            // get the state from the DMI hash.
+            // keep track of total number of dirs.
+            // keep track of highest # of frames so we know the width of the resultant spritesheet.
+    }
+
+    else {
+        //same process, but this time just loop from the head of dmi IconStates until null.
+        // Each time, keeping track highest # of frame.
+        // Also tracking total number of dirs.
+    }
+
+
+    //Once done, we do the same type of loops. Since the first was just to verify what the dimensions ought to be.
+
+
+
+}
 int dmi2sheet(DMI* dmi, Image sheet_image, SpriteSheetData sheetData){
     int DMI_HEIGHT = dmi->png_height, DMI_WIDTH = (dmi->png_width) / dmi->image->pixels_per_byte;
     int icon_state_index = 0;

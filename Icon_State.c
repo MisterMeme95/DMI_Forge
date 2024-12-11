@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "iconstate.h"
+#include "data_structure.h"
 
 void Add_Delay(icon_state* thisNode, int *delay) {
     if(thisNode->delays )
@@ -51,6 +52,33 @@ void IconState_Create(icon_state* thisNode, char * state_name, int directions, i
     thisNode->number_of_frames = frames;
 
     //thisNode->prev = prevLoc;
+}
+unsigned long hash_icon_state(const icon_state *key) {
+    unsigned long hash = 5381;
+    const char *str = (const char*) key->state; // Cast void* back to const char*
+    int c;
+    while ((c = (int)*str++)) {
+        hash = ((hash << 5) + hash) + c; // hash * 33 + c
+    }
+    return hash;
+}
+
+int match_icon_state(const void *key1, const void *key2) {
+    const icon_state *state1 = (const icon_state *)key1;
+    const icon_state *state2 = (const icon_state *)key2;
+
+    // Compare state names
+    if (strcmp(state1->state, state2->state) != 0) {
+        return 0; // Not a match
+    }
+
+    // Compare movement booleans
+    if (state1->movement != state2->movement) {
+        return 0; // Not a match
+    }
+
+    // If both match, return true
+    return 1; // Match
 }
 
 /*

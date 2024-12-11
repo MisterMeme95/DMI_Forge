@@ -129,10 +129,17 @@ void Print_Variable(char *string, DMI* dmi) {
                 dmi->icon_states++;
                 dmi->num_of_states++;
                 icon_state *new_icon_state = (icon_state*)malloc(sizeof(icon_state));
-                Initialize_IconState(dmi->icon_states, variable_value);
+                //Initialize_IconState(dmi->icon_states, variable_value);
                 Initialize_IconState(new_icon_state, variable_value);
+                if(chtbl_lookup(&dmi->iconstate_lockup, (void **)&new_icon_state) == 0){
+                    printf("Duplicate found: %s\n", new_icon_state->state);
+                }
 
+                else{
+                    chtbl_insert(&dmi->iconstate_lockup, new_icon_state);
+                }
                 dmi->iconStates.insert(&dmi->iconStates, dmi->iconStates.tail, new_icon_state);
+                *dmi->icon_states = *new_icon_state;
             }
             else{
                 Initialize_IconState(dmi->icon_states, variable_value);
@@ -141,7 +148,19 @@ void Print_Variable(char *string, DMI* dmi) {
                 dmi->has_icons=true;
                 dmi->num_of_states++;
                 dmi->iconStates.insert(&dmi->iconStates, NULL, new_icon_state);
-              //  dmi->iconStates.tail = NULL;
+                if(chtbl_lookup(&dmi->iconstate_lockup, (void **)&new_icon_state) == 0){
+                    if(new_icon_state->movement){
+                        printf("Duplicate found: %s (Movement)\n", new_icon_state->state);
+
+                    }
+                    else {
+                        printf("Duplicate found: %s\n", new_icon_state->state);
+
+                    }
+                }
+                else{
+                    chtbl_insert(&dmi->iconstate_lockup, new_icon_state);
+                }
             }
             if(dmi->num_of_states == (dmi->max_state)-1){
                 dmi->max_state += 30;

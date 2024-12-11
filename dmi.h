@@ -70,11 +70,9 @@ typedef struct iconstate_lookup_table {
 //oko
 typedef struct DMI_Struct {
     Image* image;
-    int bit_depth;
     int color_type;
+    int bit_depth;
     int bytes_per_pixel;
-
-
     char *name;
 
     bool has_icons;
@@ -91,6 +89,7 @@ typedef struct DMI_Struct {
 
     /* Hash Table of icon_states*/
     hash_table iconstate_lockup;
+
     iconstate_hash iconstateHash;
 } DMI;
 
@@ -141,6 +140,28 @@ typedef struct arraySet {
     hash_table lol;
 } array_set;
 
+typedef struct SpriteSheetData {
+    int FRAME_SIZE, width, height;
+
+    int format;
+
+    int offset_x, offset_y; /*!< These variables are used to denote the x/y offset from the top of image.*/
+
+    int padding_x, padding_y; /*!< These variables represent the space between each individual frame within an icon_state.*/
+
+    int margin_x, margin_y; /*!< These variables represent the space between icon_states. */
+
+    int frames_per_row, frames_per_col;
+    int user_input_width, user_input_height;
+    int *list_of_row_sizes;
+    int row_count;
+    int grid_size;
+    int frame_width;
+    int frame_height;
+
+} SpriteSheetData;
+
+
 void initialize_dmi_vector(dmi_list *look_up);
 
 int insert_dmi(const char *name,  dmi_hash *state_lookup);
@@ -171,27 +192,6 @@ int insert_state2(icon_state *iconState,  iconstate_hash *state_lookup, png_byte
 int match_state2(icon_state *name, icon_state *other_name);
 
 icon_state *find_state2(const char *name, iconstate_hash *state_lookup, icon_state find_state);
-
-typedef struct SpriteSheetData {
-    int FRAME_SIZE, width, height;
-
-    int format;
-
-    int offset_x, offset_y; /*!< These variables are used to denote the x/y offset from the top of image.*/
-
-    int padding_x, padding_y; /*!< These variables represent the space between each individual frame within an icon_state.*/
-
-    int margin_x, margin_y; /*!< These variables represent the space between icon_states. */
-
-    int frames_per_row, frames_per_col;
-    int user_input_width, user_input_height;
-    int *list_of_row_sizes;
-    int row_count;
-    int grid_size;
-    int frame_width;
-    int frame_height;
-
-} SpriteSheetData;
 
 /** @Description This function initializes SpriteSheetData with the proper dimension information for the GRID
  * spritesheet format. It also populates frames_per_row, and frames_per_col for use in other function
