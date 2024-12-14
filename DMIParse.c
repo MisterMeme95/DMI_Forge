@@ -124,22 +124,39 @@ void Print_Variable(char *string, DMI* dmi) {
         if(strcmp(check_string, ICON_STATE) == 0){
             variable_value = State_Authentication(found);
             if(dmi->has_icons){
+                icon_state* tail_state = dmi->iconStates.tail->data;
+               // printf("Tail State = %s\n", tail_state->state);
+                if(dmi->num_of_states >= 2){
+                    if(chtbl_lookup(&dmi->iconstate_lockup, (void **)&tail_state) == 0){
+                        if(tail_state->movement){
+                            printf("Duplicate found: %s (Movement)\n", tail_state->state);
 
+                        }
+                        else {
+                            printf("Duplicate found: %s\n", tail_state->state);
+
+                        }
+                    }
+
+                    else {
+                        chtbl_insert(&dmi->iconstate_lockup, dmi->iconStates.tail->data);
+                    }
+
+                }
                 adjust_icon_state(dmi, GET_TAIL_ICONSTATE(dmi));
                 dmi->icon_states++;
                 dmi->num_of_states++;
+               // printf("Tail Name = %s\n\n", tail_state->state);
                 icon_state *new_icon_state = (icon_state*)malloc(sizeof(icon_state));
                 //Initialize_IconState(dmi->icon_states, variable_value);
                 Initialize_IconState(new_icon_state, variable_value);
-                if(chtbl_lookup(&dmi->iconstate_lockup, (void **)&new_icon_state) == 0){
-                    printf("Duplicate found: %s\n", new_icon_state->state);
-                }
 
-                else{
-                    chtbl_insert(&dmi->iconstate_lockup, new_icon_state);
-                }
+
+
                 dmi->iconStates.insert(&dmi->iconStates, dmi->iconStates.tail, new_icon_state);
                 *dmi->icon_states = *new_icon_state;
+
+
             }
             else{
                 Initialize_IconState(dmi->icon_states, variable_value);
@@ -148,24 +165,19 @@ void Print_Variable(char *string, DMI* dmi) {
                 dmi->has_icons=true;
                 dmi->num_of_states++;
                 dmi->iconStates.insert(&dmi->iconStates, NULL, new_icon_state);
-                if(chtbl_lookup(&dmi->iconstate_lockup, (void **)&new_icon_state) == 0){
-                    if(new_icon_state->movement){
-                        printf("Duplicate found: %s (Movement)\n", new_icon_state->state);
 
-                    }
-                    else {
-                        printf("Duplicate found: %s\n", new_icon_state->state);
 
-                    }
-                }
-                else{
-                    chtbl_insert(&dmi->iconstate_lockup, new_icon_state);
-                }
+                chtbl_insert(&dmi->iconstate_lockup, dmi->iconStates.tail->data);
+
             }
+
             if(dmi->num_of_states == (dmi->max_state)-1){
                 dmi->max_state += 30;
                 Resize_IconStates(dmi, dmi->max_state);
             }
+
+
+
         }
         else {
             variable_value = Value_Authentication(found);
@@ -223,9 +235,24 @@ void Print_Variable(char *string, DMI* dmi) {
         }
     }
 
-    if(strcmp(check_string, END_DMI) == 0){
+    if(strcmp(string, END_DMI) == 0){
+        icon_state* tail_state = dmi->iconStates.tail->data;
 
         adjust_icon_state(dmi, GET_TAIL_ICONSTATE(dmi));
+        if(chtbl_lookup(&dmi->iconstate_lockup, (void **)&tail_state) == 0){
+            if(tail_state->movement){
+                printf("Duplicate found: %s (Movement)\n", tail_state->state);
+
+            }
+            else {
+                printf("Duplicate found: %s\n", tail_state->state);
+
+            }
+        }
+
+        else {
+            chtbl_insert(&dmi->iconstate_lockup, dmi->iconStates.tail->data);
+        }
     }
 }
 

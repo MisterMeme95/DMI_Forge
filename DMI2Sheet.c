@@ -6,6 +6,32 @@
 
 #define INVALID -100
 
+void print_icon_states(list *iconStates) {
+    if (!iconStates || !iconStates->head) {
+        printf("The list is empty or NULL.\n");
+        return;
+    }
+
+    node *current = iconStates->head;
+
+    // Iterate through the linked list
+    while (current != NULL) {
+        // Cast the `data` field to `icon_state*`
+        icon_state *iconStateData = (icon_state *)current->data;
+        icon_state *tail = (icon_state*)iconStates->tail->data;
+
+        // Ensure the casted pointer is valid before accessing
+        if (iconStateData != NULL) {
+            // Print the `state` field of `icon_state`
+            printf("Icon State: %s\n", tail->state);
+        } else {
+            printf("Null data in node.\n");
+        }
+
+        // Move to the next node
+        current = current->next;
+    }
+}
 void changeExtension(char* filename, const char* newExt) {
     char* extPos = strstr(filename, ".dmi");
 
@@ -346,6 +372,7 @@ int main(int argc, char **argv){
     png_write_end(sprite_sheet.png_ptr, NULL);
     png_destroy_write_struct(&sprite_sheet.png_ptr, &sprite_sheet.info_ptr);
   //  png_destroy_read_struct(&read_png_ptr, &read_info_ptr);
+  //  print_icon_states(&new_icon->iconStates);
 
     return EXIT_SUCCESS;
 }
