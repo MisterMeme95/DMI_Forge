@@ -68,6 +68,9 @@ char *State_Authentication(char *string){
     //We have to find the = symbol
     int index = 0, token_track = 0;
 
+//    while(isspace(*string)){
+//        string++;
+//    }
     int num_of_char = get_string_char(string, "\0", 'y');
     char *value_check = (char *) malloc(sizeof(char) * (num_of_char));
     if(num_of_char == 0){
@@ -75,8 +78,11 @@ char *State_Authentication(char *string){
         printf("num_of_char. . \n");
     }
 
+
+
     while(token_track < num_of_char){
-        if(!isspace(*string) && !iscntrl(*string)){
+        if ((!isspace(*string) && !iscntrl(*string))) {//&& *string != '\'' && *string != '"') {
+         //   if ((!iscntrl(*string)) && *string != '\'' && *string != '"') {
             value_check[index] = *string++;
             index++;
         }

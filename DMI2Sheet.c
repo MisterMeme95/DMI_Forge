@@ -23,7 +23,7 @@ void print_icon_states(list *iconStates) {
         // Ensure the casted pointer is valid before accessing
         if (iconStateData != NULL) {
             // Print the `state` field of `icon_state`
-            printf("Icon State: %s\n", tail->state);
+            printf("Icon State: %s\n", iconStateData->state);
         } else {
             printf("Null data in node.\n");
         }
@@ -372,7 +372,7 @@ int main(int argc, char **argv){
     png_write_end(sprite_sheet.png_ptr, NULL);
     png_destroy_write_struct(&sprite_sheet.png_ptr, &sprite_sheet.info_ptr);
   //  png_destroy_read_struct(&read_png_ptr, &read_info_ptr);
-  //  print_icon_states(&new_icon->iconStates);
+    print_icon_states(&new_icon->iconStates);
 
     return EXIT_SUCCESS;
 }
