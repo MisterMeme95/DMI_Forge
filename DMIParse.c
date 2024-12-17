@@ -91,6 +91,9 @@ char *State_Authentication(char *string){
         }
         token_track++;
     }
+    if(index < num_of_char){
+        value_check[index] = '\0';
+    }
     value_check[num_of_char-1]='\0';
     return value_check;
 }
@@ -115,6 +118,8 @@ char *Value_Authentication(char *string) {
         }
         token_track++;
     }
+
+    value_check[index] = '\0';
     value_check[num_of_char-1]='\0';
     //printf("Value = %s\n", value_check);
     return value_check;
