@@ -241,12 +241,11 @@ void adjust_icon_state(DMI *icon, icon_state* iconState){
     png_uint_32 start_row = (icon->frame_count * icon->icon_row_bytes) / icon->image->row_bytes;
     for(int i = 0; i < iconState->dirs; i++){
         png_uint_32 new_col = start_col + (icon->icon_row_bytes * i);
-        png_uint_32 new_row = new_col / icon->image->row_bytes;
+        png_uint_32 new_row = start_row + ((new_col / icon->image->row_bytes) * icon->icon_height);
         for(int o = 0; o < iconState->number_of_frames; o++){
             png_uint_32 incre_amount = o * iconState->dirs * icon->icon_row_bytes;
             png_uint_32 extract_col = new_col + (incre_amount % icon->image->row_bytes);
             png_uint_32 extract_row = (new_row + (new_col + incre_amount) / icon->image->row_bytes) * icon->icon_height;
-
             png_bytepp* image_data = (png_bytepp*)iconState->frame_vector[i].data;
             image_data[o] = (png_bytepp)malloc(sizeof(png_bytep) * icon->icon_height);
 

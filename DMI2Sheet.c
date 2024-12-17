@@ -98,7 +98,7 @@ icon_state* get_head_of_iconStates(list* iconStates) {
         return NULL;
     }
 
-    return (icon_state*)iconStates->head->data; // Assuming head points to the first icon_state
+    return (icon_state*)iconStates->head->next->next->data; // Assuming head points to the first icon_state
 }
 
 void create_png_from_icon_state(DMI* new_icon, const char* output_file) {

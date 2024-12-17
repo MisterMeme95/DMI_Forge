@@ -1,8 +1,11 @@
 cmake_minimum_required(VERSION 3.5)
 find_package(Qt6 REQUIRED COMPONENTS Widgets)
+find_package(PNG REQUIRED)
+set(CMAKE_AUTOMOC ON)
 
 # Create an executable for the test subdirectory
-add_executable(test main.cpp)
+add_executable(test main.cpp ../../DMI_Struct.c ../../PixelManip.c ../../data_structure.c ../../list.c ../../vector.cpp
+../../DMIParse.c ../../Icon_State.c)
 
 # Add a post-build step to deploy required DLLs (optional)
 if (WIN32)
@@ -14,7 +17,6 @@ if (WIN32)
 endif()
 
 
-set(CMAKE_AUTOMOC ON)
 
 
-target_link_libraries(test Qt6::Widgets)
+target_link_libraries(test Qt6::Widgets PNG::PNG)

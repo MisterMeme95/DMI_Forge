@@ -152,18 +152,12 @@ void Print_Variable(char *string, DMI* dmi) {
                 adjust_icon_state(dmi, GET_TAIL_ICONSTATE(dmi));
                 dmi->icon_states++;
                 dmi->num_of_states++;
-               // printf("Tail Name = %s\n\n", tail_state->state);
                 icon_state *new_icon_state = (icon_state*)malloc(sizeof(icon_state));
-                //Initialize_IconState(dmi->icon_states, variable_value);
                 Initialize_IconState(new_icon_state, variable_value);
-
-
-
                 dmi->iconStates.insert(&dmi->iconStates, dmi->iconStates.tail, new_icon_state);
                 *dmi->icon_states = *new_icon_state;
-
-
             }
+
             else{
                 Initialize_IconState(dmi->icon_states, variable_value);
                 icon_state *new_icon_state = (icon_state*)malloc(sizeof(icon_state));
@@ -171,27 +165,18 @@ void Print_Variable(char *string, DMI* dmi) {
                 dmi->has_icons=true;
                 dmi->num_of_states++;
                 dmi->iconStates.insert(&dmi->iconStates, NULL, new_icon_state);
-
-
                 chtbl_insert(&dmi->iconstate_lockup, dmi->iconStates.tail->data);
-
             }
 
             if(dmi->num_of_states == (dmi->max_state)-1){
                 dmi->max_state += 30;
                 Resize_IconStates(dmi, dmi->max_state);
             }
-
-
-
         }
+
         else {
             variable_value = Value_Authentication(found);
-
-            //printf("Variable_Value (Before) = %s\n", variable_value);
             integer_value= atoi(variable_value);
-
-            // printf("integer_value (After) = %d\n", integer_value);
         }
     }
     if(strcmp(check_string, "width") == 0){
@@ -217,17 +202,19 @@ void Print_Variable(char *string, DMI* dmi) {
     if(strcmp(check_string, "height") == 0){
         dmi->icon_height = integer_value;
     }
+
     if(strcmp(check_string, "frames") == 0){
         Add_Frames(dmi->icon_states, integer_value);
         Add_Frames(dmi->iconStates.tail->data, integer_value);
     }
+
     if(strcmp(check_string, "movement") == 0){
         if(integer_value >= 1){
             Add_Movement(dmi->icon_states);
             Add_Movement(dmi->iconStates.tail->data);
-
         }
     }
+
     if(strcmp(check_string, "loop") == 0){
         Add_Loop(dmi->icon_states, integer_value);
         Add_Loop(dmi->iconStates.tail->data, integer_value);
@@ -237,31 +224,25 @@ void Print_Variable(char *string, DMI* dmi) {
         if(integer_value >= 1){
             Add_Rewind(dmi->icon_states);
             Add_Rewind(dmi->iconStates.tail->data);
-
         }
     }
 
     if(strcmp(string, END_DMI) == 0){
         icon_state* tail_state = dmi->iconStates.tail->data;
-
         adjust_icon_state(dmi, GET_TAIL_ICONSTATE(dmi));
         if(chtbl_lookup(&dmi->iconstate_lockup, (void **)&tail_state) == 0){
             if(tail_state->movement){
                 printf("Duplicate found: %s (Movement)\n", tail_state->state);
-
             }
             else {
                 printf("Duplicate found: %s\n", tail_state->state);
-
             }
         }
-
         else {
             chtbl_insert(&dmi->iconstate_lockup, dmi->iconStates.tail->data);
         }
     }
 }
-
 
 char *find_newline(char **string, int *dmi_index, char *search_for){
     int index = 0;
