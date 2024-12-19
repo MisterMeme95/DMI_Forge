@@ -200,9 +200,21 @@ void Print_Variable(char *string, DMI* dmi) {
 
     if(strcmp(check_string, "width") == 0){
         dmi->icon_width = integer_value;
-        dmi->icon_row_bytes = (dmi->image->row_bytes / dmi->icon_width == 0)
-                              ? dmi->image->row_bytes
-                              : dmi->image->row_bytes / (dmi->image->row_bytes / dmi->icon_width);
+
+        int channels = 0;
+        switch (dmi->image->color_type) {
+            case PNG_COLOR_TYPE_GRAY: channels = 1; break;
+            case PNG_COLOR_TYPE_GRAY_ALPHA: channels = 2; break;
+            case PNG_COLOR_TYPE_PALETTE: channels = 1; break;
+            case PNG_COLOR_TYPE_RGB: channels = 3; break;
+            case PNG_COLOR_TYPE_RGB_ALPHA: channels = 4; break;
+            default:
+                break; // Unsupported
+        }
+
+        // Calculate exact bytes per pixel as a floating-point value
+        float bytes_per_pixel = (dmi->image->bit_depth * channels) / 8.0f;
+        dmi->icon_row_bytes = dmi->icon_width * bytes_per_pixel;
     }
     if(strcmp(check_string, "height") == 0){
         dmi->icon_height = integer_value;
