@@ -101,106 +101,8 @@ icon_state* get_head_of_iconStates(list* iconStates) {
     return (icon_state*)iconStates->head->data; // Assuming head points to the first icon_state
 }
 
-void create_png_from_icon_state(DMI* new_icon, const char* output_file) {
-    // Open the output file
-    FILE* fp = fopen(output_file, "wb");
-    if (!fp) {
-        perror("Failed to open output file");
-        return;
-    }
-
-    png_structp png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
-    if (!png_ptr) {
-        fclose(fp);
-        perror("Failed to create png_struct");
-        return;
-    }
-
-    png_infop info_ptr = png_create_info_struct(png_ptr);
-    if (!info_ptr) {
-        png_destroy_write_struct(&png_ptr, NULL);
-        fclose(fp);
-        perror("Failed to create info_ptr");
-        return;
-    }
-
-    if (setjmp(png_jmpbuf(png_ptr))) {
-        png_destroy_write_struct(&png_ptr, &info_ptr);
-        fclose(fp);
-        perror("Error during PNG creation");
-        return;
-    }
-
-    png_set_compression_level(png_ptr, PNG_COMPRESSION_TYPE_DEFAULT);
-
-    png_init_io(png_ptr, fp);
-
-    // Get the head of the iconStates linked list
-    icon_state* first_state = get_head_of_iconStates(&new_icon->iconStates);
-    if (!first_state) {
-        png_destroy_write_struct(&png_ptr, &info_ptr);
-        fclose(fp);
-        fprintf(stderr, "Error: No icon states available.\n");
-        return;
-    }
-
-    png_set_IHDR(
-            png_ptr, info_ptr,
-            new_icon->icon_width * first_state->number_of_frames,  // Image width
-            new_icon->icon_height * first_state->dirs,            // Image height
-            new_icon->image->bit_depth,                           // Bit depth
-            new_icon->image->color_type,                          // Color type
-            PNG_INTERLACE_NONE,                                   // Interlace method
-            PNG_COMPRESSION_TYPE_DEFAULT,                         // Compression method
-            PNG_FILTER_TYPE_DEFAULT                               // Filter method
-    );
-
-    if (new_icon->image->color_type == PNG_COLOR_TYPE_PALETTE) {
-        png_set_PLTE(png_ptr, info_ptr, new_icon->image->palette, new_icon->image->palette_num);
-    }
-
-    png_write_info(png_ptr, info_ptr);
 
 
-    int total_height = first_state->dirs * new_icon->icon_height;
-    int total_width = first_state->number_of_frames * new_icon->icon_width;
-
-    size_t row_bytes = png_get_rowbytes(png_ptr, info_ptr);
-    png_bytepp new_pixel_array = (png_bytepp)malloc(total_height * sizeof(png_bytep));
-    for (int row = 0; row < total_height; row++) {
-
-        new_pixel_array[row] = (png_bytep)malloc(total_width);
-        memset(new_pixel_array[row], 0, row_bytes);
-    }
-
-    for (int row = 0; row < first_state->dirs; row++) {
-        png_bytepp* pixel_data_list = (png_bytepp*)first_state->frame_vector[row].data;
-        printf("Died here..  row = %d\n", row);
-
-        for (int frame = 0; frame < first_state->number_of_frames; frame++) {
-            printf("Died here.. row =%d, frame = %d\n",row, frame);
-
-            png_bytepp pixel_data = pixel_data_list[frame];
-
-            for (int pixel_row = 0; pixel_row < new_icon->icon_height; pixel_row++) {
-                int target_row = row * new_icon->icon_height + pixel_row;
-                int target_col = frame * new_icon->icon_row_bytes;
-                memcpy(new_pixel_array[target_row] + target_col,pixel_data[pixel_row],new_icon->icon_row_bytes);
-            }
-        }
-    }
-
-    png_write_image(png_ptr, new_pixel_array);
-    png_write_end(png_ptr, NULL);
-    for (int row = 0; row < total_height; row++) {
-        free(new_pixel_array[row]);
-    }
-    free(new_pixel_array);
-
-    png_destroy_write_struct(&png_ptr, &info_ptr);
-    fclose(fp);
-    printf("PNG file '%s' created successfully.\n", output_file);
-}
 
 int main(int argc, char **argv){
     SpriteSheetData sheet_data;
@@ -339,7 +241,7 @@ int main(int argc, char **argv){
             }
         }
     }
-    create_png_from_icon_state(new_icon, "testicon.png");
+  //  create_png_from_icon_state(new_icon, "testicon.png");
 
    // adjust_icon_state(new_icon, GET_TAIL_ICONSTATE(new_icon));
 

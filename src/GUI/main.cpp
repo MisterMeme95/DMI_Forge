@@ -42,6 +42,11 @@ public:
         scrollArea->setWidget(containerWidget);    // Set the container widget as the scroll area's content
         scrollArea->setWidgetResizable(true);
         layout = new QGridLayout(containerWidget);
+        layout->setHorizontalSpacing(1);
+        layout->setColumnStretch(0, 0);
+        layout->setRowStretch(0, 0);
+        layout->setSizeConstraint(QLayout::SetFixedSize);
+
         QSplitter *splitter = new QSplitter;
         splitter->addWidget(fileListWidget);
         splitter->addWidget(scrollArea);
@@ -75,7 +80,14 @@ private slots:
         QAction *action1 = currentMenu->addAction("Command 1");
         QAction *action2 = currentMenu->addAction("Command 2");
 
-        connect(action1, &QAction::triggered, this, []() { qDebug() << "Command 1 executed"; });
+        auto icon = this->new_icon;
+        const int one = 1;
+        const char *list_of_icon_states[] = {"\"BlowingUp\"", "state2", "state3"}; // Example constant list of icon states
+
+        connect(action1, &QAction::triggered, this, [&icon, list_of_icon_states, one]() {
+            export_as_sheet(&icon, const_cast<char **>(list_of_icon_states), one);
+        });
+
         connect(action2, &QAction::triggered, this, []() { qDebug() << "Command 2 executed"; });
 
         // Show the menu at the cursor position
@@ -112,7 +124,6 @@ private slots:
             strcpy(cFilePath, filePath.toUtf8().data());
 
             // Initialize DMI struct
-            DMI new_icon;
             initialize_dmi_struct(&new_icon, cFilePath);
 
             // Create a large QPixmap canvas to merge all the DMI images
@@ -306,6 +317,8 @@ private:
     QString file_clicked;
     QGridLayout* layout;
     QWidget *containerWidget; // Added container widget for the grid layout
+    DMI new_icon;
+
 
 };
 

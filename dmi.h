@@ -177,8 +177,8 @@ void Init_DMI(DMI *dmi, int width, int height);
 void initialize_dmi_struct(DMI* icon, char* image_name);
 void populate_dmi(DMI* dmi, Image* image);
 void adjust_icon_state(DMI *icon, icon_state* iconState);
-
-
+void export_as_sheet(DMI* dmi, char** list_of_icon_states, int num_of_chars);
+void create_png_from_icon_state(DMI* new_icon, const char* output_file, icon_state* first_state);
 char *Variable_Authentication(char *string);
 char *State_Authentication(char *string);
 char *Value_Authentication(char *string);
