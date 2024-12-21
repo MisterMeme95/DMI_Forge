@@ -12,7 +12,7 @@
 #include <QGridLayout>
 #include <QPainter>
 #include <QMessageBox>
-#include "../../dmi.h"
+#include "IconLabel.h"
 
 class ImageViewer : public QMainWindow {
 
@@ -83,16 +83,16 @@ private slots:
         auto icon = this->new_icon;
         const int one = 1;
         const char *list_of_icon_states[] = {"\"BlowingUp\"", "state2", "state3"}; // Example constant list of icon states
-
-        connect(action1, &QAction::triggered, this, [&icon, list_of_icon_states, one]() {
-            export_as_sheet(&icon, const_cast<char **>(list_of_icon_states), one);
-        });
+//
+//        connect(action1, &QAction::triggered, this, [&icon, list_of_icon_states, one]() {
+//            export_as_sheet(&icon, const_cast<char **>(list_of_icon_states), one);
+//        });
 
         connect(action2, &QAction::triggered, this, []() { qDebug() << "Command 2 executed"; });
 
         // Show the menu at the cursor position
         currentMenu->exec(QCursor::pos());
-        currentMenu = nullptr; // Reset after exec
+//        currentMenu = nullptr; // Reset after exec
     }
     void openFolder() {
         QString folderPath = QFileDialog::getExistingDirectory(this, "Open Folder", "");
@@ -187,7 +187,14 @@ private slots:
                             // Build color table
                             for (int c = 0; c < new_icon.image->palette_num; ++c) {
                                 png_color color = new_icon.image->palette[c];
-                                colorTable.push_back(qRgb(color.red, color.green, color.blue));
+                                printf("C = %d Trans_Num =%d\n", c, new_icon.image->trans_num);
+                                if((c+1) <= new_icon.image->trans_num){
+                                    colorTable.push_back(qRgba(color.red, color.green, color.blue, 0));
+                                }
+
+                                else{
+                                    colorTable.push_back(qRgba(color.red, color.green, color.blue, 255));
+                                }
                             }
                             temp_image.setColorTable(colorTable);
 
@@ -221,17 +228,16 @@ private slots:
                 QPixmap pixmap = QPixmap::fromImage(temp_image);
 
                 // Create a new QLabel to display the icon
-                QLabel *iconLabel = new QLabel("Hello, QLabel!");
-
+                IconLabel *iconLabel = new IconLabel("Hello, QLabel!");
                 iconLabel->setPixmap(pixmap);
                 iconLabel->setFixedSize(imageWidth+1, imageHeight);
                 iconLabel->setStyleSheet("border: 1px solid black;"); // Optional styling for appearance
                 iconLabel->setAlignment(Qt::AlignCenter);
-
                 iconLabel->setContextMenuPolicy(Qt::CustomContextMenu);
-
+                iconLabel->state_pointer = currentState;
+                iconLabel->icon_pointer = &new_icon;
                 // Connect the customContextMenuRequested signal
-                connect(iconLabel, &QLabel::customContextMenuRequested, this, &ImageViewer::showContextMenu);
+                connect(iconLabel, &QLabel::customContextMenuRequested, iconLabel, &IconLabel::showContextMenu);
 
                 QFont font = iconLabel->font();
                 font.setPointSize(10); // Adjust the font size as needed

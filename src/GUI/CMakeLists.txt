@@ -5,7 +5,7 @@ set(CMAKE_AUTOMOC ON)
 
 # Create an executable for the test subdirectory
 add_executable(test main.cpp ../../DMI_Struct.c ../../PixelManip.c ../../data_structure.c ../../list.c ../../vector.cpp
-../../DMIParse.c ../../Icon_State.c)
+../../DMIParse.c ../../Icon_State.c IconLabel.cpp)
 
 # Add a post-build step to deploy required DLLs (optional)
 if (WIN32)

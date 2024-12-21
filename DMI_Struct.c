@@ -865,14 +865,19 @@ void create_png_from_icon_state(DMI* new_icon, const char* output_file, icon_sta
     fclose(fp);
     printf("PNG file '%s' created successfully.\n", output_file);
 }
+
+void export_state_as_sheet(DMI* dmi,icon_state *iconState) {
+
+}
 /* This is meant to be a function that takes a DMI as an argument and creates a new spritesheet*/
 void export_as_sheet(DMI* dmi, char** list_of_icon_states, int num_of_chars){
     icon_state *temp_iconstate = (icon_state*) malloc(sizeof(icon_state));
     for(int icon_index = 0; icon_index < num_of_chars; icon_index++){
         temp_iconstate->state = list_of_icon_states[icon_index];
+        temp_iconstate->movement = false;
         if(chtbl_lookup(&dmi->iconstate_lockup, (void **) &temp_iconstate) == 0){
             create_png_from_icon_state(dmi, "output.png", temp_iconstate);
-            printf("Completed. . .\n");
+         //   printf("Completed. . .\n");
         }
 
     }
