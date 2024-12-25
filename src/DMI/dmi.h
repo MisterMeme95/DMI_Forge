@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "vector.h"
+#include "../vector.h"
 
 #define BEGIN_DMI "# BEGIN DMI"
 #define END_DMI "# END DMI"
@@ -26,8 +26,7 @@
 
 
 #include "png.h"
-#include "PixelManip.h"
-#include "data_structure.h"
+#include "../PixelManip.h"
 #ifdef __cplusplus
 extern "C" {
 #endif

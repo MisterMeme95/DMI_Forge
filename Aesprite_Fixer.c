@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <png.h>
-#include "dmi.h"
+#include "src/DMI/dmi.h"
 
 void get_frame_coordinates(int frame_num, int *copy_row, int *copy_col, int DMI_HEIGHT, int DMI_WIDTH) {
     // With 14 frames per row, the row of the frame is calculated by dividing the frame number by 14

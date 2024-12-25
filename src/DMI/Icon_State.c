@@ -1,7 +1,71 @@
 #include <stdlib.h>
 #include <string.h>
 #include "iconstate.h"
-#include "data_structure.h"
+
+
+unsigned long hash_icon_state(IconSearchParams* params) {
+    unsigned long hash = 5381;
+    const char *str = (const char*) params->state_name; // Cast void* back to const char*
+    int c;
+    while ((c = (int)*str++)) {
+        hash = ((hash << 5) + hash) + c; // hash * 33 + c
+    }
+    return hash;
+}
+
+int match_icon_state(IconSearchParams *params, icon_state *state_node) {
+
+    if (strcmp(params->state_name, state_node->state) != 0) {
+        return 0;
+    }
+
+    if (params->is_movement != state_node->movement) {
+        return 0; // Not a match
+    }
+
+    return 1;
+}
+
+
+IconSearchParams *create_search_params(char *state_name, int is_movement){
+    IconSearchParams *search_params = (IconSearchParams*)malloc(sizeof(IconSearchParams));
+    if(!search_params)
+        return NULL;
+    search_params->state_name = state_name;
+    search_params->is_movement = is_movement;
+    return search_params;
+}
+
+icon_state *state_look_up(hash_table *table, char *state_name, bool is_movement) {
+    IconSearchParams *params = create_search_params(state_name, is_movement);
+    if (!params) {
+        return NULL;
+    }
+    icon_state* result = (icon_state*)chtbl_lookup(table, (void **) &params);
+    free(params);
+    return result;
+}
+
+int state_insert(hash_table *table, icon_state* state) {
+
+    if(state_look_up(table, state->state, state->movement) != NULL){
+        return -1;
+    }
+
+    IconSearchParams *params = create_search_params(state->state, state->movement);
+    if (!params) {
+        return -1;
+    }
+    int retval;
+    int bucket = (int)(table->hash_function(params) % table->buckets);
+    if ((retval = list_ins_next(&table->table[bucket], NULL, state)) == 0)
+        table->size++;
+
+    free(params);
+    return retval;
+}
+
+
 
 void Add_Delay(icon_state* thisNode, int *delay) {
     if(thisNode->delays )
@@ -53,33 +117,8 @@ void IconState_Create(icon_state* thisNode, char * state_name, int directions, i
 
     //thisNode->prev = prevLoc;
 }
-unsigned long hash_icon_state(const icon_state *key) {
-    unsigned long hash = 5381;
-    const char *str = (const char*) key->state; // Cast void* back to const char*
-    int c;
-    while ((c = (int)*str++)) {
-        hash = ((hash << 5) + hash) + c; // hash * 33 + c
-    }
-    return hash;
-}
 
-int match_icon_state(const void *key1, const void *key2) {
-    const icon_state *state1 = (const icon_state *)key1;
-    const icon_state *state2 = (const icon_state *)key2;
 
-    // Compare state names
-    if (strcmp(state1->state, state2->state) != 0) {
-        return 0; // Not a match
-    }
-
-    // Compare movement booleans
-    if (state1->movement != state2->movement) {
-        return 0; // Not a match
-    }
-
-    // If both match, return true
-    return 1; // Match
-}
 
 /*
  * void read_and_write_png(const char* input_filename, const char* output_filename) {

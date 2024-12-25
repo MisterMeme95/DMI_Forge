@@ -6,7 +6,7 @@
 #include <string>
 #include <cstring>
 
-#include "dmi.h"
+#include "DMI/dmi.h"
 #include <cstdio>
 #include <vector>
 //#define PAUSE_AT_END 1

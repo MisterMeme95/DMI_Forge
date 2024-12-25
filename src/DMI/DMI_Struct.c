@@ -219,7 +219,7 @@ void Init_DMI(DMI* dmi, int width, int height){
 
     dmi->icon_states = (icon_state*) malloc(sizeof(icon_state) * dmi->max_state);
     dmi->begin_icon_state = dmi->icon_states;
-    init_hash_table(&dmi->iconstate_lockup, 0, hash_string, NULL, NULL);
+    init_hash_table(&dmi->iconstate_lockup, 0, hash_string, NULL, NULL, NULL, NULL);
     for(int i = 0; i < 256; i++){
         dmi->iconstateHash.hash_bucket[i] = NULL;
     }
@@ -278,7 +278,7 @@ void initialize_dmi_struct(DMI* icon, char* image_name){
     icon->begin_icon_state = icon->icon_states;
     initialize_list(&icon->iconStates, NULL, NULL, list_ins_next);
     init_hash_table(&icon->iconstate_lockup, 500, (unsigned long (*)(const void *)) hash_icon_state,
-                    match_icon_state, NULL);
+                    (int (*)(const void *, const void *))match_icon_state, NULL, NULL, NULL);
 
     populate_dmi(icon, icon->image);
 

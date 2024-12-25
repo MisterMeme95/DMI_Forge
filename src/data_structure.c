@@ -15,7 +15,8 @@ unsigned long hash_string(const void *key) {
 
 
 int init_hash_table(hash_table *table, int buckets, unsigned long  (*hash_function)(const void *key),
-                    int (*match)(const void *key1, const void *key2), void (*destroy)(void *data)){
+                    int (*match)(const void *key1, const void *key2), void (*look_up)(), void(*insert)(),
+                    void (*destroy)(void *data)){
 
     int i;
     if((table->table = (void*) malloc(buckets * sizeof(list))) == NULL){
@@ -24,7 +25,6 @@ int init_hash_table(hash_table *table, int buckets, unsigned long  (*hash_functi
 
     table->buckets = buckets;
     for(i = 0; i < buckets; i++){
-        //list_init(&table->table[i], destroy);
         initialize_list(&table->table[i], NULL, NULL, NULL);
     }
 
@@ -37,19 +37,16 @@ int init_hash_table(hash_table *table, int buckets, unsigned long  (*hash_functi
 
 
 
-int chtbl_lookup(const hash_table *hash_table, void **data) {
+void *chtbl_lookup(const hash_table *hash_table, void **data) {
     node *element;
     int bucket;
-
     bucket = (int)(hash_table->hash_function(*data) % hash_table->buckets); /*< Find the buckets. */
-
     for (element = list_head(&hash_table->table[bucket]); element != NULL; element = list_next(element)) {
         if (hash_table->match(*data, list_data(element))) {
-            *data = list_data(element);
-            return 0;
+            return list_data(element);
         }
     }
-    return -1;
+    return NULL;
 }
 
 int chtbl_remove(hash_table *htbl, void **data) {
@@ -80,7 +77,7 @@ int chtbl_insert(hash_table *hash_table, const void *data) {
     int bucket, retval;
 
     temp = (void *)data;
-    if (chtbl_lookup(hash_table, &temp) == 0)
+    if (chtbl_lookup(hash_table, &temp) != NULL)
         return 1;
     bucket = (int)(hash_table->hash_function(data) % hash_table->buckets);
     if ((retval = list_ins_next(&hash_table->table[bucket], NULL, data)) == 0)

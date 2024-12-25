@@ -3,7 +3,7 @@
 #include <string.h>
 #include "../cJSON/cJSON.h"
 #include <png.h>
-#include "../PixelManip.h"
+#include "../src/PixelManip.h"
 #include <math.h>
 
 #include <unistd.h>

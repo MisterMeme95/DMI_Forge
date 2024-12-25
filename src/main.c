@@ -10,7 +10,7 @@
 
 
 #include "png.h"
-#include "dmi.h"
+#include "DMI/dmi.h"
 
 //#include "pngpriv.h"
 

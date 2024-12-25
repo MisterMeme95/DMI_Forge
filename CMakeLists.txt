@@ -6,15 +6,15 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wuninitialized")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wuninitialized")
 
 # Executables
-add_executable(dmi2sheet DMI2Sheet.c  DMIParse.c Icon_State.c DMI_Struct.c PixelManip.c data_structure.c
-        list.c
-        vector.cpp)
-add_executable(png_transform png_transform.c PixelManip.c list.c data_structure.c DMI_Struct.c DMIParse.c Icon_State.c
-        vector.cpp)
-add_executable(partition_test partition_test.c PixelManip.c list.c data_structure.c DMI_Struct.c DMIParse.c Icon_State.c
-        vector.cpp)
-add_executable(tmxtest PixelManip.c list.c data_structure.c DMI_Struct.c DMIParse.c Icon_State.c tmx.cpp
-        vector.cpp)
+add_executable(dmi2sheet src/DMI/DMI2Sheet.c src/DMI/DMIParse.c src/DMI/Icon_State.c src/DMI/DMI_Struct.c src/PixelManip.c src/data_structure.c
+        src/list.c
+        src/vector.cpp)
+add_executable(png_transform src/png_transform.c src/PixelManip.c src/list.c src/data_structure.c src/DMI/DMI_Struct.c src/DMI/DMIParse.c src/DMI/Icon_State.c
+        src/vector.cpp)
+add_executable(partition_test src/partition_test.c src/PixelManip.c src/list.c src/data_structure.c src/DMI/DMI_Struct.c src/DMI/DMIParse.c src/DMI/Icon_State.c
+        src/vector.cpp)
+add_executable(tmxtest src/PixelManip.c src/list.c src/data_structure.c src/DMI/DMI_Struct.c src/DMI/DMIParse.c src/DMI/Icon_State.c src/tmx.cpp
+        src/vector.cpp)
 add_executable(ai_practice ai_practice.c)
 # Find and Link Libraries
 find_package(tmxlite REQUIRED)

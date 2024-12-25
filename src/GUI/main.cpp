@@ -119,7 +119,7 @@ private slots:
 
 
 
-            qDebug() << "Number of cols: " << layout->columnCount() << "\n";
+            //qDebug() << "Number of cols: " << layout->columnCount() << "\n";
             char *cFilePath = (char *)malloc(filePath.toUtf8().size() + 1);
             strcpy(cFilePath, filePath.toUtf8().data());
 
@@ -187,7 +187,7 @@ private slots:
                             // Build color table
                             for (int c = 0; c < new_icon.image->palette_num; ++c) {
                                 png_color color = new_icon.image->palette[c];
-                                printf("C = %d Trans_Num =%d\n", c, new_icon.image->trans_num);
+                               // printf("C = %d Trans_Num =%d\n", c, new_icon.image->trans_num);
                                 if((c+1) <= new_icon.image->trans_num){
                                     colorTable.push_back(qRgba(color.red, color.green, color.blue, 0));
                                 }
@@ -212,7 +212,13 @@ private slots:
                             // Build color table
                             for (int c = 0; c < new_icon.image->palette_num; ++c) {
                                 png_color color = new_icon.image->palette[c];
-                                colorTable.push_back(qRgb(color.red, color.green, color.blue));
+                                if(c == 0){
+                                    colorTable.push_back(qRgba(color.red, color.green, color.blue, 0));
+
+                                }
+                                else{
+                                    colorTable.push_back(qRgb(color.red, color.green, color.blue));
+                                }
                             }
                             temp_image.setColorTable(colorTable);
                         }

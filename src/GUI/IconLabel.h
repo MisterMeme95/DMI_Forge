@@ -3,7 +3,7 @@
 //
 #include <QLabel>
 #ifndef DMI_H
-#include "../../dmi.h"
+#include "../DMI/dmi.h"
 #endif
 class IconLabel : public QLabel {
 public:

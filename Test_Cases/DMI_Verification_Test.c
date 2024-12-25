@@ -9,7 +9,7 @@ int main(int argc, char **argv){
 
 #include <stdio.h>
 #include "png.h"
-#include "../dmi.h"
+#include "../src/DMI/dmi.h"
 #include <stdlib.h>
 #include <string.h>
 #define STDERR stdout
