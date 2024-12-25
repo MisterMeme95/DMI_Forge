@@ -26,23 +26,18 @@ public:
 
         // Set up QScrollArea for handling large images
         scrollArea = new QScrollArea;
-        scrollArea->setBackgroundRole(QPalette::Dark);
+       // scrollArea->setBackgroundRole(QPalette::Dark);
         //scrollArea->setWidget(imageLabel);
         scrollArea->setBaseSize(200, 600);
         // Set up QListWidget as a sidebar for image files
         fileListWidget = new QListWidget;
         connect(fileListWidget, &QListWidget::itemClicked, this, &ImageViewer::loadImageFromList);
-//        QMessageBox::about(this, "I like eggs", "Goat");
-//        auto lol = QMessageBox::question(this, "LIFE OR DEATH", "Do you like eggs?",
-//                                         QMessageBox::StandardButton::YesAll, QMessageBox::NoAll);
-//        // Set up a splitter to display sidebar and image viewer side-by-side
 
-        // Create a container widget for the grid layout
         containerWidget = new QWidget;
         scrollArea->setWidget(containerWidget);    // Set the container widget as the scroll area's content
         scrollArea->setWidgetResizable(true);
         layout = new QGridLayout(containerWidget);
-        layout->setHorizontalSpacing(1);
+        layout->setHorizontalSpacing(5);
         layout->setColumnStretch(0, 0);
         layout->setRowStretch(0, 0);
         layout->setSizeConstraint(QLayout::SetFixedSize);
@@ -83,10 +78,7 @@ private slots:
         auto icon = this->new_icon;
         const int one = 1;
         const char *list_of_icon_states[] = {"\"BlowingUp\"", "state2", "state3"}; // Example constant list of icon states
-//
-//        connect(action1, &QAction::triggered, this, [&icon, list_of_icon_states, one]() {
-//            export_as_sheet(&icon, const_cast<char **>(list_of_icon_states), one);
-//        });
+
 
         connect(action2, &QAction::triggered, this, []() { qDebug() << "Command 2 executed"; });
 
@@ -234,22 +226,33 @@ private slots:
                 QPixmap pixmap = QPixmap::fromImage(temp_image);
 
                 // Create a new QLabel to display the icon
-                IconLabel *iconLabel = new IconLabel("Hello, QLabel!");
-                iconLabel->setPixmap(pixmap);
-                iconLabel->setFixedSize(imageWidth+1, imageHeight);
-                iconLabel->setStyleSheet("border: 1px solid black;"); // Optional styling for appearance
+                QVBoxLayout *vbox = new QVBoxLayout();
+               // QPixmap checkerboard = createCheckerboard(new_icon.icon_width, new_icon.icon_height, 10);  // 20x20 cells, 10px square
+
+                auto *iconLabel = new IconLabel(currentState->state);
                 iconLabel->setAlignment(Qt::AlignCenter);
+
+                iconLabel->setPixmap(pixmap);
+                iconLabel->setFixedSize(imageWidth+3, imageHeight+2);
+                iconLabel->setStyleSheet("border: 1px solid black;"); // Optional styling for appearance
                 iconLabel->setContextMenuPolicy(Qt::CustomContextMenu);
                 iconLabel->state_pointer = currentState;
                 iconLabel->icon_pointer = &new_icon;
+
+                QLabel *stateNameLabel = new QLabel(currentState->state);
+                stateNameLabel->setAlignment(Qt::AlignCenter);
+                stateNameLabel->setStyleSheet("font-size: 12px; margin-top: 5px;");
+
+                vbox->addWidget(iconLabel);
+                vbox->addWidget(stateNameLabel);
                 // Connect the customContextMenuRequested signal
                 connect(iconLabel, &QLabel::customContextMenuRequested, iconLabel, &IconLabel::showContextMenu);
 
                 QFont font = iconLabel->font();
-                font.setPointSize(10); // Adjust the font size as needed
+                font.setPointSize(5); // Adjust the font size as needed
                 iconLabel->setFont(font);
                 // Add the QLabel to the layout
-                layout->addWidget(iconLabel, row, col);
+                layout->addLayout(vbox, row, col);
                 containerWidget->update();
 
                 // Update grid posxition
@@ -298,6 +301,24 @@ private:
     QMenu *currentMenu = nullptr;
 
 private:
+
+    QPixmap createCheckerboard(int width, int height, int squareSize) {
+        QPixmap pixmap(width, height);
+        pixmap.fill(Qt::white);
+
+        QPainter painter(&pixmap);
+        painter.setBrush(QColor(200, 200, 200));  // Gray color for the squares
+        painter.setPen(Qt::NoPen);
+
+        for (int y = 0; y < height; y += squareSize) {
+            for (int x = 0; x < width; x += squareSize) {
+                if ((x / squareSize + y / squareSize) % 2 == 0) {
+                    painter.drawRect(x, y, squareSize, squareSize);
+                }
+            }
+        }
+        return pixmap;
+    }
     void loadImagesFromFolder(const QString &folderPath) {
         fileListWidget->clear(); // Clear any existing items
         QDir directory(R"(C:\Users\jonat\GitHub\DMI_Forge\cmake-build-debug\Old Kaimon OW)");
