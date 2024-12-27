@@ -231,22 +231,21 @@ private slots:
 
                 auto *iconLabel = new IconLabel(currentState->state);
                 iconLabel->setAlignment(Qt::AlignCenter);
-
+               // iconLabel->setStyleSheet("border: 1px solid black;"); // Optional styling for appearance
                 iconLabel->setPixmap(pixmap);
                 iconLabel->setFixedSize(imageWidth+3, imageHeight+2);
-                iconLabel->setStyleSheet("border: 1px solid black;"); // Optional styling for appearance
                 iconLabel->setContextMenuPolicy(Qt::CustomContextMenu);
                 iconLabel->state_pointer = currentState;
                 iconLabel->icon_pointer = &new_icon;
 
                 QLabel *stateNameLabel = new QLabel(currentState->state);
                 stateNameLabel->setAlignment(Qt::AlignCenter);
-                stateNameLabel->setStyleSheet("font-size: 12px; margin-top: 5px;");
+                stateNameLabel->setStyleSheet("font-size: 10px; margin-top: 3px;");
 
                 vbox->addWidget(iconLabel);
                 vbox->addWidget(stateNameLabel);
                 // Connect the customContextMenuRequested signal
-                connect(iconLabel, &QLabel::customContextMenuRequested, iconLabel, &IconLabel::showContextMenu);
+               // connect(iconLabel, &QLabel::customContextMenuRequested, iconLabel, &IconLabel::showContextMenu);
 
                 QFont font = iconLabel->font();
                 font.setPointSize(5); // Adjust the font size as needed
@@ -338,8 +337,8 @@ private:
 
         // Remove and delete all child widgets
         while (QLayoutItem *item = layout->takeAt(0)) {
-            if (QWidget *widget = item->widget()) {
-                widget->deleteLater(); // Schedule the widget for deletion
+            if (QLayout *layout_w = item->layout()) {
+                layout_w->deleteLater(); // Schedule the widget for deletion
             }
             delete item; // Delete the layout item itself
         }
@@ -358,6 +357,7 @@ private:
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
     ImageViewer viewer;
+
     viewer.show();
     return app.exec();
 }

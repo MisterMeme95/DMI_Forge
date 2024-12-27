@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <png.h>
-#include "PixelManip.h"
+#include "image_manipulation/PixelManip.h"
 
 #include <stdio.h>
 #include <stdlib.h>

@@ -3,16 +3,16 @@
 #endif
 
 #ifndef DMI_STRUCT_C_LIST_H
-#include "../list.h"
+#include "../data_structures/list.h"
 #endif
 
 #ifndef DMI_STRUCT_C_VECTOR_H
-#include "../vector.h"
+#include "../data_structures/vector.h"
 #endif
 
 #include <stdbool.h>
 #include "png.h"
-#include "../data_structure.h"
+#include "../data_structures/data_structure.h"
 
 
 #ifdef __cplusplus

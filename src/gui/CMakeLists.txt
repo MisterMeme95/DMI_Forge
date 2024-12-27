@@ -4,8 +4,8 @@ find_package(PNG REQUIRED)
 set(CMAKE_AUTOMOC ON)
 
 # Create an executable for the test subdirectory
-add_executable(test main.cpp ../DMI/DMI_Struct.c ../PixelManip.c ../data_structure.c ../list.c ../vector.cpp
-        ../DMI/DMIParse.c ../DMI/Icon_State.c IconLabel.cpp)
+add_executable(test main.cpp ../dmi/DMI_Struct.c ../image_manipulation/PixelManip.c ../data_structures/data_structure.c ../data_structures/list.c ../data_structures/vector.cpp
+        ../dmi/DMIParse.c ../dmi/Icon_State.c IconLabel.cpp)
 
 # Add a post-build step to deploy required DLLs (optional)
 if (WIN32)

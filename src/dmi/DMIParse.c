@@ -124,7 +124,6 @@ char *Value_Authentication(char *string) {
     //printf("Value = %s\n", value_check);
     return value_check;
 }
-
 void Print_Variable(char *string, DMI* dmi) {
     char *check_string = Variable_Authentication(string);
     char *found = strstr(string, "=");
@@ -139,14 +138,14 @@ void Print_Variable(char *string, DMI* dmi) {
                // printf("Tail State = %s\n", tail_state->state);
                 if(dmi->num_of_states >= 2){
                     if(state_look_up(&dmi->iconstate_lockup, tail_state->state, tail_state->movement)){
-                        if(tail_state->movement){
-                            printf("Duplicate found: %s (Movement)\n", tail_state->state);
-
-                        }
-                        else {
-                            printf("Duplicate found: %s\n", tail_state->state);
-
-                        }
+//                        if(tail_state->movement){
+//                            printf("Duplicate found: %s (Movement)\n", tail_state->state);
+//
+//                        }
+//                        else {
+//                            printf("Duplicate found: %s\n", tail_state->state);
+//
+//                        }
                     }
 
                     else {
@@ -213,7 +212,7 @@ void Print_Variable(char *string, DMI* dmi) {
         }
 
         // Calculate exact bytes per pixel as a floating-point value
-        float bytes_per_pixel = (dmi->image->bit_depth * channels) / 8.0f;
+        float bytes_per_pixel = ((float)dmi->image->bit_depth * (float)channels) / 8.0f;
         dmi->icon_row_bytes = dmi->icon_width * bytes_per_pixel;
     }
     if(strcmp(check_string, "height") == 0){
@@ -275,5 +274,3 @@ char *find_newline(char **string, int *dmi_index, char *search_for){
     *dmi_index -= (num_of_char+1);
     return  new_string;
 }
-
-

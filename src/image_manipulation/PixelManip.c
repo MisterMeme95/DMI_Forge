@@ -1,4 +1,4 @@
-#include "data_structure.h"
+#include "../data_structures/data_structure.h"
 #include <stdlib.h>
 #include <unistd.h>
 #include <math.h>
