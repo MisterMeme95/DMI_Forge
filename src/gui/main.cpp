@@ -12,8 +12,9 @@
 #include <QGridLayout>
 #include <QPainter>
 #include <QMessageBox>
+#include <iostream>
 #include "IconLabel.h"
-
+#include "IconText.h"
 class ImageViewer : public QMainWindow {
 
 public:
@@ -22,7 +23,7 @@ public:
         imageLabel = new QLabel;
         imageLabel->setBackgroundRole(QPalette::Base);
         imageLabel->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
-        imageLabel->setScaledContents(true);
+        imageLabel->setScaledContents(false);
 
         // Set up QScrollArea for handling large images
         scrollArea = new QScrollArea;
@@ -228,30 +229,48 @@ private slots:
                 // Create a new QLabel to display the icon
                 QVBoxLayout *vbox = new QVBoxLayout();
                // QPixmap checkerboard = createCheckerboard(new_icon.icon_width, new_icon.icon_height, 10);  // 20x20 cells, 10px square
+                vbox->setSizeConstraint(QLayout::SetFixedSize);  // Prevent vertical stretching
 
                 auto *iconLabel = new IconLabel(currentState->state);
                 iconLabel->setAlignment(Qt::AlignCenter);
+                iconLabel->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
                // iconLabel->setStyleSheet("border: 1px solid black;"); // Optional styling for appearance
-                iconLabel->setPixmap(pixmap);
-                iconLabel->setFixedSize(imageWidth+3, imageHeight+2);
+              //  iconLabel->setPixmap(pixmap);
+                iconLabel->setFixedSize(imageWidth + 3, imageHeight + 2);
+
+                iconLabel->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+                iconLabel->setPixmap(pixmap.scaled(imageWidth, imageHeight, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+
+                //    iconLabel->setFixedSize(imageWidth+3, imageHeight+2);
                 iconLabel->setContextMenuPolicy(Qt::CustomContextMenu);
                 iconLabel->state_pointer = currentState;
                 iconLabel->icon_pointer = &new_icon;
 
-                QLabel *stateNameLabel = new QLabel(currentState->state);
+                iconLabel->setCursor(Qt::DragLinkCursor);
+
+              //  qDebug() << iconLabel->minimumSize() << "\n";
+                IconText *stateNameLabel = new IconText(currentState->state);
                 stateNameLabel->setAlignment(Qt::AlignCenter);
                 stateNameLabel->setStyleSheet("font-size: 10px; margin-top: 3px;");
+                stateNameLabel->setWordWrap(true);
+                stateNameLabel->setTextInteractionFlags(Qt::TextEditorInteraction);
 
+             //   stateNameLabel->buddy();
+             //   std::cout << stateNameLabel->textInteractionFlags();
                 vbox->addWidget(iconLabel);
                 vbox->addWidget(stateNameLabel);
                 // Connect the customContextMenuRequested signal
-               // connect(iconLabel, &QLabel::customContextMenuRequested, iconLabel, &IconLabel::showContextMenu);
+                connect(iconLabel, &QLabel::customContextMenuRequested, iconLabel, &IconLabel::showContextMenu);
 
                 QFont font = iconLabel->font();
                 font.setPointSize(5); // Adjust the font size as needed
                 iconLabel->setFont(font);
-                // Add the QLabel to the layout
+
+                layout->setRowStretch(row, 0);
+                layout->setColumnStretch(col, 0);
+                iconLabel->setMinimumSize(imageWidth + 3, imageHeight + 2);
                 layout->addLayout(vbox, row, col);
+
                 containerWidget->update();
 
                 // Update grid posxition
@@ -290,6 +309,8 @@ private slots:
                 clearLayout();
                 new_image->setPixmap(pixmap);
                 new_image->adjustSize();
+                new_image->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+
                 layout->addWidget(new_image);
             }
         }
@@ -355,6 +376,7 @@ private:
 };
 
 int main(int argc, char *argv[]) {
+    qputenv("QT_ENABLE_HIGHDPI_SCALING", "0");
     QApplication app(argc, argv);
     ImageViewer viewer;
 

@@ -43,7 +43,7 @@ public:
             int yOffset = (rect.height() - scaledPixmap.height()) / 2;
             // Draw black border around the pixmap
             painter.setPen(QPen(Qt::black, 1));  // Black outline with 1px thickness
-            painter.drawRect(xOffset, yOffset, width()-1, height()-1);
+            painter.drawRect(xOffset, yOffset, width()-2, height()-1);
         }
 //        void paintEvent(QPaintEvent *event) override {
 //                QPainter painter(this);
