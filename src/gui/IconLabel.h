@@ -42,7 +42,11 @@ public:
             int xOffset = (rect.width() - scaledPixmap.width()) / 2;
             int yOffset = (rect.height() - scaledPixmap.height()) / 2;
             // Draw black border around the pixmap
-            painter.setPen(QPen(Qt::black, 1));  // Black outline with 1px thickness
+//            painter.setPen(QPen(Qt::black, 1, Qt::DashLine));
+            QPen pen(Qt::black, 1, Qt::DashLine);
+            pen.setDashOffset(20);
+            painter.setPen(pen);
+
             painter.drawRect(xOffset, yOffset, width()-2, height()-1);
         }
 //        void paintEvent(QPaintEvent *event) override {
