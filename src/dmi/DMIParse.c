@@ -135,24 +135,39 @@ void Print_Variable(char *string, DMI* dmi) {
             variable_value = State_Authentication(found);
             if(dmi->has_icons){
                 icon_state* tail_state = dmi->iconStates.tail->data;
-               // printf("Tail State = %s\n", tail_state->state);
-                if(dmi->num_of_states >= 2){
-                    if(state_look_up(&dmi->iconstate_lockup, tail_state->state, tail_state->movement)){
-//                        if(tail_state->movement){
-//                            printf("Duplicate found: %s (Movement)\n", tail_state->state);
-//
-//                        }
-//                        else {
-//                            printf("Duplicate found: %s\n", tail_state->state);
-//
-//                        }
-                    }
+                insert_icon_state(&dmi->iconstate_hash, dmi->iconStates.tail->data);
 
-                    else {
-                        state_insert(&dmi->iconstate_lockup, dmi->iconStates.tail->data);
-                    }
-
-                }
+                // printf("Tail State = %s\n", tail_state->state);
+//                if(dmi->num_of_states >= 2){
+//                    insert_icon_state(&dmi->iconstate_hash, dmi->iconStates.tail->data);
+//
+////                    if(iconstatelookup(&dmi->iconstate_hash, tail_state->state, tail_state->movement)){
+////                        if(tail_state->movement){
+////                            printf("Duplicate found: %s (Movement)\n", tail_state->state);
+////
+////                        }
+////                        else {
+////                            printf("Duplicate found: %s\n", tail_state->state);
+////
+////                        }
+////                    }
+////                    if(state_look_up(&dmi->iconstate_lockup, tail_state->state, tail_state->movement)){
+//////                        if(tail_state->movement){
+//////                            printf("Duplicate found: %s (Movement)\n", tail_state->state);
+//////
+//////                        }
+//////                        else {
+//////                            printf("Duplicate found: %s\n", tail_state->state);
+//////
+//////                        }
+////                    }
+//
+////                    else {
+////             //           state_insert(&dmi->iconstate_lockup, dmi->iconStates.tail->data);
+////                        insert_icon_state(&dmi->iconstate_hash, dmi->iconStates.tail->data);
+////                    }
+//
+//                }
                 adjust_icon_state(dmi, GET_TAIL_ICONSTATE(dmi));
                 dmi->icon_states++;
                 dmi->num_of_states++;
@@ -169,7 +184,9 @@ void Print_Variable(char *string, DMI* dmi) {
                 dmi->has_icons=true;
                 dmi->num_of_states++;
                 dmi->iconStates.insert(&dmi->iconStates, NULL, new_icon_state);
-                state_insert(&dmi->iconstate_lockup, dmi->iconStates.tail->data);
+               // state_insert(&dmi->iconstate_lockup, dmi->iconStates.tail->data);
+               // insert_icon_state(&dmi->iconstate_hash, dmi->iconStates.tail->data);
+
             }
 
             if(dmi->num_of_states == (dmi->max_state)-1){
@@ -246,18 +263,21 @@ void Print_Variable(char *string, DMI* dmi) {
     if(strcmp(string, END_DMI) == 0){
         icon_state* tail_state = dmi->iconStates.tail->data;
         adjust_icon_state(dmi, GET_TAIL_ICONSTATE(dmi));
-        if(state_look_up(&dmi->iconstate_lockup, tail_state->state, tail_state->movement) != NULL){
-            if(tail_state->movement){
-                printf("Duplicate found 2: %s (Movement)\n", tail_state->state);
-            }
-            else {
-                printf("Duplicate found 2: %s\n", tail_state->state);
-            }
-        }
-        else {
+        insert_icon_state(&dmi->iconstate_hash, dmi->iconStates.tail->data);
 
-            state_insert(&dmi->iconstate_lockup, dmi->iconStates.tail->data);
-        }
+//        if(state_look_up(&dmi->iconstate_lockup, tail_state->state, tail_state->movement) != NULL){
+//            if(tail_state->movement){
+//                printf("Duplicate found 2: %s (Movement)\n", tail_state->state);
+//            }
+//            else {
+//                printf("Duplicate found 2: %s\n", tail_state->state);
+//            }
+//        }
+//        else {
+//
+//           // state_insert(&dmi->iconstate_lockup, dmi->iconStates.tail->data);
+//            insert_icon_state(&dmi->iconstate_hash, dmi->iconStates.tail->data);
+//        }
     }
 }
 

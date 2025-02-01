@@ -49,6 +49,10 @@ void *chtbl_lookup(const hash_table *hash_table, void **data) {
     return NULL;
 }
 
+void* get_hash(){
+
+}
+
 int chtbl_remove(hash_table *htbl, void **data) {
 
     node *element,*prev;

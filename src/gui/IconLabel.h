@@ -1,6 +1,7 @@
 //
 // Created by jonat on 12/19/2024.
 //
+#pragma once
 #include <QLabel>
 #include <QPainter>
 #include <QPixmap>
@@ -21,12 +22,11 @@ public:
     QPixmap backgroundPixmap;
     int squareSize = 10;  // Checkerboard square size (in pixels)
 
-    // Draw the checkerboard behind the pixmap
     void paintEvent(QPaintEvent *event) override {
         QPainter painter(this);
         QRect rect = contentsRect();
 
-        // Draw Checkerboard Background
+        // 1. Draw Checkerboard Background
         for (int y = 0; y < height(); y += squareSize) {
             for (int x = 0; x < width(); x += squareSize) {
                 QColor color = ((x / squareSize + y / squareSize) % 2 == 0)
@@ -36,61 +36,32 @@ public:
             }
         }
 
-        // Draw the pixmap (if set) with black outline
+        // 2. Draw the Pixmap (if set)
+        QPixmap scaledPixmap;
+        int xOffset = 0, yOffset = 0;
+
         if (!pixmap().isNull()) {
-            QPixmap scaledPixmap = pixmap().scaled(rect.size(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
-            int xOffset = (rect.width() - scaledPixmap.width()) / 2;
-            int yOffset = (rect.height() - scaledPixmap.height()) / 2;
-            // Draw black border around the pixmap
-//            painter.setPen(QPen(Qt::black, 1, Qt::DashLine));
-            QPen pen(Qt::black, 1, Qt::DashLine);
-            pen.setDashOffset(20);
+            scaledPixmap = pixmap().scaled(rect.size(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+            xOffset = (rect.width() - pixmap().width()) / 2;
+            yOffset = (rect.height() - pixmap().height()) / 2;
+
+            // Draw the pixmap centered on the checkerboard
+            painter.drawPixmap(xOffset, yOffset, pixmap());
+        }
+
+        // 3. Draw Border Over the Pixmap
+        if (!scaledPixmap.isNull()) {
+            QPen pen(Qt::darkGray, 1);  // Black outline
             painter.setPen(pen);
 
-            painter.drawRect(xOffset, yOffset, width()-2, height()-1);
+            // Draw border slightly inside the pixmap area
+            painter.drawRect(0, 0, this->width()-1, this->height()-1);
         }
-//        void paintEvent(QPaintEvent *event) override {
-//                QPainter painter(this);
-//                QRect rect = contentsRect();
-//
-//                // 1. Draw Checkerboard Background
-//                for (int y = 0; y < height(); y += squareSize) {
-//                    for (int x = 0; x < width(); x += squareSize) {
-//                        QColor color = ((x / squareSize + y / squareSize) % 2 == 0)
-//                                       ? QColor(220, 220, 220)  // Light gray
-//                                       : QColor(255, 255, 255); // White
-//                        painter.fillRect(x, y, squareSize, squareSize, color);
-//                    }
-//                }
-//
-//                // 2. Draw the pixmap centered
-//                if (!originalPixmap.isNull()) {
-//                    QPixmap scaledPixmap = originalPixmap.scaled(rect.size(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
-//                    int xOffset = (rect.width() - scaledPixmap.width()) / 2;
-//                    int yOffset = (rect.height() - scaledPixmap.height()) / 2;
-//
-//                    // Draw pixmap manually
-//                    painter.drawPixmap(xOffset, yOffset, scaledPixmap);
-//
-//                    // 3. Apply highlight OVER the pixmap if selected
-//                    if (isHighlighted) {
-//                        QColor overlayColor(0, 120, 255, 100);  // Semi-transparent blue
-//                        painter.fillRect(xOffset, yOffset, scaledPixmap.width(), scaledPixmap.height(), overlayColor);
-//
-//                        // 4. Draw dashed border around the pixmap
-//                        QPen pen(QColor(0, 0, 0), 1, Qt::DashLine);  // Black dashed border
-//                        painter.setPen(pen);
-//                        painter.drawRect(xOffset, yOffset, scaledPixmap.width() - 1, scaledPixmap.height() - 1);
-//                    }
-//                }
-//
-//                // 5. Draw QLabel text (if necessary)
-//                QLabel::paintEvent(event);
-//        }
 
-        // Call base class paintEvent to ensure QLabel text/behavior is respected
-        QLabel::paintEvent(event);
+        // Call base QLabel paint event (optional)
+       // QLabel::paintEvent(event);
     }
+
 public slots:
     void Run_Code();
 };

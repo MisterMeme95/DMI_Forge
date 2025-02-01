@@ -3,6 +3,8 @@
 #include "iconstate.h"
 
 
+
+
 unsigned long hash_icon_state(IconSearchParams* params) {
     unsigned long hash = 5381;
     const char *str = (const char*) params->state_name; // Cast void* back to const char*
@@ -36,6 +38,117 @@ IconSearchParams *create_search_params(char *state_name, int is_movement){
     return search_params;
 }
 
+
+unsigned long hash_icon_state2(const char* state_name) {
+    unsigned long hash = 5381;
+    const char *str = (const char*) state_name; // Cast void* back to const char*
+    int c;
+    while ((c = (int)*str++)) {
+        hash = ((hash << 5) + hash) + c; // hash * 33 + c
+    }
+    return hash;
+}
+
+
+int match_icon_state3(char* state_name, bool is_movement, icon_state *state_node) {
+
+    if(state_node == NULL){
+        return 0;
+    }
+    if (strcmp(state_name, state_node->state) != 0) {
+        return 0;
+    }
+
+    if (is_movement != state_node->movement) {
+        return 0; // Not a match
+    }
+
+    return 1;
+}
+
+void* iconstatelookup(state_hash* table, char* state_name, bool is_movement){
+    unsigned long long hash_value = hash_icon_state2(state_name) % table->buckets;
+    node* node_pointer;
+    for(node_pointer =  list_head(&table->table[hash_value]); node_pointer != NULL; node_pointer = list_next(node_pointer)){
+        if(match_icon_state3(state_name, is_movement, node_pointer->data) != 0){
+            return node_pointer->data;
+        }
+    }
+    return NULL;
+}
+
+int init_state_hash(state_hash *table, int buckets){
+
+    int i;
+    if((table->table = (void*) malloc(buckets * sizeof(list))) == NULL){
+        return -1;
+    }
+
+    table->buckets = buckets;
+    for(i = 0; i < buckets; i++){
+        initialize_list(&table->table[i], NULL, NULL, NULL);
+    }
+
+    return 0;
+}
+
+
+int insert_icon_state(state_hash* table, icon_state* state){
+
+    /* Let us generate the hash function. Store it so we don't need to do it again. */
+    unsigned long hash_value = hash_icon_state2(state->state) % table->buckets;
+
+    /* Let's list at that bucket's index, so we can traverse and find the proper node.*/
+    list* list_bucket = &table->table[hash_value];
+
+
+    /* This is a temporary reference to an icon_state that we use to swap data
+     * between the nodes. */
+    icon_state *temp_data;
+
+    /* This keeps track of the node reference we're currently looking through in the list. */
+    node* new_node;
+    unsigned long long default_length;
+
+    for (new_node = list_head(&table->table[hash_value]); new_node != NULL; new_node = list_next(new_node)) {
+
+        /* If we determine this is a match.*/
+        if(match_icon_state3(state->state, state->movement, new_node->data) != 0){
+
+            /* Then we store the node's data. */
+            temp_data = new_node->data;
+
+            /* Set the node's data to the state that we were trying to insert. */
+            new_node->data = state;
+            default_length = strlen(temp_data->state);
+
+            int count = 1;
+            snprintf(temp_data->state, default_length+30, "%s_%d", temp_data->state, count);
+            while(iconstatelookup(table, temp_data->state, temp_data->movement) != NULL){
+                count++;
+                snprintf(temp_data->state, default_length+30, "%s_%d", state->state, count);
+
+            }
+
+            int new_hash = hash_icon_state2(temp_data->state) % table->buckets;
+            //node* insert_node = (node*)malloc(sizeof(node));
+           // insert_node->data = temp_data;
+            list *tlist = &table->table[new_hash];
+            list_ins_next(tlist, NULL, temp_data);
+          //  table->buckets++;
+
+            break;
+        }
+    }
+
+    if(new_node == NULL){
+        list_ins_next(list_bucket, NULL, state);
+       // table->buckets++;
+    }
+    return 0;
+}
+
+
 icon_state *state_look_up(hash_table *table, char *state_name, bool is_movement) {
     IconSearchParams *params = create_search_params(state_name, is_movement);
     if (!params) {
@@ -45,6 +158,7 @@ icon_state *state_look_up(hash_table *table, char *state_name, bool is_movement)
     free(params);
     return result;
 }
+
 
 int state_insert(hash_table *table, icon_state* state) {
 

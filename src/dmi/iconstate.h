@@ -66,6 +66,15 @@ typedef struct IconState_Struct {
     Vector *frame_vector;
 } icon_state;
 
+typedef struct IconState_Hash{
+    unsigned long buckets;
+    list* table;
+
+}state_hash;
+
+
+
+
 void Add_Delay(icon_state *thisNode, int *delay);
 
 void Add_Loop(icon_state *thisNode, int loop);
@@ -92,7 +101,9 @@ unsigned long hash_icon_state(IconSearchParams* params);
 icon_state *state_look_up(hash_table *table, char *state_name, bool is_movement);
 int state_insert(hash_table *table, icon_state* state);
 IconSearchParams *create_search_params(char *state_name, int is_movement);
-
+void* iconstatelookup(state_hash* table, char* state_name, bool is_movement);
+int insert_icon_state(state_hash* table, icon_state* state);
+int init_state_hash(state_hash *table, int buckets);
 #ifdef __cplusplus
 }
 #endif

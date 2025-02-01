@@ -14,9 +14,7 @@
 #include <QMessageBox>
 #include <iostream>
 #include <QGraphicsColorizeEffect>
-#include "IconLabel.h"
-#include "IconText.h"
-
+#include "Docker.h"
 
 class ImageViewer : public QMainWindow {
 
@@ -30,6 +28,7 @@ public:
 
         // Set up QScrollArea for handling large images
         scrollArea = new QScrollArea;
+        scrollArea->setStyleSheet("background-color: #282828;");
         // scrollArea->setBackgroundRole(QPalette::Dark);
         //scrollArea->setWidget(imageLabel);
         scrollArea->setBaseSize(200, 600);
@@ -229,14 +228,19 @@ private slots:
                 // Convert QImage to QPixmap
                 QPixmap pixmap = QPixmap::fromImage(temp_image);
 
-                // Create a new QLabel to display the icon
-                QVBoxLayout *vbox = new QVBoxLayout();
-                // QPixmap checkerboard = createCheckerboard(new_icon.icon_width, new_icon.icon_height, 10);  // 20x20 cells, 10px square
-                vbox->setSizeConstraint(QLayout::SetFixedSize);  // Prevent vertical stretching
+                QHBoxLayout *first_row = new QHBoxLayout();
 
+                // Create a new QLabel to display the icon
+             //   QVBoxLayout *vbox = new QVBoxLayout();
+                QHBoxLayout *row_1 = new QHBoxLayout();
+                QHBoxLayout *row_2 = new QHBoxLayout();
+                // QPixmap checkerboard = createCheckerboard(new_icon.icon_width, new_icon.icon_height, 10);  // 20x20 cells, 10px square
+                //vbox->setSizeConstraint(QLayout::SetFixedSize);  // Prevent vertical stretching
+              //  vbox->setAlignment(Qt::AlignCenter);
                 auto *iconLabel = new IconLabel(currentState->state);
                 iconLabel->setAlignment(Qt::AlignCenter);
                 iconLabel->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
+
                 // iconLabel->setStyleSheet("border: 1px solid black;"); // Optional styling for appearance
                 //  iconLabel->setPixmap(pixmap);
 
@@ -261,27 +265,66 @@ private slots:
 
                 //  qDebug() << iconLabel->minimumSize() << "\n";
                 IconText *stateNameLabel = new IconText(currentState->state);
-                stateNameLabel->setAlignment(Qt::AlignCenter);
-                stateNameLabel->setStyleSheet("font-size: 10px; margin-top: 3px;");
+                stateNameLabel->setFixedSize(168, 33);
+                stateNameLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+                stateNameLabel->setStyleSheet(
+                        "font-size: 17px; "
+                        "font-family: bahnschrift; "  // Set the font face
+                        "color: white; "  // Set font color
+                        "background-color: #2C2C2C;"
+                        "padding-left: 3px;" // Shift text 4 pixels to the right
+
+                   //     "text-align: left; "  // Align text to the left
+
+                    //     "border-radius: 3px; "
+                 //        "border: 1px solid #43BDFC;"
+                );
+                QLabel *widget = new QLabel();
+                widget->setFixedSize(202, 176);
+                widget->setStyleSheet("background-color: #383838; border-radius: 4px; border: 1px solid #383838;");
+                QHBoxLayout *widget_layout = new QHBoxLayout(widget);
+                widget_layout->addWidget(iconLabel);
                 stateNameLabel->setWordWrap(true);
                 stateNameLabel->setTextInteractionFlags(Qt::TextEditorInteraction);
+                row_1->setAlignment(Qt::AlignLeft);
+                row_1->addSpacerItem(new QSpacerItem(7, 0, QSizePolicy::Minimum, QSizePolicy::Fixed)); // 2px spacing
 
+                QLabel *move_state = new QLabel();
+                QPixmap newpixmap("movement_state.png");
+                move_state->setStyleSheet("background-color: #2C2C2C");
+                move_state->setPixmap(newpixmap);
+                row_1->addWidget(stateNameLabel);
+                row_1->addWidget(move_state);
+                row_2->setContentsMargins(0, 0, 0, 0);
+                row_2->addSpacerItem(new QSpacerItem(7, 0, QSizePolicy::Fixed, QSizePolicy::Fixed)); // 2px spacing
+                row_2->addWidget(widget);
                 //   stateNameLabel->buddy();
                 //   std::cout << stateNameLabel->textInteractionFlags();
-                vbox->addWidget(iconLabel);
-                vbox->addWidget(stateNameLabel);
+                //vbox->addWidget(iconLabel);
+                //vbox->addWidget(stateNameLabel);
+                //vbox->setAlignment(Qt::AlignBottom);
+
                 // Connect the customContextMenuRequested signal
                 connect(iconLabel, &QLabel::customContextMenuRequested, iconLabel, &IconLabel::showContextMenu);
 
                 QFont font = iconLabel->font();
                 font.setPointSize(5); // Adjust the font size as needed
                 iconLabel->setFont(font);
+                Docker *new_dock = new Docker();
+                new_dock->mainlayout->setContentsMargins(0, 0, 0, 0); // Set margins: left, top, right, bottom
+                new_dock->mainlayout->setAlignment(Qt::AlignTop);
+                new_dock->mainlayout->addSpacerItem(new QSpacerItem(0, 7, QSizePolicy::Minimum, QSizePolicy::Fixed)); // 2px spacing
 
+                new_dock->mainlayout->addLayout(row_1);
+                new_dock->mainlayout->addLayout(row_2);
+
+                new_dock->frame_icon = iconLabel;
+                new_dock->originalPixmap = iconLabel->pixmap();
                 layout->setRowStretch(row, 0);
                 layout->setColumnStretch(col, 0);
                 iconLabel->setMinimumSize(imageWidth + 3, imageHeight + 2);
-                layout->addLayout(vbox, row, col);
-
+       //         layout->addLayout(new_dock->mainlayout, row, col);
+                layout->addWidget(new_dock, row, col);
                 containerWidget->update();
 
                 // Update grid posxition

@@ -185,7 +185,6 @@ typedef struct Frame_ArrayStruct{
     Frame* array;
 } Frame_Array;
 
-
 /** @brief This struct represents a basic PNG image.
  * @param png_ptr - A pointer linking to the PNG file being processed. It handles the reading and writing operations.
  * @param png_infop - This contains all of the relevant metadata, like height, bit_depth, etc.

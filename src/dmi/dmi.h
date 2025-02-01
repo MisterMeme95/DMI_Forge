@@ -88,8 +88,9 @@ typedef struct DMI_Struct {
 
     /* Hash Table of icon_states*/
     hash_table iconstate_lockup;
-
     iconstate_hash iconstateHash;
+
+    state_hash iconstate_hash;
 } DMI;
 
 void vector_push_back_iconstate(Vector* vec, void* object);
