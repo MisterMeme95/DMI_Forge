@@ -1,0 +1,6 @@
+[submodule "src/external/tiled"]
+	path = src/external/tiled
+	url = https://github.com/mapeditor/tiled.git
+[submodule "src/tiled"]
+	path = src/tiled
+	url = https://github.com/mapeditor/tiled.git
