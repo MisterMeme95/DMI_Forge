@@ -1,0 +1,12 @@
+prefix=C:/Users/jonat/GitHub/DMI_Forge/src/__include/png/installation
+exec_prefix=C:/Users/jonat/GitHub/DMI_Forge/src/__include/png/installation
+libdir=C:/Users/jonat/GitHub/DMI_Forge/src/__include/png/installation/lib
+includedir=C:/Users/jonat/GitHub/DMI_Forge/src/__include/png/installation/include/libpng16
+
+Name: libpng
+Description: Loads and saves PNG files
+Version: 1.6.45
+Requires.private: zlib
+Libs: -L${libdir} -lpng16
+Libs.private: -lz -lm
+Cflags: -I${includedir}
