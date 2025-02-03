@@ -548,6 +548,7 @@ png_read_row(png_structrp png_ptr, png_bytep row, png_bytep dsp_row)
 
    if (png_ptr->row_buf[0] > PNG_FILTER_VALUE_NONE)
    {
+       //printf("Has filter!\n");
       if (png_ptr->row_buf[0] < PNG_FILTER_VALUE_LAST)
          png_read_filter_row(png_ptr, &row_info, png_ptr->row_buf + 1,
              png_ptr->prev_row + 1, png_ptr->row_buf[0]);
@@ -764,6 +765,7 @@ png_read_image(png_structrp png_ptr, png_bytepp image)
       }
    }
 }
+
 #endif /* SEQUENTIAL_READ */
 
 #ifdef PNG_SEQUENTIAL_READ_SUPPORTED
