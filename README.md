@@ -30,11 +30,10 @@ The Source Code used to be open-sourced, but now I've privatized it since I do t
 ## 🖼️ Showcase  
 
 - ![Sprite Editor Screenshot](docs/images/sprite-editor.png)  
-- ![Level Editor Demo](docs/images/level-editor.gif)  
+- ![Level Editor Demo](docs/images/level-editor_demo.gif)  
 - ![Cross-Framework Export](docs/images/export-demo.png)  
 - ![Code Editor Screenshot](docs/images/code-editor.png)  
 
-> 🎥 You can also embed GIFs or link to demo videos for maximum impact.  
 
 ---
 
