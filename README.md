@@ -28,6 +28,8 @@ The Source Code used to be open-sourced, but now I've privatized it since I do t
 ---
 
 ## 🖼️ Showcase  
+> ⚠️ **Note:** All demo GIFs below are clickable.  
+> Clicking a GIF will download and play the corresponding **MP4 video** for smoother viewing.  
 
 - ![Sprite Editor Screenshot](docs/images/sprite-editor.png)  
 - [![Level Editor Demo](docs/images/level_editor_demo.gif)](https://github.com/MisterMeme95/DMI_Forge/raw/refs/heads/main/docs/images/level_editor_demo.mp4)
