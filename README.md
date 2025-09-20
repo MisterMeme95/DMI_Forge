@@ -30,7 +30,8 @@ The Source Code used to be open-sourced, but now I've privatized it since I do t
 ## 🖼️ Showcase  
 
 - ![Sprite Editor Screenshot](docs/images/sprite-editor.png)  
-- ![Level Editor Demo](docs/images/level_editor_demo.gif)  
+- [![Level Editor Demo](docs/images/level_editor_demo.gif)](https://github.com/MisterMeme95/DMI_Forge/raw/refs/heads/main/docs/images/level_editor_demo.mp4)
+
 - ![Cross-Framework Export](docs/images/export-demo.png)  
 - ![Code Editor Screenshot](docs/images/code-editor.png)  
 
